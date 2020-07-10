@@ -1,0 +1,36 @@
+{
+  "name": "ts-twirp-client",
+  "description": "Autogenerate Twirp TypeScript Clients",
+  "license": "MIT",
+  "author": "Tate Thurston <tatethurston@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tatethurston/ts-twirp-client"
+  },
+  "version": "0.0.3",
+  "main": "index.js",
+  "scripts": {
+    "lint:fix": "yarn prettier:fix && yarn lint:package:fix",
+    "lint:package:fix": "prettier-package-json --write ./package.json",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier:fix": "prettier --write ."
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "prettier-package-json": "^2.1.3"
+  },
+  "keywords": [
+    "autogenerate",
+    "client",
+    "protobuf",
+    "rpc",
+    "twirp",
+    "typescript"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint:fix --staged"
+    }
+  }
+}

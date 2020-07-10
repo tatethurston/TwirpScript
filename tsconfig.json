@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": false,
+    "outDir": "dist",
+    "removeComments": true,
+    "rootDir": "src/backend",
+    "sourceMap": false,
+    "strict": true,
+    "target": "ES2018"
+  },
+  "exclude": ["node_modules"]
+}

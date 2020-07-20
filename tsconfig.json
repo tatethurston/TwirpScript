@@ -6,7 +6,7 @@
     "noEmitOnError": false,
     "outDir": "dist",
     "removeComments": true,
-    "rootDir": "src/backend",
+    "rootDir": "src",
     "sourceMap": false,
     "strict": true,
     "target": "ES2018"

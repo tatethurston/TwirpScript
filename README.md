@@ -18,9 +18,13 @@ coming soon™️
 
 ## Installation & Usage 📦
 
-coming soon™️
+1.  coming soon™️
 
 ## Documentation 📖
+
+coming soon™️
+
+## Gotchas ⚠️
 
 coming soon™️
 

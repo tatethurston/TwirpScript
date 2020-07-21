@@ -8,17 +8,18 @@
     "url": "https://github.com/tatethurston/ts-twirp-client"
   },
   "version": "0.0.5",
-  "main": "index.js",
+  "main": "dist",
   "bin": {
-    "twirp": "dist/cli/index.js"
+    "twirp": "cli.js"
   },
   "files": [
-    "dist/**/*"
+    "cli.js",
+    "dist/**/*",
+    "json.js"
   ],
   "scripts": {
     "build": "yarn tsc",
     "build:watch": "yarn tsc --watch",
-    "foo": "node dist/cli/index.js",
     "lint:fix": "yarn prettier:fix && yarn lint:package:fix",
     "lint:package:fix": "prettier-package-json --write ./package.json",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -26,6 +27,7 @@
     "version": "yarn run build && git add -A package.json",
     "postversion": "git push && git push --tags"
   },
+  "types": "dist",
   "dependencies": {
     "protocol-buffers-schema": "^3.4.0"
   },

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "esModuleInterop": true,
     "module": "commonjs",
     "moduleResolution": "node",
@@ -9,7 +10,8 @@
     "rootDir": "src",
     "sourceMap": false,
     "strict": true,
-    "target": "ES2018"
+    "target": "ES2018",
+    "declaration": true
   },
-  "exclude": ["node_modules"]
+  "include": ["src"]
 }

@@ -10,12 +10,10 @@
   "version": "0.0.6",
   "main": "dist",
   "bin": {
-    "twirp": "cli.js"
+    "twirp": "dist/cli/index.js"
   },
   "files": [
-    "cli.js",
-    "dist/**/*",
-    "json.js"
+    "dist/**/*"
   ],
   "scripts": {
     "build": "yarn tsc",

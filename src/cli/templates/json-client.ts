@@ -16,7 +16,11 @@ ${schema.services
 ${schema.services
   .map(
     (service) =>
-      `export function ${service.name}Client(host: string): ${service.name} {
+      `export function ${
+        service.name
+      }Client(host: string, JSONTransport: typeof request = request): ${
+        service.name
+      } {
   return {
 ${service.methods
   .map(
@@ -24,7 +28,7 @@ ${service.methods
       `    ${method.name}: function(${lowercase(method.input_type)}: ${
         method.input_type
       }): Promise<${method.output_type}> {
-      return request(
+      return JSONTransport(
         host + '/twirp/${schema.package}/${method.name}',
         ${lowercase(method.input_type)}
       ) as Promise<${method.output_type}>;

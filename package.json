@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/tatethurston/ts-twirp-client"
   },
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "dist",
   "bin": {
     "twirp": "dist/cli/index.js"

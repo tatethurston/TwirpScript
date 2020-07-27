@@ -18,7 +18,12 @@ coming soon™️
 
 ## Installation & Usage 📦
 
-1.  coming soon™️
+1. Add this package to your project:
+   - `yarn add ts-twirp-client`
+2. Generate JSON and Protobuf (coming soon™️) clients:
+   - `yarn twirp`
+3. Create a client instance for your service by invoking the generated JSON or Protobuf client code with your host's URI
+4. Use your configured client to make RPCs to your service
 
 ## Documentation 📖
 
@@ -30,7 +35,9 @@ coming soon™️
 
 ## Compatibility 🛠
 
-coming soon™️
+Your project must use [TypeScript 3.7](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html) or greater.
+
+The default clients use `fetch` so your runtime must include `fetch` _or_ you need to provide your own transport implementation when constructing your service client.
 
 ## Contributing 👫
 

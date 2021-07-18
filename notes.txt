@@ -1,0 +1,9 @@
+
+// yarn pbjs \
+//   --no-create \
+//   --no-encode \
+//   --no-decode \
+//   --no-verify \
+//   --no-convert \
+//   --no-delimited \
+//   -t static-module -w es6 --es6s -o compiled.js bob.proto

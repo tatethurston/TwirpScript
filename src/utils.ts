@@ -1,3 +1,4 @@
+import { execSync } from 'child_process';
 import { dirname, relative } from "path";
 import { CodeGeneratorRequest } from "google-protobuf/google/protobuf/compiler/plugin_pb";
 import {
@@ -7,6 +8,16 @@ import {
   FieldDescriptorProto,
 } from "google-protobuf/google/protobuf/descriptor_pb";
 import _ from "lodash";
+
+
+export function commandIsInPath(cmd: string): boolean {
+  try {
+    execSync(`which ${cmd}`);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 type TsType = "Uint8Array" | "boolean" | "number" | "string";
 
@@ -501,4 +512,3 @@ export interface ${name} {
 
   return typeFile;
 }
-

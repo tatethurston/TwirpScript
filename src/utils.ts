@@ -8,7 +8,11 @@ import {
   FieldDescriptorProto,
 } from "google-protobuf/google/protobuf/descriptor_pb";
 import _ from "lodash";
+import { BinaryReader, BinaryWriter } from 'google-protobuf';
 
+export function lowerCase(str: string): string {
+  return str[0].toLowerCase() + str.slice(1);
+}
 
 export function commandIsInPath(cmd: string): boolean {
   try {
@@ -19,122 +23,203 @@ export function commandIsInPath(cmd: string): boolean {
   }
 }
 
-type TsType = "Uint8Array" | "boolean" | "number" | "string";
+type ReaderMethod = keyof BinaryReader; 
+type WriterMethod = keyof BinaryWriter; 
 
-// https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.descriptor?hl=en
+interface Descriptor {
+  defaultValue: string;
+  read: ReaderMethod;
+  repeated: boolean;
+  tsType: string;
+  write: WriterMethod;
+}
 
-type UnimplementedType = FieldDescriptorProto.Type.TYPE_GROUP;
-type ComplexType =
-  | FieldDescriptorProto.Type.TYPE_ENUM
-  | FieldDescriptorProto.Type.TYPE_MESSAGE;
-type ScalarType = Exclude<
-  FieldDescriptorProto.Type,
-  ComplexType | UnimplementedType
->;
+export function getDescriptor(field: FieldDescriptorProto, identifierTable: IdentifierTable, fileDescriptorProto: FileDescriptorProto): Descriptor {
+  const repeated =
+    field.getLabel() === FieldDescriptorProto.Label.LABEL_REPEATED;
 
-function getTSScalar(fieldType: ScalarType): TsType {
-  switch (fieldType) {
+  const _type = field.getType();
+  if (!_type) {
+    throw new Error("Field has no type");
+  }
+
+  switch (_type) {
     case FieldDescriptorProto.Type.TYPE_DOUBLE: {
-      return "string";
+      return {
+        defaultValue: '0',
+        repeated,
+        tsType: "number",
+        read: "readDouble",
+        write: repeated? "writeRepeatedDouble" : "writeDouble",
+      }
     }
     case FieldDescriptorProto.Type.TYPE_FLOAT: {
-      return "string";
+      return { 
+        defaultValue: '0',
+        repeated,
+        tsType: "number",
+        read: "readFloat",
+        write: repeated ? "writeRepeatedFloat" : "writeFloat"
+      };
     }
     case FieldDescriptorProto.Type.TYPE_INT64: {
-      return "string";
+      return {
+        defaultValue: "''",
+        repeated,
+        tsType: "string",
+        read: "readInt64String",
+        write: repeated ? "writeRepeatedInt64String" : "writeInt64String"
+      };
     }
     case FieldDescriptorProto.Type.TYPE_UINT64: {
-      return "string";
+      return {
+        defaultValue: "''",
+        repeated,
+        tsType: "string",
+        read: "readUint64String",
+        write: repeated ? "writeRepeatedInt64String" : "writeUint64String"
+      };
     }
     case FieldDescriptorProto.Type.TYPE_INT32: {
-      return "number";
+      return {
+        defaultValue: '0',
+        repeated,
+        tsType: "number",
+        read: "readInt32",
+        write: repeated ? "writeRepeatedInt32" : "writeInt32"
+      };
     }
     case FieldDescriptorProto.Type.TYPE_UINT64: {
-      return "string";
+      return {
+        defaultValue: "''",
+        repeated,
+        tsType: "string",
+        read: "readUint64String",
+        write: repeated ? "writeRepeatedUint32String" : "writeUint64String"
+      }
     }
     case FieldDescriptorProto.Type.TYPE_FIXED64: {
-      return "string";
+      return {
+        defaultValue: repeated ? '[]' : "''",
+        repeated,
+        tsType: "string",
+        read: "readFixed64String",
+        write: repeated ? "writeRepeatedFixed64String" : "writeFixed64String"
+      }
+    }
+    case FieldDescriptorProto.Type.TYPE_ENUM: {
+      const _type = field.getTypeName() ?? '';
+      const name = removePackagePrefix(_type, identifierTable, fileDescriptorProto);
+
+      return {
+        defaultValue: '0',
+        repeated,
+        tsType: name,
+        read: "readEnum",
+        write: repeated ? "writeRepeatedEnum" : "writeEnum"
+      };
     }
     case FieldDescriptorProto.Type.TYPE_FIXED32: {
-      return "number";
+      return {
+        defaultValue: '0',
+        repeated,
+        tsType: "number",
+        read: "readFixed32",
+        write: repeated ? "writeRepeatedFixed32" : "writeFixed32"
+      }
     }
     case FieldDescriptorProto.Type.TYPE_BOOL: {
-      return "boolean";
+      return {
+        defaultValue: 'false',
+        repeated,
+        tsType: "boolean",
+        read: "readBool",
+        write: repeated ? "writeRepeatedBool" : "writeBool"
+      };
+    }
+    case FieldDescriptorProto.Type.TYPE_GROUP: {
+      const name = field.getName() ?? '';
+      throw new Error(`Groups are not supported. Found group ${name}`);
+    }
+    case FieldDescriptorProto.Type.TYPE_MESSAGE: {
+      const _type = field.getTypeName() ?? '';
+      const name = removePackagePrefix(_type, identifierTable, fileDescriptorProto);
+
+      return {
+        defaultValue: 'undefined',
+        repeated,
+        tsType: name,
+        read: "readMessage",
+        write: repeated ? "writeRepeatedMessage" : "writeMessage"
+      };
     }
     case FieldDescriptorProto.Type.TYPE_STRING: {
-      return "string";
+      return {
+        defaultValue: "''",
+        repeated,
+        tsType: "string",
+        read: "readString",
+        write: repeated ? "writeRepeatedString" : "writeString"
+      }
     }
     case FieldDescriptorProto.Type.TYPE_BYTES: {
-      return "Uint8Array";
+      return {
+        defaultValue: "new Uint8Array()",
+        repeated,
+        tsType: "Uint8Array",
+        read: "readBytes",
+        write: repeated ? "writeRepeatedBytes" : "writeBytes"
+      };
     }
     case FieldDescriptorProto.Type.TYPE_UINT32: {
-      return "number";
+      return {
+        defaultValue: '0',
+        repeated,
+        tsType: "number",
+        read: "readUint32",
+        write: repeated ? "writeUint32" : "writeUint32",
+      }
     }
     case FieldDescriptorProto.Type.TYPE_SFIXED32: {
-      return "number";
+      return {
+        defaultValue: '0',
+        repeated,
+        tsType: "number",
+        read: "readSfixed32",
+        write: repeated ? "writeSfixed32" : "writeSfixed32",
+      }
     }
     case FieldDescriptorProto.Type.TYPE_SFIXED64: {
-      return "string";
+      return {
+        defaultValue: "''",
+        repeated,
+        tsType: "string",
+        read: "readSfixed64",
+        write: repeated ? "writeSfixed64" : "writeSfixed64",
+      }
     }
     case FieldDescriptorProto.Type.TYPE_SINT32: {
-      return "number";
+      return {
+        defaultValue:  '0',
+        repeated,
+        tsType:  "number",
+        read: "readSint32",
+        write: repeated ? "writeRepeatedSint32" : "writeSint32",
+      }
     }
     case FieldDescriptorProto.Type.TYPE_SINT64: {
-      return "string";
+      return {
+        defaultValue:  "''",
+        repeated,
+        tsType:  "string",
+        read: "readSint64",
+        write: repeated ? "writeRepeatedSint64String" : "writeSint64String",
+      }
     }
     default: {
-      const _exhaust: never = fieldType;
+      const _exhaust: never = _type;
       return _exhaust;
     }
-  }
-}
-
-interface EnumOpts {
-  name: string;
-  values: [string, number][];
-}
-
-interface MessageOpts {
-  name: string;
-  values: [string, string][];
-}
-
-type TSType = { 
-  value: string;
-  repeated: boolean;
-}
-
-function getMessageType(value: FieldDescriptorProto): TSType {
-  const _type = value.getType();
-  if (!_type) {
-    throw new Error("message type was undefined");
-  }
-
-  let tsType: string;
-  switch (_type) {
-    case FieldDescriptorProto.Type.TYPE_GROUP: {
-      throw new Error("group is not implemented");
-    }
-    case FieldDescriptorProto.Type.TYPE_MESSAGE:
-    case FieldDescriptorProto.Type.TYPE_ENUM: {
-      const typename = value.getTypeName();
-      if (!typename) {
-        throw new Error("typename was undefined");
-      }
-      tsType = typename;
-      break;
-    }
-    default: {
-      tsType = getTSScalar(_type);
-      break;
-    }
-  }
-  const repeated =
-    value.getLabel() === FieldDescriptorProto.Label.LABEL_REPEATED;
-
-  return {
-    value: tsType,
-    repeated
   }
 }
 
@@ -147,7 +232,7 @@ export function stripTSExtension(filename: string): string {
 }
 
 export function getTypesFileName(protoFileName: string): string {
-  return stripProtoExtension(protoFileName) + ".types.ts";
+  return stripProtoExtension(protoFileName) + ".pb.ts";
 }
 
 export function getServiceFileName(protoFileName: string): string {
@@ -165,32 +250,14 @@ export function getImportPath(sourceFile: string, dependencyFile: string) {
   return importPath.startsWith("..") ? importPath : `./${importPath}`;
 }
 
-// interface Visitor {
-//   Message: (node: DescriptorProto) => void;
-//   Enum: (node: EnumDescriptorProto) => void;
-// }
+function applyNamespace(namespacing: string, name: string, { removeLeadingPeriod}: { removeLeadingPeriod : boolean } = { removeLeadingPeriod: false}): string {
+  let _namespace = namespacing + "." + name;
+  if (removeLeadingPeriod && _namespace.startsWith('.')) {
+    _namespace = _namespace.slice(1);
 
-// function walker({ Message, Enum }: Visitor): void {
-//   function walk(descriptorProto: DescriptorProto): void {
-//     const enums = descriptorProto.getEnumTypeList();
-//     enums.forEach((node) => Enum(node));
-
-//     const messages = descriptorProto.getNestedTypeList();
-//     messages.forEach((descriptor) => {
-//       Message(descriptorProto);
-//       walk(descriptor);
-//     });
-//   }
-
-//   const enums = fileDescriptorProto.getEnumTypeList();
-//   enums.forEach((node) => Enum(node));
-
-//   const messages = fileDescriptorProto.getMessageTypeList();
-//   messages.forEach((descriptorProto) => {
-//     Message(descriptorProto);
-//     walk(descriptorProto);
-//   });
-// }
+  }
+  return _namespace;
+}
 
 export type IdentifierTable = [ namespacedIdentifier: string, file: string, _package: string][];
 
@@ -210,10 +277,6 @@ export function buildIdentifierTable(request: CodeGeneratorRequest): IdentifierT
     const protoFilePath = fileDescriptorProto.getName();
     if (!protoFilePath) {
       return;
-    }
-
-    function applyNamespace(namespacing: string, name: string): string {
-      return namespacing + "." + name;
     }
 
     const _package = fileDescriptorProto.getPackage() ?? '';
@@ -271,20 +334,36 @@ export interface Import {
   path: string;
 }
 
+interface EnumOpts {
+  name: string;
+  fullyQualifiedName: string;
+  values: [string, number][];
+}
 
-  export interface Namespacing {
-    _type: 'namespace';
+interface MessageOpts {
+  name: string;
+  fullyQualifiedName: string;
+  fields: {
+    defaultValue: string;
+    index: number;
     name: string;
-    children: Array<Namespacing | { _type: 'type', content: string }>
-  }
+    read: string;
+    repeated: boolean;
+    tsType: string;
+    write: string;
+  }[];
+}
+
+export type ProtoTypes = 
+  | { type: 'enum', content: EnumOpts }
+  | { type: 'message', content: MessageOpts, children: ProtoTypes[] }
 
 interface TypeFile {
   imports: {
     identifiers: string[],
     path: string
   }[];
-  types: { _namespace: string, content: string }[]
-  namespacing: Namespacing;
+  types: ProtoTypes[]
 }
 
 function getIdentifierEntryFromTable(
@@ -346,28 +425,11 @@ function removePackagePrefix(
   return name;
 }
 
-function getNamespace(
-  identifier: string,
-  identifiers: IdentifierTable,
-  fileDescriptorProto: FileDescriptorProto,
-): string {
-  const name = removePackagePrefix(identifier, identifiers, fileDescriptorProto);
-  // get namespacing without the identifier name
-  if (name.includes('.')) {
-    const segments = name.split('.')
-    segments.pop();
-    return segments.join('.');
-  }
-  return '';
-}
-
 export function processTypes(fileDescriptorProto: FileDescriptorProto, identifierTable: IdentifierTable): TypeFile {
   const typeFile: TypeFile = {
     imports: [],
     types: [],
-    namespacing: {} as Namespacing
   }
-
   function addIdentiferToImports(identifier: string) {
     const _import = getImportForIdentifier(identifier, identifierTable, fileDescriptorProto)
     const exisitingImport = typeFile.imports.find(({ path }) => path === _import.path)
@@ -380,47 +442,47 @@ export function processTypes(fileDescriptorProto: FileDescriptorProto, identifie
       })
     }
   }
-
-
-  function serializeEnum(node: EnumDescriptorProto): string {
-    const { name, values }: EnumOpts = {
-      name: node.getName() ?? "",
+  function getEnum(namespacing: string, node: EnumDescriptorProto): EnumOpts {
+    const name = node.getName();
+    if (!name) {
+      throw new Error(`Expected name for ${node}`);
+    }
+    const opts: EnumOpts = {
+      name,
+      fullyQualifiedName: applyNamespace(namespacing, name, { removeLeadingPeriod: true }),
       values: node
         .getValueList()
         .map((value) => [value.getName() ?? "", value.getNumber() ?? 0]),
     };
 
-    return `\
-export enum ${name} { 
-  ${values.map(([key, value]) => `${key} = ${value},`).join("\n")}
-}`;
+    return opts;
   }
 
-function serializeMessage(node: DescriptorProto): string {
-  const { name, values }: MessageOpts = {
-    name: node.getName() ?? "",
-    values: node
+
+function getMessage(namespacing: string, node: DescriptorProto): MessageOpts {
+  const name = node.getName();
+  if (!name) {
+    throw new Error(`Expected name for ${node}`);
+  }
+  const opts: MessageOpts = {
+    name,
+    fullyQualifiedName: applyNamespace(namespacing, name, { removeLeadingPeriod: true }),
+    fields: node
       .getFieldList()
       .map((value) => {
-        let messageType = getMessageType(value);
+        const descriptor = getDescriptor(value, identifierTable, fileDescriptorProto);
         if (value.getType() === FieldDescriptorProto.Type.TYPE_MESSAGE || value.getType() === FieldDescriptorProto.Type.TYPE_ENUM) {
           processIdentifier(value.getTypeName() ?? "");
-          messageType.value = removePackagePrefix(messageType.value, identifierTable, fileDescriptorProto);
         }
-        const _type = messageType.repeated ? messageType.value + '[]' : messageType.value
-        return [value.getName() ?? "", _type]
+        return {
+          name: value.getName() ?? '',
+          index: value.getNumber() ?? 0,
+          ...descriptor
+        }
       }),
   };
-
-  return `\
-export interface ${name} { 
-  ${values.map(([key, value]) => `${key}: ${value};`).join("\n")}
-}`;
+  return opts;
 }
-
-    function applyNamespace(namespacing: string, name: string): string {
-      return namespacing + "." + name;
-    }
 
   function processIdentifier(identifier: string) {
     if (identifierIsDefinedInFile(identifier, identifierTable, fileDescriptorProto)) {
@@ -430,14 +492,15 @@ export interface ${name} {
     addIdentiferToImports(identifier);
   }
 
-    function walk(namespacing: string, descriptorProto: DescriptorProto): void {
+    function walk(namespacing: string, descriptorProto: DescriptorProto): ProtoTypes[] {
+      const types: ProtoTypes[] = [];
       const enums = descriptorProto.getEnumTypeList();
       enums.forEach((enumDescriptorProto) => {
         const enumName = enumDescriptorProto.getName();
         if (enumName) {
-          typeFile.types.push({
-            _namespace: getNamespace(applyNamespace(namespacing, enumName), identifierTable, fileDescriptorProto),
-            content: serializeEnum(enumDescriptorProto)
+          types.push({
+            type: 'enum',
+            content: getEnum(namespacing, enumDescriptorProto)
           });
         }
       });
@@ -445,70 +508,39 @@ export interface ${name} {
       const messages = descriptorProto.getNestedTypeList();
       messages.forEach((descriptor) => {
         const messageName = descriptor.getName();
-        if (!messageName) {
-          return;
-        }
         if (messageName) {
-          typeFile.types.push({
-            _namespace: getNamespace(applyNamespace(namespacing, messageName), identifierTable, fileDescriptorProto),
-            content: serializeMessage(descriptor)
+          const children = walk(applyNamespace(namespacing, messageName), descriptor);
+          types.push({
+            type: 'message',
+            content: getMessage(namespacing, descriptor),
+            children
           });
         }
-        walk(applyNamespace(namespacing, messageName), descriptor);
       });
-    }
 
-    const packageName = fileDescriptorProto.getPackage();
-    const namespacing = packageName ? "." + packageName : "";
+      return types;
+    }
 
     const enums = fileDescriptorProto.getEnumTypeList();
     enums.forEach((enumDescriptorProto) => {
-      const enumName = enumDescriptorProto.getName();
-      if (enumName) {
         typeFile.types.push({
-            _namespace: '',
-          content: serializeEnum(enumDescriptorProto)
+          type: 'enum',
+          content: getEnum("", enumDescriptorProto)
         });
-      }
     });
 
     const messages = fileDescriptorProto.getMessageTypeList();
     messages.forEach((descriptor) => {
-      const messageName = descriptor.getName();
-      if (messageName) {
+        const messageName = descriptor.getName();
+        if (messageName) {
+        const children = walk(applyNamespace("", messageName), descriptor);
         typeFile.types.push({
-            _namespace: '',
-          content: serializeMessage(descriptor)
+          type: 'message',
+          content: getMessage("", descriptor),
+          children
         });
-        walk(applyNamespace(namespacing, messageName), descriptor);
-      }
+        }
     });
-
-  // order so that we guarentee parent namespaces have already been 
-  // processed
-  const namespaces = _.chain(typeFile.types)
-    .orderBy(t => t._namespace.split('.').length)
-    .value();
-
-  const root: Namespacing = { _type: 'namespace', name: '', children: [] };
-  const seen = {
-    [root.name]: root,
-  };
-
-  namespaces.forEach(t => {
-    const segments =  t._namespace.split('.');
-    const name = segments.pop() ?? '';
-    const _parent = segments.pop() ?? '';
-    
-    if (!seen[name]) {
-      seen[name] = { _type: 'namespace', name, children: [{ _type: 'type', content: t.content}] }
-      seen[_parent].children.push(seen[name]);
-    } else {
-      seen[name].children.push({ _type: 'type', content: t.content })
-    }
-  });
-
-  typeFile.namespacing = root;
 
   return typeFile;
 }

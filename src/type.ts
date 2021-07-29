@@ -39,11 +39,36 @@ function writeSerializers(types: ProtoTypes[]): string {
     if (node.type === "message") {
       result += `export namespace ${node.content.name} {`;
       result += `
+        export function writeMessage(msg: ${
+          node.content.fullyQualifiedName
+        }, writer: BinaryWriter): void {
+          ${node.content.fields
+            .map(
+              (field) => `\
+                ${
+                  field.repeated
+                    ? `if (msg.${field.name}.length > 0) {`
+                    : `if (msg.${field.name}) {`
+                }
+                ${
+                  field.read === "readMessage"
+                    ? `writer.${field.write}(${field.index}, msg.${
+                        field.name
+                      } ${field.repeated ? "as any" : ""}, ${
+                        field.tsType
+                      }.writeMessage);`
+                    : `writer.${field.write}(${field.index}, msg.${field.name});`
+                }
+                }`
+            )
+            .join("\n")}
+        }
+        
         export function encode(${lowerCase(node.content.name)}: ${
         node.content.fullyQualifiedName
       }): Uint8Array {
           const writer = new BinaryWriter();
-          // todo serialize
+          writeMessage(${lowerCase(node.content.name)}, writer);
           return writer.getResultBuffer();
         };
 

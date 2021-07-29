@@ -101,8 +101,8 @@ function writeSerializers(types: ProtoTypes[]): string {
                   }`
                     : `${
                         field.repeated
-                          ? `msg.${field.name}.push(reader.${field.read}() ?? ${field.defaultValue});`
-                          : `msg.${field.name} = reader.${field.read}() ?? ${field.defaultValue};`
+                          ? `msg.${field.name}.push(reader.${field.read}());`
+                          : `msg.${field.name} = reader.${field.read}();`
                       }`
                 }
                 break;
@@ -115,6 +115,19 @@ function writeSerializers(types: ProtoTypes[]): string {
               }
             }
           }
+          ${node.content.fields
+            .map(
+              (field) => `\
+                ${
+                  !field.repeated && field.read !== "readMessage"
+                    ? `if (!msg.${field.name}) {
+                      msg.${field.name} = ${field.defaultValue};
+                    }
+                    `
+                    : ""
+                }`
+            )
+            .join("")}
         }
 
         export function decode(bytes: ByteSource): ${

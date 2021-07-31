@@ -1,6 +1,42 @@
 import { readFileSync, writeFileSync } from "fs";
+import { Method, NoopMethod } from "./clientcompat.client";
+import { ClientCompatMessage, Empty, Req, Resp } from "./clientcompat.pb";
+import fetch from "node-fetch";
+import { TwirpError } from "../runtime";
+global.fetch = fetch as any;
 
 const input = readFileSync(process.stdin.fd);
-console.error(input);
+const message = ClientCompatMessage.decode(input);
 
-writeFileSync(process.stdout.fd, "");
+(async () => {
+  switch (message.method) {
+    case ClientCompatMessage.CompatServiceMethod.NOOP: {
+      try {
+        const res = await NoopMethod(
+          message.service_address,
+          Empty.decode(message.request)
+        );
+        writeFileSync(process.stdout.fd, Empty.encode(res));
+      } catch (e) {
+        writeFileSync(process.stderr.fd, (e as TwirpError).code);
+      }
+      break;
+    }
+    case ClientCompatMessage.CompatServiceMethod.METHOD: {
+      try {
+        const res = await Method(
+          message.service_address,
+          Req.decode(message.request)
+        );
+        writeFileSync(process.stdout.fd, Resp.encode(res));
+      } catch (e) {
+        writeFileSync(process.stderr.fd, (e as TwirpError).code);
+      }
+      break;
+    }
+    default: {
+      const _exhaust: never = message.method;
+      process.exit(_exhaust);
+    }
+  }
+})();

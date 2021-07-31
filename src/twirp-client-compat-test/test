@@ -1,4 +1,3 @@
 #!/bin/sh
 
-node ./dist/twirp-client-compat-test/index.js;
-
+node ./dist/twirp-client-compat-test/client-harness.js

@@ -1,5 +1,5 @@
 {
-  "name": "ts-twirp-client",
+  "name": "twirpscript",
   "description": "Autogenerate Twirp TypeScript Clients",
   "license": "MIT",
   "author": "Tate Thurston <tatethurston@gmail.com>",
@@ -27,16 +27,15 @@
   },
   "types": "dist",
   "dependencies": {
+    "@types/google-protobuf": "^3.15.3",
     "google-protobuf": "^3.17.3",
-    "protobufjs": "^6.11.2",
-    "protocol-buffers-schema": "^3.4.0",
-    "ts-protoc-gen": "^0.15.0"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "@types/google-protobuf": "^3.15.3",
     "@types/lodash": "^4.14.171",
+    "@types/node": "^16.4.8",
+    "@types/node-fetch": "^2.5.12",
     "@types/prettier": "^2.3.2",
-    "@types/protocol-buffers-schema": "^3.4.0",
     "husky": "^4.2.5",
     "lodash": "^4.17.21",
     "prettier": "^2.0.5",

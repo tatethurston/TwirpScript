@@ -6,12 +6,12 @@
     "moduleResolution": "node",
     "noEmitOnError": false,
     "outDir": "dist",
-    "removeComments": true,
+    "removeComments": false,
     "rootDir": "src",
     "sourceMap": false,
     "strict": true,
     "target": "ES2018",
-    "declaration": true
+    "declaration": false
   },
   "include": ["src"]
 }

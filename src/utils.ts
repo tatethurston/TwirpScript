@@ -358,12 +358,23 @@ export type ProtoTypes =
   | { type: 'enum', content: EnumOpts }
   | { type: 'message', content: MessageOpts, children: ProtoTypes[] }
 
+export interface Service {
+    name: string;
+    methods: {
+      name: string;
+      input: string | undefined;
+      output: string | undefined,
+    }[];
+}
+
 interface TypeFile {
+  packageName: string | undefined;
   imports: {
-    identifiers: string[],
+    identifiers: string[];
     path: string
   }[];
-  types: ProtoTypes[]
+  types: ProtoTypes[];
+  services: Service[];
 }
 
 function getIdentifierEntryFromTable(
@@ -427,7 +438,9 @@ function removePackagePrefix(
 
 export function processTypes(fileDescriptorProto: FileDescriptorProto, identifierTable: IdentifierTable): TypeFile {
   const typeFile: TypeFile = {
+    packageName: fileDescriptorProto.getPackage(),
     imports: [],
+    services: [],
     types: [],
   }
   function addIdentiferToImports(identifier: string) {
@@ -541,6 +554,15 @@ function getMessage(namespacing: string, node: DescriptorProto): MessageOpts {
         });
         }
     });
+
+  typeFile.services = fileDescriptorProto.getServiceList().map(service => ({
+    name: service.getName() ?? '',
+    methods: service.getMethodList().map(method => ({
+      name: method.getName() ?? '',
+      input: removePackagePrefix(method.getInputType() ?? '',identifierTable, fileDescriptorProto),
+      output: removePackagePrefix(method.getOutputType() ?? '', identifierTable, fileDescriptorProto),
+    }))
+  }));
 
   return typeFile;
 }

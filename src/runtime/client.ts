@@ -1,6 +1,6 @@
 import { twirpError } from "./error";
 
-export async function JSONrequest<T>(
+export async function JSONrequest<T = unknown>(
   url: string,
   body?: Record<string, any>
 ): Promise<T> {

@@ -1,6 +1,12 @@
 import { readFileSync, writeFileSync } from "fs";
-import { Method, NoopMethod } from "./clientcompat.client";
-import { ClientCompatMessage, Empty, Req, Resp } from "./clientcompat.pb";
+import {
+  Method,
+  NoopMethod,
+  ClientCompatMessage,
+  Empty,
+  Req,
+  Resp,
+} from "./clientcompat.pb";
 import fetch from "node-fetch";
 import { TwirpError } from "../runtime";
 global.fetch = fetch as any;

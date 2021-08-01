@@ -13,13 +13,10 @@ if (!commandIsInPath("clientcompat")) {
 }
 
 try {
-  const res = spawnSync(
-    `clientcompat -client=./src/twirp-client-compat-test/test`,
-    {
-      shell: true,
-      stdio: "inherit",
-    }
-  );
+  const res = spawnSync(`clientcompat -client=./src/clientcompat/test`, {
+    shell: true,
+    stdio: "inherit",
+  });
 } catch (error) {
   console.error(`Error:\n${error.output as string}`);
 }

@@ -11,5 +11,5 @@ The Twirp `clientcompat` testing tool must first be installed:
 Then the tests can be run:
 
 ```sh
-  node ./dist/clientcompat/test.js
+  node ./dist/test.js
 ```

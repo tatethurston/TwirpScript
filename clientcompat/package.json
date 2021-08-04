@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "test": "yarn tsc && node dist/test.js"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}

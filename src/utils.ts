@@ -7,7 +7,6 @@ import {
   EnumDescriptorProto,
   FieldDescriptorProto,
 } from "google-protobuf/google/protobuf/descriptor_pb";
-import _ from "lodash";
 import { BinaryReader, BinaryWriter } from 'google-protobuf';
 
 export function lowerCase(str: string): string {

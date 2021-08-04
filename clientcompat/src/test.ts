@@ -1,5 +1,13 @@
-import { spawnSync } from "child_process";
-import { commandIsInPath } from "../utils";
+import { execSync, spawnSync } from "child_process";
+
+function commandIsInPath(cmd: string): boolean {
+  try {
+    execSync(`which ${cmd}`);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 if (!commandIsInPath("clientcompat")) {
   console.error(
@@ -13,7 +21,7 @@ if (!commandIsInPath("clientcompat")) {
 }
 
 try {
-  const res = spawnSync(`clientcompat -client=./src/clientcompat/test`, {
+  const res = spawnSync(`clientcompat -client=./test`, {
     shell: true,
     stdio: "inherit",
   });

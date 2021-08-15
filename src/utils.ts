@@ -230,16 +230,12 @@ export function stripTSExtension(filename: string): string {
   return filename.replace(".ts", "");
 }
 
-export function getTypesFileName(protoFileName: string): string {
+export function getProtobufTSFileName(protoFileName: string): string {
   return stripProtoExtension(protoFileName) + ".pb.ts";
 }
 
-export function getServiceFileName(protoFileName: string): string {
-  return stripProtoExtension(protoFileName) + ".service.ts";
-}
-
-export function getClientFileName(protoFileName: string): string {
-  return stripProtoExtension(protoFileName) + ".client.ts";
+export function getServerStubFileName(protoFileName: string): string {
+  return stripProtoExtension(protoFileName) + ".ts";
 }
 
 export function getImportPath(sourceFile: string, dependencyFile: string) {
@@ -407,7 +403,7 @@ function getImportForIdentifier(
 ): Import {
   const dep = getIdentifierEntryFromTable(identifier, identifiers, fileDescriptorProto); 
   const sourceFile = fileDescriptorProto.getName() ?? '';
-  const path = getImportPath(sourceFile, getTypesFileName(dep[1]));
+  const path = getImportPath(sourceFile, getProtobufTSFileName(dep[1]));
 
   const dependencyIdentifier = identifier.split('.').pop() ?? '';
   return { identifier: dependencyIdentifier, path };

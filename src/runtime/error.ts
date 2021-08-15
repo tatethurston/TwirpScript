@@ -1,9 +1,13 @@
-type TwirpResponse = Record<string, unknown>;
+type TwirpResponse = TwirpError | Record<string, unknown>;
 
 export interface TwirpError {
-  code: string;
+  code: ErrorCode;
   msg: string;
   meta?: Record<string, string>;
+}
+
+export function TwirpError(error: TwirpError): void {
+  throw error;
 }
 
 interface TwirpIntermediaryError extends TwirpError {
@@ -35,33 +39,31 @@ type ErrorCode =
   | "unavailable"
   | "data_loss";
 
-// const ErrorCode = {
-//   canceled: 408,
-//   unknown: 500,
-//   invalid_argument: 400,
-//   malformed: 400,
-//   deadline_exceeded: 408,
-//   not_found: 404,
-//   bad_route: 404,
-//   already_exists: 409,
-//   permission_denied: 403,
-//   unauthenticated: 401,
-//   resource_exhausted: 403,
-//   failed_precondition: 412,
-//   aborted: 409,
-//   out_of_range: 400,
-//   unimplemented: 501,
-//   internal: 500,
-//   unavailable: 503,
-//   data_loss: 500,
-// } as const;
-
-// type ErrorNumber = typeof ErrorCode[keyof typeof ErrorCode];
+export const statusCodeForErrorCode = {
+  canceled: 408,
+  unknown: 500,
+  invalid_argument: 400,
+  malformed: 400,
+  deadline_exceeded: 408,
+  not_found: 404,
+  bad_route: 404,
+  already_exists: 409,
+  permission_denied: 403,
+  unauthenticated: 401,
+  resource_exhausted: 403,
+  failed_precondition: 412,
+  aborted: 409,
+  out_of_range: 400,
+  unimplemented: 501,
+  internal: 500,
+  unavailable: 503,
+  data_loss: 500,
+} as const;
 
 export function isTwirpError<E extends TwirpResponse>(
   error: E
 ): error is E & TwirpError {
-  return error.code !== undefined;
+  return error && "code" in error;
 }
 
 export function isTwirpIntermediaryError<E extends TwirpResponse>(

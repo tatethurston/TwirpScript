@@ -2,13 +2,13 @@ import { IncomingMessage, ServerResponse } from "http";
 import { isTwirpError, statusCodeForErrorCode, TwirpError } from "./error";
 
 interface Response {
-  body: string;
+  body: string | Buffer;
   contentType: "application/json" | "application/protobuf";
   status: number;
 }
 
 interface Request {
-  body: string;
+  body: Buffer;
   contentType: "application/json" | "application/protobuf";
   url: string;
 }
@@ -21,7 +21,7 @@ interface ServiceMethod {
 
 type Handler = (req: Request) => Response;
 
-interface ServiceHandler {
+export interface ServiceHandler {
   path: string;
   methods: Record<string, Handler>;
 }
@@ -35,8 +35,8 @@ function parseJSON<T>(json: string): T | undefined {
 }
 
 function parseProto<T>(
-  proto: string,
-  decode: (proto: string) => T
+  proto: Uint8Array,
+  decode: (proto: Uint8Array) => T
 ): T | undefined {
   try {
     return decode(proto);
@@ -54,7 +54,7 @@ export function createMethodHandler<T>({
     try {
       switch (req.contentType) {
         case "application/json": {
-          const body = parseJSON<T>(req.body);
+          const body = parseJSON<T>(req.body.toString());
           if (!body) {
             return {
               status: 400,
@@ -86,7 +86,7 @@ export function createMethodHandler<T>({
           return {
             status: 200,
             contentType: "application/protobuf",
-            body: encode(handler(body)),
+            body: Buffer.from(encode(handler(body))),
           };
         }
         default: {
@@ -115,12 +115,12 @@ export function createMethodHandler<T>({
   };
 }
 
-async function getBody(req: IncomingMessage): Promise<string> {
+async function getBody(req: IncomingMessage): Promise<Buffer> {
   const buffers = [];
   for await (const chunk of req) {
     buffers.push(chunk);
   }
-  const body = Buffer.concat(buffers).toString();
+  const body = Buffer.concat(buffers);
   return body;
 }
 
@@ -190,9 +190,9 @@ export function createServerHandler(
     };
 
     const methodIdx = request.url.lastIndexOf("/");
-    const prefixIdx = request.url.indexOf("/twirp/");
-    const servicePath = request.url.slice(prefixIdx, methodIdx);
-    const serviceMethod = request.url.slice(methodIdx);
+    const prefix = "/twirp/";
+    const servicePath = request.url.slice(prefix.length, methodIdx);
+    const serviceMethod = request.url.slice(methodIdx + 1);
 
     const service = services.find(
       (service) =>

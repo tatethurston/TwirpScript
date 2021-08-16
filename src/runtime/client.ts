@@ -35,5 +35,6 @@ export async function PBrequest(
     throw await twirpError(res);
   }
 
-  return new Uint8Array(await res.arrayBuffer());
+  const buffer = await res.arrayBuffer();
+  return new Uint8Array(buffer);
 }

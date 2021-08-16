@@ -8,7 +8,7 @@ import {
   Resp,
 } from "./clientcompat.pb";
 import fetch from "node-fetch";
-import type { TwirpError } from "twirpscript/dist/runtime";
+import type { TwirpError } from "twirpscript";
 global.fetch = fetch as any;
 
 const input = readFileSync(process.stdin.fd);

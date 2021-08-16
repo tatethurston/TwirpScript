@@ -1,6 +1,10 @@
 {
+  "name": "clientcompat",
   "scripts": {
     "test": "yarn tsc && node dist/test.js"
+  },
+  "dependencies": {
+    "twirpscript": "*"
   },
   "devDependencies": {
     "typescript": "^4.3.5"

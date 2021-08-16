@@ -10,8 +10,8 @@
     "rootDir": "src",
     "sourceMap": false,
     "strict": true,
-    "target": "ES2018",
-    "declaration": false
+    "target": "ES2019",
+    "declaration": true
   },
   "include": ["src"]
 }

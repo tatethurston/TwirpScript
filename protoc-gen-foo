@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# cat /dev/stdin
-
-echo "running"

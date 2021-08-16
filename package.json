@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/tatethurston/TwirpScript"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist",
   "bin": {
     "twirpscript": "dist/cli/index.js"

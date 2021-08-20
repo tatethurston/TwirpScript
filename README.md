@@ -53,7 +53,6 @@ Create a `proto` specification file:
 syntax = "proto3";
 
 package twirp.example.haberdasher;
-option go_package = "github.com/example/rpc/haberdasher";
 
 // Haberdasher service makes hats for clients.
 service Haberdasher {

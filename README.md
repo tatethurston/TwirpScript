@@ -120,8 +120,7 @@ That's it for the server! Now you can use the generated clients to make `json` o
 
 `src/client.ts`
 
-```
-
+```ts
 import { MakeHat } from "./server/haberdasher/service.pb";
 
 const size = { inches: 12 };

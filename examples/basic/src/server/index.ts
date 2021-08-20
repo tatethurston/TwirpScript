@@ -6,13 +6,14 @@ const PORT = 8080;
 
 const twirpHandler = createServerHandler([HaberdasherServiceHandler]);
 const server = createServer((req, res) => {
-  // Set CORS headers
+  // CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Request-Method", "*");
-  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, POST");
-  res.setHeader("Access-Control-Allow-Headers", "*");
+
   if (req.method === "OPTIONS") {
-    res.writeHead(200);
+    res.setHeader("Access-Control-Request-Method", "*");
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    res.writeHead(204);
     res.end();
     return;
   }
@@ -20,5 +21,4 @@ const server = createServer((req, res) => {
   return twirpHandler(req, res);
 });
 
-console.log(`Server listening on port ${PORT}`);
-server.listen(PORT);
+server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

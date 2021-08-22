@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-package foo;
-
-message Tate {
-  string the_great = 1;
-}
-

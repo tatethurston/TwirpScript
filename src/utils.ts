@@ -13,6 +13,26 @@ export function lowerCase(str: string): string {
   return str[0].toLowerCase() + str.slice(1);
 }
 
+const FileLabel = {
+  Message: 4,
+  Enum: 5,
+  Service: 6,
+};
+
+const ServiceLabel = {
+  Method: 2,
+};
+
+const EnumLabel = {
+  Value: 2,
+};
+
+const MessageLabel = {
+  Field: 2,
+  Nested: 3,
+  Enum: 4,
+};
+
 export function commandIsInPath(cmd: string): boolean {
   try {
     execSync(`which ${cmd}`);
@@ -355,10 +375,20 @@ export interface Import {
   path: string;
 }
 
+interface Comments {
+  leading: string | undefined;
+  trailing: string | undefined;
+}
+
 interface EnumOpts {
   name: string;
   fullyQualifiedName: string;
-  values: [string, number][];
+  values: {
+    name: string;
+    value: number;
+    comments?: Comments;
+  }[];
+  comments?: Comments;
 }
 
 interface MessageOpts {
@@ -372,12 +402,18 @@ interface MessageOpts {
     repeated: boolean;
     tsType: string;
     write: string;
+    comments?: Comments;
   }[];
+  comments?: Comments;
 }
 
-export type ProtoTypes =
-  | { type: "enum"; content: EnumOpts }
-  | { type: "message"; content: MessageOpts; children: ProtoTypes[] };
+type EnumType = { type: "enum"; content: EnumOpts };
+type MessageType = {
+  type: "message";
+  content: MessageOpts;
+  children: ProtoTypes[];
+};
+export type ProtoTypes = EnumType | MessageType;
 
 export interface Service {
   name: string;
@@ -385,7 +421,9 @@ export interface Service {
     name: string;
     input: string | undefined;
     output: string | undefined;
+    comments?: Comments;
   }[];
+  comments?: Comments;
 }
 
 interface TypeFile {
@@ -486,6 +524,7 @@ export function processTypes(
     services: [],
     types: [],
   };
+
   function addIdentiferToImports(identifier: string) {
     const _import = getImportForIdentifier(
       identifier,
@@ -514,9 +553,10 @@ export function processTypes(
       fullyQualifiedName: applyNamespace(namespacing, name, {
         removeLeadingPeriod: true,
       }),
-      values: node
-        .getValueList()
-        .map((value) => [value.getName() ?? "", value.getNumber() ?? 0]),
+      values: node.getValueList().map((value) => ({
+        name: value.getName() ?? "",
+        value: value.getNumber() ?? 0,
+      })),
     };
 
     return opts;
@@ -640,6 +680,106 @@ export function processTypes(
       ),
     })),
   }));
+
+  // add comments
+  const comments = fileDescriptorProto
+    .getSourceCodeInfo()
+    ?.getLocationList()
+    .filter((x) => x.hasLeadingComments() || x.hasTrailingComments());
+
+  comments?.forEach((comment) => {
+    const content = {
+      leading: comment.getLeadingComments(),
+      trailing: comment.getTrailingComments(),
+    };
+    const path = comment.getPathList();
+    const first = path.shift();
+    let types = typeFile.types;
+
+    function addCommentToEnum() {
+      const idx = path.shift();
+      if (idx === undefined) {
+        return;
+      }
+
+      const _enum = types.filter((t) => t.type === "enum")[idx]
+        .content as EnumOpts;
+
+      // enum comment
+      if (path.length === 0) {
+        _enum.comments = content;
+        // value comment
+      } else if (path.shift() === EnumLabel.Value) {
+        const valueIdx = path.shift();
+        if (valueIdx === undefined) {
+          return;
+        }
+
+        _enum.values[valueIdx].comments = content;
+      }
+    }
+
+    function addCommentToMessage() {
+      const idx = path.shift();
+      if (idx === undefined) {
+        return;
+      }
+
+      const message = types.filter((t) => t.type === "message")[
+        idx
+      ] as MessageType;
+
+      // message comment
+      if (path.length === 0) {
+        message.content.comments = content;
+      } else {
+        const next = path.shift();
+        if (next === undefined) {
+          return;
+        }
+
+        if (next === MessageLabel.Field) {
+          const fieldIdx = path.shift();
+          if (fieldIdx === undefined) {
+            return;
+          }
+          message.content.fields[fieldIdx].comments = content;
+        } else if (next === MessageLabel.Enum) {
+          types = message.children;
+          addCommentToEnum();
+        } else if (next === MessageLabel.Nested) {
+          types = message.children;
+          addCommentToMessage();
+        }
+      }
+    }
+
+    if (first === FileLabel.Enum) {
+      addCommentToEnum();
+    } else if (first === FileLabel.Service) {
+      const idx = path.shift();
+      if (idx === undefined) {
+        return;
+      }
+
+      const service = typeFile.services[idx];
+
+      // service comment
+      if (path.length === 0) {
+        service.comments = content;
+        // method comment
+      } else if (path.shift() === ServiceLabel.Method) {
+        const methodIdx = path.shift();
+        if (methodIdx === undefined) {
+          return;
+        }
+
+        service.methods[methodIdx].comments = content;
+      }
+    } else if (first === FileLabel.Message) {
+      addCommentToMessage();
+    }
+  });
 
   return typeFile;
 }

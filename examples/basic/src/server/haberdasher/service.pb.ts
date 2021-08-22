@@ -10,15 +10,95 @@ import {
 
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
 
+//========================================//
+//      Haberdasher Protobuf Client       //
+//========================================//
+
+/**
+ * MakeHat produces a hat of mysterious, randomly-selected color!
+ */
+export async function MakeHat(url: string, size: Size): Promise<Hat> {
+  const response = await PBrequest(
+    url + "/twirp/twirp.example.haberdasher.Haberdasher/MakeHat",
+    Size.encode(size)
+  );
+  return Hat.decode(response);
+}
+
+//========================================//
+//        Haberdasher JSON Client         //
+//========================================//
+
+/**
+ * MakeHat produces a hat of mysterious, randomly-selected color!
+ */
+export async function MakeHatJSON(url: string, size: Size): Promise<Hat> {
+  const response = await JSONrequest<Hat>(
+    url + "/twirp/twirp.example.haberdasher.Haberdasher/MakeHat",
+    size
+  );
+  return response;
+}
+
+//========================================//
+//          Haberdasher Service           //
+//========================================//
+
+/**
+ * Haberdasher service makes hats for clients.
+ */
+export interface Haberdasher {
+  /**
+   * MakeHat produces a hat of mysterious, randomly-selected color!
+   */
+  MakeHat: (size: Size) => Promise<Hat> | Hat;
+}
+
+export function HaberdasherHandler(service: Haberdasher): ServiceHandler {
+  return {
+    path: "twirp.example.haberdasher.Haberdasher",
+    methods: {
+      MakeHat: createMethodHandler({
+        handler: service.MakeHat,
+        encode: Hat.encode,
+        decode: Hat.decode,
+      }),
+    },
+  };
+}
+
+//========================================//
+//                 Types                  //
+//========================================//
+
+/**
+ * Size of a Hat, in inches.
+ */
 export interface Size {
+  /**
+   * must be > 0
+   */
   inches: number;
 }
 
+/**
+ * A Hat is a piece of headwear made by a Haberdasher.
+ */
 export interface Hat {
   inches: number;
+  /**
+   * anything but "invisible"
+   */
   color: string;
+  /**
+   * i.e. "bowler"
+   */
   name: string;
 }
+
+//========================================//
+//        Protobuf Encode / Decode        //
+//========================================//
 
 export namespace Size {
   export function writeMessage(msg: Size, writer: BinaryWriter): void {
@@ -124,48 +204,4 @@ export namespace Hat {
     readMessage(message, reader);
     return message as Hat;
   }
-}
-
-/*
- * Haberdasher Protobuf Client
- */
-
-export async function MakeHat(url: string, size: Size): Promise<Hat> {
-  const response = await PBrequest(
-    url + "/twirp/twirp.example.haberdasher.Haberdasher/MakeHat",
-    Size.encode(size)
-  );
-  return Hat.decode(response);
-}
-
-/*
- * Haberdasher JSON Client
- */
-
-export async function MakeHatJSON(url: string, size: Size): Promise<Hat> {
-  const response = await JSONrequest<Hat>(
-    url + "/twirp/twirp.example.haberdasher.Haberdasher/MakeHat",
-    size
-  );
-  return response;
-}
-
-/*
- * Haberdasher Service
- */
-export interface Haberdasher {
-  MakeHat: (size: Size) => Promise<Hat> | Hat;
-}
-
-export function HaberdasherHandler(service: Haberdasher): ServiceHandler {
-  return {
-    path: "twirp.example.haberdasher.Haberdasher",
-    methods: {
-      MakeHat: createMethodHandler({
-        handler: service.MakeHat,
-        encode: Hat.encode,
-        decode: Hat.decode,
-      }),
-    },
-  };
 }

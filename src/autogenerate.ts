@@ -11,21 +11,27 @@ function writeTypes(types: ProtoTypes[]): string {
   let result = "";
 
   types.forEach((node) => {
+    if (node.content.comments?.leading) {
+      result += printComments(node.content.comments?.leading);
+    }
     if (node.type === "enum") {
-      result += `
-export enum ${node.content.name} { 
-  ${node.content.values.map(([key, value]) => `${key} = ${value},`).join("\n")}
- }\n\n`;
+      result += `export enum ${node.content.name} {\n`;
+      node.content.values.forEach(({ name, value, comments }) => {
+        if (comments?.leading) {
+          result += printComments(comments?.leading);
+        }
+        result += `${name} = ${value},\n`;
+      });
+      result += "}\n\n";
     } else {
-      result += `
-export interface ${node.content.name} { 
-  ${node.content.fields
-    .map(
-      ({ name, tsType, repeated }) =>
-        `${name}: ${tsType}${repeated ? "[]" : ""};`
-    )
-    .join("\n")}
-}\n\n`;
+      result += `export interface ${node.content.name} {\n`;
+      node.content.fields.forEach(({ name, tsType, repeated, comments }) => {
+        if (comments?.leading) {
+          result += printComments(comments?.leading);
+        }
+        result += `${name}: ${tsType}${repeated ? "[]" : ""};\n`;
+      });
+      result += "}\n\n";
 
       if (node.children.length > 0) {
         result += `export namespace ${node.content.name} { \n`;
@@ -154,6 +160,28 @@ function writeSerializers(types: ProtoTypes[]): string {
   return result;
 }
 
+function printComments(comment: string): string {
+  const lines = comment.split("\n");
+  return `\
+    /**
+     *${lines.slice(0, -1).join("\n *") + lines.slice(-1).join(" *")}
+     */
+      `;
+}
+
+function printHeading(heading: string): string {
+  const width = 40;
+  const padding = (width - heading.length) / 2;
+  return `\
+  //${"=".repeat(width)}//
+  //${" ".repeat(Math.floor(padding))}${heading}${" ".repeat(
+    Math.ceil(padding)
+  )}//
+  //${"=".repeat(width)}//
+  
+  `;
+}
+
 function writeClients(
   services: Service[],
   packageName: string | undefined
@@ -161,13 +189,12 @@ function writeClients(
   let result = "";
 
   services.forEach((service) => {
-    result += `\
-    /*
-     * ${service.name} Protobuf Client
-     */
+    result += printHeading(`${service.name} Protobuf Client`);
 
-    `;
     service.methods.forEach((method) => {
+      if (method.comments?.leading) {
+        result += printComments(method.comments.leading);
+      }
       result += `\
 export async function ${method.name}(url: string ${
         method.input ? `, ${lowerCase(method.input)}: ${method.input}` : ""
@@ -189,14 +216,12 @@ export async function ${method.name}(url: string ${
   result += "\n";
 
   services.forEach((service) => {
-    result += `\
-    /*
-     * ${service.name} JSON Client
-     */
-
-    `;
+    result += printHeading(`${service.name} JSON Client`);
 
     service.methods.forEach((method) => {
+      if (method.comments?.leading) {
+        result += printComments(method.comments.leading);
+      }
       result += `\
 export async function ${method.name}JSON(url: string ${
         method.input ? `, ${lowerCase(method.input)}: ${method.input}` : ""
@@ -223,14 +248,16 @@ function writeServers(
   let result = "";
 
   services.forEach((service) => {
-    result += `\
-    /*
-     * ${service.name} Service 
-     */
-    `;
+    result += printHeading(`${service.name} Service`);
 
+    if (service.comments?.leading) {
+      result += printComments(service.comments.leading);
+    }
     result += `export interface ${service.name} {\n`;
     service.methods.forEach((method) => {
+      if (method.comments?.leading) {
+        result += printComments(method.comments.leading);
+      }
       result += `${method.name}: (${
         method.input ? `${lowerCase(method.input)}: ${method.input}` : ""
       }) => Promise<${method.output ? method.output : "void"}> | ${
@@ -284,12 +311,14 @@ ${imports
 
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
 
-${writeTypes(types)}
-
-${writeSerializers(types)}
-
 ${writeClients(services, packageName)}
 
 ${writeServers(services, packageName)}
+
+${printHeading("Types")}
+${writeTypes(types)}
+
+${printHeading("Protobuf Encode / Decode")}
+${writeSerializers(types)}
 `;
 }

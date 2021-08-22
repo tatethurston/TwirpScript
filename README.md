@@ -130,7 +130,7 @@ console.log(hat);
 
 ## Examples 🚀
 
-Checkout out a [minimal example](https://github.com/tatethurston/twirpscript/blob/main/examples/basic) of a browser client and server implementation.
+Checkout out a [fullstack example](https://github.com/tatethurston/twirpscript/blob/main/examples/basic-fullstack) of a browser client and server implementation.
 
 ## FAQ
 

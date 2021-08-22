@@ -1,5 +1,5 @@
 {
-  "name": "basic",
+  "name": "basic-fullstack",
   "scripts": {
     "build": "yarn tsc && yarn webpack",
     "test": "yarn jest"

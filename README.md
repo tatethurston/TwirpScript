@@ -39,9 +39,10 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
 To make a Twirp service:
 
 1. Define your service in a `.proto` file.
-2. Run `yarn twirpscript` to generate TypeScript code from your `.proto` file. This will generate a service interface, client, and server utilities.
+2. Run `yarn twirpscript` to generate TypeScript code from your `.proto` file. This will generate JSON and Protobuf clients, a service interface, and server utilities.
 3. Implement the generated service interface to build your service.
 4. Attach your implemented service to your application server.
+5. Use the generated client to make requests to your server.
 
 #### 1. Define your service
 
@@ -127,6 +128,12 @@ const size = { inches: 12 };
 const hat = await MakeHat("http://localhost:8080", size);
 console.log(hat);
 ```
+
+#### Connecting to an existing Twirp server and only need a TypeScript client?
+
+1. Get your service `.proto` file.
+2. Run `yarn twirpscript` to generate TypeScript code from your `.proto` file.
+3. Use the generated client to make requests to your server.
 
 ## Examples 🚀
 

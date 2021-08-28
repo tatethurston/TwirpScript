@@ -63,7 +63,6 @@ function findFiles(entry: string, ext: string): string[] {
 }
 
 const { src } = getConfig();
-console.log("src", src);
 const protos = findFiles(src, ".proto").map((filepath) =>
   relative(src, filepath)
 );
@@ -84,7 +83,7 @@ try {
 protoc \
   --plugin=protoc-gen-twirpscript=./node_modules/twirpscript/dist/compiler.js \
   --twirpscript_out=. \
-  ${protos}
+  ${protos.join(" ")}
 `,
     { shell: true, stdio: "inherit" }
   );

@@ -1,4 +1,4 @@
-import { twirpError } from "./error";
+import { twirpErrorFromResponse } from "./error";
 
 export async function JSONrequest<T = unknown>(
   url: string,
@@ -13,7 +13,7 @@ export async function JSONrequest<T = unknown>(
   });
 
   if (!res.ok) {
-    throw await twirpError(res);
+    throw await twirpErrorFromResponse(res);
   }
 
   return res.json();
@@ -32,7 +32,7 @@ export async function PBrequest(
   });
 
   if (!res.ok) {
-    throw await twirpError(res);
+    throw await twirpErrorFromResponse(res);
   }
 
   const buffer = await res.arrayBuffer();

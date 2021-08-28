@@ -195,25 +195,20 @@ function writeClients(
       if (method.comments?.leading) {
         result += printComments(method.comments.leading);
       }
+      const input = lowerCase(method.input ?? "");
+      const url = `/twirp/${packageName ? packageName + "." : ""}${
+        service.name
+      }/${method.name}`;
+
       result += `\
-export async function ${method.name}(url: string ${
-        method.input ? `, ${lowerCase(method.input)}: ${method.input}` : ""
-      }): Promise<${method.output ? method.output : "void"}> {
-  const response = await PBrequest(
-    url + '/twirp/${packageName ? packageName + "." : ""}${service.name}/${
-        method.name
-      }'
-    ${
-      method.input ? `, ${method.input}.encode(${lowerCase(method.input)})` : ""
-    }
-  );
-  ${method.output ? `return ${method.output}.decode(response);` : ""}
+export async function ${method.name}(url: string, ${input}: ${method.input}): Promise<${method.output}> {
+  const response = await PBrequest(url + '${url}', ${method.input}.encode(${input}));
+  return ${method.output}.decode(response);
 }
+
 `;
     });
   });
-
-  result += "\n";
 
   services.forEach((service) => {
     result += printHeading(`${service.name} JSON Client`);
@@ -222,18 +217,17 @@ export async function ${method.name}(url: string ${
       if (method.comments?.leading) {
         result += printComments(method.comments.leading);
       }
+      const input = lowerCase(method.input ?? "");
+      const url = `/twirp/${packageName ? packageName + "." : ""}${
+        service.name
+      }/${method.name}`;
+
       result += `\
-export async function ${method.name}JSON(url: string ${
-        method.input ? `, ${lowerCase(method.input)}: ${method.input}` : ""
-      }): Promise<${method.output ? method.output : "void"}> {
-  const response = await JSONrequest<${method.output ? method.output : ""}>(
-    url + '/twirp/${packageName ? packageName + "." : ""}${service.name}/${
-        method.name
-      }'
-    ${method.input ? `, ${lowerCase(method.input)}` : ""}
-  );
-  ${method.output ? `return response;` : ""}
+export async function ${method.name}JSON(url: string, ${input}: ${method.input}): Promise<${method.output}> {
+  const response = await JSONrequest<${method.output}>(url + '${url}', ${input});
+  return response;
 }
+
 `;
     });
   });
@@ -253,16 +247,14 @@ function writeServers(
     if (service.comments?.leading) {
       result += printComments(service.comments.leading);
     }
-    result += `export interface ${service.name} {\n`;
+    result += `export interface ${service.name}<Context = unknown> {\n`;
     service.methods.forEach((method) => {
       if (method.comments?.leading) {
         result += printComments(method.comments.leading);
       }
-      result += `${method.name}: (${
-        method.input ? `${lowerCase(method.input)}: ${method.input}` : ""
-      }) => Promise<${method.output ? method.output : "void"}> | ${
-        method.output ? method.output : "void"
-      };\n`;
+      result += `${method.name}: (${lowerCase(method.input ?? "")}: ${
+        method.input
+      }, context?: Context) => Promise<${method.output}> | ${method.output};\n`;
     });
     result += "}\n";
   });
@@ -270,11 +262,13 @@ function writeServers(
   result += "\n";
 
   services.forEach((service) => {
-    result += `export function ${service.name}Handler(service: ${service.name}): ServiceHandler { return {
-    path: '${packageName}.${service.name}',
+    result += `export function ${service.name}Handler(service: ${
+      service.name
+    }): ServiceHandler { return {
+    path: '${[packageName, service.name].filter(Boolean).join(".")}',
     methods: {\n`;
     service.methods.forEach((method) => {
-      result += `${method.name}: createMethodHandler({ handler: service.${method.name}, encode: ${method.output}.encode, decode: ${method.output}.decode }),`;
+      result += `${method.name}: createMethodHandler({ handler: service.${method.name}, encode: ${method.output}.encode, decode: ${method.input}.decode }),`;
     });
   });
   result += "}\n";

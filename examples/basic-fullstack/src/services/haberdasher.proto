@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-package twirp.example.haberdasher;
-
 // Haberdasher service makes hats for clients.
 service Haberdasher {
   // MakeHat produces a hat of mysterious, randomly-selected color!

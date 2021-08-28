@@ -1,29 +1,46 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { isTwirpError, statusCodeForErrorCode, TwirpError } from "./error";
+import { TwirpError } from ".";
+import { isTwirpError, statusCodeForErrorCode } from "./error";
 
 interface Response {
   body: string | Buffer;
-  contentType: "application/json" | "application/protobuf";
+  headers: {
+    "Content-Type": "application/json" | "application/protobuf";
+    [key: string]: string | undefined;
+  };
   status: number;
 }
 
 interface Request {
   body: Buffer;
-  contentType: "application/json" | "application/protobuf";
+  headers: {
+    "Content-Type": "application/json" | "application/protobuf";
+    [key: string]: string | undefined;
+  };
   url: string;
 }
 
-interface ServiceMethod {
-  handler: (req: any) => any;
+interface ServiceMethod<Context = unknown> {
+  handler: (req: any, context: Context) => Promise<unknown> | unknown;
   encode: any;
   decode: any;
 }
 
-type Handler = (req: Request) => Response;
+type Handler = (req: Request, ctx: unknown) => Promise<Response> | Response;
 
 export interface ServiceHandler {
   path: string;
   methods: Record<string, Handler>;
+}
+
+export function TwirpErrorResponse(error: TwirpError): Response {
+  return {
+    status: statusCodeForErrorCode[error.code],
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(error),
+  };
 }
 
 function parseJSON<T>(json: string): T | undefined {
@@ -50,67 +67,57 @@ export function createMethodHandler<T>({
   encode,
   decode,
 }: ServiceMethod): Handler {
-  return (req: Request) => {
+  return async (req, context) => {
     try {
-      switch (req.contentType) {
+      switch (req.headers["Content-Type"]) {
         case "application/json": {
           const body = parseJSON<T>(req.body.toString());
           if (!body) {
-            return {
-              status: 400,
-              contentType: "application/json",
-              body: JSON.stringify({
-                code: "invalid_argument",
-                msg: `failed to deserialize argument as JSON`,
-              }),
-            };
+            return TwirpErrorResponse({
+              code: "invalid_argument",
+              msg: `failed to deserialize argument as JSON`,
+            });
           }
+          const response = await handler(body, context);
           return {
             status: 200,
-            contentType: "application/json",
-            body: JSON.stringify(handler(body)),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(response),
           };
         }
         case "application/protobuf": {
           const body = parseProto<T>(req.body, decode);
           if (!body) {
-            return {
-              status: 400,
-              contentType: "application/json",
-              body: JSON.stringify({
-                code: "invalid_argument",
-                msg: `failed to deserialize argument as Protobuf`,
-              }),
-            };
+            return TwirpErrorResponse({
+              code: "invalid_argument",
+              msg: `failed to deserialize argument as Protobuf`,
+            });
           }
+          const response = await handler(body, context);
           return {
             status: 200,
-            contentType: "application/protobuf",
-            body: Buffer.from(encode(handler(body))),
+            headers: {
+              "Content-Type": "application/protobuf",
+            },
+            body: Buffer.from(encode(response)),
           };
         }
         default: {
-          const _exhaust: never = req.contentType;
+          const _exhaust: never = req.headers["Content-Type"];
           return _exhaust;
         }
       }
-    } catch (e) {
-      if (isTwirpError(e)) {
-        return {
-          status: statusCodeForErrorCode[(e as TwirpError).code],
-          contentType: "application/json",
-          body: JSON.stringify(e),
-        };
-      }
-
-      return {
-        status: 500,
-        contentType: "application/json",
-        body: JSON.stringify({
+    } catch (error) {
+      if (isTwirpError(error)) {
+        return TwirpErrorResponse(error);
+      } else {
+        return TwirpErrorResponse({
           code: "internal",
-          msg: `server error`,
-        }),
-      };
+          msg: "server error",
+        });
+      }
     }
   };
 }
@@ -162,25 +169,26 @@ function parseRequest(req: IncomingMessage): ParsedRequest {
     ok: true,
     result: {
       url: req.url,
-      contentType,
+      headers: {
+        "Content-Type": contentType,
+      },
     },
   };
 }
 
-export function createServerHandler(
-  services: ServiceHandler[]
-): (req: IncomingMessage, res: ServerResponse) => void {
-  return async (req, res) => {
+type Next = () => Promise<Response>;
+
+type Middleware<Context> = (
+  req: IncomingMessage,
+  ctx: Partial<Context>,
+  next: Next
+) => Promise<Response>;
+
+function twirpHandler<Context>(services: ServiceHandler[]) {
+  return async (req: IncomingMessage, ctx: Context): Promise<Response> => {
     const parsed = parseRequest(req);
     if (!parsed.ok) {
-      res.writeHead(400, { "Content-Type": "application/json" });
-      res.end(
-        JSON.stringify({
-          code: "malformed",
-          msg: parsed.result,
-        })
-      );
-      return;
+      return TwirpErrorResponse({ code: "malformed", msg: parsed.result });
     }
 
     const body = await getBody(req);
@@ -200,20 +208,53 @@ export function createServerHandler(
     );
 
     if (!service) {
-      res.writeHead(404, { "Content-Type": "application/json" });
-      res.end(
-        JSON.stringify({
-          code: "bad_route",
-          msg: `no handler for path POST ${req.url}.`,
-        })
-      );
-      return;
+      return TwirpErrorResponse({
+        code: "bad_route",
+        msg: `no handler for path POST ${req.url}.`,
+      });
     }
 
-    const response = service.methods[serviceMethod](request);
-    res.writeHead(response.status, {
-      "Content-Type": request.contentType,
-    });
-    res.end(response.body);
+    const response = await service.methods[serviceMethod](request, ctx);
+    return response;
   };
+}
+
+interface TwirpServer<Context> {
+  (req: IncomingMessage, res: ServerResponse): void;
+  use: (middleware: Middleware<Context>) => void;
+}
+
+export function createTwirpServer<Context = unknown>(
+  services: ServiceHandler[]
+): TwirpServer<Context> {
+  const twirp = twirpHandler(services);
+  const middleware: Middleware<Context>[] = [];
+
+  async function app(req: IncomingMessage, res: ServerResponse): Promise<void> {
+    const ctx = {};
+
+    let response: Response;
+    try {
+      let idx = 1;
+      response = await middleware[0](req, ctx, function next() {
+        const nxt = middleware[idx] ?? twirp;
+        idx++;
+        return nxt(req, ctx, next);
+      });
+    } catch (error) {
+      response = TwirpErrorResponse({
+        code: "internal",
+        msg: "server error",
+      });
+    }
+
+    res.writeHead(response.status, response.headers);
+    res.end(response.body);
+  }
+
+  app.use = (handler: Middleware<Context>) => {
+    middleware.push(handler);
+  };
+
+  return app;
 }

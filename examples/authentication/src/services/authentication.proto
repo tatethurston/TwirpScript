@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service Authentication {
+  // Login in a user
+  rpc Login(Credentials) returns (CurrentUser);
+}
+
+message CurrentUser {
+  string username = 1;
+  string token = 2;
+}
+
+message Credentials {
+  string username = 1;
+  string password = 2;
+}

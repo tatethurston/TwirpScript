@@ -1,24 +1,38 @@
 import { createServer } from "http";
-import { createServerHandler } from "twirpscript";
+import { createTwirpServer } from "twirpscript";
 import { HaberdasherServiceHandler } from "./haberdasher";
 
 const PORT = 8080;
 
-const twirpHandler = createServerHandler([HaberdasherServiceHandler]);
-const server = createServer((req, res) => {
-  // CORS
-  res.setHeader("Access-Control-Allow-Origin", "*");
+const app = createTwirpServer([HaberdasherServiceHandler]);
 
+// CORS
+app.use(async (req, _ctx, next) => {
   if (req.method === "OPTIONS") {
-    res.setHeader("Access-Control-Request-Method", "*");
-    res.setHeader("Access-Control-Allow-Methods", "*");
-    res.setHeader("Access-Control-Allow-Headers", "*");
-    res.writeHead(204);
-    res.end();
-    return;
+    return {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Request-Method": "*",
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers": "*",
+        "Content-Type": "application/json",
+      },
+      body: "",
+    };
   }
 
-  return twirpHandler(req, res);
+  const { status, headers, body } = await next();
+  return {
+    status,
+    body,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      ...headers,
+    },
+  };
 });
 
-server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+createServer(app).listen(PORT, () =>
+  console.log(`Server listening on port ${PORT}`)
+);

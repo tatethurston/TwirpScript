@@ -1,4 +1,4 @@
-import { Haberdasher, HaberdasherHandler } from "./service.pb";
+import { Haberdasher, HaberdasherHandler } from "../../services/haberdasher.pb";
 
 function choose<T>(list: T[]): T {
   return list[Math.floor(Math.random() * list.length)];

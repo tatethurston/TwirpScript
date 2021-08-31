@@ -1,13 +1,7 @@
-type TwirpResponse = TwirpError | Record<string, unknown>;
-
 export interface TwirpError {
   code: ErrorCode;
   msg: string;
   meta?: Record<string, string>;
-}
-
-export function TwirpError(error: TwirpError): void {
-  throw error;
 }
 
 interface TwirpIntermediaryError extends TwirpError {
@@ -60,16 +54,17 @@ export const statusCodeForErrorCode = {
   data_loss: 500,
 } as const;
 
-export function isTwirpError<E extends TwirpResponse>(
-  error: E
-): error is E & TwirpError {
-  return error && "code" in error;
+export function isTwirpError(error: any | TwirpError): error is TwirpError {
+  return (error as TwirpError)?.code in statusCodeForErrorCode;
 }
 
-export function isTwirpIntermediaryError<E extends TwirpResponse>(
-  error: E
-): error is E & TwirpIntermediaryError {
-  return (error.meta as any)?.http_error_from_intermediary === "true";
+export function isTwirpIntermediaryError(
+  error: any | TwirpError
+): error is TwirpError {
+  if (isTwirpError(error)) {
+    return error.meta?.http_error_from_intermediary === "true";
+  }
+  return false;
 }
 
 function errorCodeFromStatusCode(status: number): ErrorCode {
@@ -90,7 +85,9 @@ function errorCodeFromStatusCode(status: number): ErrorCode {
   return statusError[status] ?? "internal";
 }
 
-export async function twirpError(res: Response): Promise<TwirpError> {
+export async function twirpErrorFromResponse(
+  res: Response
+): Promise<TwirpError> {
   const text = await res.text();
   try {
     const json = JSON.parse(text);
@@ -106,11 +103,8 @@ export async function twirpError(res: Response): Promise<TwirpError> {
       http_error_from_intermediary: "true",
       status_code: res.status.toString(),
       body: text,
+      location: res.headers.get("Location") ?? undefined,
     },
   };
-  const location = res.headers.get("Location");
-  if (location) {
-    errorFromIntermediary.meta["location"] = location;
-  }
   return errorFromIntermediary;
 }

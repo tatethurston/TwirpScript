@@ -28,9 +28,19 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
 ## Installation 📦
 
 1. Install the [protocol buffers compiler](https://developers.google.com/protocol-buffers):
-   - `brew install protobuf`
+   `brew install protobuf` (MacOS. [See other installation options](https://grpc.io/docs/protoc-installation/))
+
 1. Add this package to your project:
-   - `yarn add twirpscript`
+   `yarn add twirpscript`
+
+## Features 🛠
+
+1. Leans on Google's [protobuf js](https://github.com/protocolbuffers/protobuf/tree/master/js) library as much as possible for serialization and deserialization.
+2. Generates idiomatic JavaScript interfaces, none of the Java idioms that Google's JavaScript implementation presents like `{$field}List` naming for repeated fields or all of the getter / setter methods. Simple JavaScript objects over classes).
+3. Protobuf comments become [TSDoc](https://github.com/microsoft/tsdoc) comments and will show inline in supported editors.
+4. Generated clients work server side\* and are also optimized for the browser. Tree shakeable.
+
+\* Requires that the runtime provides `fetch`. See [Compatibility](#compatibility-) for more details.
 
 ## Getting Started
 
@@ -76,7 +86,7 @@ message Hat {
 
 #### 2. Run `yarn twirpscript`
 
-This will generate `service.pb.ts` in the same directory as as `service.proto`.
+This will generate `service.pb.ts` in the same directory as as `service.proto`. Any comments will become [TSDoc](https://github.com/microsoft/tsdoc) comments and will show inline in supported editors.
 
 #### 3. Implement the generated service interface to build your service.
 
@@ -104,15 +114,16 @@ export const HaberdasherServiceHandler = HaberdasherHandler(HaberdasherService);
 
 ```ts
 import { createServer } from "http";
-import { createServerHandler } from "twirpscript";
+import { createTwirpServer } from "twirpscript";
 import { HaberdasherServiceHandler } from "./haberdasher";
 
 const PORT = 8080;
 
-const twirpHandler = createServerHandler([HaberdasherServiceHandler]);
-const server = createServer(twirpHandler);
+const app = createTwirpServer([HaberdasherServiceHandler]);
 
-server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+createServer(app).listen(PORT, () =>
+  console.log(`Server listening on port ${PORT}`)
+);
 ```
 
 #### 5. Client
@@ -124,8 +135,7 @@ That's it for the server! Now you can use the generated clients to make `json` o
 ```ts
 import { MakeHat } from "./server/haberdasher/service.pb";
 
-const size = { inches: 12 };
-const hat = await MakeHat("http://localhost:8080", size);
+const hat = await MakeHat("http://localhost:8080", { inches: 12 });
 console.log(hat);
 ```
 
@@ -137,17 +147,11 @@ console.log(hat);
 
 ## Examples 🚀
 
-Checkout out a [fullstack example](https://github.com/tatethurston/twirpscript/blob/main/examples/basic-fullstack) of a browser client and server implementation.
-
-## FAQ
-
-> What about middleware? Does this work with Express?
-
-Yes, the server implementation can be plugged into any [connect framework](https://www.npmjs.com/package/connect). See the [connect example](https://github.com/tatethurston/twirpscript/blob/main/examples/connect) for an example implementation.
+Checkout out the [fullstack example](https://github.com/tatethurston/twirpscript/blob/main/examples/basic-fullstack) for a minimal browser client and server implementation. Or the [authentication example](https://github.com/tatethurston/twirpscript/blob/main/examples/authentication).
 
 ## Compatibility 🛠
 
-The default clients use `fetch` so your runtime must include `fetch`.
+The default clients use `fetch` so your runtime must include `fetch`. See an [example](https://github.com/tatethurston/TwirpScript/blob/main/examples/twirp-clientcompat/src/client-harness.ts#L11-L12) from the `clientcompat` test example.
 
 ## Contributing 👫
 

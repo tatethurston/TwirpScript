@@ -147,7 +147,7 @@ console.log(hat);
 
 ## Examples 🚀
 
-The documentation is a work in progress. Checkout the source code in examples directory:
+The documentation is a work in progress. Checkout the examples in the examples directory:
 
 - The [fullstack example](https://github.com/tatethurston/twirpscript/blob/main/examples/basic-fullstack) shows a minimal browser client and server implementation.
 - The [authentication example](https://github.com/tatethurston/twirpscript/blob/main/examples/authentication) extends the fullstack example to demonstrate authentication using tokens.

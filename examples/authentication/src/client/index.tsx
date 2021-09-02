@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import { render } from "react-dom";
 import { TwirpError } from "twirpscript";
-import { CurrentUser, Login } from "../services/authentication.pb";
-import { MakeHat, Hat, Size } from "../services/haberdasher.pb";
+import { CurrentUser, Login } from "../protos/authentication.pb";
+import { MakeHat, Hat, Size } from "../protos/haberdasher.pb";
 
 const _fetch = window.fetch;
 window.fetch = (resource, init) => {

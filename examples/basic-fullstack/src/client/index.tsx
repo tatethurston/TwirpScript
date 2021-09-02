@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { render } from "react-dom";
-import { MakeHat, Hat, Size } from "../services/haberdasher.pb";
+import { MakeHat, Hat, Size } from "../protos/haberdasher.pb";
 
 function formatHat(hat: Hat): string {
   return `${hat.color} ${hat.name}, ${hat.inches} inches`;

@@ -25,6 +25,15 @@ Twirp is a simple RPC framework built on [protocol buffers](https://developers.g
 
 To learn more about the motivation behind Twirp (and a comparison to REST APIs and gRPC), check out the [announcement blog](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f/).
 
+## Features 🛠
+
+1. Only one runtime dependency: Google's [protobuf js](https://github.com/protocolbuffers/protobuf/tree/master/js).
+2. A custom TypeScript plugin for `protoc` that generates idiomatic JavaScript interfaces. None of the Java idioms that `protoc --js_out` generates like the `{$field}List` naming for repeated fields, the various getter / setter methods, and uses plain JavaScript objects over classes.
+3. Comments in your `proto` file become [TSDoc](https://github.com/microsoft/tsdoc) comments and will show inline in supported editors.
+4. Isomorphic clients that work server side\* and are also optimized for the browser. The clients are built with [tree shaking](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking), meaning that you you can drop the one runtime dependency, `protobuf js`, when using only the generated JSON clients.
+
+\* Requires that the runtime provides `fetch`. See [Compatibility](#compatibility-) for more details.
+
 ## Installation 📦
 
 1. Install the [protocol buffers compiler](https://developers.google.com/protocol-buffers):
@@ -32,15 +41,6 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
 
 1. Add this package to your project:
    `yarn add twirpscript`
-
-## Features 🛠
-
-1. Leans on Google's [protobuf js](https://github.com/protocolbuffers/protobuf/tree/master/js) library as much as possible for serialization and deserialization.
-2. Generates idiomatic JavaScript interfaces, none of the Java idioms that Google's JavaScript implementation presents like `{$field}List` naming for repeated fields or all of the getter / setter methods. Simple JavaScript objects over classes).
-3. Protobuf comments become [TSDoc](https://github.com/microsoft/tsdoc) comments and will show inline in supported editors.
-4. Generated clients work server side\* and are also optimized for the browser. Tree shakeable.
-
-\* Requires that the runtime provides `fetch`. See [Compatibility](#compatibility-) for more details.
 
 ## Getting Started
 
@@ -58,12 +58,10 @@ To make a Twirp service:
 
 Create a `proto` specification file:
 
-`src/server/haberdasher/service.proto`
+`src/server/haberdasher/haberdasher.proto`
 
 ```protobuf
 syntax = "proto3";
-
-package twirp.example.haberdasher;
 
 // Haberdasher service makes hats for clients.
 service Haberdasher {
@@ -86,16 +84,18 @@ message Hat {
 
 #### 2. Run `yarn twirpscript`
 
-This will generate `service.pb.ts` in the same directory as as `service.proto`. Any comments will become [TSDoc](https://github.com/microsoft/tsdoc) comments and will show inline in supported editors.
+This will generate `haberdasher.pb.ts` in the same directory as as `haberdasher.proto`. Any comments will become [TSDoc](https://github.com/microsoft/tsdoc) comments and will show inline in supported editors.
+
+`yarn twirpscript` will compile all`.proto` files in your project.
 
 #### 3. Implement the generated service interface to build your service.
 
-`src/haberdasher/index.ts`
+`src/server/haberdasher/index.ts`
 
 ```ts
-import { Haberdasher, HaberdasherHandler } from "./service.pb";
+import { HaberdasherService, createHaberdasherHandler } from "./service.pb";
 
-export const HaberdasherService: Haberdasher = {
+const Haberdasher: HaberdasherService = {
   MakeHat: (size) => {
     return {
       inches: size.inches,
@@ -105,7 +105,7 @@ export const HaberdasherService: Haberdasher = {
   },
 };
 
-export const HaberdasherServiceHandler = HaberdasherHandler(HaberdasherService);
+export const HaberdasherHandler = createHaberdasherHandler(HaberdasherService);
 ```
 
 #### 4. Attach your implemented service to your application server.
@@ -115,11 +115,11 @@ export const HaberdasherServiceHandler = HaberdasherHandler(HaberdasherService);
 ```ts
 import { createServer } from "http";
 import { createTwirpServer } from "twirpscript";
-import { HaberdasherServiceHandler } from "./haberdasher";
+import { HaberdasherHandler } from "./haberdasher";
 
 const PORT = 8080;
 
-const app = createTwirpServer([HaberdasherServiceHandler]);
+const app = createTwirpServer([HaberdasherHandler]);
 
 createServer(app).listen(PORT, () =>
   console.log(`Server listening on port ${PORT}`)
@@ -133,7 +133,7 @@ That's it for the server! Now you can use the generated clients to make `json` o
 `src/client.ts`
 
 ```ts
-import { MakeHat } from "./server/haberdasher/service.pb";
+import { MakeHat } from "./server/haberdasher/haberdasher.pb";
 
 const hat = await MakeHat("http://localhost:8080", { inches: 12 });
 console.log(hat);
@@ -147,7 +147,12 @@ console.log(hat);
 
 ## Examples 🚀
 
-Checkout out the [fullstack example](https://github.com/tatethurston/twirpscript/blob/main/examples/basic-fullstack) for a minimal browser client and server implementation. Or the [authentication example](https://github.com/tatethurston/twirpscript/blob/main/examples/authentication).
+The documentation is a work in progress. Checkout the source code in examples directory:
+
+- The [fullstack example](https://github.com/tatethurston/twirpscript/blob/main/examples/basic-fullstack) shows a minimal browser client and server implementation.
+- The [authentication example](https://github.com/tatethurston/twirpscript/blob/main/examples/authentication) extends the fullstack example to demonstrate authentication using tokens.
+
+The examples also include testing via [jest](https://jestjs.io/).
 
 ## Compatibility 🛠
 

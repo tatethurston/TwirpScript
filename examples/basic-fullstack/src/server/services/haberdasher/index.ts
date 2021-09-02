@@ -1,10 +1,13 @@
-import { Haberdasher, HaberdasherHandler } from "../../services/haberdasher.pb";
+import {
+  HaberdasherService,
+  createHaberdasherHandler,
+} from "../../../protos/haberdasher.pb";
 
 function choose<T>(list: T[]): T {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-export const HaberdasherService: Haberdasher = {
+export const Haberdasher: HaberdasherService = {
   MakeHat: (size) => {
     return {
       inches: size.inches,
@@ -14,4 +17,4 @@ export const HaberdasherService: Haberdasher = {
   },
 };
 
-export const HaberdasherServiceHandler = HaberdasherHandler(HaberdasherService);
+export const HaberdasherHandler = createHaberdasherHandler(Haberdasher);

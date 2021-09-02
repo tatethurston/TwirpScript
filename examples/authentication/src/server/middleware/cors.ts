@@ -1,13 +1,6 @@
-import { createServer } from "http";
-import { createTwirpServer } from "twirpscript";
-import { HaberdasherHandler } from "./services";
+import type { Middleware } from "twirpscript";
 
-const PORT = 8080;
-
-const app = createTwirpServer([HaberdasherHandler]);
-
-// CORS
-app.use(async (req, _ctx, next) => {
+export const cors: Middleware = async (req, _ctx, next) => {
   if (req.method === "OPTIONS") {
     return {
       status: 204,
@@ -31,8 +24,4 @@ app.use(async (req, _ctx, next) => {
       ...headers,
     },
   };
-});
-
-createServer(app).listen(PORT, () =>
-  console.log(`Server listening on port ${PORT}`)
-);
+};

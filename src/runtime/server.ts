@@ -26,11 +26,14 @@ interface ServiceMethod<Context = unknown> {
   decode: any;
 }
 
-type Handler = (req: Request, ctx: unknown) => Promise<Response> | Response;
+type Handler<Context> = (
+  req: Request,
+  ctx: Context
+) => Promise<Response> | Response;
 
-export interface ServiceHandler {
+export interface ServiceHandler<Context> {
   path: string;
-  methods: Record<string, Handler>;
+  methods: Record<string, Handler<Context>>;
 }
 
 export function TwirpErrorResponse(error: TwirpError): Response {
@@ -62,11 +65,11 @@ function parseProto<T>(
   }
 }
 
-export function createMethodHandler<T>({
+export function createMethodHandler<T, Context>({
   handler,
   encode,
   decode,
-}: ServiceMethod): Handler {
+}: ServiceMethod<Context>): Handler<Context> {
   return async (req, context) => {
     try {
       switch (req.headers["Content-Type"]) {
@@ -178,13 +181,13 @@ function parseRequest(req: IncomingMessage): ParsedRequest {
 
 type Next = () => Promise<Response>;
 
-type Middleware<Context> = (
+export type Middleware<Context = unknown> = (
   req: IncomingMessage,
   ctx: Partial<Context>,
   next: Next
 ) => Promise<Response>;
 
-function twirpHandler<Context>(services: ServiceHandler[]) {
+function twirpHandler<Context>(services: ServiceHandler<Context>[]) {
   return async (req: IncomingMessage, ctx: Context): Promise<Response> => {
     const parsed = parseRequest(req);
     if (!parsed.ok) {
@@ -225,7 +228,7 @@ interface TwirpServer<Context> {
 }
 
 export function createTwirpServer<Context = unknown>(
-  services: ServiceHandler[]
+  services: ServiceHandler<Context>[]
 ): TwirpServer<Context> {
   const twirp = twirpHandler(services);
   const middleware: Middleware<Context>[] = [];

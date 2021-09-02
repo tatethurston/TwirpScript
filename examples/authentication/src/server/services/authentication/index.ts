@@ -1,11 +1,16 @@
+import {
+  AuthenticationService,
+  createAuthenticationHandler,
+  CurrentUser,
+  Credentials,
+} from "../../../protos/authentication.pb";
 import { randomBytes } from "crypto";
-import { CurrentUser, Credentials } from "../../../services/authentication.pb";
 
 const users = [{ username: "example", password: "1234" }];
 
 const sessions: CurrentUser[] = [];
 
-export function login(credentials: Credentials): CurrentUser | undefined {
+function login(credentials: Credentials): CurrentUser | undefined {
   const user = users.find(
     (u) =>
       u.username === credentials.username && u.password === credentials.password
@@ -27,3 +32,20 @@ export function getCurrentUser(
   }
   return sessions.find((s) => s.token === token);
 }
+
+export const Authentication: AuthenticationService = {
+  Login: (credentials) => {
+    const user = login(credentials);
+    if (!user) {
+      throw {
+        code: "invalid_argument",
+        msg: "Invalid username or password",
+      };
+    }
+    return user;
+  },
+};
+
+export const AuthenticationHandler = createAuthenticationHandler(
+  Authentication
+);

@@ -247,14 +247,14 @@ function writeServers(
     if (service.comments?.leading) {
       result += printComments(service.comments.leading);
     }
-    result += `export interface ${service.name}<Context = unknown> {\n`;
+    result += `export interface ${service.name}Service<Context = unknown> {\n`;
     service.methods.forEach((method) => {
       if (method.comments?.leading) {
         result += printComments(method.comments.leading);
       }
       result += `${method.name}: (${lowerCase(method.input ?? "")}: ${
         method.input
-      }, context?: Context) => Promise<${method.output}> | ${method.output};\n`;
+      }, context: Context) => Promise<${method.output}> | ${method.output};\n`;
     });
     result += "}\n";
   });
@@ -262,9 +262,9 @@ function writeServers(
   result += "\n";
 
   services.forEach((service) => {
-    result += `export function ${service.name}Handler(service: ${
+    result += `export function create${service.name}Handler<Context>(service: ${
       service.name
-    }): ServiceHandler { return {
+    }Service<Context>): ServiceHandler<Context> { return {
     path: '${[packageName, service.name].filter(Boolean).join(".")}',
     methods: {\n`;
     service.methods.forEach((method) => {

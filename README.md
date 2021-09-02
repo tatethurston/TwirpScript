@@ -27,10 +27,10 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
 
 ## Features 🛠
 
-1. Only one runtime dependency: Google's [protobuf js](https://github.com/protocolbuffers/protobuf/tree/master/js).
-2. A custom TypeScript plugin for `protoc` that generates idiomatic JavaScript interfaces. None of the Java idioms that `protoc --js_out` generates like the `{$field}List` naming for repeated fields, the various getter / setter methods, and uses plain JavaScript objects over classes.
-3. Comments in your `proto` file become [TSDoc](https://github.com/microsoft/tsdoc) comments and will show inline in supported editors.
-4. Isomorphic clients that work server side\* and are also optimized for the browser. The clients are built with [tree shaking](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking), meaning that you you can drop the one runtime dependency, `protobuf js`, when using only the generated JSON clients.
+1. One runtime dependency: Google's [protobuf js](https://github.com/protocolbuffers/protobuf/tree/master/js) for protobuf serialization / deserialization.
+2. A custom TypeScript plugin for `protoc` that generates idiomatic JavaScript interfaces. None of the Java idioms that `protoc --js_out` generates like the `{$field}List` naming for repeated fields or the various getter / setter methods. The TwirpScript plugin uses plain JavaScript objects over classes.
+3. Comments in `proto` files become [TSDoc](https://github.com/microsoft/tsdoc) comments that will show documentation inline in supported editors.
+4. Isomorphic clients that work server side\* and are also optimized for the browser. The clients are built with [tree shaking](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking) in mind. You you can drop the one runtime dependency, `protobuf js`, when using only the generated JSON clients and a bundler that supports tree shaking.
 
 \* Requires that the runtime provides `fetch`. See [Compatibility](#compatibility-) for more details.
 

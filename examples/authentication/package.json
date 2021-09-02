@@ -1,7 +1,7 @@
 {
   "name": "authentication",
   "scripts": {
-    "start": "yarn build && open dist/index.html && node dist/server/index.js",
+    "start": "yarn twirpscript && yarn build && open dist/index.html && node dist/server/index.js",
     "build": "yarn tsc && yarn webpack",
     "test": "yarn jest"
   },

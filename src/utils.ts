@@ -1,12 +1,12 @@
 import { execSync } from "child_process";
 import { dirname, relative } from "path";
-import { CodeGeneratorRequest } from "google-protobuf/google/protobuf/compiler/plugin_pb";
-import {
+import type { CodeGeneratorRequest } from "google-protobuf/google/protobuf/compiler/plugin_pb";
+import type {
   DescriptorProto,
   FileDescriptorProto,
   EnumDescriptorProto,
-  FieldDescriptorProto,
 } from "google-protobuf/google/protobuf/descriptor_pb";
+import { FieldDescriptorProto } from "google-protobuf/google/protobuf/descriptor_pb";
 import { BinaryReader, BinaryWriter } from "google-protobuf";
 
 export function lowerCase(str: string): string {

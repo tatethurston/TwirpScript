@@ -1,17 +1,21 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "declaration": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "noEmitOnError": false,
     "outDir": "dist",
     "removeComments": false,
+    "resolveJsonModule": true,
     "rootDir": "src",
+    "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,
-    "target": "ES2019",
-    "declaration": true
+    "target": "ESNext"
   },
   "include": ["src"]
 }

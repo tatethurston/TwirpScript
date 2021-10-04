@@ -1,8 +1,7 @@
 export { JSONrequest, PBrequest } from "./client";
-export { TwirpError } from "./error";
+export type { TwirpError } from "./error";
+export type { ServiceHandler, Middleware } from "./server";
 export {
-  ServiceHandler,
-  Middleware,
   TwirpErrorResponse,
   createMethodHandler,
   createTwirpServer,

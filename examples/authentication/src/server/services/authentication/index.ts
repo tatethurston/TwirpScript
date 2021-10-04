@@ -46,6 +46,5 @@ export const Authentication: AuthenticationService = {
   },
 };
 
-export const AuthenticationHandler = createAuthenticationHandler(
-  Authentication
-);
+export const AuthenticationHandler =
+  createAuthenticationHandler(Authentication);

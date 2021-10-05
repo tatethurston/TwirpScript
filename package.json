@@ -1,6 +1,6 @@
 {
   "name": "twirpscript",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Autogenerate Twirp Clients and Servers in TypeScript",
   "license": "MIT",
   "author": "Tate Thurston <tatethurston@gmail.com>",

@@ -1,9 +1,12 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src",
+    "jsx": "react-jsx",
+    "module": "commonjs",
+    "moduleResolution": "Node",
     "outDir": "dist",
-    "jsx": "react-jsx"
+    "rootDir": "src",
+    "strict": true,
+    "target": "ES2019"
   },
   "include": ["src"]
 }

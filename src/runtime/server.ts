@@ -246,6 +246,7 @@ export function createTwirpServer<Context = unknown>(
         return nxt(req, ctx, next);
       });
     } catch (error) {
+      console.error(error);
       response = TwirpErrorResponse({
         code: "internal",
         msg: "server error",

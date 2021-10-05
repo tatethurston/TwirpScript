@@ -202,7 +202,7 @@ function writeClients(
 
       result += `\
 export async function ${method.name}(${input}: ${method.input}, config?: ClientConfiguration): Promise<${method.output}> {
-  const response = await PBrequest('${path}', ${method.input}.encode(${input}));
+  const response = await PBrequest('${path}', ${method.input}.encode(${input}), config);
   return ${method.output}.decode(response);
 }
 
@@ -224,7 +224,7 @@ export async function ${method.name}(${input}: ${method.input}, config?: ClientC
 
       result += `\
 export async function ${method.name}JSON(${input}: ${method.input}, config?: ClientConfiguration): Promise<${method.output}> {
-  const response = await JSONrequest<${method.output}>('${path}', ${input});
+  const response = await JSONrequest<${method.output}>('${path}', ${input}, config);
   return response;
 }
 

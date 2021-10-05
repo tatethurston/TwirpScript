@@ -6,12 +6,12 @@ import { MakeHat, Hat, Size } from "../protos/haberdasher.pb";
 import { client } from "twirpscript";
 
 client.baseURL = "http://localhost:8080";
+
 client.use((config, next) => {
   const auth = localStorage.getItem("auth");
   if (auth) {
     config.headers["authorization"] = `bearer ${auth}`;
   }
-  console.log("ok");
   return next(config);
 });
 

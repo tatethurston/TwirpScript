@@ -231,16 +231,17 @@ export function createTwirpServer<Context = unknown>(
   services: ServiceHandler<Context>[]
 ): TwirpServer<Context> {
   const twirp = twirpHandler(services);
-  const middleware: Middleware<Context>[] = [];
+  const serverMiddleware: Middleware<Context>[] = [];
 
   async function app(req: IncomingMessage, res: ServerResponse): Promise<void> {
-    const ctx = {};
+    const ctx: Context = {} as Context;
 
     let response: Response;
     try {
       let idx = 1;
+      const middleware = [...serverMiddleware, twirp];
       response = await middleware[0](req, ctx, function next() {
-        const nxt = middleware[idx] ?? twirp;
+        const nxt = middleware[idx];
         idx++;
         return nxt(req, ctx, next);
       });
@@ -256,7 +257,7 @@ export function createTwirpServer<Context = unknown>(
   }
 
   app.use = (handler: Middleware<Context>) => {
-    middleware.push(handler);
+    serverMiddleware.push(handler);
   };
 
   return app;

@@ -1,6 +1,9 @@
 import { FC, useState } from "react";
 import { render } from "react-dom";
 import { MakeHat, Hat, Size } from "../protos/haberdasher.pb";
+import { client } from "twirpscript";
+
+client.baseURL = "http://localhost:8080";
 
 function formatHat(hat: Hat): string {
   return `${hat.color} ${hat.name}, ${hat.inches} inches`;
@@ -12,7 +15,7 @@ const App: FC = () => {
 
   async function makeHat() {
     if (size) {
-      const hat = await MakeHat("http://localhost:8080", size);
+      const hat = await MakeHat(size);
       setHats((hats) => [...hats, hat]);
     }
   }

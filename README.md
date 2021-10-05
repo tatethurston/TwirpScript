@@ -135,7 +135,7 @@ That's it for the server! Now you can use the generated clients to make `json` o
 ```ts
 import { MakeHat } from "./server/haberdasher/haberdasher.pb";
 
-const hat = await MakeHat("http://localhost:8080", { inches: 12 });
+const hat = await MakeHat({ inches: 12 }, { baseURL: "http://localhost:8080" });
 console.log(hat);
 ```
 

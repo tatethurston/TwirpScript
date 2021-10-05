@@ -3,17 +3,17 @@ import { render } from "react-dom";
 import { TwirpError } from "twirpscript";
 import { CurrentUser, Login } from "../protos/authentication.pb";
 import { MakeHat, Hat, Size } from "../protos/haberdasher.pb";
+import { client } from "twirpscript";
 
-const _fetch = window.fetch;
-window.fetch = (resource, init) => {
-  const headers = init?.headers ?? {};
+client.baseURL = "http://localhost:8080";
+client.use((config, next) => {
   const auth = localStorage.getItem("auth");
   if (auth) {
-    (headers as any)["authorization"] = `bearer ${auth}`;
+    config.headers["authorization"] = `bearer ${auth}`;
   }
-
-  return _fetch(resource, { ...init, headers });
-};
+  console.log("ok");
+  return next(config);
+});
 
 function formatHat(hat: Hat): string {
   return `${hat.color} ${hat.name}, ${hat.inches} inches`;
@@ -31,7 +31,7 @@ const App: FC = () => {
     if (username && password) {
       try {
         setError(undefined);
-        const currentUser = await Login("http://localhost:8080", {
+        const currentUser = await Login({
           username,
           password,
         });
@@ -54,7 +54,7 @@ const App: FC = () => {
     if (size) {
       try {
         setError(undefined);
-        const hat = await MakeHat("http://localhost:8080", size);
+        const hat = await MakeHat(size);
         setHats((hats) => [...hats, hat]);
         setSize(undefined);
       } catch (e) {

@@ -37,7 +37,17 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
 ## Installation 📦
 
 1. Install the [protocol buffers compiler](https://developers.google.com/protocol-buffers):
-   `brew install protobuf` (MacOS. [See other installation options](https://grpc.io/docs/protoc-installation/))
+
+   MacOS:
+   `brew install protobuf`
+
+   Linux:
+   `apt install -y protobuf-compiler`
+
+   Windows:
+   `choco install protoc`
+
+   Or install from a [precompiled binary](https://github.com/protocolbuffers/protobuf/releases).
 
 1. Add this package to your project:
    `yarn add twirpscript`

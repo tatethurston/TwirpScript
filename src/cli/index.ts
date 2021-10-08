@@ -69,9 +69,19 @@ const protos = findFiles(src, ".proto").map((filepath) =>
 
 if (!commandIsInPath("protoc")) {
   console.error(
-    `Could not find the protobuf compiler. Please make sure 'protoc' is installed and in your '$PATH'. Install via:
+    `Could not find the protobuf compiler. Please make sure 'protoc' is installed and in your '$PATH'.
 
-  brew install protobuf
+  MacOS:
+    \`brew install protobuf\`
+
+  Linux:
+    \`apt install -y protobuf-compiler\` 
+
+  Windows:
+    \`choco install protoc\`
+
+  Or install from a precompiled binary:
+    https://github.com/protocolbuffers/protobuf/releases
 `
   );
   process.exit(1);
@@ -81,7 +91,13 @@ try {
   const res = spawnSync(
     `\
 protoc \
-  --plugin=protoc-gen-twirpscript=./node_modules/twirpscript/dist/compiler.js \
+  --plugin=protoc-gen-twirpscript=${join(
+    ".",
+    "node_modules",
+    "twirpscript",
+    "dist",
+    "compiler.js"
+  )} \
   --twirpscript_out=. \
   ${protos.join(" ")}
 `,

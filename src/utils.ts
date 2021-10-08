@@ -34,8 +34,10 @@ const MessageLabel = {
 };
 
 export function commandIsInPath(cmd: string): boolean {
+  const isWindows = process.platform === "win32";
   try {
-    execSync(`which ${cmd}`);
+    const check = isWindows ? "where" : "which";
+    execSync(`${check} ${cmd}`);
     return true;
   } catch {
     return false;

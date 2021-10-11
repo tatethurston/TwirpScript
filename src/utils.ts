@@ -9,6 +9,8 @@ import type {
 import { FieldDescriptorProto } from "google-protobuf/google/protobuf/descriptor_pb";
 import { BinaryReader, BinaryWriter } from "google-protobuf";
 
+export const isWindows = process.platform === "win32";
+
 export function lowerCase(str: string): string {
   return str[0].toLowerCase() + str.slice(1);
 }
@@ -34,7 +36,6 @@ const MessageLabel = {
 };
 
 export function commandIsInPath(cmd: string): boolean {
-  const isWindows = process.platform === "win32";
   try {
     const check = isWindows ? "where" : "which";
     execSync(`${check} ${cmd}`);

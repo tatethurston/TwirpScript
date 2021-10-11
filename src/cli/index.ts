@@ -3,7 +3,7 @@
 import { spawnSync } from "child_process";
 import { readdirSync, existsSync, readFileSync, statSync } from "fs";
 import { join, relative } from "path";
-import { commandIsInPath } from "../utils";
+import { commandIsInPath, isWindows } from "../utils";
 
 export type UserConfig = Partial<Config>;
 
@@ -96,7 +96,7 @@ protoc \
     "node_modules",
     "twirpscript",
     "dist",
-    "compiler.js"
+    `compiler.${isWindows ? "cmd" : "js"}`
   )} \
   --twirpscript_out=. \
   ${protos.join(" ")}

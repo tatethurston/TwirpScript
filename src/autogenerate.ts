@@ -11,30 +11,26 @@ function writeTypes(types: ProtoTypes[]): string {
   let result = "";
 
   types.forEach((node) => {
+    const name = node.content.name;
     if (node.content.comments?.leading) {
       result += printComments(node.content.comments?.leading);
     }
     if (node.type === "enum") {
-      result += `export enum ${node.content.name} {\n`;
-      node.content.values.forEach(({ name, value, comments }) => {
-        if (comments?.leading) {
-          result += printComments(comments?.leading);
-        }
-        result += `${name} = ${value},\n`;
-      });
-      result += "}\n\n";
+      result += `export type ${name} = typeof ${node.content.fullyQualifiedName}[keyof typeof ${node.content.fullyQualifiedName}];\n\n`;
     } else {
-      result += `export interface ${node.content.name} {\n`;
-      node.content.fields.forEach(({ name, tsType, repeated, comments }) => {
-        if (comments?.leading) {
-          result += printComments(comments?.leading);
+      result += `export interface ${name} {\n`;
+      node.content.fields.forEach(
+        ({ name: fieldName, tsType, repeated, comments }) => {
+          if (comments?.leading) {
+            result += printComments(comments?.leading);
+          }
+          result += `${fieldName}: ${tsType}${repeated ? "[]" : ""};\n`;
         }
-        result += `${name}: ${tsType}${repeated ? "[]" : ""};\n`;
-      });
+      );
       result += "}\n\n";
 
       if (node.children.length > 0) {
-        result += `export namespace ${node.content.name} { \n`;
+        result += `export namespace ${name} { \n`;
         result += writeTypes(node.children) + "\n\n";
         result += `}\n\n`;
       }
@@ -44,14 +40,21 @@ function writeTypes(types: ProtoTypes[]): string {
   return result;
 }
 
-function writeSerializers(types: ProtoTypes[]): string {
+function writeSerializers(
+  types: ProtoTypes[],
+  isTopLevel: boolean = true
+): string {
   let result = "";
 
   types.forEach((node) => {
-    if (node.type === "message") {
-      result += `export namespace ${node.content.name} {`;
-      result += `
-        export function writeMessage(msg: ${
+    result += isTopLevel
+      ? `export const ${node.content.name} = {`
+      : `${node.content.name}: {`;
+
+    switch (node.type) {
+      case "message": {
+        result += `
+        writeMessage: function(msg: ${
           node.content.fullyQualifiedName
         }, writer: BinaryWriter): void {
           ${node.content.fields
@@ -74,17 +77,19 @@ function writeSerializers(types: ProtoTypes[]): string {
                 }`
             )
             .join("\n")}
-        }
+        },
         
-        export function encode(${lowerCase(node.content.name)}: ${
-        node.content.fullyQualifiedName
-      }): Uint8Array {
+        encode: function(${lowerCase(node.content.name)}: ${
+          node.content.fullyQualifiedName
+        }): Uint8Array {
           const writer = new BinaryWriter();
-          writeMessage(${lowerCase(node.content.name)}, writer);
+          ${node.content.name}.writeMessage(${lowerCase(
+          node.content.name
+        )}, writer);
           return writer.getResultBuffer();
-        };
+        },
 
-        export function readMessage(msg: Partial<${
+        readMessage: function(msg: Partial<${
           node.content.fullyQualifiedName
         }>, reader: BinaryReader): void {
           ${node.content.fields
@@ -113,8 +118,16 @@ function writeSerializers(types: ProtoTypes[]): string {
                   }`
                     : `${
                         field.repeated
-                          ? `msg.${field.name}.push(reader.${field.read}());`
-                          : `msg.${field.name} = reader.${field.read}();`
+                          ? `msg.${field.name}.push(reader.${field.read}() ${
+                              field.read === "readEnum"
+                                ? `as ${field.tsType}`
+                                : ""
+                            });`
+                          : `msg.${field.name} = reader.${field.read}() ${
+                              field.read === "readEnum"
+                                ? `as ${field.tsType}`
+                                : ""
+                            };`
                       }`
                 }
                 break;
@@ -140,21 +153,38 @@ function writeSerializers(types: ProtoTypes[]): string {
                 }`
             )
             .join("")}
-        }
+        },
 
-        export function decode(bytes: ByteSource): ${
+        decode: function (bytes: ByteSource): ${
           node.content.fullyQualifiedName
         } {
           const reader = new BinaryReader(bytes);
           const message = {};
-          readMessage(message, reader);
+          ${node.content.name}.readMessage(message, reader);
           return message as ${node.content.fullyQualifiedName};
-        };
+        },
+
       `;
-      if (node.children.length > 0) {
-        result += writeSerializers(node.children);
+        if (node.children.length > 0) {
+          result += writeSerializers(node.children, false);
+        }
+        result += "}\n\n";
+        break;
       }
-      result += "}\n\n";
+      case "enum": {
+        node.content.values.forEach(({ name, value, comments }) => {
+          if (comments?.leading) {
+            result += printComments(comments?.leading);
+          }
+          result += `${name}: ${value},\n`;
+        });
+        result += "} as const\n\n";
+        break;
+      }
+      default: {
+        const _exhaust: never = node;
+        return _exhaust;
+      }
     }
   });
   return result;
@@ -280,7 +310,8 @@ function writeServers(
 
 export function generate(
   fileDescriptorProto: FileDescriptorProto,
-  identifierTable: IdentifierTable
+  identifierTable: IdentifierTable,
+  isTypescript: boolean = true
 ): string {
   const { imports, services, types, packageName } = processTypes(
     fileDescriptorProto,
@@ -294,9 +325,18 @@ export function generate(
   return `\
 // THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
 // Source: ${sourceFile}
-import { BinaryReader, BinaryWriter } from "google-protobuf";
-import { JSONrequest, PBrequest, createMethodHandler } from 'twirpscript';
-import type { ClientConfiguration, ServiceHandler } from 'twirpscript';
+import {
+  BinaryReader,
+  BinaryWriter,
+  JSONrequest,
+  PBrequest,
+  createMethodHandler
+} from 'twirpscript';
+${
+  isTypescript
+    ? `import type { ByteSource, ClientConfiguration, ServiceHandler } from 'twirpscript`
+    : ""
+};
 
 ${imports
   .map(
@@ -305,14 +345,12 @@ ${imports
   )
   .join("\n")}
 
-type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
-
 ${writeClients(services, packageName)}
 
 ${writeServers(services, packageName)}
 
-${printHeading("Types")}
-${writeTypes(types)}
+${isTypescript ? printHeading("Types") : ""}
+${isTypescript ? writeTypes(types) : ""}
 
 ${printHeading("Protobuf Encode / Decode")}
 ${writeSerializers(types)}

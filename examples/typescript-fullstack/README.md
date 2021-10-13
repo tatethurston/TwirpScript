@@ -1,4 +1,4 @@
-# TwirpScript Fullstack Example
+# TwirpScript TypeScript Fullstack Example
 
 ## Getting Started
 

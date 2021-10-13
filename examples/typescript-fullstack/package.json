@@ -1,0 +1,27 @@
+{
+  "name": "ts-fullstack",
+  "scripts": {
+    "start": "yarn build && open dist/index.html && node dist/server/index.js",
+    "build": "yarn twirpscript && yarn tsc && yarn webpack",
+    "test": "yarn jest"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "twirpscript": "^0.0.15"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.0",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^13.13.5",
+    "@types/react-dom": "^17.0.9",
+    "babel-jest": "^26.6.3",
+    "jest": "^27.0.6",
+    "ts-loader": "^9.0.0",
+    "typescript": "^4.3.5",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0"
+  }
+}

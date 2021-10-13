@@ -7,13 +7,16 @@ import { commandIsInPath, isWindows } from "../utils";
 
 export type UserConfig = Partial<Config>;
 
-type Config = { src: string };
+type Config = { src: string; target: "javascript" | "typescript" };
 
 function getConfig(): Config {
   const cwd = process.cwd();
 
-  const defaultConfig = {
+  const defaultConfig: Config = {
     src: cwd,
+    target: existsSync(join(cwd, "tsconfig.json"))
+      ? "typescript"
+      : "javascript",
   };
 
   const configFilePath = join(cwd, ".twirp.json");
@@ -62,9 +65,9 @@ function findFiles(entry: string, ext: string): string[] {
     .filter((file) => file.endsWith(ext));
 }
 
-const { src } = getConfig();
-const protos = findFiles(src, ".proto").map((filepath) =>
-  relative(src, filepath)
+const config = getConfig();
+const protos = findFiles(config.src, ".proto").map((filepath) =>
+  relative(config.src, filepath)
 );
 
 if (!commandIsInPath("protoc")) {
@@ -88,7 +91,7 @@ if (!commandIsInPath("protoc")) {
 }
 
 try {
-  const res = spawnSync(
+  spawnSync(
     `\
 protoc \
   --plugin=protoc-gen-twirpscript=${join(
@@ -99,6 +102,7 @@ protoc \
     `compiler.${isWindows ? "cmd" : "js"}`
   )} \
   --twirpscript_out=. \
+  --twirpscript_opt=${config.target} \
   ${protos.join(" ")}
 `,
     { shell: true, stdio: "inherit" }

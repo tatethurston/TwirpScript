@@ -7,11 +7,6 @@ import {
   PBrequest,
   createMethodHandler,
 } from "twirpscript";
-import type {
-  ByteSource,
-  ClientConfiguration,
-  ServiceHandler,
-} from "twirpscript";
 
 //========================================//
 //      Haberdasher Protobuf Client       //
@@ -20,10 +15,7 @@ import type {
 /**
  * MakeHat produces a hat of mysterious, randomly-selected color!
  */
-export async function MakeHat(
-  size: Size,
-  config?: ClientConfiguration
-): Promise<Hat> {
+export async function MakeHat(size, config) {
   const response = await PBrequest(
     "/twirp/Haberdasher/MakeHat",
     Size.encode(size),
@@ -39,11 +31,8 @@ export async function MakeHat(
 /**
  * MakeHat produces a hat of mysterious, randomly-selected color!
  */
-export async function MakeHatJSON(
-  size: Size,
-  config?: ClientConfiguration
-): Promise<Hat> {
-  const response = await JSONrequest<Hat>(
+export async function MakeHatJSON(size, config) {
+  const response = await JSONrequest(
     "/twirp/Haberdasher/MakeHat",
     size,
     config
@@ -51,23 +40,7 @@ export async function MakeHatJSON(
   return response;
 }
 
-//========================================//
-//          Haberdasher Service           //
-//========================================//
-
-/**
- * Haberdasher service makes hats for clients.
- */
-export interface HaberdasherService<Context = unknown> {
-  /**
-   * MakeHat produces a hat of mysterious, randomly-selected color!
-   */
-  MakeHat: (size: Size, context: Context) => Promise<Hat> | Hat;
-}
-
-export function createHaberdasherHandler<Context>(
-  service: HaberdasherService<Context>
-): ServiceHandler<Context> {
+export function createHaberdasherHandler(service) {
   return {
     path: "Haberdasher",
     methods: {
@@ -81,52 +54,23 @@ export function createHaberdasherHandler<Context>(
 }
 
 //========================================//
-//                 Types                  //
-//========================================//
-
-/**
- * Size of a Hat, in inches.
- */
-export interface Size {
-  /**
-   * must be > 0
-   */
-  inches: number;
-}
-
-/**
- * A Hat is a piece of headwear made by a Haberdasher.
- */
-export interface Hat {
-  inches: number;
-  /**
-   * anything but "invisible"
-   */
-  color: string;
-  /**
-   * i.e. "bowler"
-   */
-  name: string;
-}
-
-//========================================//
 //        Protobuf Encode / Decode        //
 //========================================//
 
 export const Size = {
-  writeMessage: function (msg: Size, writer: BinaryWriter): void {
+  writeMessage: function (msg, writer) {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
     }
   },
 
-  encode: function (size: Size): Uint8Array {
+  encode: function (size) {
     const writer = new BinaryWriter();
     Size.writeMessage(size, writer);
     return writer.getResultBuffer();
   },
 
-  readMessage: function (msg: Partial<Size>, reader: BinaryReader): void {
+  readMessage: function (msg, reader) {
     while (reader.nextField()) {
       if (reader.isEndGroup()) {
         break;
@@ -148,16 +92,16 @@ export const Size = {
     }
   },
 
-  decode: function (bytes: ByteSource): Size {
+  decode: function (bytes) {
     const reader = new BinaryReader(bytes);
     const message = {};
     Size.readMessage(message, reader);
-    return message as Size;
+    return message;
   },
 };
 
 export const Hat = {
-  writeMessage: function (msg: Hat, writer: BinaryWriter): void {
+  writeMessage: function (msg, writer) {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
     }
@@ -169,13 +113,13 @@ export const Hat = {
     }
   },
 
-  encode: function (hat: Hat): Uint8Array {
+  encode: function (hat) {
     const writer = new BinaryWriter();
     Hat.writeMessage(hat, writer);
     return writer.getResultBuffer();
   },
 
-  readMessage: function (msg: Partial<Hat>, reader: BinaryReader): void {
+  readMessage: function (msg, reader) {
     while (reader.nextField()) {
       if (reader.isEndGroup()) {
         break;
@@ -211,10 +155,10 @@ export const Hat = {
     }
   },
 
-  decode: function (bytes: ByteSource): Hat {
+  decode: function (bytes) {
     const reader = new BinaryReader(bytes);
     const message = {};
     Hat.readMessage(message, reader);
-    return message as Hat;
+    return message;
   },
 };

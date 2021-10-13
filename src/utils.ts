@@ -257,26 +257,27 @@ export function getDescriptor(
   }
 }
 
-export function stripProtoExtension(protoFileName: string): string {
+function stripProtoExtension(protoFileName: string): string {
   return protoFileName.replace(".proto", "");
 }
 
-export function stripTSExtension(filename: string): string {
+function stripTSExtension(filename: string): string {
   return filename.replace(".ts", "");
+}
+
+function stripJSExtension(filename: string): string {
+  return filename.replace(".js", "");
 }
 
 export function getProtobufTSFileName(protoFileName: string): string {
   return stripProtoExtension(protoFileName) + ".pb.ts";
 }
 
-export function getServerStubFileName(protoFileName: string): string {
-  return stripProtoExtension(protoFileName) + ".ts";
+export function getProtobufJSFileName(protoFileName: string): string {
+  return stripProtoExtension(protoFileName) + ".pb.js";
 }
 
-export function getImportPath(sourceFile: string, dependencyFile: string) {
-  const importPath = stripTSExtension(
-    relative(dirname(sourceFile), dependencyFile)
-  );
+function getImportPath(importPath: string) {
   return importPath.startsWith("..") ? importPath : `./${importPath}`;
 }
 
@@ -467,7 +468,8 @@ function getIdentifierEntryFromTable(
 function getImportForIdentifier(
   identifier: string,
   identifiers: IdentifierTable,
-  fileDescriptorProto: FileDescriptorProto
+  fileDescriptorProto: FileDescriptorProto,
+  isTypescript: boolean
 ): Import {
   const dep = getIdentifierEntryFromTable(
     identifier,
@@ -475,7 +477,15 @@ function getImportForIdentifier(
     fileDescriptorProto
   );
   const sourceFile = fileDescriptorProto.getName() ?? "";
-  const path = getImportPath(sourceFile, getProtobufTSFileName(dep[1]));
+
+  const importPath = isTypescript
+    ? stripTSExtension(
+        relative(dirname(sourceFile), getProtobufTSFileName(dep[1]))
+      )
+    : stripJSExtension(
+        relative(dirname(sourceFile), getProtobufJSFileName(dep[1]))
+      );
+  const path = getImportPath(importPath);
 
   const dependencyIdentifier = identifier.split(".").pop() ?? "";
   return { identifier: dependencyIdentifier, path };
@@ -519,7 +529,8 @@ function removePackagePrefix(
 
 export function processTypes(
   fileDescriptorProto: FileDescriptorProto,
-  identifierTable: IdentifierTable
+  identifierTable: IdentifierTable,
+  isTypescript: boolean
 ): TypeFile {
   const typeFile: TypeFile = {
     packageName: fileDescriptorProto.getPackage(),
@@ -532,7 +543,8 @@ export function processTypes(
     const _import = getImportForIdentifier(
       identifier,
       identifierTable,
-      fileDescriptorProto
+      fileDescriptorProto,
+      isTypescript
     );
     const exisitingImport = typeFile.imports.find(
       ({ path }) => path === _import.path

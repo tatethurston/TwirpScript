@@ -11,30 +11,26 @@ function writeTypes(types: ProtoTypes[]): string {
   let result = "";
 
   types.forEach((node) => {
+    const name = node.content.name;
     if (node.content.comments?.leading) {
       result += printComments(node.content.comments?.leading);
     }
     if (node.type === "enum") {
-      result += `export enum ${node.content.name} {\n`;
-      node.content.values.forEach(({ name, value, comments }) => {
-        if (comments?.leading) {
-          result += printComments(comments?.leading);
-        }
-        result += `${name} = ${value},\n`;
-      });
-      result += "}\n\n";
+      result += `export type ${name} = typeof ${node.content.fullyQualifiedName}[keyof typeof ${node.content.fullyQualifiedName}];\n\n`;
     } else {
-      result += `export interface ${node.content.name} {\n`;
-      node.content.fields.forEach(({ name, tsType, repeated, comments }) => {
-        if (comments?.leading) {
-          result += printComments(comments?.leading);
+      result += `export interface ${name} {\n`;
+      node.content.fields.forEach(
+        ({ name: fieldName, tsType, repeated, comments }) => {
+          if (comments?.leading) {
+            result += printComments(comments?.leading);
+          }
+          result += `${fieldName}: ${tsType}${repeated ? "[]" : ""};\n`;
         }
-        result += `${name}: ${tsType}${repeated ? "[]" : ""};\n`;
-      });
+      );
       result += "}\n\n";
 
       if (node.children.length > 0) {
-        result += `export namespace ${node.content.name} { \n`;
+        result += `export namespace ${name} { \n`;
         result += writeTypes(node.children) + "\n\n";
         result += `}\n\n`;
       }
@@ -44,16 +40,25 @@ function writeTypes(types: ProtoTypes[]): string {
   return result;
 }
 
-function writeSerializers(types: ProtoTypes[]): string {
+function writeSerializers(
+  types: ProtoTypes[],
+  isTopLevel: boolean = true
+): string {
   let result = "";
 
   types.forEach((node) => {
-    if (node.type === "message") {
-      result += `export namespace ${node.content.name} {`;
-      result += `
-        export function writeMessage(msg: ${
-          node.content.fullyQualifiedName
-        }, writer: BinaryWriter): void {
+    result += isTopLevel
+      ? `export const ${node.content.name} = {`
+      : `${node.content.name}: {`;
+
+    switch (node.type) {
+      case "message": {
+        result += `
+        writeMessage: function(msg ${printIfTypescript(
+          `: ${node.content.fullyQualifiedName}`
+        )}, writer${printIfTypescript(`: BinaryWriter`)})${printIfTypescript(
+          `: void`
+        )} {
           ${node.content.fields
             .map(
               (field) => `\
@@ -66,7 +71,7 @@ function writeSerializers(types: ProtoTypes[]): string {
                   field.read === "readMessage"
                     ? `writer.${field.write}(${field.index}, msg.${
                         field.name
-                      } ${field.repeated ? "as any" : ""}, ${
+                      } ${field.repeated ? printIfTypescript("as any") : ""}, ${
                         field.tsType
                       }.writeMessage);`
                     : `writer.${field.write}(${field.index}, msg.${field.name});`
@@ -74,19 +79,23 @@ function writeSerializers(types: ProtoTypes[]): string {
                 }`
             )
             .join("\n")}
-        }
+        },
         
-        export function encode(${lowerCase(node.content.name)}: ${
-        node.content.fullyQualifiedName
-      }): Uint8Array {
+        encode: function(${lowerCase(node.content.name)}${printIfTypescript(
+          `: ${node.content.fullyQualifiedName}`
+        )})${printIfTypescript(`: Uint8Array`)} {
           const writer = new BinaryWriter();
-          writeMessage(${lowerCase(node.content.name)}, writer);
+          ${node.content.name}.writeMessage(${lowerCase(
+          node.content.name
+        )}, writer);
           return writer.getResultBuffer();
-        };
+        },
 
-        export function readMessage(msg: Partial<${
-          node.content.fullyQualifiedName
-        }>, reader: BinaryReader): void {
+        readMessage: function(msg${printIfTypescript(
+          `: Partial<${node.content.fullyQualifiedName}>`
+        )}, reader${printIfTypescript(`: BinaryReader`)})${printIfTypescript(
+          ": void "
+        )}{
           ${node.content.fields
             .filter(({ repeated }) => repeated)
             .map((field) => `msg.${field.name} = [];`)
@@ -108,13 +117,25 @@ function writeSerializers(types: ProtoTypes[]): string {
                   reader.readMessage(message, ${field.tsType}.readMessage);
                   ${
                     field.repeated
-                      ? `msg.${field.name}.push(message as ${field.tsType});`
-                      : `msg.${field.name} = message as ${field.tsType};`
+                      ? `msg.${field.name}.push(message${printIfTypescript(
+                          ` as ${field.tsType}`
+                        )});`
+                      : `msg.${field.name} = message ${printIfTypescript(
+                          `as ${field.tsType}`
+                        )};`
                   }`
                     : `${
                         field.repeated
-                          ? `msg.${field.name}.push(reader.${field.read}());`
-                          : `msg.${field.name} = reader.${field.read}();`
+                          ? `msg.${field.name}.push(reader.${field.read}() ${
+                              field.read === "readEnum"
+                                ? printIfTypescript(`as ${field.tsType}`)
+                                : ""
+                            });`
+                          : `msg.${field.name} = reader.${field.read}() ${
+                              field.read === "readEnum"
+                                ? printIfTypescript(`as ${field.tsType}`)
+                                : ""
+                            };`
                       }`
                 }
                 break;
@@ -140,21 +161,40 @@ function writeSerializers(types: ProtoTypes[]): string {
                 }`
             )
             .join("")}
-        }
+        },
 
-        export function decode(bytes: ByteSource): ${
-          node.content.fullyQualifiedName
-        } {
+        decode: function(bytes${printIfTypescript(
+          `: ByteSource`
+        )})${printIfTypescript(`: ${node.content.fullyQualifiedName}`)} {
           const reader = new BinaryReader(bytes);
           const message = {};
-          readMessage(message, reader);
-          return message as ${node.content.fullyQualifiedName};
-        };
+          ${node.content.name}.readMessage(message, reader);
+          return message ${printIfTypescript(
+            `as ${node.content.fullyQualifiedName}`
+          )};
+        },
+
       `;
-      if (node.children.length > 0) {
-        result += writeSerializers(node.children);
+        if (node.children.length > 0) {
+          result += writeSerializers(node.children, false);
+        }
+        result += "}\n\n";
+        break;
       }
-      result += "}\n\n";
+      case "enum": {
+        node.content.values.forEach(({ name, value, comments }) => {
+          if (comments?.leading) {
+            result += printComments(comments?.leading);
+          }
+          result += `${name}: ${value},\n`;
+        });
+        result += `} ${printIfTypescript("as const")}\n\n`;
+        break;
+      }
+      default: {
+        const _exhaust: never = node;
+        return _exhaust;
+      }
     }
   });
   return result;
@@ -201,8 +241,14 @@ function writeClients(
       }/${method.name}`;
 
       result += `\
-export async function ${method.name}(${input}: ${method.input}, config?: ClientConfiguration): Promise<${method.output}> {
-  const response = await PBrequest('${path}', ${method.input}.encode(${input}), config);
+export async function ${method.name}(${input}${printIfTypescript(
+        `: ${method.input}`
+      )}, config${printIfTypescript(
+        `?: ClientConfiguration`
+      )})${printIfTypescript(`: Promise<${method.output}>`)} {
+  const response = await PBrequest('${path}', ${
+        method.input
+      }.encode(${input}), config);
   return ${method.output}.decode(response);
 }
 
@@ -223,8 +269,14 @@ export async function ${method.name}(${input}: ${method.input}, config?: ClientC
       }/${method.name}`;
 
       result += `\
-export async function ${method.name}JSON(${input}: ${method.input}, config?: ClientConfiguration): Promise<${method.output}> {
-  const response = await JSONrequest<${method.output}>('${path}', ${input}, config);
+export async function ${method.name}JSON(${input}${printIfTypescript(
+        `: ${method.input}`
+      )}, config${printIfTypescript(
+        `?: ClientConfiguration`
+      )})${printIfTypescript(`: Promise<${method.output}>`)} {
+  const response = await JSONrequest${printIfTypescript(
+    `<${method.output}>`
+  )}('${path}', ${input}, config);
   return response;
 }
 
@@ -241,30 +293,36 @@ function writeServers(
 ): string {
   let result = "";
 
-  services.forEach((service) => {
-    result += printHeading(`${service.name} Service`);
+  if (isTS) {
+    services.forEach((service) => {
+      result += printHeading(`${service.name} Service`);
 
-    if (service.comments?.leading) {
-      result += printComments(service.comments.leading);
-    }
-    result += `export interface ${service.name}Service<Context = unknown> {\n`;
-    service.methods.forEach((method) => {
-      if (method.comments?.leading) {
-        result += printComments(method.comments.leading);
+      if (service.comments?.leading) {
+        result += printComments(service.comments.leading);
       }
-      result += `${method.name}: (${lowerCase(method.input ?? "")}: ${
-        method.input
-      }, context: Context) => Promise<${method.output}> | ${method.output};\n`;
+      result += `export interface ${service.name}Service<Context = unknown> {\n`;
+      service.methods.forEach((method) => {
+        if (method.comments?.leading) {
+          result += printComments(method.comments.leading);
+        }
+        result += `${method.name}: (${lowerCase(method.input ?? "")}: ${
+          method.input
+        }, context: Context) => Promise<${method.output}> | ${
+          method.output
+        };\n`;
+      });
+      result += "}\n";
     });
-    result += "}\n";
-  });
 
-  result += "\n";
+    result += "\n";
+  }
 
   services.forEach((service) => {
-    result += `export function create${service.name}Handler<Context>(service: ${
-      service.name
-    }Service<Context>): ServiceHandler<Context> { return {
+    result += `export function create${service.name}Handler${printIfTypescript(
+      "<Context>"
+    )}(service${printIfTypescript(
+      `: ${service.name}Service<Context>`
+    )})${printIfTypescript(": ServiceHandler<Context>")} { return {
     path: '${[packageName, service.name].filter(Boolean).join(".")}',
     methods: {\n`;
     service.methods.forEach((method) => {
@@ -278,13 +336,22 @@ function writeServers(
   return result;
 }
 
+let isTS = false;
+function printIfTypescript(str: string): string {
+  return isTS ? str : "";
+}
+
 export function generate(
   fileDescriptorProto: FileDescriptorProto,
-  identifierTable: IdentifierTable
+  identifierTable: IdentifierTable,
+  isTypescript: boolean
 ): string {
+  isTS = isTypescript;
+
   const { imports, services, types, packageName } = processTypes(
     fileDescriptorProto,
-    identifierTable
+    identifierTable,
+    isTypescript
   );
   const sourceFile = fileDescriptorProto.getName();
   if (!sourceFile) {
@@ -294,9 +361,16 @@ export function generate(
   return `\
 // THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
 // Source: ${sourceFile}
-import { BinaryReader, BinaryWriter } from "google-protobuf";
-import { JSONrequest, PBrequest, createMethodHandler } from 'twirpscript';
-import type { ClientConfiguration, ServiceHandler } from 'twirpscript';
+${printIfTypescript(
+  `import type { ByteSource, ClientConfiguration, ServiceHandler } from 'twirpscript';`
+)};
+import {
+  BinaryReader,
+  BinaryWriter,
+  JSONrequest,
+  PBrequest,
+  createMethodHandler
+} from 'twirpscript';
 
 ${imports
   .map(
@@ -305,14 +379,12 @@ ${imports
   )
   .join("\n")}
 
-type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
-
 ${writeClients(services, packageName)}
 
 ${writeServers(services, packageName)}
 
-${printHeading("Types")}
-${writeTypes(types)}
+${printIfTypescript(printHeading("Types"))}
+${printIfTypescript(writeTypes(types))}
 
 ${printHeading("Protobuf Encode / Decode")}
 ${writeSerializers(types)}

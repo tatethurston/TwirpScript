@@ -21,7 +21,7 @@
 
 TwirpScript is a JavaScript/TypeScript implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates service stubs and clients from [protocol buffers](https://developers.google.com/protocol-buffers/).
 
-TwirpScript can be used to generate JavaScript or TypeScript clients for an existing Twirp service, a JavaScript or TypeScript Twirp Server, or both.
+TwirpScript can be used to generate JavaScript or TypeScript [clients for an existing Twirp service](https://github.com/tatethurston/TwirpScript#connecting-to-an-existing-twirp-server-and-only-need-a-javascript-or-typescript-client), a JavaScript or TypeScript Twirp Server, or both.
 
 ## Overview
 
@@ -175,6 +175,36 @@ console.log(hat);
 1. Get your service `.proto` file.
 2. Run `yarn twirpscript` to generate JavaScript or TypeScript code from your `.proto` file.
 3. Use the generated client to make requests to your server.
+
+## Configuration 🛠
+
+TwirpScript aims to be zero config, but can be configured by creating a `.twirp.json` file in your project root.
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr>
+  <td>src</td>
+<td>
+The directory to search for `.proto` files. TwirpScript will recursively search all subdirectories. Defaults to the project root.
+</td>
+<td>string</td>
+</tr>
+<tr>
+  <td>target</td>
+<td>
+Whether to generate JavaScript or TypeScript. By default, TwirpScript will attempt to autodetect the target by looking for a `tsconfig.json` in the project root. If found, TwirpScript will generate TypeScript, otherwise JavaScript.
+</td>
+  <td>javascript | typescript</td>
+</tr>
+</tbody>
+</table>
 
 ## Examples 🚀
 

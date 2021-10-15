@@ -7,3 +7,5 @@ export {
   createMethodHandler,
   createTwirpServer,
 } from "./server";
+export type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
+export { BinaryReader, BinaryWriter } from "google-protobuf";

@@ -56,7 +56,7 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
 
 4. Generates idiomatic JavaScript interfaces. None of the Java idioms that `protoc --js_out` generates such as the `List` suffix naming for repeated fields or the various getter and setter methods. TwirpScript generates and consumes plain JavaScript objects over classes.
 
-\* Requires that the runtime provides `fetch`. See [caveats, warnings and issues ](#fetch-) for more details.
+\* Requires that the runtime provides `fetch`. See [caveats, warnings and issues ](#fetch) for more details.
 
 ## Installation 📦
 

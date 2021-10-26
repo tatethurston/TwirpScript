@@ -24,7 +24,7 @@ TwirpScript is a JavaScript/TypeScript implementation of [Twirp](https://blog.tw
 TwirpScript generates JavaScript or TypeScript. TwirpScript can autogenerate:
 
 - [clients for an existing Twirp service](https://github.com/tatethurston/TwirpScript#connecting-to-an-existing-twirp-server-and-only-need-a-javascript-or-typescript-client)
-- [service scaffolding for a Twirp server](https://github.com/tatethurston/TwirpScript#overview)
+- [service scaffolding for a Twirp server](https://github.com/tatethurston/TwirpScript#getting-started)
 
 ## Overview
 

@@ -22,6 +22,13 @@ type ClientMiddleware = (
 ) => Promise<unknown>;
 
 interface Client extends ClientConfiguration {
+  /**
+   * Registers middleware to manipulate the client request / response lifecycle.
+   *
+   * The middleware handler will receive `config` and `next` parameters. `config` sets the headers and url for the RPC. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp RPC.
+   *
+   * Middleware is called in order of registration, with the Twirp RPC invoked last.
+   */
   use: (middleware: ClientMiddleware) => void;
 }
 

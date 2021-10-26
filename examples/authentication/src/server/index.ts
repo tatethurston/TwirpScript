@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import { createTwirpServer, TwirpErrorResponse } from "twirpscript";
+import { createTwirpServer } from "twirpscript";
 import { AuthenticationHandler, HaberdasherHandler } from "./services";
 import { Context } from "./context";
 import { cors, requireAuthentication } from "./middleware";

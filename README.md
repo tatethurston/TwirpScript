@@ -19,18 +19,18 @@
 
 ## What is this? 🧐
 
-TwirpScript is a JavaScript/TypeScript implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates clients and service stubs from [protocol buffers](https://developers.google.com/protocol-buffers/).
+TwirpScript is a JavaScript/TypeScript implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates clients and service scaffolding from [protocol buffers](https://developers.google.com/protocol-buffers/).
 
 TwirpScript generates JavaScript or TypeScript. TwirpScript can autogenerate:
 
 - [clients for an existing Twirp service](https://github.com/tatethurston/TwirpScript#connecting-to-an-existing-twirp-server-and-only-need-a-javascript-or-typescript-client)
-- [Twirp service stubs](https://github.com/tatethurston/TwirpScript#connecting-to-an-existing-twirp-server-and-only-need-a-javascript-or-typescript-client)
+- [service scaffolding for a Twirp server](https://github.com/tatethurston/TwirpScript#overview)
 
 ## Overview
 
 TwirpScript is an implementation of the [Twirp wire protocol](https://github.com/twitchtv/twirp/blob/main/PROTOCOL.md) for JavaScript and TypeScript. It generates idiomatic clients and servers from `.proto` service specifications. The generated clients can be used in the browser. This enables type safe communication between the client and server, as well as reduced payload sizes when using `protobuf` as the serialization format.
 
-Twirp is a simple RPC framework built on [protocol buffers](https://developers.google.com/protocol-buffers/). You define a service in a `.proto` specification file, and Twirp will generate clients and service stubs for that service. You fill in the business logic that powers the server, and Twirp handles the boilerplate.
+Twirp is a simple RPC framework built on [protocol buffers](https://developers.google.com/protocol-buffers/). You define a service in a `.proto` specification file, and Twirp will generate clients and service scaffolding for that service. You fill in the business logic that powers the server, and Twirp handles the boilerplate.
 
 To learn more about the motivation behind Twirp (and a comparison to REST APIs and gRPC), check out the [announcement blog](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f/).
 
@@ -209,7 +209,7 @@ client.use((config, next) => {
 
 Servers can be configured via your `server`'s `use` method. `use` registers middleware to manipulate the server request / response lifecycle.
 
-The middleware handler will receive `req`, `ctx` and `next` parameters. `req` is the incoming request. `ctx` is a request context object which will be passed to each middleware handler and finally the Twirp service handler you implemented. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp service handler you implemented.
+The middleware handler will receive `req`, `ctx` and `next` parameters. `req` is the incoming request. `ctx` is a request context object which will be passed to each middleware handler and finally the Twirp service handler you implemented. `ctx` enables you to pass extra parameters to your service handlers that are not available via your service's defined request parameters, and can be used to implement things such as authentication or rate limiting. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp service handler you implemented.
 
 Because each middleware is responsible for invoking the next handler, middleware can do things like short circuit and return a response before your service handler is invoked, or inspect the returned response, enabling powerful patterns such as caching.
 
@@ -224,6 +224,7 @@ interface Context {
 }
 
 const app = createTwirpServer<Context>([AuthenticationHandler]);
+
 app.use(async (req, ctx, next) => {
   if (req.url?.startsWith(`/twirp/${AuthenticationHandler.path}`)) {
     return next();

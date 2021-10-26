@@ -227,9 +227,9 @@ interface TwirpServer<Context> {
   /**
    * Registers middleware to manipulate the server request / response lifecycle.
    *
-   * The middleware handler will receive `req`, `ctx` and `next` parameters. `req` is the incoming request. `ctx` is a request context object which will be passed to each middleware handler and finally the Twirp service handler you implemented. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp service handler you implemented.
+   * The middleware handler will receive `req`, `ctx` and `next` parameters. `req` is the incoming request. `ctx` is a request context object which will be passed to each middleware handler and finally the Twirp service handler you implemented. `ctx` enables you to pass extra parameters to your service handlers that are not available via your service's defined request parameters, and can be used to implement things such as authentication or rate limiting. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp service handler you implemented.
    *
-   * Middleware is called in order of registration, with the Twirp RPC invoked last.
+   * Middleware is called in order of registration, with the Twirp service handler you implemented invoked last.
    */
   use: (middleware: Middleware<Context>) => void;
 }

@@ -173,6 +173,16 @@ const hat = await MakeHat({ inches: 12 }, { baseURL: "http://localhost:8080" });
 console.log(hat);
 ```
 
+You might want to configure baseURL globally for all API calls:
+```ts
+import { client } from "twirpscript";
+client.baseURL = "http://localhost:8080";
+
+const = await MakeHat({ inches: 12 }); // We can omit the baseURL config since it's already set
+
+```
+
+
 #### Connecting to an existing Twirp server and only need a JavaScript or TypeScript client?
 
 1. Get your service's `.proto` file (or define one).

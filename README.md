@@ -173,6 +173,18 @@ const hat = await MakeHat({ inches: 12 }, { baseURL: "http://localhost:8080" });
 console.log(hat);
 ```
 
+`baseURL` can be configured globally, instead of providing it for every RPC call site:
+
+```ts
+import { client } from "twirpscript";
+client.baseURL = "http://localhost:8080";
+
+const hat = await MakeHat({ inches: 12 }); // We can omit `baseURL` because it has already been set
+console.log(hat);
+
+const hat = await MakeHat({ inches: 12 }, { baseURL: "https://api.example.com"); // We can also override the globally configured `baseURL` with a different value
+console.log(hat);
+
 #### Connecting to an existing Twirp server and only need a JavaScript or TypeScript client?
 
 1. Get your service's `.proto` file (or define one).

@@ -184,6 +184,7 @@ console.log(hat);
 
 const hat = await MakeHat({ inches: 12 }, { baseURL: "https://api.example.com"); // We can also override the globally configured `baseURL` with a different value
 console.log(hat);
+
 #### Connecting to an existing Twirp server and only need a JavaScript or TypeScript client?
 
 1. Get your service's `.proto` file (or define one).

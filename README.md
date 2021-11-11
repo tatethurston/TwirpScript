@@ -173,10 +173,12 @@ const hat = await MakeHat({ inches: 12 }, { baseURL: "http://localhost:8080" });
 console.log(hat);
 ```
 
-`baseURL` can be configured globally, instead of providing it for every RPC call site:
+`baseURL` can be _globally configured_, instead of providing it for every RPC call site:
 
 ```ts
 import { client } from "twirpscript";
+
+// http://localhost:8080 is now the default `baseURL` for _all_ TwirpScript RPCs
 client.baseURL = "http://localhost:8080";
 
 const hat = await MakeHat({ inches: 12 }); // We can omit `baseURL` because it has already been set
@@ -189,11 +191,16 @@ You can override a globally configured `baseURL` at the RPC call site:
 import { client } from "twirpscript";
 client.baseURL = "http://localhost:8080";
 
-const hat = await MakeHat({ inches: 12 }, { baseURL: "https://api.example.com"); // This will make a request to https://api.example.com instead of http://localhost:8080
+// This RPC will make a request to https://api.example.com instead of http://localhost:8080
+const hat = await MakeHat({ inches: 12 }, { baseURL: "https://api.example.com");
 console.log(hat);
+
+// This RPC will make a request to http://localhost:8080
+const otherHat = await MakeHat({ inches: 12 });
+console.log(otherHat);
 ```
 
-Client middleware can override both globally configured settings as well as RPC callsite settings:
+Client middleware can override both global and call site settings:
 
 ```ts
 import { client } from "twirpscript";
@@ -204,7 +211,8 @@ client.use((config, next) => {
   return next({ ...config, baseURL: "https://www.foo.com" });
 });
 
-const hat = await MakeHat({ inches: 12 }, { baseURL: "https://api.example.com"); // This will make a request to https://www.foo.com instead of http://localhost:8080 or https://api.example.com"
+// This will make a request to https://www.foo.com instead of http://localhost:8080 or https://api.example.com"
+const hat = await MakeHat({ inches: 12 }, { baseURL: "https://api.example.com");
 console.log(hat);
 ```
 
@@ -234,7 +242,7 @@ const hat = await MakeHat({ inches: 12 }, { headers: { "idempotency-key": "foo" 
 console.log(hat);
 ```
 
-`headers` defined via global and call site configuration will merge. Call site key collisions override header keys defined globally (_global configuration_ < _call site configuration_). Middleware can override, omit or otherwise manipulate the headers in any way. 
+`headers` defined via global and call site configuration will merge. Call site key collisions override header keys defined globally (_global configuration_ < _call site configuration_). Similiar to `baseURL` middleware can override, omit or otherwise manipulate the headers in any way. 
 
 #### Connecting to an existing Twirp server and only need a JavaScript or TypeScript client?
 

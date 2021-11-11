@@ -19,12 +19,12 @@
 
 ## What is this? 🧐
 
-TwirpScript is a JavaScript/TypeScript implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates clients and service scaffolding from [protocol buffers](https://developers.google.com/protocol-buffers/).
+TwirpScript is a JavaScript/TypeScript implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates clients and server handlers from [protocol buffers](https://developers.google.com/protocol-buffers/).
 
 TwirpScript generates JavaScript or TypeScript. TwirpScript can autogenerate:
 
 - [clients for an existing Twirp service](https://github.com/tatethurston/TwirpScript#connecting-to-an-existing-twirp-server-and-only-need-a-javascript-or-typescript-client)
-- [service scaffolding for a Twirp server](https://github.com/tatethurston/TwirpScript#getting-started)
+- [Twirp service handlers](https://github.com/tatethurston/TwirpScript#getting-started)
 
 ## Overview
 
@@ -50,7 +50,7 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
 
 1. TwirpScript clients can be consumed in the browser (or server\*) and are built with [tree shaking](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking) in mind so only the service methods consumed by the client end up in the final bundle.
 
-2. The only runtime dependency is Google's [protobuf js](https://github.com/protocolbuffers/protobuf/tree/master/js). If you decide to use JSON instead of Protobuf as the serialization format, this dependency will be removed via tree shaking.
+2. The only runtime dependency is Google's [protobuf js](https://github.com/protocolbuffers/protobuf/tree/master/js). If you decide to use JSON instead of Protobuf as the serialization format, this dependency will be removed from clients via tree shaking.
 
 3. Clients get in-editor API documentation. Comments in your `.proto` files become [TSDoc](https://github.com/microsoft/tsdoc) comments in the generated code that will show inline documentation in supported editors.
 

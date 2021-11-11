@@ -183,7 +183,7 @@ const hat = await MakeHat({ inches: 12 }); // We can omit `baseURL` because it h
 console.log(hat);
 ```
 
-You can override a globally configured `baseURL` at the RPC call site
+You can override a globally configured `baseURL` at the RPC call site:
 
 ```ts
 import { client } from "twirpscript";
@@ -192,6 +192,49 @@ client.baseURL = "http://localhost:8080";
 const hat = await MakeHat({ inches: 12 }, { baseURL: "https://api.example.com"); // This will make a request to https://api.example.com instead of http://localhost:8080
 console.log(hat);
 ```
+
+Client middleware can override both globally configured settings as well as RPC callsite settings:
+
+```ts
+import { client } from "twirpscript";
+
+client.baseURL = "http://localhost:8080";
+
+client.use((config, next) => {
+  return next({ ...config, baseURL: "https://www.foo.com" });
+});
+
+const hat = await MakeHat({ inches: 12 }, { baseURL: "https://api.example.com"); // This will make a request to https://www.foo.com instead of http://localhost:8080 or https://api.example.com"
+console.log(hat);
+```
+
+The order of precedence is _global configuration_ < _call site configuration_ < _middleware_.
+
+In addtion to `baseUrl`, `headers` can also be set at via _global configuration_, _call site configuration_ and _middleware_. `headers` defines key value pairs that become HTTP headers for the RPC:
+
+```ts
+import { client } from "twirpscript";
+
+client.baseURL = "http://localhost:8080";
+
+// setting a (non standard) HTTP "device-id" header via global configuration. This header will be sent for every RPC.
+client.headers = { "device-id": getOrGenerateDeviceId() };
+
+// setting an HTTP "authorization" header via middleware. This header will also be sent for every RPC.
+client.use((config, next) => {
+  const auth = localStorage.getItem("auth");
+  if (auth) {
+    config.headers["authorization"] = `bearer ${auth}`;
+  }
+  return next(config);
+});
+
+// setting a (non standard) HTTP "idempotency-key" header for this RPC call. This header will only be sent for this RPC.
+const hat = await MakeHat({ inches: 12 }, { headers: { "idempotency-key": "foo" } });
+console.log(hat);
+```
+
+`headers` defined via global and call site configuration will merge. Call site key collisions override header keys defined globally (_global configuration_ < _call site configuration_). Middleware can override, omit or otherwise manipulate the headers in any way. 
 
 #### Connecting to an existing Twirp server and only need a JavaScript or TypeScript client?
 

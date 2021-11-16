@@ -1,7 +1,7 @@
 {
   "name": "twirpscript",
   "version": "0.0.19",
-  "description": "A simple RPC framework for JavaScript and TypeScript",
+  "description": "A protobuf RPC framework for JavaScript and TypeScript",
   "license": "MIT",
   "author": "Tate Thurston <tatethurston@gmail.com>",
   "repository": {
@@ -56,8 +56,8 @@
   },
   "keywords": [
     "browser",
-    "javascript",
     "protobuf",
+    "protocol buffers",
     "rpc",
     "twirp",
     "typescript",

@@ -2,9 +2,12 @@ import { twirpErrorFromResponse } from "./error";
 
 export type ClientConfiguration = Partial<{
   /**
-   * The base URL for the RPC. The service path will be appended to this string
+   * The base URL for the RPC. The service path will be appended to this string.
    */
   baseURL: string;
+  /**
+   * HTTP headers to include in the RPC.
+   */
   headers: Record<string, string>;
 }>;
 
@@ -13,6 +16,9 @@ interface MiddlewareConfig {
    * The URL for the RPC.
    */
   url: string;
+  /**
+   * HTTP headers to include in the RPC.
+   */
   headers: Record<string, string>;
 }
 

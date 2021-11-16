@@ -1,6 +1,6 @@
 # TwirpScript
 
-<blockquote> A simple RPC framework for JavaScript and TypeScript</blockquote>
+<blockquote> A protobuf RPC framework for JavaScript and TypeScript</blockquote>
 
 <br />
 
@@ -238,11 +238,14 @@ client.use((config, next) => {
 });
 
 // setting a (non standard) HTTP "idempotency-key" header for this RPC call. This header will only be sent for this RPC.
-const hat = await MakeHat({ inches: 12 }, { headers: { "idempotency-key": "foo" } });
+const hat = await MakeHat(
+  { inches: 12 },
+  { headers: { "idempotency-key": "foo" } }
+);
 console.log(hat);
 ```
 
-`headers` defined via global and call site configuration will merge. Call site key collisions override header keys defined globally (_global configuration_ < _call site configuration_). Similiar to `baseURL` middleware can override, omit or otherwise manipulate the headers in any way. 
+`headers` defined via global and call site configuration will merge. Call site key collisions override header keys defined globally (_global configuration_ < _call site configuration_). Similiar to `baseURL` middleware can override, omit or otherwise manipulate the headers in any way.
 
 #### Connecting to an existing Twirp server and only need a JavaScript or TypeScript client?
 

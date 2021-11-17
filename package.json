@@ -1,6 +1,6 @@
 {
   "name": "twirpscript",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "A protobuf RPC framework for JavaScript and TypeScript",
   "license": "MIT",
   "author": "Tate Thurston <tatethurston@gmail.com>",
@@ -27,7 +27,7 @@
     "lint:package:fix": "prettier-package-json --write ./package.json",
     "prepack": "yarn build",
     "typecheck": "yarn tsc --noEmit",
-    "version": "yarn run build && git add -A package.json",
+    "version": "git add -A package.json",
     "postversion": "git push && git push --tags"
   },
   "sideEffects": false,

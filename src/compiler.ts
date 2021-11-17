@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync } from "fs";
 import {
   CodeGeneratorRequest,
   CodeGeneratorResponse,
@@ -45,4 +45,4 @@ request.getProtoFileList().forEach((fileDescriptorProto) => {
   );
 });
 
-writeFileSync(process.stdout.fd, response.serializeBinary());
+process.stdout.write(response.serializeBinary());

@@ -24,6 +24,7 @@
     "clean": "rm -rf dist",
     "lint:fix": "yarn prettier:fix && yarn lint:package:fix",
     "lint:package:fix": "prettier-package-json --write ./package.json",
+    "prepack": "yarn build",
     "prettier:fix": "prettier --write .",
     "version": "yarn run build && git add -A package.json",
     "postversion": "git push && git push --tags"

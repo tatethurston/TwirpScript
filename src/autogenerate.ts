@@ -40,10 +40,7 @@ function writeTypes(types: ProtoTypes[]): string {
   return result;
 }
 
-function writeSerializers(
-  types: ProtoTypes[],
-  isTopLevel: boolean = true
-): string {
+function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
   let result = "";
 
   types.forEach((node) => {

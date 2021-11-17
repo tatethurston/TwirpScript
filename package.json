@@ -22,10 +22,11 @@
     "build:module": "yarn tsc --module esnext --outDir dist/module",
     "build:watch": "yarn build:commonjs --watch",
     "clean": "rm -rf dist",
-    "lint:fix": "yarn prettier:fix && yarn lint:package:fix",
+    "lint": "yarn typecheck && prettier --check . && prettier-package-json --list-different '{,example/,}package.json'",
+    "lint:fix": "prettier --write . && prettier-package-json --write '{,example/}package.json'",
     "lint:package:fix": "prettier-package-json --write ./package.json",
     "prepack": "yarn build",
-    "prettier:fix": "prettier --write .",
+    "typecheck": "yarn tsc --noEmit",
     "version": "yarn run build && git add -A package.json",
     "postversion": "git push && git push --tags"
   },

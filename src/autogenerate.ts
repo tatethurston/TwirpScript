@@ -20,11 +20,13 @@ function writeTypes(types: ProtoTypes[]): string {
     } else {
       result += `export interface ${name} {\n`;
       node.content.fields.forEach(
-        ({ name: fieldName, tsType, repeated, comments }) => {
+        ({ name: fieldName, tsType, repeated, optional, comments }) => {
           if (comments?.leading) {
             result += printComments(comments?.leading);
           }
-          result += `${fieldName}: ${tsType}${repeated ? "[]" : ""};\n`;
+          result += `${fieldName}${optional ? "?" : ""}: ${tsType}${
+            repeated ? "[]" : ""
+          };\n`;
         }
       );
       result += "}\n\n";
@@ -62,6 +64,8 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                 ${
                   field.repeated
                     ? `if (msg.${field.name}.length > 0) {`
+                    : field.optional
+                    ? `if (msg.${field.name} != undefined) {`
                     : `if (msg.${field.name}) {`
                 }
                 ${
@@ -149,7 +153,9 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             .map(
               (field) => `\
                 ${
-                  !field.repeated && field.read !== "readMessage"
+                  !field.repeated &&
+                  !field.optional &&
+                  field.read !== "readMessage"
                     ? `if (!msg.${field.name}) {
                       msg.${field.name} = ${field.defaultValue};
                     }

@@ -52,6 +52,7 @@ interface Descriptor {
   defaultValue: string;
   read: ReaderMethod;
   repeated: boolean;
+  optional: boolean;
   tsType: string;
   write: WriterMethod;
 }
@@ -64,6 +65,8 @@ export function getDescriptor(
   const repeated =
     field.getLabel() === FieldDescriptorProto.Label.LABEL_REPEATED;
 
+  const optional = field.hasProto3Optional();
+
   const _type = field.getType();
   if (!_type) {
     throw new Error("Field has no type");
@@ -73,63 +76,60 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_DOUBLE: {
       return {
         defaultValue: "0",
+        optional,
+        read: "readDouble",
         repeated,
         tsType: "number",
-        read: "readDouble",
         write: repeated ? "writeRepeatedDouble" : "writeDouble",
       };
     }
     case FieldDescriptorProto.Type.TYPE_FLOAT: {
       return {
         defaultValue: "0",
+        optional,
+        read: "readFloat",
         repeated,
         tsType: "number",
-        read: "readFloat",
         write: repeated ? "writeRepeatedFloat" : "writeFloat",
       };
     }
     case FieldDescriptorProto.Type.TYPE_INT64: {
       return {
         defaultValue: "''",
+        optional,
+        read: "readInt64String",
         repeated,
         tsType: "string",
-        read: "readInt64String",
         write: repeated ? "writeRepeatedInt64String" : "writeInt64String",
       };
     }
     case FieldDescriptorProto.Type.TYPE_UINT64: {
       return {
         defaultValue: "''",
+        optional,
+        read: "readUint64String",
         repeated,
         tsType: "string",
-        read: "readUint64String",
-        write: repeated ? "writeRepeatedInt64String" : "writeUint64String",
+        write: repeated ? "writeRepeatedUint64String" : "writeUint64String",
       };
     }
     case FieldDescriptorProto.Type.TYPE_INT32: {
       return {
         defaultValue: "0",
+        optional,
+        read: "readInt32",
         repeated,
         tsType: "number",
-        read: "readInt32",
         write: repeated ? "writeRepeatedInt32" : "writeInt32",
-      };
-    }
-    case FieldDescriptorProto.Type.TYPE_UINT64: {
-      return {
-        defaultValue: "''",
-        repeated,
-        tsType: "string",
-        read: "readUint64String",
-        write: repeated ? "writeRepeatedUint32String" : "writeUint64String",
       };
     }
     case FieldDescriptorProto.Type.TYPE_FIXED64: {
       return {
         defaultValue: repeated ? "[]" : "''",
+        optional,
+        read: "readFixed64String",
         repeated,
         tsType: "string",
-        read: "readFixed64String",
         write: repeated ? "writeRepeatedFixed64String" : "writeFixed64String",
       };
     }
@@ -143,27 +143,30 @@ export function getDescriptor(
 
       return {
         defaultValue: "0",
+        optional,
+        read: "readEnum",
         repeated,
         tsType: name,
-        read: "readEnum",
         write: repeated ? "writeRepeatedEnum" : "writeEnum",
       };
     }
     case FieldDescriptorProto.Type.TYPE_FIXED32: {
       return {
         defaultValue: "0",
+        optional,
+        read: "readFixed32",
         repeated,
         tsType: "number",
-        read: "readFixed32",
         write: repeated ? "writeRepeatedFixed32" : "writeFixed32",
       };
     }
     case FieldDescriptorProto.Type.TYPE_BOOL: {
       return {
         defaultValue: "false",
+        optional,
+        read: "readBool",
         repeated,
         tsType: "boolean",
-        read: "readBool",
         write: repeated ? "writeRepeatedBool" : "writeBool",
       };
     }
@@ -181,72 +184,80 @@ export function getDescriptor(
 
       return {
         defaultValue: "undefined",
+        optional,
+        read: "readMessage",
         repeated,
         tsType: name,
-        read: "readMessage",
         write: repeated ? "writeRepeatedMessage" : "writeMessage",
       };
     }
     case FieldDescriptorProto.Type.TYPE_STRING: {
       return {
         defaultValue: "''",
+        optional,
+        read: "readString",
         repeated,
         tsType: "string",
-        read: "readString",
         write: repeated ? "writeRepeatedString" : "writeString",
       };
     }
     case FieldDescriptorProto.Type.TYPE_BYTES: {
       return {
         defaultValue: "new Uint8Array()",
+        optional,
+        read: "readBytes",
         repeated,
         tsType: "Uint8Array",
-        read: "readBytes",
         write: repeated ? "writeRepeatedBytes" : "writeBytes",
       };
     }
     case FieldDescriptorProto.Type.TYPE_UINT32: {
       return {
         defaultValue: "0",
+        optional,
+        read: "readUint32",
         repeated,
         tsType: "number",
-        read: "readUint32",
-        write: repeated ? "writeUint32" : "writeUint32",
+        write: repeated ? "writeRepeatedUint32" : "writeUint32",
       };
     }
     case FieldDescriptorProto.Type.TYPE_SFIXED32: {
       return {
         defaultValue: "0",
+        optional,
+        read: "readSfixed32",
         repeated,
         tsType: "number",
-        read: "readSfixed32",
-        write: repeated ? "writeSfixed32" : "writeSfixed32",
+        write: repeated ? "writeRepeatedSfixed32" : "writeSfixed32",
       };
     }
     case FieldDescriptorProto.Type.TYPE_SFIXED64: {
       return {
         defaultValue: "''",
+        optional,
+        read: "readSfixed64",
         repeated,
         tsType: "string",
-        read: "readSfixed64",
-        write: repeated ? "writeSfixed64" : "writeSfixed64",
+        write: repeated ? "writeRepeatedSfixed64" : "writeSfixed64",
       };
     }
     case FieldDescriptorProto.Type.TYPE_SINT32: {
       return {
         defaultValue: "0",
+        optional,
+        read: "readSint32",
         repeated,
         tsType: "number",
-        read: "readSint32",
         write: repeated ? "writeRepeatedSint32" : "writeSint32",
       };
     }
     case FieldDescriptorProto.Type.TYPE_SINT64: {
       return {
         defaultValue: "''",
+        optional,
+        read: "readSint64",
         repeated,
         tsType: "string",
-        read: "readSint64",
         write: repeated ? "writeRepeatedSint64String" : "writeSint64String",
       };
     }
@@ -395,19 +406,16 @@ interface EnumOpts {
   comments?: Comments;
 }
 
+interface Field extends Descriptor {
+  comments?: Comments;
+  index: number;
+  name: string;
+}
+
 interface MessageOpts {
   name: string;
   fullyQualifiedName: string;
-  fields: {
-    defaultValue: string;
-    index: number;
-    name: string;
-    read: string;
-    repeated: boolean;
-    tsType: string;
-    write: string;
-    comments?: Comments;
-  }[];
+  fields: Field[];
   comments?: Comments;
 }
 

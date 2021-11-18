@@ -17,6 +17,10 @@ const input = readFileSync(process.stdin.fd);
 const request = CodeGeneratorRequest.deserializeBinary(input);
 const isTypescript = request.getParameter()?.trim() === "typescript";
 const response = new CodeGeneratorResponse();
+response.setSupportedFeatures(
+  CodeGeneratorResponse.Feature.FEATURE_PROTO3_OPTIONAL
+);
+
 const identifierTable = buildIdentifierTable(request);
 
 function writeFile(name: string, content: string) {

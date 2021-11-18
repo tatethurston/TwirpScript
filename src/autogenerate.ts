@@ -290,8 +290,9 @@ function writeServers(
 ): string {
   let result = "";
 
-  if (isTS) {
-    services.forEach((service) => {
+  services.forEach((service) => {
+    // print service types
+    if (isTS) {
       result += printHeading(`${service.name} Service`);
 
       if (service.comments?.leading) {
@@ -309,12 +310,10 @@ function writeServers(
         };\n`;
       });
       result += "}\n";
-    });
+    }
 
     result += "\n";
-  }
 
-  services.forEach((service) => {
     result += `export function create${service.name}Handler${printIfTypescript(
       "<Context>"
     )}(service${printIfTypescript(
@@ -325,10 +324,11 @@ function writeServers(
     service.methods.forEach((method) => {
       result += `${method.name}: createMethodHandler({ handler: service.${method.name}, encode: ${method.output}.encode, decode: ${method.input}.decode }),`;
     });
+    result += "}\n";
+    result += "}\n";
+    result += "}\n";
+    result += "\n";
   });
-  result += "}\n";
-  result += "}\n";
-  result += "}\n";
 
   return result;
 }

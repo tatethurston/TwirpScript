@@ -245,6 +245,11 @@ function printHeading(heading: string): string {
   `;
 }
 
+// Foo.Bar.Baz => baz
+function formatParameterName(param: string): string {
+  return lowerCase(param.split(".").pop() ?? "");
+}
+
 function writeClients(
   services: Service[],
   packageName: string | undefined
@@ -258,7 +263,7 @@ function writeClients(
       if (method.comments?.leading) {
         result += printComments(method.comments.leading);
       }
-      const input = lowerCase(method.input ?? "");
+      const input = formatParameterName(method.input ?? "");
       const path = `/twirp/${packageName ? packageName + "." : ""}${
         service.name
       }/${method.name}`;
@@ -286,7 +291,7 @@ export async function ${method.name}(${input}${printIfTypescript(
       if (method.comments?.leading) {
         result += printComments(method.comments.leading);
       }
-      const input = lowerCase(method.input ?? "");
+      const input = formatParameterName(method.input ?? "");
       const path = `/twirp/${packageName ? packageName + "." : ""}${
         service.name
       }/${method.name}`;
@@ -329,11 +334,8 @@ function writeServers(
         if (method.comments?.leading) {
           result += printComments(method.comments.leading);
         }
-        result += `${method.name}: (${lowerCase(method.input ?? "")}: ${
-          method.input
-        }, context: Context) => Promise<${method.output}> | ${
-          method.output
-        };\n`;
+        const input = formatParameterName(method.input ?? "");
+        result += `${method.name}: (${input}: ${method.input}, context: Context) => Promise<${method.output}> | ${method.output};\n`;
       });
       result += "}\n";
     }

@@ -211,7 +211,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
           }
           result += `${name}: ${value},\n`;
         });
-        result += `} ${printIfTypescript("as const")}\n\n`;
+        result += `} ${printIfTypescript("as const")},\n\n`;
         break;
       }
       default: {

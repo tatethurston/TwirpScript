@@ -65,7 +65,7 @@ export function getDescriptor(
   const repeated =
     field.getLabel() === FieldDescriptorProto.Label.LABEL_REPEATED;
 
-  const optional = field.hasProto3Optional();
+  const optional = field.hasProto3Optional() || field.hasOneofIndex();
 
   const _type = field.getType();
   if (!_type) {

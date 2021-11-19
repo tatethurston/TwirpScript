@@ -558,7 +558,9 @@ export function processTypes(
       ({ path }) => path === _import.path
     );
     if (exisitingImport) {
-      exisitingImport.identifiers.push(_import.identifier);
+      if (!exisitingImport.identifiers.find((x) => x === _import.identifier)) {
+        exisitingImport.identifiers.push(_import.identifier);
+      }
     } else {
       typeFile.imports.push({
         identifiers: [_import.identifier],
@@ -689,19 +691,24 @@ export function processTypes(
 
   typeFile.services = fileDescriptorProto.getServiceList().map((service) => ({
     name: service.getName() ?? "",
-    methods: service.getMethodList().map((method) => ({
-      name: method.getName() ?? "",
-      input: removePackagePrefix(
-        method.getInputType() ?? "",
-        identifierTable,
-        fileDescriptorProto
-      ),
-      output: removePackagePrefix(
-        method.getOutputType() ?? "",
-        identifierTable,
-        fileDescriptorProto
-      ),
-    })),
+    methods: service.getMethodList().map((method) => {
+      processIdentifier(method.getInputType() ?? "");
+      processIdentifier(method.getOutputType() ?? "");
+
+      return {
+        name: method.getName() ?? "",
+        input: removePackagePrefix(
+          method.getInputType() ?? "",
+          identifierTable,
+          fileDescriptorProto
+        ),
+        output: removePackagePrefix(
+          method.getOutputType() ?? "",
+          identifierTable,
+          fileDescriptorProto
+        ),
+      };
+    }),
   }));
 
   // add comments

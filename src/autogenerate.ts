@@ -86,7 +86,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
           `: ${node.content.fullyQualifiedName}`
         )})${printIfTypescript(`: Uint8Array`)} {
           const writer = new BinaryWriter();
-          ${node.content.name}.writeMessage(${lowerCase(
+          ${node.content.fullyQualifiedName}.writeMessage(${lowerCase(
           node.content.name
         )}, writer);
           return writer.getResultBuffer();
@@ -153,11 +153,13 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             .map(
               (field) => `\
                 ${
-                  !field.repeated &&
-                  !field.optional &&
-                  field.read !== "readMessage"
+                  !field.repeated && !field.optional
                     ? `if (!msg.${field.name}) {
-                      msg.${field.name} = ${field.defaultValue};
+                      msg.${field.name} = ${
+                        field.read === "readMessage"
+                          ? `${field.tsType}.defaultValue();`
+                          : field.defaultValue
+                      };
                     }
                     `
                     : ""
@@ -171,10 +173,28 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
         )})${printIfTypescript(`: ${node.content.fullyQualifiedName}`)} {
           const reader = new BinaryReader(bytes);
           const message = {};
-          ${node.content.name}.readMessage(message, reader);
+          ${node.content.fullyQualifiedName}.readMessage(message, reader);
           return message ${printIfTypescript(
             `as ${node.content.fullyQualifiedName}`
           )};
+        },
+
+        defaultValue: function()${printIfTypescript(
+          `: ${node.content.fullyQualifiedName}`
+        )} {
+          return {
+            ${node.content.fields
+              .map((field) => {
+                if (field.repeated) {
+                  return `${field.name}: [],`;
+                } else if (field.read === "readMessage") {
+                  return `${field.name}: ${field.tsType}.defaultValue(),`;
+                } else if (!field.optional) {
+                  return `${field.name}: ${field.defaultValue},`;
+                }
+              })
+              .join("")}
+          };
         },
 
       `;

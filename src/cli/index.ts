@@ -1,29 +1,98 @@
 #!/usr/bin/env node
 
 import { spawnSync } from "child_process";
-import { readdirSync, existsSync, readFileSync, statSync } from "fs";
-import { join, relative } from "path";
+import { readdirSync, existsSync, readFileSync, statSync, mkdirSync } from "fs";
+import { join, relative, resolve } from "path";
 import { commandIsInPath, isWindows } from "../utils";
 
 export type UserConfig = Partial<Config>;
 
-type Config = { src: string; target: "javascript" | "typescript" };
+type Config = {
+  /**
+   * The root directory. `.proto` files will be searched under this directory, and `proto` import paths will be resolved relative to this directory. TwirpScript will recursively search all subdirectories for `.proto` files.
+   *
+   * Defaults to the project root.
+   *
+   * Example:
+   *
+   * If we have the following project structure:
+   *
+   * /src
+   *   A.proto
+   *   B.proto
+   *
+   * Default:
+   *
+   * A.proto would `import` B.proto as follows:
+   *
+   * ```proto
+   * import "src/B.proto";
+   * ```
+   *
+   * Setting `root` to `src`:
+   *
+   * A.proto would `import` B.proto as follows:
+   *
+   * ```proto
+   * import "B.proto";
+   * ```
+   */
+  root: string;
+  /** The destination folder for generated files.
+   *
+   * Defaults to colocating generated files with the corresponding `proto` definition.
+   * Example:
+   *
+   * If we have the following project structure:
+   *
+   * /src
+   *   A.proto
+   *   B.proto
+   *
+   * Default:
+   *
+   * TwirpScript will generate the following:
+   *
+   * /src
+   *   A.proto
+   *   A.pb.ts
+   *   B.proto
+   *   B.pb.ts
+   *
+   * Setting `dest` to `out`:
+   *
+   * /src
+   *   A.proto
+   *   B.proto
+   * /out
+   *   A.pb.ts
+   *   B.pb.ts
+   */
+  dest: string;
+  /**
+   * Whether to generate JavaScript or TypeScript.
+   *
+   * If omitted, TwirpScript will attempt to autodetect the language by looking for a `tsconfig.json` in the project root. If found, TwirpScript will generate TypeScript, otherwise JavaScript.
+   */
+  language: "javascript" | "typescript";
+};
+
+const projectRoot = process.cwd();
 
 function getConfig(): Config {
-  const cwd = process.cwd();
-
   const defaultConfig: Config = {
-    src: cwd,
-    target: existsSync(join(cwd, "tsconfig.json"))
+    root: projectRoot,
+    dest: ".",
+    language: existsSync(join(projectRoot, "tsconfig.json"))
       ? "typescript"
       : "javascript",
   };
 
-  const configFilePath = join(cwd, ".twirp.json");
+  const configFilePath = join(projectRoot, ".twirp.json");
 
   let userConfig: UserConfig = {};
   if (existsSync(configFilePath)) {
-    console.log(`Using configuration file at '${configFilePath}'.`);
+    console.info(`Using configuration file at '${configFilePath}'.`);
     const userConfigFile = readFileSync(configFilePath);
     try {
       userConfig = JSON.parse(userConfigFile.toString());
@@ -66,8 +135,9 @@ function findFiles(entry: string, ext: string): string[] {
 }
 
 const config = getConfig();
-const protos = findFiles(config.src, ".proto").map((filepath) =>
-  relative(config.src, filepath)
+
+const protos = findFiles(config.root, ".proto").map((filepath) =>
+  relative(config.root, filepath)
 );
 
 if (!commandIsInPath("protoc")) {
@@ -91,18 +161,27 @@ if (!commandIsInPath("protoc")) {
 }
 
 try {
+  const destination = config.dest === "." ? "." : resolve(config.dest);
+
+  if (!existsSync(destination)) {
+    console.info(`Created destination folder '${destination}'.`);
+    mkdirSync(destination, { recursive: true });
+  }
+
+  process.chdir(config.root);
+
   spawnSync(
     `\
 protoc \
   --plugin=protoc-gen-twirpscript=${join(
-    ".",
+    projectRoot,
     "node_modules",
     "twirpscript",
     "dist",
     `compiler.${isWindows ? "cmd" : "js"}`
   )} \
-  --twirpscript_out=. \
-  --twirpscript_opt=${config.target} \
+  --twirpscript_out=${destination} \
+  --twirpscript_opt=${config.language} \
   ${protos.join(" ")}
 `,
     { shell: true, stdio: "inherit" }

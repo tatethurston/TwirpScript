@@ -157,6 +157,10 @@ export const Empty = {
     Empty.readMessage(message, reader);
     return message as Empty;
   },
+
+  defaultValue: function (): Empty {
+    return {};
+  },
 };
 
 export const Req = {
@@ -200,6 +204,12 @@ export const Req = {
     Req.readMessage(message, reader);
     return message as Req;
   },
+
+  defaultValue: function (): Req {
+    return {
+      v: "",
+    };
+  },
 };
 
 export const Resp = {
@@ -242,6 +252,12 @@ export const Resp = {
     const message = {};
     Resp.readMessage(message, reader);
     return message as Resp;
+  },
+
+  defaultValue: function (): Resp {
+    return {
+      v: 0,
+    };
   },
 };
 
@@ -312,6 +328,14 @@ export const ClientCompatMessage = {
     const message = {};
     ClientCompatMessage.readMessage(message, reader);
     return message as ClientCompatMessage;
+  },
+
+  defaultValue: function (): ClientCompatMessage {
+    return {
+      service_address: "",
+      method: 0,
+      request: new Uint8Array(),
+    };
   },
 
   CompatServiceMethod: { NOOP: 0, METHOD: 1 } as const,

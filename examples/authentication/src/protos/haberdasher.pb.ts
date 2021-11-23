@@ -154,6 +154,12 @@ export const Size = {
     Size.readMessage(message, reader);
     return message as Size;
   },
+
+  defaultValue: function (): Size {
+    return {
+      inches: 0,
+    };
+  },
 };
 
 export const Hat = {
@@ -216,5 +222,13 @@ export const Hat = {
     const message = {};
     Hat.readMessage(message, reader);
     return message as Hat;
+  },
+
+  defaultValue: function (): Hat {
+    return {
+      inches: 0,
+      color: "",
+      name: "",
+    };
   },
 };

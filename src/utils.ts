@@ -61,7 +61,7 @@ export function getDescriptor(
   field: FieldDescriptorProto,
   identifierTable: IdentifierTable,
   fileDescriptorProto: FileDescriptorProto
-): Descriptor {
+): Descriptor | undefined {
   const repeated =
     field.getLabel() === FieldDescriptorProto.Label.LABEL_REPEATED;
 
@@ -172,7 +172,8 @@ export function getDescriptor(
     }
     case FieldDescriptorProto.Type.TYPE_GROUP: {
       const name = field.getName() ?? "";
-      throw new Error(`Groups are not supported. Found group ${name}`);
+      console.error(`Groups are not supported. Found group ${name}`);
+      return undefined;
     }
     case FieldDescriptorProto.Type.TYPE_MESSAGE: {
       const _type = field.getTypeName() ?? "";
@@ -535,6 +536,10 @@ function removePackagePrefix(
   return name;
 }
 
+function isNotBlank<T>(x: T): x is NonNullable<T> {
+  return x != undefined;
+}
+
 export function processTypes(
   fileDescriptorProto: FileDescriptorProto,
   identifierTable: IdentifierTable,
@@ -597,24 +602,30 @@ export function processTypes(
       fullyQualifiedName: applyNamespace(namespacing, name, {
         removeLeadingPeriod: true,
       }),
-      fields: node.getFieldList().map((value) => {
-        const descriptor = getDescriptor(
-          value,
-          identifierTable,
-          fileDescriptorProto
-        );
-        if (
-          value.getType() === FieldDescriptorProto.Type.TYPE_MESSAGE ||
-          value.getType() === FieldDescriptorProto.Type.TYPE_ENUM
-        ) {
-          processIdentifier(value.getTypeName() ?? "");
-        }
-        return {
-          name: value.getName() ?? "",
-          index: value.getNumber() ?? 0,
-          ...descriptor,
-        };
-      }),
+      fields: node
+        .getFieldList()
+        .map((value) => {
+          const descriptor = getDescriptor(
+            value,
+            identifierTable,
+            fileDescriptorProto
+          );
+          if (!descriptor) {
+            return;
+          }
+          if (
+            value.getType() === FieldDescriptorProto.Type.TYPE_MESSAGE ||
+            value.getType() === FieldDescriptorProto.Type.TYPE_ENUM
+          ) {
+            processIdentifier(value.getTypeName() ?? "");
+          }
+          return {
+            name: value.getName() ?? "",
+            index: value.getNumber() ?? 0,
+            ...descriptor,
+          };
+        })
+        .filter(isNotBlank),
     };
     return opts;
   }

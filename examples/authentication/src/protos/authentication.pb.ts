@@ -152,6 +152,13 @@ export const CurrentUser = {
     CurrentUser.readMessage(message, reader);
     return message as CurrentUser;
   },
+
+  defaultValue: function (): CurrentUser {
+    return {
+      username: "",
+      token: "",
+    };
+  },
 };
 
 export const Credentials = {
@@ -207,5 +214,12 @@ export const Credentials = {
     const message = {};
     Credentials.readMessage(message, reader);
     return message as Credentials;
+  },
+
+  defaultValue: function (): Credentials {
+    return {
+      username: "",
+      password: "",
+    };
   },
 };

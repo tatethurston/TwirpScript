@@ -338,16 +338,88 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
   </thead>
   <tbody>
 <tr>
-  <td>src</td>
+  <td>root</td>
 <td>
-The directory to search for `.proto` files. TwirpScript will recursively search all subdirectories. Defaults to the project root.
+  The root directory. `.proto` files will be searched under this directory, and `proto` import paths will be resolved relative to this directory. TwirpScript will recursively search all subdirectories for `.proto` files.
+ 
+  Defaults to the project root.
+ 
+  Example:
+ 
+  If we have the following project structure:
+ 
+  <code>
+  /src
+    A.proto
+    B.proto
+  </code>
+ 
+  Default:
+ 
+  A.proto would `import` B.proto as follows:
+ 
+  <pre language="protobuf"><code>
+  import "src/B.proto";
+  </code></pre>
+ 
+  Setting `root` to `src`:
+ 
+  A.proto would `import` B.proto as follows:
+ 
+  <pre language="protobuf"><code>
+  import "B.proto";
+  </code></pre>
 </td>
-<td>string</td>
+<td>string (filepath)</td>
 </tr>
 <tr>
-  <td>target</td>
+  <td>dest</td>
 <td>
-Whether to generate JavaScript or TypeScript. By default, TwirpScript will attempt to autodetect the target by looking for a `tsconfig.json` in the project root. If found, TwirpScript will generate TypeScript, otherwise JavaScript.
+   The destination folder for generated files.
+  
+   Defaults to colocating generated files with the corresponding `proto` definition.
+   Example:
+  
+   If we have the following project structure:
+  
+   <code>
+    /src
+      A.proto
+      B.proto
+   </code>
+  
+   Default:
+  
+   TwirpScript will generate the following:
+  
+   <code>
+     /src
+       A.proto
+       A.pb.ts
+       B.proto
+       B.pb.ts
+   </code>
+  
+   Setting `dest` to `out`:
+  
+   <code>
+     /src
+       A.proto
+       B.proto
+     /out
+       A.pb.ts
+       B.pb.ts
+   </code>
+</td>
+  <td>string (filepath)</td>
+</tr>
+<tr>
+  <td>language</td>
+<td>
+Whether to generate JavaScript or TypeScript.
+
+If omitted, TwirpScript will attempt to autodetect the language by looking for a `tsconfig.json` in the project root. If found, TwirpScript will generate TypeScript, otherwise JavaScript.
+
 </td>
   <td>javascript | typescript</td>
 </tr>

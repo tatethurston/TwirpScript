@@ -348,68 +348,68 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
  
   If we have the following project structure:
  
-  <code>
+  ```
   /src
     A.proto
     B.proto
-  </code>
+  ```
  
   Default:
  
   A.proto would `import` B.proto as follows:
  
-  <pre language="protobuf"><code>
+  ```protobuf
   import "src/B.proto";
-  </code></pre>
+  ```
  
   Setting `root` to `src`:
  
   A.proto would `import` B.proto as follows:
  
-  <pre language="protobuf"><code>
+  ```protobuf
   import "B.proto";
-  </code></pre>
+  ```
 </td>
 <td>string (filepath)</td>
 </tr>
 <tr>
   <td>dest</td>
 <td>
-   The destination folder for generated files.
-  
-   Defaults to colocating generated files with the corresponding `proto` definition.
-   Example:
-  
-   If we have the following project structure:
-  
-   <code>
-    /src
-      A.proto
-      B.proto
-   </code>
-  
-   Default:
-  
-   TwirpScript will generate the following:
-  
-   <code>
-     /src
-       A.proto
-       A.pb.ts
-       B.proto
-       B.pb.ts
-   </code>
-  
-   Setting `dest` to `out`:
-  
-   <code>
-     /src
-       A.proto
-       B.proto
-     /out
-       A.pb.ts
-       B.pb.ts
-   </code>
+  The destination folder for generated files.
+ 
+  Defaults to colocating generated files with the corresponding `proto` definition.
+  Example:
+ 
+  If we have the following project structure:
+ 
+  ```
+  /src
+    A.proto
+    B.proto
+  ```
+ 
+  Default:
+ 
+  TwirpScript will generate the following:
+ 
+  ```
+  /src
+    A.proto
+    A.pb.ts
+    B.proto
+    B.pb.ts
+  ```
+ 
+  Setting `dest` to `out`:
+ 
+  ```
+  /src
+    A.proto
+    B.proto
+  /out
+    A.pb.ts
+    B.pb.ts
+  ```
 </td>
   <td>string (filepath)</td>
 </tr>

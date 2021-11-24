@@ -26,6 +26,7 @@
     "lint:fix": "prettier --write . && prettier-package-json --write '{,example/}package.json'",
     "lint:package:fix": "prettier-package-json --write ./package.json",
     "prepack": "yarn build",
+    "test": "yarn jest src/runtime",
     "typecheck": "yarn tsc --noEmit",
     "version": "git add -A package.json",
     "postversion": "git push && git push --tags"

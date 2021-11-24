@@ -1,4 +1,4 @@
-import { twirpErrorFromResponse } from "./error";
+import { twirpErrorFromResponse } from "../error";
 
 export type ClientConfiguration = Partial<{
   /**

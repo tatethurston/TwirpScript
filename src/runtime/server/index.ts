@@ -1,6 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { TwirpError } from ".";
-import { isTwirpError, statusCodeForErrorCode } from "./error";
+import { TwirpError, isTwirpError, statusCodeForErrorCode } from "../error";
 
 interface Response {
   body: string | Buffer;

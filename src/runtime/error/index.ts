@@ -58,21 +58,12 @@ export function isTwirpError(error: any | TwirpError): error is TwirpError {
   return (error as TwirpError)?.code in statusCodeForErrorCode;
 }
 
-export function isTwirpIntermediaryError(
-  error: any | TwirpError
-): error is TwirpError {
-  if (isTwirpError(error)) {
-    return error.meta?.http_error_from_intermediary === "true";
-  }
-  return false;
-}
-
 function errorCodeFromStatusCode(status: number): ErrorCode {
   if (300 >= status && status <= 400) {
     return "internal";
   }
 
-  const statusError: Record<number, ErrorCode> = {
+  const statusError: Record<number, ErrorCode | undefined> = {
     401: "unauthenticated",
     403: "permission_denied",
     404: "bad_route",

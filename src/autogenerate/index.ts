@@ -5,7 +5,7 @@ import {
   ProtoTypes,
   Service,
   processTypes,
-} from "./utils";
+} from "../utils";
 
 function writeTypes(types: ProtoTypes[]): string {
   let result = "";
@@ -232,8 +232,8 @@ function printComments(comment: string): string {
       `;
 }
 
-function printHeading(heading: string): string {
-  const width = 40;
+export function printHeading(heading: string): string {
+  const width = Math.max(40, heading.length + 2);
   const padding = (width - heading.length) / 2;
   return `\
   //${"=".repeat(width)}//

@@ -19,11 +19,10 @@ export function requireAuthentication({
     const token = req.headers["authorization"]?.split("bearer")?.[1]?.trim();
     ctx.currentUser = getCurrentUser(token);
     if (!ctx.currentUser) {
-      const error: TwirpError = {
+      throw new TwirpError({
         code: "unauthenticated",
         msg: "Access denied",
-      };
-      throw error;
+      });
     } else {
       return next();
     }

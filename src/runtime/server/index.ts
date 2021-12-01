@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { TwirpError, isTwirpError, statusCodeForErrorCode } from "../error";
+import { TwirpError, statusCodeForErrorCode } from "../error";
 import { Emitter, createEventEmitter } from "../eventEmitter";
 
 type Either<Err, Result> =
@@ -42,7 +42,7 @@ export interface ServiceHandler<Context> {
   methods: Record<string, Handler<Context> | undefined>;
 }
 
-function TwirpErrorResponse(error: TwirpError): Response {
+export function TwirpErrorResponse(error: TwirpError): Response {
   return {
     status: statusCodeForErrorCode[error.code],
     headers: {
@@ -119,7 +119,7 @@ export function createMethodHandler<T, Context>({
         }
       }
     } catch (error) {
-      if (isTwirpError(error)) {
+      if (error instanceof TwirpError) {
         return { ok: false, error };
       } else {
         return {
@@ -201,7 +201,7 @@ function twirpHandler<Context>(
   return async (req: IncomingMessage, ctx: Context): Promise<Response> => {
     const parsed = parseRequest(req);
     if (!parsed.ok) {
-      const error: TwirpError = { code: "malformed", msg: parsed.error };
+      const error = new TwirpError({ code: "malformed", msg: parsed.error });
       ee.emit("error", ctx, error);
       return TwirpErrorResponse(error);
     }
@@ -224,10 +224,10 @@ function twirpHandler<Context>(
     const method = service?.methods[serviceMethod];
 
     if (!method) {
-      const error: TwirpError = {
+      const error = new TwirpError({
         code: "bad_route",
         msg: `no handler for path POST ${req.url ?? ""}.`,
-      };
+      });
       ee.emit("error", ctx, error);
       return TwirpErrorResponse(error);
     }
@@ -325,9 +325,10 @@ export function createTwirpServer<Context = unknown>(
         return nxt(req, ctx, next);
       });
     } catch (e) {
-      const error: TwirpError = isTwirpError(e)
-        ? e
-        : { code: "internal", msg: "server error" };
+      const error =
+        e instanceof TwirpError
+          ? e
+          : new TwirpError({ code: "internal", msg: "server error" });
       ee.emit("error", ctx, error);
       response = TwirpErrorResponse(error);
     }

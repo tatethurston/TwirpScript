@@ -310,11 +310,10 @@ app.use(async (req, ctx, next) => {
   ctx.currentUser = getCurrentUser(token);
 
   if (!ctx.currentUser) {
-    const error: TwirpError = {
+    throw new TwirpError({
       code: "unauthenticated",
       msg: "Access denied",
-    };
-    throw error;
+    });
   } else {
     return next();
   }

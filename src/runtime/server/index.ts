@@ -1,5 +1,10 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { TwirpError, isTwirpError, statusCodeForErrorCode } from "../error";
+import { Emitter, createEventEmitter } from "../eventEmitter";
+
+type Either<Err, Result> =
+  | { ok: true; result: Result }
+  | { ok: false; error: Err };
 
 interface Response {
   body: string | Buffer;
@@ -28,14 +33,16 @@ interface ServiceMethod<Context = unknown> {
 type Handler<Context> = (
   req: Request,
   ctx: Context
-) => Promise<Response> | Response;
+) =>
+  | Promise<Either<TwirpError, string | Buffer>>
+  | Either<TwirpError, string | Buffer>;
 
 export interface ServiceHandler<Context> {
   path: string;
-  methods: Record<string, Handler<Context>>;
+  methods: Record<string, Handler<Context> | undefined>;
 }
 
-export function TwirpErrorResponse(error: TwirpError): Response {
+function TwirpErrorResponse(error: TwirpError): Response {
   return {
     status: statusCodeForErrorCode[error.code],
     headers: {
@@ -45,9 +52,9 @@ export function TwirpErrorResponse(error: TwirpError): Response {
   };
 }
 
-function parseJSON<T>(json: string): T | undefined {
+function parseJSON<Result>(json: string): Result | undefined {
   try {
-    return JSON.parse(json);
+    return JSON.parse(json) as Result;
   } catch (e) {
     return undefined;
   }
@@ -75,35 +82,35 @@ export function createMethodHandler<T, Context>({
         case "application/json": {
           const body = parseJSON<T>(req.body.toString());
           if (!body) {
-            return TwirpErrorResponse({
-              code: "invalid_argument",
-              msg: `failed to deserialize argument as JSON`,
-            });
+            return {
+              ok: false,
+              error: {
+                code: "invalid_argument",
+                msg: `failed to deserialize argument as JSON`,
+              },
+            };
           }
           const response = await handler(body, context);
           return {
-            status: 200,
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(response),
+            ok: true,
+            result: JSON.stringify(response),
           };
         }
         case "application/protobuf": {
           const body = parseProto<T>(req.body, decode);
           if (!body) {
-            return TwirpErrorResponse({
-              code: "invalid_argument",
-              msg: `failed to deserialize argument as Protobuf`,
-            });
+            return {
+              ok: false,
+              error: {
+                code: "invalid_argument",
+                msg: `failed to deserialize argument as Protobuf`,
+              },
+            };
           }
           const response = await handler(body, context);
           return {
-            status: 200,
-            headers: {
-              "Content-Type": "application/protobuf",
-            },
-            body: Buffer.from(encode(response)),
+            ok: true,
+            result: Buffer.from(encode(response)),
           };
         }
         default: {
@@ -113,12 +120,15 @@ export function createMethodHandler<T, Context>({
       }
     } catch (error) {
       if (isTwirpError(error)) {
-        return TwirpErrorResponse(error);
+        return { ok: false, error };
       } else {
-        return TwirpErrorResponse({
-          code: "internal",
-          msg: "server error",
-        });
+        return {
+          ok: false,
+          error: {
+            code: "internal",
+            msg: "server error",
+          },
+        };
       }
     }
   };
@@ -133,28 +143,26 @@ async function getBody(req: IncomingMessage): Promise<Buffer> {
   return body;
 }
 
-type ParsedRequest =
-  | { ok: true; result: Omit<Request, "body"> }
-  | { ok: false; result: string };
-
-function parseRequest(req: IncomingMessage): ParsedRequest {
+function parseRequest(
+  req: IncomingMessage
+): Either<string, Omit<Request, "body">> {
   if (!req.url) {
-    return { ok: false, result: `no request url provided` };
+    return { ok: false, error: `no request url provided` };
   }
 
   if (!req.method) {
-    return { ok: false, result: `no request method provided` };
+    return { ok: false, error: `no request method provided` };
   }
 
   const method = req.method.toUpperCase();
   if (method !== "POST") {
-    return { ok: false, result: `unexpected request method ${method}` };
+    return { ok: false, error: `unexpected request method ${method}` };
   }
 
   const contentType = req.headers["content-type"];
 
   if (!contentType) {
-    return { ok: false, result: `no request content-type provided` };
+    return { ok: false, error: `no request content-type provided` };
   }
 
   if (
@@ -163,7 +171,7 @@ function parseRequest(req: IncomingMessage): ParsedRequest {
   ) {
     return {
       ok: false,
-      result: `unexpected request content-type ${contentType}`,
+      error: `unexpected request content-type ${contentType}`,
     };
   }
 
@@ -186,11 +194,16 @@ export type Middleware<Context = unknown> = (
   next: Next
 ) => Promise<Response>;
 
-function twirpHandler<Context>(services: ServiceHandler<Context>[]) {
+function twirpHandler<Context>(
+  services: ServiceHandler<Context>[],
+  ee: Emitter<ServerHooks<Context>>
+) {
   return async (req: IncomingMessage, ctx: Context): Promise<Response> => {
     const parsed = parseRequest(req);
     if (!parsed.ok) {
-      return TwirpErrorResponse({ code: "malformed", msg: parsed.result });
+      const error: TwirpError = { code: "malformed", msg: parsed.error };
+      ee.emit("error", ctx, error);
+      return TwirpErrorResponse(error);
     }
 
     const body = await getBody(req);
@@ -208,18 +221,52 @@ function twirpHandler<Context>(services: ServiceHandler<Context>[]) {
       (service) =>
         servicePath === service.path && service.methods[serviceMethod]
     );
+    const method = service?.methods[serviceMethod];
 
-    if (!service) {
-      return TwirpErrorResponse({
+    if (!method) {
+      const error: TwirpError = {
         code: "bad_route",
-        msg: `no handler for path POST ${req.url}.`,
-      });
+        msg: `no handler for path POST ${req.url ?? ""}.`,
+      };
+      ee.emit("error", ctx, error);
+      return TwirpErrorResponse(error);
     }
 
-    const response = await service.methods[serviceMethod](request, ctx);
-    return response;
+    ee.emit("requestRouted", ctx);
+
+    const response = await method(request, ctx);
+
+    ee.emit("responsePrepared", ctx);
+
+    if (response.ok) {
+      return {
+        status: 200,
+        headers: parsed.result.headers,
+        body: response.result,
+      };
+    } else {
+      ee.emit("error", ctx, response.error);
+      return TwirpErrorResponse(response.error);
+    }
   };
 }
+
+type HookListener<Context> = (ctx: Readonly<Context>) => void;
+
+type ErrorHookListener<Context> = (
+  ctx: Readonly<Context>,
+  err: TwirpError
+) => void;
+
+type ServerHooks<Context> = {
+  requestReceived: HookListener<Context>;
+  requestRouted: HookListener<Context>;
+  responsePrepared: HookListener<Context>;
+  responseSent: HookListener<Context>;
+  error: ErrorHookListener<Context>;
+};
+
+type TwirpServerEvent<Context> = Emitter<ServerHooks<Context>>;
 
 interface TwirpServer<Context> {
   (req: IncomingMessage, res: ServerResponse): void;
@@ -230,17 +277,43 @@ interface TwirpServer<Context> {
    *
    * Middleware is called in order of registration, with the Twirp service handler you implemented invoked last.
    */
-  use: (middleware: Middleware<Context>) => void;
+  use: (middleware: Middleware<Context>) => TwirpServer<Context>;
+  /**
+   * Registers event handler that can instrument a Twirp-generated server.
+   * These callbacks all accept the current request `Context`.
+   *
+   * `requestReceived` is called as soon as a request enters the Twirp
+   * server at the earliest available moment.
+   *
+   * `requestRouted` is called when a request has been routed to a
+   * particular method of the Twirp server.
+   *
+   * `responsePrepared` is called when a request has been handled and a
+   * response is ready to be sent to the client.
+   *
+   * `responseSent` is called when all bytes of a response (including an error
+   * response) have been written.
+   *
+   * `error` is called when an error occurs while handling a request. In
+   * addition to `Context`, the error is also passed as an argument.
+   */
+  on: (...args: Parameters<TwirpServerEvent<Context>["on"]>) => this;
+  /**
+   * Removes a registered event handler
+   */
+  off: (...args: Parameters<TwirpServerEvent<Context>["off"]>) => this;
 }
 
 export function createTwirpServer<Context = unknown>(
   services: ServiceHandler<Context>[]
 ): TwirpServer<Context> {
-  const twirp = twirpHandler(services);
   const serverMiddleware: Middleware<Context>[] = [];
+  const ee = createEventEmitter<ServerHooks<Context>>();
+  const twirp = twirpHandler(services, ee);
 
   async function app(req: IncomingMessage, res: ServerResponse): Promise<void> {
     const ctx: Context = {} as Context;
+    ee.emit("requestReceived", ctx);
 
     let response: Response;
     try {
@@ -251,20 +324,33 @@ export function createTwirpServer<Context = unknown>(
         idx++;
         return nxt(req, ctx, next);
       });
-    } catch (error) {
-      console.error(error);
-      response = TwirpErrorResponse({
-        code: "internal",
-        msg: "server error",
-      });
+    } catch (e) {
+      const error: TwirpError = isTwirpError(e)
+        ? e
+        : { code: "internal", msg: "server error" };
+      ee.emit("error", ctx, error);
+      response = TwirpErrorResponse(error);
     }
 
     res.writeHead(response.status, response.headers);
     res.end(response.body);
+
+    ee.emit("responseSent", ctx);
   }
 
   app.use = (handler: Middleware<Context>) => {
     serverMiddleware.push(handler);
+    return app;
+  };
+
+  app.on = (...args: Parameters<TwirpServerEvent<Context>["on"]>) => {
+    ee.on(...args);
+    return app;
+  };
+
+  app.off = (...args: Parameters<TwirpServerEvent<Context>["off"]>) => {
+    ee.off(...args);
+    return app;
   };
 
   return app;

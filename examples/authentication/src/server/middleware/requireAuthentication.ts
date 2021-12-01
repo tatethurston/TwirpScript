@@ -1,4 +1,4 @@
-import { Middleware, TwirpErrorResponse } from "twirpscript";
+import { Middleware, TwirpError } from "twirpscript";
 import { Context } from "../context";
 import { getCurrentUser } from "../services";
 
@@ -19,10 +19,11 @@ export function requireAuthentication({
     const token = req.headers["authorization"]?.split("bearer")?.[1]?.trim();
     ctx.currentUser = getCurrentUser(token);
     if (!ctx.currentUser) {
-      return TwirpErrorResponse({
+      const error: TwirpError = {
         code: "unauthenticated",
         msg: "Access denied",
-      });
+      };
+      throw error;
     } else {
       return next();
     }

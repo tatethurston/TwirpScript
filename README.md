@@ -293,7 +293,7 @@ Server Middleware Example
 
 ```ts
 import { createServer } from "http";
-import { createTwirpServer } from "twirpscript";
+import { createTwirpServer, TwirpError } from "twirpscript";
 
 interface Context {
   currentUser: { username: string };
@@ -310,10 +310,11 @@ app.use(async (req, ctx, next) => {
   ctx.currentUser = getCurrentUser(token);
 
   if (!ctx.currentUser) {
-    return TwirpErrorResponse({
+    const error: TwirpError = {
       code: "unauthenticated",
       msg: "Access denied",
-    });
+    };
+    throw error;
   } else {
     return next();
   }

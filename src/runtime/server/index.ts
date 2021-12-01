@@ -2,10 +2,6 @@ import { IncomingMessage, ServerResponse } from "http";
 import { TwirpError, statusCodeForErrorCode } from "../error";
 import { Emitter, createEventEmitter } from "../eventEmitter";
 
-type Either<Err, Result> =
-  | { ok: true; result: Result }
-  | { ok: false; error: Err };
-
 interface Response {
   body: string | Buffer;
   headers: {
@@ -33,9 +29,7 @@ interface ServiceMethod<Context = unknown> {
 type Handler<Context> = (
   req: Request,
   ctx: Context
-) =>
-  | Promise<Either<TwirpError, string | Buffer>>
-  | Either<TwirpError, string | Buffer>;
+) => Promise<TwirpError | string | Buffer> | TwirpError | string | Buffer;
 
 export interface ServiceHandler<Context> {
   path: string;
@@ -82,36 +76,24 @@ export function createMethodHandler<T, Context>({
         case "application/json": {
           const body = parseJSON<T>(req.body.toString());
           if (!body) {
-            return {
-              ok: false,
-              error: {
-                code: "invalid_argument",
-                msg: `failed to deserialize argument as JSON`,
-              },
-            };
+            return new TwirpError({
+              code: "invalid_argument",
+              msg: `failed to deserialize argument as JSON`,
+            });
           }
           const response = await handler(body, context);
-          return {
-            ok: true,
-            result: JSON.stringify(response),
-          };
+          return JSON.stringify(response);
         }
         case "application/protobuf": {
           const body = parseProto<T>(req.body, decode);
           if (!body) {
-            return {
-              ok: false,
-              error: {
-                code: "invalid_argument",
-                msg: `failed to deserialize argument as Protobuf`,
-              },
-            };
+            return new TwirpError({
+              code: "invalid_argument",
+              msg: `failed to deserialize argument as Protobuf`,
+            });
           }
           const response = await handler(body, context);
-          return {
-            ok: true,
-            result: Buffer.from(encode(response)),
-          };
+          return Buffer.from(encode(response));
         }
         default: {
           const _exhaust: never = req.headers["Content-Type"];
@@ -120,15 +102,12 @@ export function createMethodHandler<T, Context>({
       }
     } catch (error) {
       if (error instanceof TwirpError) {
-        return { ok: false, error };
+        return error;
       } else {
-        return {
-          ok: false,
-          error: {
-            code: "internal",
-            msg: "server error",
-          },
-        };
+        return new TwirpError({
+          code: "internal",
+          msg: "server error",
+        });
       }
     }
   };
@@ -145,43 +124,52 @@ async function getBody(req: IncomingMessage): Promise<Buffer> {
 
 function parseRequest(
   req: IncomingMessage
-): Either<string, Omit<Request, "body">> {
+): TwirpError | Omit<Request, "body"> {
   if (!req.url) {
-    return { ok: false, error: `no request url provided` };
+    return new TwirpError({
+      code: "malformed",
+      msg: `no request url provided`,
+    });
   }
 
   if (!req.method) {
-    return { ok: false, error: `no request method provided` };
+    return new TwirpError({
+      code: "malformed",
+      msg: `no request method provided`,
+    });
   }
 
   const method = req.method.toUpperCase();
   if (method !== "POST") {
-    return { ok: false, error: `unexpected request method ${method}` };
+    return new TwirpError({
+      code: "malformed",
+      msg: `unexpected request method ${method}`,
+    });
   }
 
   const contentType = req.headers["content-type"];
 
   if (!contentType) {
-    return { ok: false, error: `no request content-type provided` };
+    return new TwirpError({
+      code: "malformed",
+      msg: `no request content-type provided`,
+    });
   }
 
   if (
     contentType !== "application/json" &&
     contentType !== "application/protobuf"
   ) {
-    return {
-      ok: false,
-      error: `unexpected request content-type ${contentType}`,
-    };
+    return new TwirpError({
+      code: "malformed",
+      msg: `unexpected request content-type ${contentType}`,
+    });
   }
 
   return {
-    ok: true,
-    result: {
-      url: req.url,
-      headers: {
-        "Content-Type": contentType,
-      },
+    url: req.url,
+    headers: {
+      "Content-Type": contentType,
     },
   };
 }
@@ -200,15 +188,14 @@ function twirpHandler<Context>(
 ) {
   return async (req: IncomingMessage, ctx: Context): Promise<Response> => {
     const parsed = parseRequest(req);
-    if (!parsed.ok) {
-      const error = new TwirpError({ code: "malformed", msg: parsed.error });
-      ee.emit("error", ctx, error);
-      return TwirpErrorResponse(error);
+    if (parsed instanceof TwirpError) {
+      ee.emit("error", ctx, parsed);
+      return TwirpErrorResponse(parsed);
     }
 
     const body = await getBody(req);
     const request: Request = {
-      ...parsed.result,
+      ...parsed,
       body,
     };
 
@@ -238,15 +225,14 @@ function twirpHandler<Context>(
 
     ee.emit("responsePrepared", ctx);
 
-    if (response.ok) {
+    if (response instanceof TwirpError) {
+      return TwirpErrorResponse(response);
+    } else {
       return {
         status: 200,
-        headers: parsed.result.headers,
-        body: response.result,
+        headers: parsed.headers,
+        body: response,
       };
-    } else {
-      ee.emit("error", ctx, response.error);
-      return TwirpErrorResponse(response.error);
     }
   };
 }

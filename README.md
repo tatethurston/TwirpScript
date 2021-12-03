@@ -192,7 +192,10 @@ import { client } from "twirpscript";
 client.baseURL = "http://localhost:8080";
 
 // This RPC will make a request to https://api.example.com instead of http://localhost:8080
-const hat = await MakeHat({ inches: 12 }, { baseURL: "https://api.example.com");
+const hat = await MakeHat(
+  { inches: 12 },
+  { baseURL: "https://api.example.com" }
+);
 console.log(hat);
 
 // This RPC will make a request to http://localhost:8080
@@ -212,7 +215,10 @@ client.use((config, next) => {
 });
 
 // This will make a request to https://www.foo.com instead of http://localhost:8080 or https://api.example.com"
-const hat = await MakeHat({ inches: 12 }, { baseURL: "https://api.example.com");
+const hat = await MakeHat(
+  { inches: 12 },
+  { baseURL: "https://api.example.com" }
+);
 console.log(hat);
 ```
 

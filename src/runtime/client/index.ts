@@ -1,4 +1,5 @@
-import { twirpErrorFromResponse } from "../error";
+import { TwirpError, twirpErrorFromResponse } from "../error";
+import { createEventEmitter, Emitter } from "../eventEmitter";
 
 export type ClientConfiguration = Partial<{
   /**
@@ -27,6 +28,25 @@ type ClientMiddleware = (
   next: (config: MiddlewareConfig) => Promise<unknown>
 ) => Promise<unknown>;
 
+type HookListener<MiddlewareConfig> = (
+  config: Readonly<MiddlewareConfig>
+) => void;
+
+type ErrorHookListener<MiddlewareConfig> = (
+  ctx: Readonly<MiddlewareConfig>,
+  err: TwirpError
+) => void;
+
+type ClientHooks<MiddlewareConfig> = {
+  requestPrepared: HookListener<MiddlewareConfig>;
+  responseReceived: HookListener<MiddlewareConfig>;
+  error: ErrorHookListener<MiddlewareConfig>;
+};
+
+type TwirpClientEvent<MiddlewareConfig> = Emitter<
+  ClientHooks<MiddlewareConfig>
+>;
+
 interface Client extends ClientConfiguration {
   /**
    * Registers middleware to manipulate the client request / response lifecycle.
@@ -35,10 +55,28 @@ interface Client extends ClientConfiguration {
    *
    * Middleware is called in order of registration, with the Twirp RPC invoked last.
    */
-  use: (middleware: ClientMiddleware) => void;
+  use: (middleware: ClientMiddleware) => Client;
+  /**
+   * Registers event handler that can instrument a Twirp-generated client.
+   * These callbacks all accept the current request `Config`.
+   *
+   * `requestPrepared` is called as soon as a request has been created and before
+   *  it has been sent to the Twirp server.
+   *
+   * `responseReceived` is called after a request has finished sending.
+   *
+   * `error` is called when an error occurs during the sending or receiving of a
+   * request. In addition to `Config`, the error is also passed as an argument.
+   */
+  on: (...args: Parameters<TwirpClientEvent<MiddlewareConfig>["on"]>) => this;
+  /**
+   * Removes a registered event handler
+   */
+  off: (...args: Parameters<TwirpClientEvent<MiddlewareConfig>["off"]>) => this;
 }
 
 const clientMiddleware: ClientMiddleware[] = [];
+const ee = createEventEmitter<ClientHooks<MiddlewareConfig>>();
 
 /**
  * Global configuration for the TwirpScript clients.
@@ -48,6 +86,15 @@ export const client: Client = {
   headers: {},
   use(middleware: ClientMiddleware) {
     clientMiddleware.push(middleware);
+    return client;
+  },
+  on: (...args) => {
+    ee.on(...args);
+    return client;
+  },
+  off: (...args) => {
+    ee.off(...args);
+    return client;
   },
 };
 
@@ -55,13 +102,27 @@ function runMiddleware(
   config: MiddlewareConfig,
   request: (c: MiddlewareConfig) => Promise<unknown>
 ): Promise<unknown> {
+  let cfg = config;
   let idx = 1;
   const middleware = [...clientMiddleware, request];
-  return middleware[0](config, function next(c: MiddlewareConfig) {
-    const nxt = middleware[idx];
-    idx++;
-    return nxt(c, next);
-  });
+  try {
+    return middleware[0](config, function next(c: MiddlewareConfig) {
+      cfg = c;
+      const nxt = middleware[idx];
+      idx++;
+      return nxt(c, next);
+    });
+  } catch (e) {
+    const error =
+      e instanceof TwirpError
+        ? e
+        : new TwirpError({
+            code: "internal",
+            msg: "client error",
+          });
+    ee.emit("error", cfg, error);
+    throw e;
+  }
 }
 
 function getConfig(
@@ -84,6 +145,7 @@ export function JSONrequest<T = unknown>(
   config?: ClientConfiguration
 ): Promise<T> {
   return runMiddleware(getConfig(config, path), async (c: MiddlewareConfig) => {
+    ee.emit("requestPrepared", c);
     const res = await fetch(c.url, {
       method: "POST",
       headers: {
@@ -92,6 +154,7 @@ export function JSONrequest<T = unknown>(
       },
       body: JSON.stringify(body),
     });
+    ee.emit("responseReceived", c);
 
     if (!res.ok) {
       throw await twirpErrorFromResponse(res);
@@ -107,6 +170,7 @@ export function PBrequest(
   config?: ClientConfiguration
 ): Promise<Uint8Array> {
   return runMiddleware(getConfig(config, path), async (c: MiddlewareConfig) => {
+    ee.emit("requestPrepared", c);
     const res = await fetch(c.url, {
       method: "POST",
       headers: {
@@ -115,6 +179,7 @@ export function PBrequest(
       },
       body,
     });
+    ee.emit("responseReceived", c);
 
     if (!res.ok) {
       throw await twirpErrorFromResponse(res);

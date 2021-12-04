@@ -174,12 +174,12 @@ function parseRequest(
   };
 }
 
-type Next = () => Promise<Response>;
+type Next<Context> = (ctx: Context) => Promise<Response>;
 
 export type Middleware<Context = unknown> = (
   req: IncomingMessage,
   ctx: Partial<Context>,
-  next: Next
+  next: Next<Context>
 ) => Promise<Response>;
 
 function twirpHandler<Context>(
@@ -298,17 +298,18 @@ export function createTwirpServer<Context = unknown>(
   const twirp = twirpHandler(services, ee);
 
   async function app(req: IncomingMessage, res: ServerResponse): Promise<void> {
-    const ctx: Context = {} as Context;
+    let ctx: Context = {} as Context;
     ee.emit("requestReceived", ctx);
 
     let response: Response;
     try {
       let idx = 1;
       const middleware = [...serverMiddleware, twirp];
-      response = await middleware[0](req, ctx, function next() {
+      response = await middleware[0](req, ctx, function next(c: Context) {
+        ctx = c;
         const nxt = middleware[idx];
         idx++;
-        return nxt(req, ctx, next);
+        return nxt(req, c, next);
       });
     } catch (e) {
       const error =

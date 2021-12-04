@@ -24,6 +24,14 @@ function login(credentials: Credentials): CurrentUser | undefined {
   }
 }
 
+/**
+ * Sentinal value for unauthenticated routes.
+ */
+export const UnauthenticatedUser: CurrentUser = {
+  username: "",
+  token: "",
+};
+
 export function getCurrentUser(
   token: string | undefined
 ): CurrentUser | undefined {

@@ -1,2 +1,6 @@
-export { AuthenticationHandler, getCurrentUser } from "./authentication";
+export {
+  AuthenticationHandler,
+  getCurrentUser,
+  UnauthenticatedUser,
+} from "./authentication";
 export { HaberdasherHandler } from "./haberdasher";

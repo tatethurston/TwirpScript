@@ -32,7 +32,7 @@ describe("JSONrequest", () => {
     it('sets "Content-Type": "application/json"', async () => {
       await JSONrequest("/foo");
 
-      expect(fetch).toHaveBeenCalledWith("/foo", {
+      expect(fetch).toHaveBeenCalledWith("/twirp/foo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ describe("PBrequest", () => {
     it('sets "Content-Type": "application/protobuf"', async () => {
       await PBrequest("/foo");
 
-      expect(fetch).toHaveBeenCalledWith("/foo", {
+      expect(fetch).toHaveBeenCalledWith("/twirp/foo", {
         method: "POST",
         headers: {
           "Content-Type": "application/protobuf",

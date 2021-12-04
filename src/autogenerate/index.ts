@@ -266,9 +266,9 @@ function writeClients(
         result += printComments(method.comments.leading);
       }
       const input = formatParameterName(method.input ?? "");
-      const path = `/twirp/${packageName ? packageName + "." : ""}${
-        service.name
-      }/${method.name}`;
+      const path = `/${packageName ? packageName + "." : ""}${service.name}/${
+        method.name
+      }`;
 
       result += `\
 export async function ${method.name}(${input}${printIfTypescript(
@@ -294,9 +294,9 @@ export async function ${method.name}(${input}${printIfTypescript(
         result += printComments(method.comments.leading);
       }
       const input = formatParameterName(method.input ?? "");
-      const path = `/twirp/${packageName ? packageName + "." : ""}${
-        service.name
-      }/${method.name}`;
+      const path = `/${packageName ? packageName + "." : ""}${service.name}/${
+        method.name
+      }`;
 
       result += `\
 export async function ${method.name}JSON(${input}${printIfTypescript(

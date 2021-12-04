@@ -13,6 +13,20 @@ interface TwirpIntermediaryError extends TwirpError {
   };
 }
 
+export class TwirpError implements TwirpError {
+  constructor(error: TwirpError) {
+    this.code = error.code;
+    this.msg = error.msg;
+    this.meta = error.meta;
+  }
+}
+
+class TwirpIntermediaryError extends TwirpError {
+  constructor(error: TwirpIntermediaryError) {
+    super(error);
+  }
+}
+
 type ErrorCode =
   | "canceled"
   | "unknown"
@@ -54,8 +68,14 @@ export const statusCodeForErrorCode = {
   data_loss: 500,
 } as const;
 
-export function isTwirpError(error: any | TwirpError): error is TwirpError {
-  return (error as TwirpError)?.code in statusCodeForErrorCode;
+export function isTwirpError(error: unknown): error is TwirpError {
+  if (typeof error === "object" && error !== null) {
+    return (
+      "code" in error && (error as TwirpError).code in statusCodeForErrorCode
+    );
+  }
+
+  return false;
 }
 
 function errorCodeFromStatusCode(status: number): ErrorCode {
@@ -81,13 +101,14 @@ export async function twirpErrorFromResponse(
 ): Promise<TwirpError> {
   const text = await res.text();
   try {
-    const json = JSON.parse(text);
+    const json = JSON.parse(text) as unknown;
     if (isTwirpError(json)) {
-      return json;
+      return new TwirpError(json);
     }
+    // eslint-disable-next-line no-empty
   } catch {}
 
-  const errorFromIntermediary: TwirpIntermediaryError = {
+  return new TwirpIntermediaryError({
     code: errorCodeFromStatusCode(res.status),
     msg: "HTTP Error from Intermediary Proxy",
     meta: {
@@ -96,6 +117,5 @@ export async function twirpErrorFromResponse(
       body: text,
       location: res.headers.get("Location") ?? undefined,
     },
-  };
-  return errorFromIntermediary;
+  });
 }

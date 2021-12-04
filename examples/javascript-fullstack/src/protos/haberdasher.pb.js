@@ -17,7 +17,7 @@ import {
  */
 export async function MakeHat(size, config) {
   const response = await PBrequest(
-    "/twirp/Haberdasher/MakeHat",
+    "/Haberdasher/MakeHat",
     Size.encode(size),
     config
   );
@@ -32,11 +32,7 @@ export async function MakeHat(size, config) {
  * MakeHat produces a hat of mysterious, randomly-selected color!
  */
 export async function MakeHatJSON(size, config) {
-  const response = await JSONrequest(
-    "/twirp/Haberdasher/MakeHat",
-    size,
-    config
-  );
+  const response = await JSONrequest("/Haberdasher/MakeHat", size, config);
   return response;
 }
 

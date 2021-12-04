@@ -174,17 +174,25 @@ function parseRequest(
   };
 }
 
-type Next<Context> = (ctx: Context) => Promise<Response>;
+type Next = () => Promise<Response>;
+
+interface TwirpServerConfig {
+  /**
+   * A path prefix such as "/my/custom/prefix". Defaults to "/twirp", but can be set to "".
+   */
+  prefix: string;
+}
 
 export type Middleware<Context = unknown> = (
   req: IncomingMessage,
   ctx: Partial<Context>,
-  next: Next<Context>
+  next: Next
 ) => Promise<Response>;
 
 function twirpHandler<Context>(
   services: ServiceHandler<Context>[],
-  ee: Emitter<ServerHooks<Context>>
+  ee: Emitter<ServerHooks<Context>>,
+  config: TwirpServerConfig
 ) {
   return async (req: IncomingMessage, ctx: Context): Promise<Response> => {
     const parsed = parseRequest(req);
@@ -199,8 +207,8 @@ function twirpHandler<Context>(
       body,
     };
 
+    const prefix = config.prefix + "/";
     const methodIdx = request.url.lastIndexOf("/");
-    const prefix = "/twirp/";
     const servicePath = request.url.slice(prefix.length, methodIdx);
     const serviceMethod = request.url.slice(methodIdx + 1);
 
@@ -210,7 +218,7 @@ function twirpHandler<Context>(
     );
     const method = service?.methods[serviceMethod];
 
-    if (!method) {
+    if (!request.url.startsWith(prefix) || !method) {
       const error = new TwirpError({
         code: "bad_route",
         msg: `no handler for path POST ${req.url ?? ""}.`,
@@ -291,25 +299,25 @@ interface TwirpServer<Context> {
 }
 
 export function createTwirpServer<Context = unknown>(
-  services: ServiceHandler<Context>[]
+  services: ServiceHandler<Context>[],
+  config: TwirpServerConfig = { prefix: "/twirp" }
 ): TwirpServer<Context> {
   const serverMiddleware: Middleware<Context>[] = [];
   const ee = createEventEmitter<ServerHooks<Context>>();
-  const twirp = twirpHandler(services, ee);
+  const twirp = twirpHandler(services, ee, config);
 
   async function app(req: IncomingMessage, res: ServerResponse): Promise<void> {
-    let ctx: Context = {} as Context;
+    const ctx: Context = {} as Context;
     ee.emit("requestReceived", ctx);
 
     let response: Response;
     try {
       let idx = 1;
       const middleware = [...serverMiddleware, twirp];
-      response = await middleware[0](req, ctx, function next(c: Context) {
-        ctx = c;
+      response = await middleware[0](req, ctx, function next() {
         const nxt = middleware[idx];
         idx++;
-        return nxt(req, c, next);
+        return nxt(req, ctx, next);
       });
     } catch (e) {
       const error =

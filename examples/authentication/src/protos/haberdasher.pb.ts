@@ -25,7 +25,7 @@ export async function MakeHat(
   config?: ClientConfiguration
 ): Promise<Hat> {
   const response = await PBrequest(
-    "/twirp/Haberdasher/MakeHat",
+    "/Haberdasher/MakeHat",
     Size.encode(size),
     config
   );
@@ -43,11 +43,7 @@ export async function MakeHatJSON(
   size: Size,
   config?: ClientConfiguration
 ): Promise<Hat> {
-  const response = await JSONrequest<Hat>(
-    "/twirp/Haberdasher/MakeHat",
-    size,
-    config
-  );
+  const response = await JSONrequest<Hat>("/Haberdasher/MakeHat", size, config);
   return response;
 }
 

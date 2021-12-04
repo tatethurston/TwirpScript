@@ -25,7 +25,7 @@ export async function Login(
   config?: ClientConfiguration
 ): Promise<CurrentUser> {
   const response = await PBrequest(
-    "/twirp/Authentication/Login",
+    "/Authentication/Login",
     Credentials.encode(credentials),
     config
   );
@@ -44,7 +44,7 @@ export async function LoginJSON(
   config?: ClientConfiguration
 ): Promise<CurrentUser> {
   const response = await JSONrequest<CurrentUser>(
-    "/twirp/Authentication/Login",
+    "/Authentication/Login",
     credentials,
     config
   );

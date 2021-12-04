@@ -19,16 +19,14 @@
 
 ## What is this? 🧐
 
-TwirpScript is a JavaScript / TypeScript implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates clients and servers from [protocol buffers](https://developers.google.com/protocol-buffers/).
-
-TwirpScript generates JavaScript or TypeScript.
+TwirpScript is an implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates Javascript or TypeScript clients and servers from [protocol buffers](https://developers.google.com/protocol-buffers/).
 
 | Language       | Clients | Servers |
 | -------------- | ------- | ------- |
 | **JavaScript** | ✅      | ✅      |
 | **Typescript** | ✅      | ✅      |
 
-[Supports Twirp Wire Protocol (v7)](https://twitchtv.github.io/twirp/docs/spec_v7.html)
+[TwirpScript implements the latest Twirp Wire Protocol (v7)](https://twitchtv.github.io/twirp/docs/spec_v7.html)
 
 ## Overview
 

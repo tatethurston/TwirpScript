@@ -368,6 +368,71 @@ createServer(app).listen(PORT, () =>
 );
 ```
 
+### Hooks
+
+TwirpScript clients and servers can be instrumented by listening to events at key moments during the request / response life cycle.
+
+#### Client
+
+##### Events
+
+`requestPrepared` is called as soon as a request has been created and before
+it has been sent to the Twirp server.
+
+`responseReceived` is called after a request has finished sending.
+
+`error` is called when an error occurs during the sending or receiving of a
+request. In addition to `Config`, the error is also passed as an argument.
+
+##### Example
+
+```ts
+import { client } from "twirpscript";
+
+client.on("responseReceived", (config) => {
+  // log or report
+});
+```
+
+#### Server
+
+##### Events
+
+`requestReceived` is called as soon as a request enters the Twirp
+server at the earliest available moment.
+
+`requestRouted` is called when a request has been routed to a
+particular method of the Twirp server.
+
+`responsePrepared` is called when a request has been handled and a
+response is ready to be sent to the client.
+
+`responseSent` is called when all bytes of a response (including an error
+response) have been written.
+
+`error` is called when an error occurs while handling a request. In
+addition to `Context`, the error is also passed as an argument.
+
+##### Example
+
+```ts
+import { createServer } from "http";
+import { createTwirpServer } from "twirpscript";
+import { HaberdasherHandler } from "./haberdasher";
+
+const PORT = 8080;
+
+const app = createTwirpServer([HaberdasherHandler]);
+
+app.on("responseSent", (ctx) => {
+  // log or report
+});
+
+createServer(app).listen(PORT, () =>
+  console.log(`Server listening on port ${PORT}`)
+);
+```
+
 ## Configuration 🛠
 
 TwirpScript aims to be zero config, but can be configured by creating a `.twirp.json` file in your project root.

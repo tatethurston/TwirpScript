@@ -170,7 +170,7 @@ createServer(app).listen(PORT, () =>
 
 #### Clients
 
-Clients can be configured globally, at the RPC callsite, or with [middleware](). The order of precedence is _global configuration_ < _call site configuration_ < _middleware_.
+Clients can be configured globally, at the RPC callsite, or with [middleware](https://github.com/tatethurston/TwirpScript/blob/main/README.md#client). The order of precedence is _global configuration_ < _call site configuration_ < _middleware_.
 
 ##### Configuration Options
 

@@ -28,6 +28,48 @@ TwirpScript is an implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16
 
 [TwirpScript implements the latest Twirp Wire Protocol (v7)](https://twitchtv.github.io/twirp/docs/spec_v7.html)
 
+##### Table of Contents
+
+- [TwirpScript](#twirpscript)
+  - [What is this? 🧐](#what-is-this----)
+  - [Overview](#overview)
+  - [Highlights 🛠](#highlights---)
+  - [Installation 📦](#installation---)
+  - [Getting Started](#getting-started)
+    - [Overview 📖](#overview---)
+      - [1. Define your service](#1-define-your-service)
+      - [2. Run `yarn twirpscript`](#2-run--yarn-twirpscript-)
+      - [3. Use the client](#3-use-the-client)
+      - [4. Implement the generated service interface](#4-implement-the-generated-service-interface)
+      - [5. Connect your service to your application server](#5-connect-your-service-to-your-application-server)
+    - [Configuring your Twirp Runtime](#configuring-your-twirp-runtime)
+      - [Clients](#clients)
+        - [Configuration Options](#configuration-options)
+        - [Example](#example)
+      - [Servers](#servers)
+        - [Configuration Options](#configuration-options-1)
+        - [Example](#example-1)
+    - [Middleware / Interceptors](#middleware---interceptors)
+      - [Client](#client)
+        - [Client Middleware Example](#client-middleware-example)
+      - [Server](#server)
+        - [Server Middleware Example](#server-middleware-example)
+    - [Hooks](#hooks)
+      - [Client](#client-1)
+        - [Events](#events)
+        - [Example](#example-2)
+      - [Server](#server-1)
+        - [Events](#events-1)
+        - [Example](#example-3)
+  - [Configuration 🛠](#configuration---)
+  - [Examples 🚀](#examples---)
+  - [Caveats, Warnings and Issues ⚠️](#caveats--warnings-and-issues---)
+    - [Fetch](#fetch)
+    - [JavaScript Servers (does not apply to servers written in TypeScript)](#javascript-servers--does-not-apply-to-servers-written-in-typescript-)
+  - [FAQ](#faq)
+  - [Contributing 👫](#contributing---)
+  - [Licensing 📃](#licensing---)
+
 ## Overview
 
 TwirpScript is an implementation of the [Twirp wire protocol](https://github.com/twitchtv/twirp/blob/main/PROTOCOL.md) for JavaScript and TypeScript. It generates clients and servers from `.proto` service specifications. The generated clients can be used in the browser or for server to server communication. This enables type safe communication between the client and server, as well as reduced payload sizes when using `protobuf` as the serialization format.

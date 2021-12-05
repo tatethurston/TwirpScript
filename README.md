@@ -337,6 +337,7 @@ Because each middleware is responsible for invoking the next handler, middleware
 ```ts
 import { createServer } from "http";
 import { createTwirpServer, TwirpError } from "twirpscript";
+import { AuthenticationHandler } from "./authentication";
 
 interface Context {
   currentUser: { username: string };

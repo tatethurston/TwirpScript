@@ -424,7 +424,7 @@ const PORT = 8080;
 
 const app = createTwirpServer([HaberdasherHandler]);
 
-app.on('responseSent, (ctx) => {
+app.on("responseSent", (ctx) => {
   // log or report
 });
 

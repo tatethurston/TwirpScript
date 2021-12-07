@@ -94,10 +94,10 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
 ### Overview 📖
 
 1. Define your service in a `.proto` file.
-2. Run `yarn twirpscript` to generate JavaScript or TypeScript code from your `.proto` file. This will generate JSON and Protobuf clients, a service interface, and service utilities. Skip to step 5 if you only need a client
+2. Run `yarn twirpscript` to generate JavaScript or TypeScript code from your `.proto` file. This will generate JSON and Protobuf clients, a service interface, and service utilities.
 3. If you only need a client, you're done! Use the generated client to make requests to your server.
 4. Implement the generated service interface.
-5. Connect your implemented service to your application server.
+5. Add your implemented service to your application server's routes.
 
 #### 1. Define your service
 

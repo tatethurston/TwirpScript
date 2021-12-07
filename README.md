@@ -321,15 +321,15 @@ createServer(app).listen(PORT, () =>
 
 ### Middleware / Interceptors
 
-TwirpScript's client and server runtimes can be configured via middleware.
-
-#### Client
-
-Clients can be configured via the `client` export's `use` method. `use` registers middleware to manipulate the client request / response lifecycle. The middleware handler will receive `config` and `next` parameters. `config` sets the headers and url for the RPC. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp RPC.
+TwirpScript's client and server request response lifecycle can be programmed via middleware.
 
 Middleware is called in order of registration, with the Twirp RPC invoked last.
 
 Because each middleware is responsible for invoking the next handler, middleware can do things like short circuit and return a response before the RPC is made, or inspect the returned response, enabling powerful patterns such as caching.
+
+#### Client
+
+Clients can be configured via the `client` export's `use` method. `use` registers middleware to manipulate the client request / response lifecycle. The middleware handler will receive `config` and `next` parameters. `config` sets the headers and url for the RPC. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp RPC.
 
 ##### Client Middleware Example
 
@@ -350,10 +350,6 @@ client.use((config, next) => {
 Servers can be configured via your `server`'s `use` method. `use` registers middleware to manipulate the server request / response lifecycle.
 
 The middleware handler will receive `req`, `ctx` and `next` parameters. `req` is the incoming request. `ctx` is a request context object which will be passed to each middleware handler and finally the Twirp service handler you implemented. `ctx` enables you to pass extra parameters to your service handlers that are not available via your service's defined request parameters, and can be used to implement things such as authentication or rate limiting. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp service handler you implemented.
-
-Middleware is called in order of registration, with the Twirp service handler you implemented invoked last.
-
-Because each middleware is responsible for invoking the next handler, middleware can do things like short circuit and return a response before your service handler is invoked, or inspect the returned response, enabling powerful patterns such as caching.
 
 ##### Server Middleware Example
 

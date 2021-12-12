@@ -201,7 +201,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
         if (node.children.length > 0) {
           result += writeSerializers(node.children, false);
         }
-        result += "}\n\n";
+        result += `}${isTopLevel ? ";" : ","}\n\n`;
         break;
       }
       case "enum": {

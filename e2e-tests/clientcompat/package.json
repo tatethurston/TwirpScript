@@ -1,8 +1,8 @@
 {
   "name": "clientcompat",
   "scripts": {
-    "build": "yarn && npm link twirpscript &&  yarn twirpscript && yarn tsc",
-    "test": "yarn build && jest src"
+    "build": "yarn && npm link twirpscript && yarn twirpscript && yarn tsc",
+    "test": "jest src"
   },
   "dependencies": {
     "@types/node-fetch": "^2.5.12",

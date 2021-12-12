@@ -1,0 +1,88 @@
+syntax = "proto3";
+package A;
+
+service FooService {
+  // Login via credentials
+  rpc Foo1(Foo1Request) returns (Foo1Response);
+  rpc Foo2(Foo2Request) returns (Foo2Response);
+  rpc Foo3(Foo3Request) returns (Foo3Response);
+  rpc Foo4(Foo4Request) returns (Foo4Response);
+  rpc Foo5(Foo5Request) returns (Foo5Response);
+
+
+}
+
+message Foo1Request {
+  repeated string a = 1;
+  repeated string b = 2;
+  repeated string c = 3;
+  repeated string d = 4;
+  repeated string e = 5;
+}
+message Foo1Response {
+  repeated string a = 1;
+  repeated string b = 2;
+  repeated string c = 3;
+  repeated string d = 4;
+  repeated string e = 5;
+}
+
+message Foo2Request {
+  repeated string a = 1;
+  repeated string b = 2;
+  repeated string c = 3;
+  repeated string d = 4;
+  repeated string e = 5;
+}
+message Foo2Response {
+  repeated string a = 1;
+  repeated string b = 2;
+  repeated string c = 3;
+  repeated string d = 4;
+  repeated string e = 5;
+}
+
+message Foo3Request {
+  repeated string a = 1;
+  repeated string b = 2;
+  repeated string c = 3;
+  repeated string d = 4;
+  repeated string e = 5;
+}
+message Foo3Response {
+  repeated string a = 1;
+  repeated string b = 2;
+  repeated string c = 3;
+  repeated string d = 4;
+  repeated string e = 5;
+}
+
+message Foo4Request {
+  repeated string a = 1;
+  repeated string b = 2;
+  repeated string c = 3;
+  repeated string d = 4;
+  repeated string e = 5;
+}
+message Foo4Response {
+  repeated string a = 1;
+  repeated string b = 2;
+  repeated string c = 3;
+  repeated string d = 4;
+  repeated string e = 5;
+}
+
+message Foo5Request {
+  repeated string a = 1;
+  repeated string b = 2;
+  repeated string c = 3;
+  repeated string d = 4;
+  repeated string e = 5;
+}
+message Foo5Response {
+  repeated string a = 1;
+  repeated string b = 2;
+  repeated string c = 3;
+  repeated string d = 4;
+  repeated string e = 5;
+}

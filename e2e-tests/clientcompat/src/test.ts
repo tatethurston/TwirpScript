@@ -7,6 +7,7 @@ describe("Twirp Client Compatabilitiy Test", () => {
       encoding: "utf8",
       shell: true,
     });
+
     expect(child.stdout).toMatchSnapshot();
   });
 });

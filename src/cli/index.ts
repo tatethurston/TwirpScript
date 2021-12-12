@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import { spawnSync } from "child_process";
-import { readdirSync, existsSync, readFileSync, statSync, mkdirSync } from "fs";
+import { existsSync, readFileSync, mkdirSync } from "fs";
 import { join, relative, resolve } from "path";
-import { commandIsInPath, isWindows } from "../utils";
+import { findFiles, commandIsInPath, isWindows } from "../utils";
 
 export type UserConfig = Partial<Config>;
 
@@ -117,21 +117,6 @@ function getConfig(): Config {
     ...defaultConfig,
     ...userConfig,
   };
-}
-
-function findFiles(entry: string, ext: string): string[] {
-  return readdirSync(entry)
-    .flatMap((file) => {
-      const filepath = join(entry, file);
-      if (
-        statSync(filepath).isDirectory() &&
-        !filepath.includes("node_modules")
-      ) {
-        return findFiles(filepath, ext);
-      }
-      return filepath;
-    })
-    .filter((file) => file.endsWith(ext));
 }
 
 const config = getConfig();

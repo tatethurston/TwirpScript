@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+message GetUserResponse {
+    string user_id = 1;
+
+    message Address {
+        string id = 1;
+        AddressValue value = 2;
+    }
+
+    message AddressList {
+        repeated Address address = 1;
+        Address primary = 2;
+    }
+    AddressList addresses = 2;
+}
+
+message AddressValue {
+    optional string address_line1 = 1;
+    optional string address_line2 = 2;
+    optional string country_code = 3;
+    optional string postcode = 4;
+    optional string state = 5;
+    optional string suburb = 6;
+}

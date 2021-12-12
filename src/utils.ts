@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
-import { dirname, relative } from "path";
+import { join, dirname, relative } from "path";
+import { readdirSync, statSync } from "fs";
 import type { CodeGeneratorRequest } from "google-protobuf/google/protobuf/compiler/plugin_pb";
 import type {
   DescriptorProto,
@@ -823,4 +824,19 @@ export function processTypes(
   });
 
   return typeFile;
+}
+
+export function findFiles(entry: string, ext: string): string[] {
+  return readdirSync(entry)
+    .flatMap((file) => {
+      const filepath = join(entry, file);
+      if (
+        statSync(filepath).isDirectory() &&
+        !filepath.includes("node_modules")
+      ) {
+        return findFiles(filepath, ext);
+      }
+      return filepath;
+    })
+    .filter((file) => file.endsWith(ext));
 }

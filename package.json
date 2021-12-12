@@ -29,7 +29,9 @@
     "lint:package:fix": "prettier-package-json --write ./package.json",
     "prepack": "yarn build",
     "test": "yarn jest src/*",
-    "test:e2e": "(yarn build && npm link) && (cd twirp-clientcompat && yarn test)",
+    "test:compat": "(cd e2e-tests/clientcompat && yarn test)",
+    "test:e2e": "(cd e2e-tests/test-protos && yarn test)",
+    "test:e2e:prepare": "yarn build && npm link",
     "typecheck": "yarn tsc --noEmit",
     "version": "git add -A package.json",
     "postversion": "git push && git push --tags"

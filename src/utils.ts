@@ -309,18 +309,19 @@ function applyNamespace(
 }
 
 /**
- * [namespacedIdentifier, file, package]
+ * [namespacedIdentifier, file, package, publicImport]
  */
-export type IdentifierTable = [string, string, string][];
+export type IdentifierTable = [string, string, string, string | undefined][];
 
 /**
  * Example
  *
- * '.google.protobuf.Timestamp', 'google/protobuf/timestamp.proto',jj
+ * '.google.protobuf.Timestamp', 'google/protobuf/timestamp.proto',
  * '.foo.Tate', 'foo.proto',
  * '.Person', 'bob.proto',
  * '.Person.PhoneType', 'bob.proto',
  * '.AddressBook', 'bob.proto'
+ * '.protobuf_unittest_import.PublicImportMessage', 'google/protobuf/unittest_import_public.proto', 'protobuf_unittest_import', 'protobuf_unittest_import_public'
  */
 export function buildIdentifierTable(
   request: CodeGeneratorRequest
@@ -339,6 +340,7 @@ export function buildIdentifierTable(
         applyNamespace(namespacing, name),
         protoFilePath as string,
         _package,
+        undefined,
       ]);
     }
 
@@ -382,6 +384,30 @@ export function buildIdentifierTable(
       addEntry(namespacing, messageName);
       walk(applyNamespace(namespacing, messageName), descriptorProto);
     });
+  });
+
+  request.getProtoFileList().forEach((fileDescriptorProto) => {
+    const publicImports = fileDescriptorProto
+      .getDependencyList()
+      .filter((_, idx) =>
+        fileDescriptorProto.getPublicDependencyList().includes(idx)
+      );
+
+    const protoFilePath = fileDescriptorProto.getName();
+    if (!protoFilePath || publicImports.length === 0) {
+      return;
+    }
+
+    const forwardedImports = table
+      .filter(([, filepath]) => publicImports.includes(filepath))
+      .map((row) => {
+        const newRow: IdentifierTable[0] = [...row];
+        newRow[1] = protoFilePath;
+        newRow[3] = row[1];
+        return newRow;
+      });
+
+    table.push(...forwardedImports);
   });
 
   return table;
@@ -487,13 +513,20 @@ function getImportForIdentifier(
     fileDescriptorProto
   );
   const sourceFile = fileDescriptorProto.getName() ?? "";
+  const dependencyImportPath = dep[3] || dep[1];
 
   const importPath = isTypescript
     ? stripTSExtension(
-        relative(dirname(sourceFile), getProtobufTSFileName(dep[1]))
+        relative(
+          dirname(sourceFile),
+          getProtobufTSFileName(dependencyImportPath)
+        )
       )
     : stripJSExtension(
-        relative(dirname(sourceFile), getProtobufJSFileName(dep[1]))
+        relative(
+          dirname(sourceFile),
+          getProtobufJSFileName(dependencyImportPath)
+        )
       );
   const path = getImportPath(importPath);
 

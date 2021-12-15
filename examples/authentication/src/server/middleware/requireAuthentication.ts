@@ -1,3 +1,4 @@
+import { IncomingMessage } from "http";
 import { Middleware, TwirpError } from "twirpscript";
 import { Context } from "../context";
 import { getCurrentUser, UnauthenticatedUser } from "../services";
@@ -8,7 +9,7 @@ interface RequireAuthenticationOpts {
 
 export function requireAuthentication({
   exceptions,
-}: RequireAuthenticationOpts): Middleware<Context> {
+}: RequireAuthenticationOpts): Middleware<Context, IncomingMessage> {
   return async (req, ctx, next) => {
     for (let exception of exceptions) {
       if (req.url?.startsWith("/twirp/" + exception)) {

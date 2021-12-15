@@ -5,6 +5,7 @@ export type { ServiceHandler, Middleware } from "./server";
 export {
   createMethodHandler,
   createTwirpServer,
+  createTwirpServerless,
   TwirpErrorResponse,
 } from "./server";
 export type ByteSource = ArrayBuffer | Uint8Array | number[] | string;

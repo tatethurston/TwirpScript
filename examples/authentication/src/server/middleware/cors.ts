@@ -1,7 +1,12 @@
+import { IncomingMessage } from "http";
 import type { Middleware } from "twirpscript";
 import { Context } from "../context";
 
-export const cors: Middleware<Context> = async (req, _ctx, next) => {
+export const cors: Middleware<Context, IncomingMessage> = async (
+  req,
+  _ctx,
+  next
+) => {
   if (req.method === "OPTIONS") {
     return {
       status: 204,

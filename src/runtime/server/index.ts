@@ -20,6 +20,15 @@ interface Request {
   url: string;
 }
 
+interface RawRequest {
+  body: Buffer;
+  headers: {
+    [key: string]: string | undefined;
+  };
+  url: string;
+  method: string;
+}
+
 interface ServiceMethod<Context = unknown> {
   handler: (req: any, context: Context) => Promise<unknown> | unknown;
   encode: any;
@@ -122,9 +131,7 @@ async function getBody(req: IncomingMessage): Promise<Buffer> {
   return body;
 }
 
-function parseRequest(
-  req: IncomingMessage
-): TwirpError | Omit<Request, "body"> {
+function parseRequest(req: RawRequest): TwirpError | Omit<Request, "body"> {
   if (!req.url) {
     return new TwirpError({
       code: "malformed",
@@ -183,8 +190,8 @@ interface TwirpServerConfig {
   prefix: string;
 }
 
-export type Middleware<Context = unknown> = (
-  req: IncomingMessage,
+export type Middleware<Context, Request = unknown> = (
+  req: Request,
   ctx: Partial<Context>,
   next: Next
 ) => Promise<Response>;
@@ -194,17 +201,16 @@ function twirpHandler<Context>(
   ee: Emitter<ServerHooks<Context>>,
   config: TwirpServerConfig
 ) {
-  return async (req: IncomingMessage, ctx: Context): Promise<Response> => {
+  return async (req: RawRequest, ctx: Context): Promise<Response> => {
     const parsed = parseRequest(req);
     if (parsed instanceof TwirpError) {
       ee.emit("error", ctx, parsed);
       return TwirpErrorResponse(parsed);
     }
 
-    const body = await getBody(req);
     const request: Request = {
       ...parsed,
-      body,
+      body: req.body,
     };
 
     const prefix = config.prefix + "/";
@@ -262,8 +268,7 @@ type ServerHooks<Context> = {
 
 type TwirpServerEvent<Context> = Emitter<ServerHooks<Context>>;
 
-interface TwirpServer<Context> {
-  (req: IncomingMessage, res: ServerResponse): void;
+interface TwirpServerRuntime<Context, Request> {
   /**
    * Registers middleware to manipulate the server request / response lifecycle.
    *
@@ -271,7 +276,7 @@ interface TwirpServer<Context> {
    *
    * Middleware is called in order of registration, with the Twirp service handler you implemented invoked last.
    */
-  use: (middleware: Middleware<Context>) => TwirpServer<Context>;
+  use: (middleware: Middleware<Context, Request>) => this;
   /**
    * Registers event handler that can instrument a Twirp-generated server.
    * These callbacks all accept the current request `Context`.
@@ -298,15 +303,54 @@ interface TwirpServer<Context> {
   off: (...args: Parameters<TwirpServerEvent<Context>["off"]>) => this;
 }
 
-export function createTwirpServer<Context = unknown>(
+interface TwirpServer<Context, Request>
+  extends TwirpServerRuntime<Context, Request> {
+  (req: Request, res: ServerResponse): void;
+}
+
+interface TwirpServerless<Context, Request>
+  extends TwirpServerRuntime<Context, Request> {
+  (req: Request): Promise<Response>;
+}
+
+export function createTwirpServer<
+  Context = unknown,
+  Request extends IncomingMessage = IncomingMessage
+>(
   services: ServiceHandler<Context>[],
   config: TwirpServerConfig = { prefix: "/twirp" }
-): TwirpServer<Context> {
-  const serverMiddleware: Middleware<Context>[] = [];
+): TwirpServer<Context, Request> {
+  const _app = createTwirpServerless(services, config);
+
+  async function app(req: Request, res: ServerResponse): Promise<void> {
+    const body = await getBody(req);
+    const response = await _app({
+      ...req,
+      body,
+    } as RawRequest);
+    res.writeHead(response.status, response.headers);
+    res.end(response.body);
+  }
+
+  app.use = _app.use;
+  app.on = _app.on;
+  app.off = _app.off;
+
+  return app as unknown as TwirpServer<Context, Request>;
+}
+
+export function createTwirpServerless<
+  Context = unknown,
+  Request extends RawRequest = RawRequest
+>(
+  services: ServiceHandler<Context>[],
+  config: TwirpServerConfig = { prefix: "/twirp" }
+): TwirpServerless<Context, Request> {
+  const serverMiddleware: Middleware<Context, Request>[] = [];
   const ee = createEventEmitter<ServerHooks<Context>>();
   const twirp = twirpHandler(services, ee, config);
 
-  async function app(req: IncomingMessage, res: ServerResponse): Promise<void> {
+  async function app(req: Request): Promise<Response> {
     const ctx: Context = {} as Context;
     ee.emit("requestReceived", ctx);
 
@@ -328,13 +372,11 @@ export function createTwirpServer<Context = unknown>(
       response = TwirpErrorResponse(error);
     }
 
-    res.writeHead(response.status, response.headers);
-    res.end(response.body);
-
     ee.emit("responseSent", ctx);
+    return response;
   }
 
-  app.use = (handler: Middleware<Context>) => {
+  app.use = (handler: Middleware<Context, Request>) => {
     serverMiddleware.push(handler);
     return app;
   };

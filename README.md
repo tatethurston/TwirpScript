@@ -193,7 +193,7 @@ createServer(app).listen(PORT, () =>
 
 #### Clients
 
-Clients can be configured globally, at the RPC callsite, or with [middleware](https://github.com/tatethurston/TwirpScript/blob/main/README.md#client). The order of precedence is _global configuration_ < _call site configuration_ < _middleware_.
+Clients can be configured globally, at the RPC callsite, or with [middleware](https://github.com/tatethurston/TwirpScript/blob/main/README.md#client). The order of precedence is _middleware_ > _call site configuration_ > _global configuration_. Middleware overrides call site configuration, and call site configuration overrides global configuration.
 
 ##### Configuration Options
 
@@ -244,7 +244,7 @@ const otherHat = await MakeHat({ inches: 12 });
 console.log(otherHat);
 ```
 
-In addtion to `baseUrl`, `headers` can also be set at via _global configuration_ or _call site configuration_. `headers` defines key value pairs that become HTTP headers for the RPC:
+In addition to `baseUrl`, `headers` can also be set at via _global configuration_ or _call site configuration_. `headers` defines key value pairs that become HTTP headers for the RPC:
 
 ```ts
 import { client } from "twirpscript";
@@ -299,7 +299,7 @@ Because each middleware is responsible for invoking the next handler, middleware
 
 #### Client
 
-Clients can be configured via the `client` export's `use` method. `use` registers middleware to manipulate the client request / response lifecycle. The middleware handler will receive `config` and `next` parameters. `config` sets the headers and url for the RPC. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp RPC.
+Clients can be configured via the `client` export's `use` method. `use` registers middleware to manipulate the client request / response lifecycle. The middleware handler will receive `context` and `next` parameters. `context` sets the headers and url for the RPC. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp RPC.
 
 ##### Client Middleware Configuration Options
 
@@ -313,12 +313,12 @@ Clients can be configured via the `client` export's `use` method. `use` register
 ```ts
 import { client } from "twirpscript";
 
-client.use((config, next) => {
+client.use((context, next) => {
   const auth = localStorage.getItem("auth");
   if (auth) {
-    config.headers["authorization"] = `bearer ${auth}`;
+    context.headers["authorization"] = `bearer ${auth}`;
   }
-  return next(config);
+  return next(context);
 });
 ```
 
@@ -329,11 +329,11 @@ import { client } from "twirpscript";
 
 client.baseURL = "http://localhost:8080";
 
-client.use((config, next) => {
-  const url = new URL(config.url);
+client.use((context, next) => {
+  const url = new URL(context.url);
   url.host = "www.foo.com";
 
-  return next({ ...config, url: url.toString() });
+  return next({ ...context, url: url.toString() });
 });
 
 // This will make a request to https://www.foo.com instead of http://localhost:8080 or https://api.example.com"
@@ -388,9 +388,13 @@ createServer(app).listen(PORT, () =>
 
 ### Hooks
 
-TwirpScript clients and servers can be instrumented by listening to events at key moments during the request / response life cycle.
+TwirpScript clients and servers can be instrumented by listening to events at key moments during the request / response life cycle. These hooks are ideal placements for insrumentation such as metrics reporting and logging. Event handlers for both clients and servers are passed a `context` object as the first argument. As a best practice, this `context` object should be treated as readonly / immutable.
+
+While hooks and [middleware ](https://github.com/tatethurston/TwirpScript/blob/main/README.md#middleware--interceptors) can be used to accomplish similar goals, as a best practice use _hooks_ for instrumentation and _middleware_ for mutation.
 
 #### Client
+
+Every client event handler is invoked with a [context](https://github.com/tatethurston/TwirpScript#client-middleware-context-object) object, which has the same shape as the middle context object.
 
 ##### Events
 
@@ -400,19 +404,21 @@ it has been sent to the Twirp server.
 `responseReceived` is called after a request has finished sending.
 
 `error` is called when an error occurs during the sending or receiving of a
-request. In addition to `Config`, the error is also passed as an argument.
+request. In addition to the `context`, the error that occurred is passed as the second argument.
 
 ##### Example
 
 ```ts
 import { client } from "twirpscript";
 
-client.on("responseReceived", (config) => {
+client.on("responseReceived", (context) => {
   // log or report
 });
 ```
 
 #### Server
+
+Every server event handler is invoked with the current `Context`.
 
 ##### Events
 
@@ -429,7 +435,7 @@ response is ready to be sent to the client.
 response) have been written.
 
 `error` is called when an error occurs while handling a request. In
-addition to `Context`, the error is also passed as an argument.
+addition to `Context`, the error that occurred is passed as the second argument.
 
 ##### Example
 

@@ -289,11 +289,11 @@ interface TwirpServer<Context> {
    * response) have been written.
    *
    * `error` is called when an error occurs while handling a request. In
-   * addition to `Context`, the error is also passed as an argument.
+   * addition to `Context`, the error that occurred is passed as the second argument.
    */
   on: (...args: Parameters<TwirpServerEvent<Context>["on"]>) => this;
   /**
-   * Removes a registered event handler
+   * Removes a registered event handler.
    */
   off: (...args: Parameters<TwirpServerEvent<Context>["off"]>) => this;
 }

@@ -7,12 +7,12 @@ import { client } from "twirpscript";
 
 client.baseURL = "http://localhost:8080";
 
-client.use((config, next) => {
+client.use((context, next) => {
   const auth = localStorage.getItem("auth");
   if (auth) {
-    config.headers["authorization"] = `bearer ${auth}`;
+    context.headers["authorization"] = `bearer ${auth}`;
   }
-  return next(config);
+  return next(context);
 });
 
 function formatHat(hat: Hat): string {

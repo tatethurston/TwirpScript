@@ -28,16 +28,16 @@ interface MiddlewareConfig {
 }
 
 type ClientMiddleware = (
-  config: MiddlewareConfig,
-  next: (config: MiddlewareConfig) => Promise<unknown>
+  context: MiddlewareConfig,
+  next: (context: MiddlewareConfig) => Promise<unknown>
 ) => Promise<unknown>;
 
 type HookListener<MiddlewareConfig> = (
-  config: Readonly<MiddlewareConfig>
+  context: Readonly<MiddlewareConfig>
 ) => void;
 
 type ErrorHookListener<MiddlewareConfig> = (
-  ctx: Readonly<MiddlewareConfig>,
+  context: Readonly<MiddlewareConfig>,
   err: TwirpError
 ) => void;
 
@@ -55,26 +55,24 @@ interface Client extends ClientConfiguration {
   /**
    * Registers middleware to manipulate the client request / response lifecycle.
    *
-   * The middleware handler will receive `config` and `next` parameters. `config` sets the headers and url for the RPC. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp RPC.
+   * The middleware handler will receive `context` and `next` parameters. `context` sets the headers and url for the RPC. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp RPC.
    *
    * Middleware is called in order of registration, with the Twirp RPC invoked last.
    */
   use: (middleware: ClientMiddleware) => Client;
   /**
    * Registers event handler that can instrument a Twirp-generated client.
-   * These callbacks all accept the current request `Config`.
+   * These callbacks all accept the current request `context`.
    *
-   * `requestPrepared` is called as soon as a request has been created and before
-   *  it has been sent to the Twirp server.
+   * `requestPrepared` is called as soon as a request has been created and before it has been sent to the Twirp server.
    *
    * `responseReceived` is called after a request has finished sending.
    *
-   * `error` is called when an error occurs during the sending or receiving of a
-   * request. In addition to `Config`, the error is also passed as an argument.
+   * `error` is called when an error occurs during the sending or receiving of a request. In addition to `context`, the error that occurred is passed as the second argument.
    */
   on: (...args: Parameters<TwirpClientEvent<MiddlewareConfig>["on"]>) => this;
   /**
-   * Removes a registered event handler
+   * Removes a registered event handler.
    */
   off: (...args: Parameters<TwirpClientEvent<MiddlewareConfig>["off"]>) => this;
 }

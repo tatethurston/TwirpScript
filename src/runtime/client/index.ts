@@ -1,9 +1,7 @@
 import { TwirpError, twirpErrorFromResponse } from "../error";
 import { createEventEmitter, Emitter } from "../eventEmitter";
 
-export type ClientConfiguration = Partial<MiddlewareConfig>;
-
-interface MiddlewareConfig {
+export type ClientConfiguration = Partial<{
   /**
    * The base URL for the RPC. The service path will be appended to this string.
    */
@@ -16,6 +14,17 @@ interface MiddlewareConfig {
    * A path prefix such as "/my/custom/prefix". Defaults to "/twirp", but can be set to "".
    */
   prefix: string;
+}>;
+
+interface MiddlewareConfig {
+  /**
+   * The URL for the RPC. This is the full URL for the request: the baseURL + prefix + the service path.
+   */
+  url: string;
+  /**
+   * HTTP headers to include in the RPC.
+   */
+  headers: Record<string, string>;
 }
 
 type ClientMiddleware = (
@@ -121,12 +130,15 @@ function runMiddleware(
   }
 }
 
-function mergeConfig(config: ClientConfiguration = {}): MiddlewareConfig {
+function mergeConfig(
+  config: ClientConfiguration = {},
+  path: string
+): MiddlewareConfig {
   const baseURL = config.baseURL ?? client.baseURL ?? "";
   const prefix = config.prefix ?? client.prefix ?? "";
+  const url = baseURL + prefix + path;
   return {
-    baseURL,
-    prefix,
+    url,
     headers: {
       ...client.headers,
       ...config.headers,
@@ -136,28 +148,30 @@ function mergeConfig(config: ClientConfiguration = {}): MiddlewareConfig {
 
 export function JSONrequest<T = unknown>(
   path: string,
-  body?: Record<string, any>,
+  body?: Record<string, unknown>,
   config?: ClientConfiguration
 ): Promise<T> {
-  return runMiddleware(mergeConfig(config), async (c: MiddlewareConfig) => {
-    ee.emit("requestPrepared", c);
-    const url = c.baseURL + c.prefix + path;
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...c.headers,
-      },
-      body: JSON.stringify(body),
-    });
-    ee.emit("responseReceived", c);
+  return runMiddleware(
+    mergeConfig(config, path),
+    async (c: MiddlewareConfig) => {
+      ee.emit("requestPrepared", c);
+      const res = await fetch(c.url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...c.headers,
+        },
+        body: JSON.stringify(body),
+      });
+      ee.emit("responseReceived", c);
 
-    if (!res.ok) {
-      throw await twirpErrorFromResponse(res);
+      if (!res.ok) {
+        throw await twirpErrorFromResponse(res);
+      }
+
+      return res.json();
     }
-
-    return res.json();
-  }) as Promise<T>;
+  ) as Promise<T>;
 }
 
 export function PBrequest(
@@ -165,24 +179,26 @@ export function PBrequest(
   body?: Uint8Array,
   config?: ClientConfiguration
 ): Promise<Uint8Array> {
-  return runMiddleware(mergeConfig(config), async (c: MiddlewareConfig) => {
-    ee.emit("requestPrepared", c);
-    const url = c.baseURL + c.prefix + path;
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/protobuf",
-        ...c.headers,
-      },
-      body,
-    });
-    ee.emit("responseReceived", c);
+  return runMiddleware(
+    mergeConfig(config, path),
+    async (c: MiddlewareConfig) => {
+      ee.emit("requestPrepared", c);
+      const res = await fetch(c.url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/protobuf",
+          ...c.headers,
+        },
+        body,
+      });
+      ee.emit("responseReceived", c);
 
-    if (!res.ok) {
-      throw await twirpErrorFromResponse(res);
+      if (!res.ok) {
+        throw await twirpErrorFromResponse(res);
+      }
+
+      const buffer = await res.arrayBuffer();
+      return new Uint8Array(buffer);
     }
-
-    const buffer = await res.arrayBuffer();
-    return new Uint8Array(buffer);
-  }) as Promise<Uint8Array>;
+  ) as Promise<Uint8Array>;
 }

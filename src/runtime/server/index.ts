@@ -154,7 +154,8 @@ function parseRequest(req: RawRequest): TwirpError | Omit<Request, "body"> {
     });
   }
 
-  const contentType = req.headers["content-type"];
+  const contentType =
+    req.headers["Content-Type"] ?? req.headers["content-type"];
 
   if (!contentType) {
     return new TwirpError({

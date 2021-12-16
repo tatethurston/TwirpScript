@@ -156,6 +156,7 @@ export function JSONrequest<T = unknown>(
       const res = await fetch(c.url, {
         method: "POST",
         headers: {
+    Accept: "application/json",
           "Content-Type": "application/json",
           ...c.headers,
         },
@@ -184,6 +185,7 @@ export function PBrequest(
       const res = await fetch(c.url, {
         method: "POST",
         headers: {
+     Accept: "application/protobuf",
           "Content-Type": "application/protobuf",
           ...c.headers,
         },

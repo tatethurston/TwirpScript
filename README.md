@@ -244,28 +244,7 @@ const otherHat = await MakeHat({ inches: 12 });
 console.log(otherHat);
 ```
 
-Client middleware can override both global and call site settings:
-
-```ts
-import { client } from "twirpscript";
-
-client.baseURL = "http://localhost:8080";
-
-client.use((config, next) => {
-  return next({ ...config, baseURL: "https://www.foo.com" });
-});
-
-// This will make a request to https://www.foo.com instead of http://localhost:8080 or https://api.example.com"
-const hat = await MakeHat(
-  { inches: 12 },
-  { baseURL: "https://api.example.com" }
-);
-console.log(hat);
-```
-
-The order of precedence is _global configuration_ < _call site configuration_ < _middleware_.
-
-In addtion to `baseUrl`, `headers` can also be set at via _global configuration_, _call site configuration_ and _middleware_. `headers` defines key value pairs that become HTTP headers for the RPC:
+In addtion to `baseUrl`, `headers` can also be set at via _global configuration_ or _call site configuration_. `headers` defines key value pairs that become HTTP headers for the RPC:
 
 ```ts
 import { client } from "twirpscript";
@@ -274,15 +253,6 @@ client.baseURL = "http://localhost:8080";
 
 // setting a (non standard) HTTP "device-id" header via global configuration. This header will be sent for every RPC.
 client.headers = { "device-id": getOrGenerateDeviceId() };
-
-// setting an HTTP "authorization" header via middleware. This header will also be sent for every RPC.
-client.use((config, next) => {
-  const auth = localStorage.getItem("auth");
-  if (auth) {
-    config.headers["authorization"] = `bearer ${auth}`;
-  }
-  return next(config);
-});
 
 // setting a (non standard) HTTP "idempotency-key" header for this RPC call. This header will only be sent for this RPC.
 const hat = await MakeHat(
@@ -331,7 +301,14 @@ Because each middleware is responsible for invoking the next handler, middleware
 
 Clients can be configured via the `client` export's `use` method. `use` registers middleware to manipulate the client request / response lifecycle. The middleware handler will receive `config` and `next` parameters. `config` sets the headers and url for the RPC. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp RPC.
 
-##### Client Middleware Example
+##### Client Middleware Configuration Options
+
+| Name    | Description                                                                                         | Type                   | Example                                             |
+| ------- | --------------------------------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------- |
+| url     | The URL for the RPC. This is the full URL for the request: the baseURL + prefix + the service path. | string                 | "https://www.example.com/twirp/haberdasher.MakeHat" |
+| headers | HTTP headers to include in the RPC.                                                                 | Record<string, string> | { "idempotency-key": "foo" }                        |
+
+##### Client Middleware Examples
 
 ```ts
 import { client } from "twirpscript";
@@ -343,6 +320,28 @@ client.use((config, next) => {
   }
   return next(config);
 });
+```
+
+Client middleware can override both _global configuration_ and _call site configuration_.
+
+```ts
+import { client } from "twirpscript";
+
+client.baseURL = "http://localhost:8080";
+
+client.use((config, next) => {
+  const url = new URL(config.url);
+  url.host = "www.foo.com";
+
+  return next({ ...config, url: url.toString() });
+});
+
+// This will make a request to https://www.foo.com instead of http://localhost:8080 or https://api.example.com"
+const hat = await MakeHat(
+  { inches: 12 },
+  { baseURL: "https://api.example.com" }
+);
+console.log(hat);
 ```
 
 #### Server

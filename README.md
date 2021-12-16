@@ -388,9 +388,9 @@ createServer(app).listen(PORT, () =>
 
 ### Hooks
 
-TwirpScript clients and servers can be instrumented by listening to events at key moments during the request / response life cycle. These hooks are ideal placements for insrumentation such as metrics reporting and logging. Event handlers for both clients and servers are passed a `context` object as the first argument. As a best practice, this `context` object should be treated as readonly / immutable.
+TwirpScript clients and servers can be instrumented by listening to events at key moments during the request / response life cycle. These hooks are ideal placements for instrumentation such as metrics reporting and logging. Event handlers for both clients and servers are passed a `context` object as the first argument. As a best practice, this `context` object should be treated as readonly / immutable.
 
-While hooks and [middleware ](https://github.com/tatethurston/TwirpScript/blob/main/README.md#middleware--interceptors) can be used to accomplish similar goals, as a best practice use _hooks_ for instrumentation and _middleware_ for mutation.
+While hooks and [middleware](https://github.com/tatethurston/TwirpScript/blob/main/README.md#middleware--interceptors) can be used to accomplish similar goals, as a best practice use _hooks_ for instrumentation and _middleware_ for mutation.
 
 #### Client
 

@@ -161,8 +161,14 @@ import { MakeHat } from "../protos/haberdasher.pb";
 client.baseURL = "http://localhost:8080";
 client.rpcTransport = nodeHttpTransport;
 
-const hat = await MakeHat({ inches: 12 }, { baseURL: "http://localhost:8080" });
-console.log(hat);
+(async function () {
+  try {
+    const hat = await MakeHat({ inches: 12 });
+    console.log(hat);
+  } catch (e) {
+    console.error(e);
+  }
+})();
 ```
 
 See a [Node.js client example](https://github.com/tatethurston/TwirpScript/blob/main/twirp-clientcompat/src/client-harness.ts#L11-L12).
@@ -209,6 +215,8 @@ createServer(app).listen(PORT, () =>
   console.log(`Server listening on port ${PORT}`)
 );
 ```
+
+If you're deploying to a serverless environment such as AWS Lambda, replace `createTwirpServer` above with `createTwirpServerless`. See the [aws lambda example](https://github.com/tatethurston/twirpscript/blob/main/examples/aws-lambda) for a full project!
 
 ### Configuring your Twirp Runtime
 
@@ -587,6 +595,7 @@ The documentation is a work in progress. Checkout the examples in the examples d
 - The [JavaScript fullstack](https://github.com/tatethurston/twirpscript/blob/main/examples/typescript-fullstack) shows a minimal browser client and server implementation in JavaScript.
 - The [TypeScript fullstack](https://github.com/tatethurston/twirpscript/blob/main/examples/javascript-fullstack) shows a minimal browser client and server implementation in TypeScript.
 - The [authentication example](https://github.com/tatethurston/twirpscript/blob/main/examples/authentication) extends the fullstack example to demonstrate authentication using tokens.
+- The [aws lambda example](https://github.com/tatethurston/twirpscript/blob/main/examples/aws-lambda) shows TwirpScript running on AWS Lambda, complete with the necessary CDK to deploy a full stack (API Gateway + Lambda).
 
 The examples also demonstrate testing using [jest](https://jestjs.io/).
 

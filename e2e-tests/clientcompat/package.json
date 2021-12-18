@@ -5,8 +5,6 @@
     "test": "jest src"
   },
   "dependencies": {
-    "@types/node-fetch": "^2.5.12",
-    "node-fetch": "^2.6.1",
     "twirpscript": "*"
   },
   "devDependencies": {

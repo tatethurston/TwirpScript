@@ -35,6 +35,7 @@ describe("JSONrequest", () => {
       expect(fetch).toHaveBeenCalledWith("/twirp/foo", {
         method: "POST",
         headers: {
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: undefined,
@@ -74,6 +75,7 @@ describe("PBrequest", () => {
       expect(fetch).toHaveBeenCalledWith("/twirp/foo", {
         method: "POST",
         headers: {
+          Accept: "application/protobuf",
           "Content-Type": "application/protobuf",
         },
         body: undefined,

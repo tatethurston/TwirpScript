@@ -1,0 +1,25 @@
+{
+  "name": "aws-lambda",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "deploy:prepare": "yarn build && cp lambda.package.json dist/package.json && (cd dist && yarn)",
+    "deploy": "yarn deploy:prepare && yarn cdk synth && yarn cdk deploy"
+  },
+  "devDependencies": {
+    "@aws-cdk/aws-apigateway": "^1.135.0",
+    "@aws-cdk/aws-lambda": "^1.135.0",
+    "@aws-cdk/core": "1.135.0",
+    "@types/aws-lambda": "^8.10.87",
+    "@types/jest": "^26.0.10",
+    "@types/node": "10.17.27",
+    "aws-cdk": "^1.135.0",
+    "constructs": "^10.0.0",
+    "ts-node": "^9.0.0",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "twirpscript": "*"
+  }
+}

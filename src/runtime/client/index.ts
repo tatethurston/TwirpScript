@@ -75,10 +75,38 @@ interface Client extends ClientConfiguration {
    * Removes a registered event handler.
    */
   off: (...args: Parameters<TwirpClientEvent<MiddlewareConfig>["off"]>) => this;
+  /**
+   * The network transport to use for the RPC. Defaults to `fetch`. Overrides must conform to the narrow fetch interface `RpcTransport`.
+   */
+  rpcTransport: RpcTransport;
 }
 
 const clientMiddleware: ClientMiddleware[] = [];
 const ee = createEventEmitter<ClientHooks<MiddlewareConfig>>();
+
+interface RpcTransportOpts {
+  method: string;
+  headers: Record<string, string>;
+  body: string | Uint8Array | undefined | null;
+}
+
+export interface RpcTransportResponse {
+  arrayBuffer: () => Promise<ArrayBuffer>;
+  json: () => Promise<unknown>;
+  readonly headers: Pick<Headers, "get">;
+  readonly ok: boolean;
+  readonly status: number;
+  text: () => Promise<string>;
+}
+
+export type RpcTransport = (
+  url: string,
+  opts: RpcTransportOpts
+) => Promise<RpcTransportResponse>;
+
+const fetchTransport: RpcTransport = async (url, opts) => {
+  return fetch(url, opts);
+};
 
 /**
  * Global configuration for the TwirpScript clients.
@@ -99,6 +127,7 @@ export const client: Client = {
     ee.off(...args);
     return client;
   },
+  rpcTransport: fetchTransport,
 };
 
 function runMiddleware(
@@ -146,17 +175,17 @@ function mergeConfig(
 
 export function JSONrequest<T = unknown>(
   path: string,
-  body?: Record<string, unknown>,
+  body?: unknown,
   config?: ClientConfiguration
 ): Promise<T> {
   return runMiddleware(
     mergeConfig(config, path),
     async (c: MiddlewareConfig) => {
       ee.emit("requestPrepared", c);
-      const res = await fetch(c.url, {
+      const res = await client.rpcTransport(c.url, {
         method: "POST",
         headers: {
-    Accept: "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
           ...c.headers,
         },
@@ -182,10 +211,10 @@ export function PBrequest(
     mergeConfig(config, path),
     async (c: MiddlewareConfig) => {
       ee.emit("requestPrepared", c);
-      const res = await fetch(c.url, {
+      const res = await client.rpcTransport(c.url, {
         method: "POST",
         headers: {
-     Accept: "application/protobuf",
+          Accept: "application/protobuf",
           "Content-Type": "application/protobuf",
           ...c.headers,
         },

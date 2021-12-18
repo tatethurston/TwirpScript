@@ -1,5 +1,6 @@
 import { describe, it } from "@jest/globals";
 import { isTwirpError, twirpErrorFromResponse } from ".";
+import { RpcTransportResponse } from "../client";
 
 describe("isTwirpError", () => {
   it("true when code is present", () => {
@@ -19,7 +20,7 @@ describe("twirpErrorFromResponse", () => {
     };
     const res = await twirpErrorFromResponse({
       text: () => JSON.stringify(twirpError),
-    } as unknown as Response);
+    } as unknown as RpcTransportResponse);
     expect(res).toEqual(twirpError);
   });
 
@@ -28,7 +29,7 @@ describe("twirpErrorFromResponse", () => {
       text: () => "an error occurred at the CDN",
       status: 300,
       headers: { get: () => "foo" },
-    } as unknown as Response);
+    } as unknown as RpcTransportResponse);
 
     expect(res).toEqual({
       code: "internal",
@@ -49,7 +50,7 @@ describe("twirpErrorFromResponse", () => {
       text: () => notATwirpError,
       status: 401,
       headers: { get: () => undefined },
-    } as unknown as Response);
+    } as unknown as RpcTransportResponse);
 
     expect(res).toEqual({
       code: "unauthenticated",

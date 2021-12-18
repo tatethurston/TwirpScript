@@ -1,3 +1,5 @@
+import type { RpcTransportResponse } from "../client";
+
 export interface TwirpError {
   code: ErrorCode;
   msg: string;
@@ -97,7 +99,7 @@ function errorCodeFromStatusCode(status: number): ErrorCode {
 }
 
 export async function twirpErrorFromResponse(
-  res: Response
+  res: RpcTransportResponse
 ): Promise<TwirpError> {
   const text = await res.text();
   try {

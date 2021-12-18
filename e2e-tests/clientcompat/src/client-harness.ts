@@ -7,9 +7,10 @@ import {
   Req,
   Resp,
 } from "./clientcompat.pb";
-import type { TwirpError } from "twirpscript";
-import fetch from "node-fetch";
-global.fetch = fetch as any;
+import { client, TwirpError } from "twirpscript";
+import { nodeHttpTransport } from "twirpscript/dist/node";
+
+client.rpcTransport = nodeHttpTransport;
 
 const input = readFileSync(process.stdin.fd);
 const message = ClientCompatMessage.decode(input);

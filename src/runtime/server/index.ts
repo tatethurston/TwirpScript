@@ -8,7 +8,7 @@ interface Response {
     "Content-Type": "application/json" | "application/protobuf";
     [key: string]: string | undefined;
   };
-  status: number;
+  statusCode: number;
 }
 
 interface Request {
@@ -47,7 +47,7 @@ export interface ServiceHandler<Context> {
 
 export function TwirpErrorResponse(error: TwirpError): Response {
   return {
-    status: statusCodeForErrorCode[error.code],
+    statusCode: statusCodeForErrorCode[error.code],
     headers: {
       "Content-Type": "application/json",
     },
@@ -244,7 +244,7 @@ function twirpHandler<Context>(
       return TwirpErrorResponse(response);
     } else {
       return {
-        status: 200,
+        statusCode: 200,
         headers: parsed.headers,
         body: response,
       };
@@ -329,7 +329,7 @@ export function createTwirpServer<
       ...req,
       body,
     } as RawRequest);
-    res.writeHead(response.status, response.headers);
+    res.writeHead(response.statusCode, response.headers);
     res.end(response.body);
   }
 

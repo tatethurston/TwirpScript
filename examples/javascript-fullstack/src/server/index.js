@@ -10,7 +10,7 @@ const app = createTwirpServer([HaberdasherHandler]);
 app.use(async (req, _ctx, next) => {
   if (req.method === "OPTIONS") {
     return {
-      status: 204,
+      statusCode: 204,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Request-Method": "*",
@@ -22,9 +22,9 @@ app.use(async (req, _ctx, next) => {
     };
   }
 
-  const { status, headers, body } = await next();
+  const { statusCode, headers, body } = await next();
   return {
-    status,
+    statusCode,
     body,
     headers: {
       "Access-Control-Allow-Origin": "*",

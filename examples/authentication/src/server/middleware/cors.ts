@@ -9,7 +9,7 @@ export const cors: Middleware<Context, IncomingMessage> = async (
 ) => {
   if (req.method === "OPTIONS") {
     return {
-      status: 204,
+      statusCode: 204,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Request-Method": "*",
@@ -21,9 +21,9 @@ export const cors: Middleware<Context, IncomingMessage> = async (
     };
   }
 
-  const { status, headers, body } = await next();
+  const { statusCode, headers, body } = await next();
   return {
-    status,
+    statusCode,
     body,
     headers: {
       "Access-Control-Allow-Origin": "*",

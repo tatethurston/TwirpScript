@@ -19,7 +19,9 @@
 
 ## What is this? 🧐
 
-TwirpScript is an implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates Javascript or TypeScript clients and servers from [protocol buffers](https://developers.google.com/protocol-buffers/). TwirpScript implements the latest [Twirp Wire Protocol (v7)](https://twitchtv.github.io/twirp/docs/spec_v7.html).
+TwirpScript is an implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates Javascript or TypeScript clients and servers from [protocol buffers](https://developers.google.com/protocol-buffers/). The generated clients can be used in the browser _or_ NodeJS runtimes, enabling fullstack protobuf web applications or server to server communication.
+
+TwirpScript implements the latest [Twirp Wire Protocol (v7)](https://twitchtv.github.io/twirp/docs/spec_v7.html).
 
 | Language       | Clients | Servers |
 | -------------- | ------- | ------- |
@@ -51,7 +53,7 @@ TwirpScript is an implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16
 
 ## Overview
 
-TwirpScript is an implementation of the [Twirp wire protocol](https://github.com/twitchtv/twirp/blob/main/PROTOCOL.md) for JavaScript and TypeScript. It generates clients and servers from `.proto` service specifications. The generated clients can be used in the browser or for server to server communication. This enables type safe communication between the client and server, as well as reduced payload sizes when using `protobuf` as the serialization format.
+TwirpScript is an implementation of the [Twirp wire protocol](https://github.com/twitchtv/twirp/blob/main/PROTOCOL.md) for JavaScript and TypeScript. It generates clients and servers from `.proto` service specifications. The generated clients can be used in the browser or in nodejs runtimes. This enables type safe communication between the client and server, as well as reduced payload sizes when using `protobuf` as the serialization format.
 
 Twirp is a simple RPC framework built on [protocol buffers](https://developers.google.com/protocol-buffers/). You define your service in a `.proto` specification file, and Twirp will generate client and service handlers for that service. You fill in the business logic that powers the server, and Twirp handles the boilerplate.
 

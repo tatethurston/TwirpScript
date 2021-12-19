@@ -221,6 +221,8 @@ createServer(app).listen(PORT, () =>
 
 If you're deploying to a serverless environment such as AWS Lambda, replace `createTwirpServer` above with `createTwirpServerless`. See the [aws lambda example](https://github.com/tatethurston/twirpscript/blob/main/examples/aws-lambda) for a full project!
 
+### Configuring your Twirp Runtime
+
 #### Client
 
 Clients can be configured globally, at the RPC callsite, or with [middleware](https://github.com/tatethurston/TwirpScript/blob/main/README.md#client). The order of precedence is _middleware_ > _call site configuration_ > _global configuration_. Middleware overrides call site configuration, and call site configuration overrides global configuration.
@@ -331,15 +333,36 @@ createServer(app).listen(PORT, () =>
 
 #### Server
 
-| Name                                                      | Description                                 |
-| --------------------------------------------------------- | ------------------------------------------- |
-| request                                                   | The request object.                         |
-| response                                                  | The response object.                        |
-| Any added headers will be merged into the final response. |
-| service                                                   | HTTP headers to include in the RPC.         |
-| service                                                   | The requested RPC service.                  |
-| method                                                    | The requested RPC service method.           |
-| contentType                                               | The requested content-type for the request. |
+| Name | Description |
+| ---- | ----------- |
+
+| service | HTTP headers to include in the RPC. |
+| service | The requested RPC service. |
+| method | The requested RPC service method. |
+| contentType | The requested content-type for the request. |
+
+Your service handlers are invoked with `context` as their second argument. The base fields are documented above, but you may extend this object with arbitrary fields. This means you can use `context` to provide information to your handler that doesn't come from the RPC request itself, such as http headers or server-side API invocations.
+
+Custom fields can be added to the context object via [middleware](#middleware--interceptors).
+
+```ts
+import {
+  HaberdasherService,
+  createHaberdasherHandler,
+} from "../../protos/haberdasher.pb";
+
+const Haberdasher: HaberdasherService = {
+  MakeHat: (size, ctx) => {
+    return {
+      inches: size.inches,
+      color: "red",
+      name: `${ctx.currentUser}'s fedora`,
+    };
+  },
+};
+
+export const HaberdasherHandler = createHaberdasherHandler(HaberdasherService);
+```
 
 ### Middleware / Interceptors
 
@@ -473,19 +496,18 @@ Every server event handler is invoked with the request [context](#server-1).
 ##### Events
 
 `requestReceived` is called as soon as a request enters the Twirp
-server at the earliest available moment.
+server at the earliest available moment. Called with the current `context` and the request.
 
 `requestRouted` is called when a request has been routed to a
-particular method of the Twirp server.
+particular method of the Twirp server. Called with the current `context` and the request.
 
 `responsePrepared` is called when a request has been handled and a
-response is ready to be sent to the client.
+response is ready to be sent to the client. Called with the current `context` and the prepared response.
 
 `responseSent` is called when all bytes of a response (including an error
-response) have been written.
+response) have been written. Called with the current `context` and the prepared response.
 
-`error` is called when an error occurs while handling a request. In
-addition to `Context`, the error that occurred is passed as the second argument.
+`error` is called when an error occurs while handling a request. Called with the current `context` and the error that occurred.
 
 ##### Example
 

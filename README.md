@@ -343,24 +343,30 @@ Your service handlers are invoked with `context` as their second argument. The b
 
 Custom fields can be added to the context object via [middleware](#middleware--interceptors).
 
+##### Example 
+
+If you setup middleware similiar to the [authentication middleware example](https://github.com/tatethurston/TwirpScript#example-3), you could read the `currentUser` `username` property in your service handler. See the [authentication example](https://github.com/tatethurston/twirpscript/tree/main/examples/authentication) for a full application.
+
 ```ts
 import {
   HaberdasherService,
   createHaberdasherHandler,
 } from "../../protos/haberdasher.pb";
+import { Context } from "../some-path-to-your-definition";
 
-const Haberdasher: HaberdasherService = {
+const Haberdasher: HaberdasherService<Context> = {
   MakeHat: (size, ctx) => {
     return {
       inches: size.inches,
       color: "red",
-      name: `${ctx.currentUser}'s fedora`,
+      name: `${ctx.currentUser.username}'s fedora`,
     };
   },
 };
 
 export const HaberdasherHandler = createHaberdasherHandler(HaberdasherService);
 ```
+
 
 ### Middleware / Interceptors
 
@@ -423,7 +429,7 @@ import { createServer } from "http";
 import { createTwirpServer, TwirpError } from "twirpscript";
 import { AuthenticationHandler } from "./authentication";
 
-interface Context {
+export interface Context {
   currentUser: { username: string };
 }
 
@@ -456,6 +462,7 @@ createServer(app).listen(PORT, () =>
   console.log(`Server listening on port ${PORT}`)
 );
 ```
+See the [authentication example](https://github.com/tatethurston/twirpscript/tree/main/examples/authentication) for a full application.
 
 ### Hooks
 

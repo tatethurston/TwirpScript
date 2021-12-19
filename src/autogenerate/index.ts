@@ -349,7 +349,7 @@ function writeServers(
     )}(service${printIfTypescript(
       `: ${service.name}Service<Context>`
     )})${printIfTypescript(": ServiceHandler<Context>")} { return {
-    path: '${[packageName, service.name].filter(Boolean).join(".")}',
+    name: '${[packageName, service.name].filter(Boolean).join(".")}',
     methods: {\n`;
     service.methods.forEach((method) => {
       result += `${method.name}: createMethodHandler({ handler: service.${method.name}, encode: ${method.output}.encode, decode: ${method.input}.decode }),`;

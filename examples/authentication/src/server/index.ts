@@ -11,7 +11,7 @@ const app = createTwirpServer<Context>([
   HaberdasherHandler,
 ])
   .use(cors)
-  .use(requireAuthentication({ exceptions: [AuthenticationHandler.path] }));
+  .use(requireAuthentication({ exceptions: [AuthenticationHandler.name] }));
 
 createServer(app).listen(PORT, () =>
   console.log(`Server listening on port ${PORT}`)

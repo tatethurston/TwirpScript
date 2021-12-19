@@ -12,20 +12,21 @@ export function requireAuthentication({
 }: RequireAuthenticationOpts): Middleware<Context, IncomingMessage> {
   return async (req, ctx, next) => {
     for (let exception of exceptions) {
-      if (req.url?.startsWith("/twirp/" + exception)) {
+      if (ctx.service === exception) {
         ctx.currentUser = UnauthenticatedUser;
         return next();
       }
     }
 
     const token = req.headers["authorization"]?.split("bearer")?.[1]?.trim();
-    ctx.currentUser = getCurrentUser(token);
-    if (!ctx.currentUser) {
+    const currentUser = getCurrentUser(token);
+    if (!currentUser) {
       throw new TwirpError({
         code: "unauthenticated",
         msg: "Access denied",
       });
     } else {
+      ctx.currentUser = currentUser;
       return next();
     }
   };

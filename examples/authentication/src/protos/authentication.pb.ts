@@ -69,7 +69,7 @@ export function createAuthenticationHandler<Context>(
   service: AuthenticationService<Context>
 ): ServiceHandler<Context> {
   return {
-    path: "Authentication",
+    name: "Authentication",
     methods: {
       Login: createMethodHandler({
         handler: service.Login,

@@ -394,19 +394,24 @@ interface Context {
 const app = createTwirpServer<Context>([AuthenticationHandler]);
 
 app.use(async (req, ctx, next) => {
-  if (req.url?.startsWith(`/twirp/${AuthenticationHandler.path}`)) {
+  // exception so unauthenticated users can authenticate
+  if (ctx.service === AuthenticationHandler.name) {
     return next();
   }
 
+  // extract token from authorization header
   const token = req.headers["authorization"]?.split("bearer")?.[1]?.trim();
-  ctx.currentUser = getCurrentUser(token);
 
-  if (!ctx.currentUser) {
+  // a fictional helper function that retrieves a user from a token
+  const currentUser = getCurrentUser(token);
+
+  if (!currentUser) {
     throw new TwirpError({
       code: "unauthenticated",
       msg: "Access denied",
     });
   } else {
+    ctx.currentUser = currentUser;
     return next();
   }
 };

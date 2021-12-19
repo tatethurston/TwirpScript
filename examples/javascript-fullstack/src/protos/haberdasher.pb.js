@@ -38,7 +38,7 @@ export async function MakeHatJSON(size, config) {
 
 export function createHaberdasherHandler(service) {
   return {
-    path: "Haberdasher",
+    name: "Haberdasher",
     methods: {
       MakeHat: createMethodHandler({
         handler: service.MakeHat,

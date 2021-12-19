@@ -1,15 +1,13 @@
-import { TwirpServerRuntime } from "..";
+import { TwirpServerRuntime, RawRequest } from "..";
 
 const timingField = "__twirpRequestStartMs__";
 
-export function withRequestLogging(
-  app: TwirpServerRuntime<unknown, unknown>
+export function withRequestLogging<Context, Request extends RawRequest>(
+  app: TwirpServerRuntime<Context, Request>
 ): typeof app {
-  app.on("requestReceived", (ctx) => {
+  app.on("requestReceived", (ctx, request) => {
     (ctx as any)[timingField] = Date.now();
-    console.info(
-      `[TwirpScript] Started ${ctx.request.method} "${ctx.request.url}"`
-    );
+    console.info(`[TwirpScript] Started ${request.method} "${request.url}"`);
   });
 
   app.on("requestRouted", (ctx) => {
@@ -18,10 +16,10 @@ export function withRequestLogging(
     );
   });
 
-  app.on("responseSent", (ctx) => {
+  app.on("responseSent", (ctx, response) => {
     const time = Date.now() - (ctx as any)[timingField];
     console.info(
-      `[TwirpScript] Completed ${ctx.response?.statusCode} in ${time} ms.`
+      `[TwirpScript] Completed ${response?.statusCode} in ${time} ms.`
     );
   });
 

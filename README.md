@@ -26,7 +26,7 @@ TwirpScript is an implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16
 | **JavaScript** | ✅      | ✅      |
 | **Typescript** | ✅      | ✅      |
 
-[TwirpScript implements the latest Twirp Wire Protocol (v7)](https://twitchtv.github.io/twirp/docs/spec_v7.html)
+TwirpScript implements the latest [Twirp Wire Protocol (v7)](https://twitchtv.github.io/twirp/docs/spec_v7.html).
 
 ## Table of Contents
 

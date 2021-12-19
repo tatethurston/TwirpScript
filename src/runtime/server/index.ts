@@ -28,10 +28,27 @@ interface TwirpContextRequestReceived {
 }
 
 interface TwirpContext {
+  /**
+   * The request object.
+   */
   request: Request;
+  /**
+   * The response object.
+   *
+   * Any added headers will be merged into the final response.
+   */
   response: Partial<Response>;
+  /**
+   * The requested RPC service.
+   */
   service: string | undefined;
+  /**
+   * The requested RPC service method.
+   */
   method: string | undefined;
+  /**
+   * The requested content-type for the request.
+   */
   contentType: "JSON" | "Protobuf" | "Unknown";
 }
 

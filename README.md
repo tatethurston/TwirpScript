@@ -53,9 +53,9 @@ TwirpScript implements the latest [Twirp Wire Protocol (v7)](https://twitchtv.gi
 
 ## Overview
 
-TwirpScript is an implementation of the [Twirp wire protocol](https://github.com/twitchtv/twirp/blob/main/PROTOCOL.md) for JavaScript and TypeScript. It generates clients and servers from `.proto` service specifications. The generated clients can be used in the browser or in nodejs runtimes. This enables type safe communication between the client and server, as well as reduced payload sizes when using `protobuf` as the serialization format.
+Twirp is a simple RPC framework built on [protocol buffers](https://developers.google.com/protocol-buffers/). TwirpScript generates JavaScript or TypeScript clients and servers from `.proto` service specifications. The generated clients can be used in the browser or in NodeJS runtimes. This enables type safe communication between the client and server, as well as reduced payload sizes when using `protobuf` as the serialization format.
 
-Twirp is a simple RPC framework built on [protocol buffers](https://developers.google.com/protocol-buffers/). You define your service in a `.proto` specification file, and Twirp will generate client and service handlers for that service. You fill in the business logic that powers the server, and Twirp handles the boilerplate.
+You define your service in a `.proto` specification file, and TwirpScript will generate client and service handlers for that service. You fill in the business logic that powers the server, and TwirpScript handles the boilerplate.
 
 To learn more about the motivation behind Twirp (and a comparison to REST APIs and gRPC), check out the [announcement blog](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f/).
 

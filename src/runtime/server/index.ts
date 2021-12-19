@@ -139,7 +139,7 @@ async function getBody(req: IncomingMessage): Promise<Buffer> {
   return body;
 }
 
-function parseRequest(req: RawRequest): TwirpError | Omit<Request, "body"> {
+function validateRequest(req: RawRequest): TwirpError | undefined {
   if (!req.url) {
     return new TwirpError({
       code: "malformed",
@@ -178,13 +178,6 @@ function parseRequest(req: RawRequest): TwirpError | Omit<Request, "body"> {
       msg: `unexpected request content-type ${contentType}`,
     });
   }
-
-  return {
-    url: req.url,
-    headers: {
-      "content-type": contentType,
-    },
-  };
 }
 
 type Next = () => Promise<Response>;
@@ -208,33 +201,18 @@ export type Middleware<Context, Request = unknown> = (
 
 function twirpHandler<Context extends TwirpContext>(
   services: ServiceHandler<Context>[],
-  ee: Emitter<ServerHooks<Context>>,
-  config: TwirpServerConfig
+  ee: Emitter<ServerHooks<Context>>
 ) {
   return async (req: RawRequest, ctx: Context): Promise<Response> => {
-    const parsed = parseRequest(req);
-    if (parsed instanceof TwirpError) {
-      ee.emit("error", ctx, parsed);
-      return TwirpErrorResponse(parsed);
+    const err = validateRequest(req);
+    if (err) {
+      ee.emit("error", ctx, err);
+      return TwirpErrorResponse(err);
     }
 
-    const request: Request = {
-      ...parsed,
-      body: req.body,
-    };
-
-    const prefix = config.prefix + "/";
-    const methodIdx = request.url.lastIndexOf("/");
-    const serviceName = request.url.slice(prefix.length, methodIdx);
-    const serviceMethod = request.url.slice(methodIdx + 1);
-
-    const service = services.find(
-      (service) =>
-        serviceName === service.name && service.methods[serviceMethod]
-    );
-    const method = service?.methods[serviceMethod];
-
-    if (!request.url.startsWith(prefix) || !method) {
+    const service = services.find((service) => ctx.service === service.name);
+    const method = service?.methods[ctx.method as string];
+    if (!method) {
       const error = new TwirpError({
         code: "bad_route",
         msg: `no handler for path POST ${req.url ?? ""}.`,
@@ -243,17 +221,16 @@ function twirpHandler<Context extends TwirpContext>(
       return TwirpErrorResponse(error);
     }
 
-    ctx.service = serviceName;
-    ctx.method = serviceMethod;
     ee.emit("requestRouted", ctx);
 
+    const request = req as unknown as Request;
     const response = await method(request, ctx);
     const res =
       response instanceof TwirpError
         ? TwirpErrorResponse(response)
         : {
             statusCode: 200,
-            headers: parsed.headers,
+            headers: { "content-type": request.headers["content-type"] },
             body: response,
           };
 
@@ -344,11 +321,20 @@ export function createTwirpServer<
     res.end(response.body);
   }
 
-  app.use = _app.use;
-  app.on = _app.on;
-  app.off = _app.off;
+  app.use = (handler: Middleware<Context, Request>) => {
+    _app.use(handler as unknown as Middleware<Context, RawRequest>);
+    return app;
+  };
+  app.on = (...args: Parameters<TwirpServerEvent<Context>["on"]>) => {
+    _app.on(...args);
+    return app;
+  };
+  app.off = (...args: Parameters<TwirpServerEvent<Context>["off"]>) => {
+    _app.off(...args);
+    return app;
+  };
 
-  return app as unknown as TwirpServer<Context, Request>;
+  return app;
 }
 
 export function createTwirpServerless<
@@ -365,18 +351,35 @@ export function createTwirpServerless<
   };
   const serverMiddleware: Middleware<Context, Request>[] = [];
   const ee = createEventEmitter<ServerHooks<Context>>();
-  const twirp = twirpHandler<TwirpContext & Context>(
-    services,
-    ee,
-    configWithDefaults
-  );
+  const twirp = twirpHandler<TwirpContext & Context>(services, ee);
 
   async function app(req: Request): Promise<Response> {
     const ctx: TwirpContext & Context = {
-      request: req,
+      request: {
+        body: req.body,
+        headers: req.headers,
+        method: req.method,
+        url: req.url,
+      },
     } as unknown as TwirpContext & Context;
     ee.emit("requestReceived", ctx);
 
+    const prefix = configWithDefaults.prefix + "/";
+    const startsWithPrefix = req.url.startsWith(prefix);
+    const methodIdx = req.url.lastIndexOf("/");
+    const serviceName = req.url.slice(prefix.length, methodIdx);
+    const serviceMethod = req.url.slice(methodIdx + 1);
+    const service = services.find(
+      (service) =>
+        serviceName === service.name && service.methods[serviceMethod]
+    );
+    const method = service?.methods[serviceMethod];
+    if (startsWithPrefix && service) {
+      ctx.service = service.name;
+    }
+    if (startsWithPrefix && method) {
+      ctx.method = serviceMethod;
+    }
     let response: Response;
     try {
       let idx = 1;

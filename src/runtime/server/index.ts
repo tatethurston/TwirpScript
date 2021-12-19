@@ -1,6 +1,7 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { TwirpError, statusCodeForErrorCode } from "../error";
 import { Emitter, createEventEmitter } from "../eventEmitter";
+import { withRequestLogging } from "./requestLogging";
 
 interface Response {
   body: string | Buffer;
@@ -12,7 +13,7 @@ interface Response {
 }
 
 interface Request {
-  body: Buffer;
+  body: string | Buffer | undefined | null;
   headers: {
     "Content-Type": "application/json" | "application/protobuf";
     [key: string]: string | undefined;
@@ -21,12 +22,19 @@ interface Request {
 }
 
 interface RawRequest {
-  body: Buffer;
+  body: string | Buffer | undefined | null;
   headers: {
     [key: string]: string | undefined;
   };
   url: string;
   method: string;
+}
+
+interface TwirpContext {
+  request: RawRequest;
+  response?: Response;
+  service?: string;
+  method?: string;
 }
 
 interface ServiceMethod<Context = unknown> {
@@ -37,7 +45,7 @@ interface ServiceMethod<Context = unknown> {
 
 type Handler<Context> = (
   req: Request,
-  ctx: Context
+  ctx: TwirpContext & Context
 ) => Promise<TwirpError | string | Buffer> | TwirpError | string | Buffer;
 
 export interface ServiceHandler<Context> {
@@ -83,7 +91,7 @@ export function createMethodHandler<T, Context>({
     try {
       switch (req.headers["Content-Type"]) {
         case "application/json": {
-          const body = parseJSON<T>(req.body.toString());
+          const body = parseJSON<T>(req.body as string);
           if (!body) {
             return new TwirpError({
               code: "invalid_argument",
@@ -94,7 +102,7 @@ export function createMethodHandler<T, Context>({
           return JSON.stringify(response);
         }
         case "application/protobuf": {
-          const body = parseProto<T>(req.body, decode);
+          const body = parseProto<T>(req.body as Buffer, decode);
           if (!body) {
             return new TwirpError({
               code: "invalid_argument",
@@ -186,18 +194,22 @@ type Next = () => Promise<Response>;
 
 interface TwirpServerConfig {
   /**
+   * Puts the Twirp server runtime into debug mode when set to true. This enables request logging. Defaults to true.
+   */
+  debug?: boolean;
+  /**
    * A path prefix such as "/my/custom/prefix". Defaults to "/twirp", but can be set to "".
    */
-  prefix: string;
+  prefix?: string;
 }
 
 export type Middleware<Context, Request = unknown> = (
   req: Request,
-  ctx: Partial<Context>,
+  ctx: TwirpContext & Context,
   next: Next
 ) => Promise<Response>;
 
-function twirpHandler<Context>(
+function twirpHandler<Context extends TwirpContext>(
   services: ServiceHandler<Context>[],
   ee: Emitter<ServerHooks<Context>>,
   config: TwirpServerConfig
@@ -234,28 +246,30 @@ function twirpHandler<Context>(
       return TwirpErrorResponse(error);
     }
 
+    ctx.service = servicePath;
+    ctx.method = serviceMethod;
     ee.emit("requestRouted", ctx);
 
     const response = await method(request, ctx);
+    const res =
+      response instanceof TwirpError
+        ? TwirpErrorResponse(response)
+        : {
+            statusCode: 200,
+            headers: parsed.headers,
+            body: response,
+          };
 
+    ctx.response = res;
     ee.emit("responsePrepared", ctx);
-
-    if (response instanceof TwirpError) {
-      return TwirpErrorResponse(response);
-    } else {
-      return {
-        statusCode: 200,
-        headers: parsed.headers,
-        body: response,
-      };
-    }
+    return res;
   };
 }
 
-type HookListener<Context> = (ctx: Readonly<Context>) => void;
+type HookListener<Context> = (ctx: Readonly<TwirpContext & Context>) => void;
 
 type ErrorHookListener<Context> = (
-  ctx: Readonly<Context>,
+  ctx: Readonly<TwirpContext & Context>,
   err: TwirpError
 ) => void;
 
@@ -269,7 +283,7 @@ type ServerHooks<Context> = {
 
 type TwirpServerEvent<Context> = Emitter<ServerHooks<Context>>;
 
-interface TwirpServerRuntime<Context, Request> {
+export interface TwirpServerRuntime<Context, Request> {
   /**
    * Registers middleware to manipulate the server request / response lifecycle.
    *
@@ -297,11 +311,11 @@ interface TwirpServerRuntime<Context, Request> {
    * `error` is called when an error occurs while handling a request. In
    * addition to `Context`, the error that occurred is passed as the second argument.
    */
-  on: (...args: Parameters<TwirpServerEvent<Context>["on"]>) => this;
+  on: TwirpServerEvent<Context>["on"];
   /**
    * Removes a registered event handler.
    */
-  off: (...args: Parameters<TwirpServerEvent<Context>["off"]>) => this;
+  off: TwirpServerEvent<Context>["off"];
 }
 
 interface TwirpServer<Context, Request>
@@ -319,7 +333,7 @@ export function createTwirpServer<
   Request extends IncomingMessage = IncomingMessage
 >(
   services: ServiceHandler<Context>[],
-  config: TwirpServerConfig = { prefix: "/twirp" }
+  config: TwirpServerConfig = {}
 ): TwirpServer<Context, Request> {
   const _app = createTwirpServerless(services, config);
 
@@ -345,14 +359,25 @@ export function createTwirpServerless<
   Request extends RawRequest = RawRequest
 >(
   services: ServiceHandler<Context>[],
-  config: TwirpServerConfig = { prefix: "/twirp" }
+  config: TwirpServerConfig = {}
 ): TwirpServerless<Context, Request> {
+  const configWithDefaults = {
+    debug: true,
+    prefix: "/twirp",
+    ...config,
+  };
   const serverMiddleware: Middleware<Context, Request>[] = [];
   const ee = createEventEmitter<ServerHooks<Context>>();
-  const twirp = twirpHandler(services, ee, config);
+  const twirp = twirpHandler<TwirpContext & Context>(
+    services,
+    ee,
+    configWithDefaults
+  );
 
   async function app(req: Request): Promise<Response> {
-    const ctx: Context = {} as Context;
+    const ctx: TwirpContext & Context = {
+      request: req,
+    } as unknown as TwirpContext & Context;
     ee.emit("requestReceived", ctx);
 
     let response: Response;
@@ -373,6 +398,7 @@ export function createTwirpServerless<
       response = TwirpErrorResponse(error);
     }
 
+    ctx.response = response;
     ee.emit("responseSent", ctx);
     return response;
   }
@@ -391,6 +417,10 @@ export function createTwirpServerless<
     ee.off(...args);
     return app;
   };
+
+  if (configWithDefaults.debug !== false) {
+    withRequestLogging(app);
+  }
 
   return app;
 }

@@ -4,7 +4,7 @@ import { HaberdasherHandler } from "./services";
 
 const PORT = 8080;
 
-const app = createTwirpServer([HaberdasherHandler]);
+const app = createTwirpServer([HaberdasherHandler], { debug: false });
 
 // CORS
 app.use(async (req, _ctx, next) => {

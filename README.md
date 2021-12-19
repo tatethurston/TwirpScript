@@ -297,9 +297,10 @@ Servers can be configured by passing a configuration object to `createTwirpServe
 
 ##### Configuration Options
 
-| Name   | Description                                                                            | Type   | Example             |
-| ------ | -------------------------------------------------------------------------------------- | ------ | ------------------- |
-| prefix | A path prefix such as "/my/custom/prefix". Defaults to "/twirp", but can be set to "". | string | "/my/custom/prefix" |
+| Name   | Description                                                                                                     | Type    | Example             |
+| ------ | --------------------------------------------------------------------------------------------------------------- | ------- | ------------------- |
+| prefix | A path prefix such as "/my/custom/prefix". Defaults to "/twirp", but can be set to "".                          | string  | "/my/custom/prefix" |
+| debug  | Puts the Twirp server runtime into debug mode when set to true. This enables request logging. Defaults to true. | boolean | false               |
 
 ##### Example
 

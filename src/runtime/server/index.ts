@@ -6,7 +6,6 @@ import { withRequestLogging } from "./requestLogging";
 interface Response {
   body: string | Buffer;
   headers: {
-    "content-type": "application/json" | "application/protobuf";
     [key: string]: string | undefined;
   };
   statusCode: number;
@@ -15,26 +14,25 @@ interface Response {
 interface Request {
   body: string | Buffer | undefined | null;
   headers: {
-    "content-type": "application/json" | "application/protobuf";
     [key: string]: string | undefined;
   };
   url: string;
 }
 
-interface RawRequest {
-  body: string | Buffer | undefined | null;
-  headers: {
-    [key: string]: string | undefined;
-  };
-  url: string;
+interface RawRequest extends Request {
   method: string;
 }
 
-interface TwirpContext {
+interface TwirpContextRequestReceived {
   request: RawRequest;
-  response?: Response;
-  service?: string;
-  method?: string;
+}
+
+interface TwirpContext {
+  request: Request;
+  response: Partial<Response>;
+  service: string | undefined;
+  method: string | undefined;
+  contentType: "JSON" | "Protobuf" | "Unknown";
 }
 
 interface ServiceMethod<Context = unknown> {
@@ -89,8 +87,8 @@ export function createMethodHandler<T, Context>({
 }: ServiceMethod<Context>): Handler<Context> {
   return async (req, context) => {
     try {
-      switch (req.headers["content-type"]) {
-        case "application/json": {
+      switch (context.contentType) {
+        case "JSON": {
           const body = parseJSON<T>(req.body as string);
           if (!body) {
             return new TwirpError({
@@ -101,7 +99,7 @@ export function createMethodHandler<T, Context>({
           const response = await handler(body, context);
           return JSON.stringify(response);
         }
-        case "application/protobuf": {
+        case "Protobuf": {
           const body = parseProto<T>(req.body as Buffer, decode);
           if (!body) {
             return new TwirpError({
@@ -113,8 +111,10 @@ export function createMethodHandler<T, Context>({
           return Buffer.from(encode(response));
         }
         default: {
-          const _exhaust: never = req.headers["content-type"];
-          return _exhaust;
+          return new TwirpError({
+            code: "malformed",
+            msg: `Unexpected or missing content-type`,
+          });
         }
       }
     } catch (error) {
@@ -154,11 +154,10 @@ function validateRequest(req: RawRequest): TwirpError | undefined {
     });
   }
 
-  const method = req.method.toUpperCase();
-  if (method !== "POST") {
+  if (req.method !== "POST") {
     return new TwirpError({
       code: "malformed",
-      msg: `unexpected request method ${method}`,
+      msg: `unexpected request method ${req.method}`,
     });
   }
 
@@ -195,12 +194,12 @@ interface TwirpServerConfig {
 
 export type Middleware<Context, Request = unknown> = (
   req: Request,
-  ctx: TwirpContext & Context,
+  ctx: Readonly<TwirpContext> & Context,
   next: Next
 ) => Promise<Response>;
 
 function twirpHandler<Context extends TwirpContext>(
-  services: ServiceHandler<Context>[],
+  services: ServiceMap<Context>,
   ee: Emitter<ServerHooks<Context>>
 ) {
   return async (req: RawRequest, ctx: Context): Promise<Response> => {
@@ -210,9 +209,8 @@ function twirpHandler<Context extends TwirpContext>(
       return TwirpErrorResponse(err);
     }
 
-    const service = services.find((service) => ctx.service === service.name);
-    const method = service?.methods[ctx.method as string];
-    if (!method) {
+    const handler = services[(ctx.service ?? "") + (ctx.method ?? "")];
+    if (!handler) {
       const error = new TwirpError({
         code: "bad_route",
         msg: `no handler for path POST ${req.url ?? ""}.`,
@@ -223,24 +221,25 @@ function twirpHandler<Context extends TwirpContext>(
 
     ee.emit("requestRouted", ctx);
 
-    const request = req as unknown as Request;
-    const response = await method(request, ctx);
+    const response = await handler(req, ctx);
     const res =
       response instanceof TwirpError
         ? TwirpErrorResponse(response)
         : {
             statusCode: 200,
-            headers: { "content-type": request.headers["content-type"] },
+            headers: {
+              ...ctx.response.headers,
+              "content-type": req.headers["content-type"],
+            },
             body: response,
           };
 
-    ctx.response = res;
     ee.emit("responsePrepared", ctx);
     return res;
   };
 }
 
-type HookListener<Context> = (ctx: Readonly<TwirpContext & Context>) => void;
+type HookListener<Context> = (ctx: Readonly<Context>) => void;
 
 type ErrorHookListener<Context> = (
   ctx: Readonly<TwirpContext & Context>,
@@ -248,11 +247,11 @@ type ErrorHookListener<Context> = (
 ) => void;
 
 type ServerHooks<Context> = {
-  requestReceived: HookListener<Context>;
-  requestRouted: HookListener<Context>;
-  responsePrepared: HookListener<Context>;
-  responseSent: HookListener<Context>;
-  error: ErrorHookListener<Context>;
+  requestReceived: HookListener<TwirpContextRequestReceived>;
+  requestRouted: HookListener<TwirpContext & Context>;
+  responsePrepared: HookListener<TwirpContext & Context>;
+  responseSent: HookListener<TwirpContext & Context>;
+  error: ErrorHookListener<TwirpContext & Context>;
 };
 
 type TwirpServerEvent<Context> = Emitter<ServerHooks<Context>>;
@@ -337,6 +336,53 @@ export function createTwirpServer<
   return app;
 }
 
+const contentTypeName: {
+  [key: string]: TwirpContext["contentType"] | undefined;
+} = {
+  "application/json": "JSON",
+  "application/protobuf": "Protobuf",
+};
+
+type ServiceMap<Context> = Record<string, Handler<Context> | undefined>;
+
+function getRequestContext<Context>(
+  req: RawRequest,
+  services: ServiceMap<Context>,
+  config: TwirpServerConfig
+): TwirpContext {
+  const ctx: TwirpContext = {
+    request: {
+      body: req.body,
+      headers: req.headers,
+      url: req.url,
+    },
+    response: {
+      body: undefined,
+      headers: {},
+      statusCode: undefined,
+    },
+    service: undefined,
+    method: undefined,
+    contentType:
+      contentTypeName[req.headers["content-type"] as string] ?? "Unknown",
+  };
+
+  const prefix = config.prefix + "/";
+  const startsWithPrefix = req.url.startsWith(prefix);
+  if (!startsWithPrefix) {
+    return ctx;
+  }
+  const methodIdx = req.url.lastIndexOf("/");
+  const serviceName = req.url.slice(prefix.length, methodIdx);
+  const serviceMethod = req.url.slice(methodIdx + 1);
+  const handler = services[serviceName + serviceMethod];
+  if (handler) {
+    ctx.service = serviceName;
+    ctx.method = serviceMethod;
+  }
+  return ctx;
+}
+
 export function createTwirpServerless<
   Context = unknown,
   Request extends RawRequest = RawRequest
@@ -351,35 +397,29 @@ export function createTwirpServerless<
   };
   const serverMiddleware: Middleware<Context, Request>[] = [];
   const ee = createEventEmitter<ServerHooks<Context>>();
-  const twirp = twirpHandler<TwirpContext & Context>(services, ee);
+  const serviceMap = services.reduce<ServiceMap<Context>>(
+    (acc, service) => ({
+      ...acc,
+      ...Object.fromEntries(
+        Object.entries(service.methods).map(([method, handler]) => [
+          service.name + method,
+          handler,
+        ])
+      ),
+    }),
+    {}
+  );
+  const twirp = twirpHandler<Context & TwirpContext>(serviceMap, ee);
 
   async function app(req: Request): Promise<Response> {
-    const ctx: TwirpContext & Context = {
-      request: {
-        body: req.body,
-        headers: req.headers,
-        method: req.method,
-        url: req.url,
-      },
-    } as unknown as TwirpContext & Context;
-    ee.emit("requestReceived", ctx);
+    const ctxRequestReceived = { request: req };
+    ee.emit("requestReceived", ctxRequestReceived);
 
-    const prefix = configWithDefaults.prefix + "/";
-    const startsWithPrefix = req.url.startsWith(prefix);
-    const methodIdx = req.url.lastIndexOf("/");
-    const serviceName = req.url.slice(prefix.length, methodIdx);
-    const serviceMethod = req.url.slice(methodIdx + 1);
-    const service = services.find(
-      (service) =>
-        serviceName === service.name && service.methods[serviceMethod]
-    );
-    const method = service?.methods[serviceMethod];
-    if (startsWithPrefix && service) {
-      ctx.service = service.name;
-    }
-    if (startsWithPrefix && method) {
-      ctx.method = serviceMethod;
-    }
+    const ctx = {
+      ...ctxRequestReceived,
+      ...getRequestContext(req, serviceMap, configWithDefaults),
+    } as Context & TwirpContext;
+
     let response: Response;
     try {
       let idx = 1;

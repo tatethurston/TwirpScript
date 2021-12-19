@@ -12,7 +12,7 @@ const handler: Handler<APIGatewayProxyEvent, APIGatewayProxyResult> = async (
   event
 ) => {
   const res = await app({
-    body: event.body as any,
+    body: event.body,
     headers: event.headers,
     method: event.httpMethod,
     url: event.path,

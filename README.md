@@ -31,25 +31,28 @@ TwirpScript implements the latest [Twirp Wire Protocol (v7)](https://twitchtv.gi
 ## Table of Contents
 
 - [Overview](#overview)
-- [Highlights 🛠](#highlights---)
-- [Installation 📦](#installation---)
+- [Highlights 🛠](#highlights-)
+- [Installation 📦](#installation-)
 - [Getting Started](#getting-started)
-  - [Overview 📖](#overview---)
+  - [Overview 📖](#overview-)
   - [Configuring your Twirp Runtime](#configuring-your-twirp-runtime)
-    - [Clients](#clients)
-    - [Servers](#servers)
-  - [Middleware / Interceptors](#middleware---interceptors)
     - [Client](#client)
     - [Server](#server)
-  - [Hooks](#hooks)
+  - [Context](#context)
     - [Client](#client-1)
     - [Server](#server-1)
-- [Configuration 🛠](#configuration---)
-- [Examples 🚀](#examples---)
-- [Caveats, Warnings and Issues ⚠️](#caveats--warnings-and-issues---)
+  - [Middleware / Interceptors](#middleware--interceptors)
+    - [Client](#client-2)
+    - [Server](#server-2)
+  - [Hooks](#hooks)
+    - [Client](#client-3)
+    - [Server](#server-3)
+- [Configuration 🛠](#configuration-)
+- [Examples 🚀](#examples-)
+- [Caveats, Warnings and Issues ⚠️](#caveats-warnings-and-issues-%EF%B8%8F)
 - [FAQ](#faq)
-- [Contributing 👫](#contributing---)
-- [Licensing 📃](#licensing---)
+- [Contributing 👫](#contributing-)
+- [Licensing 📃](#licensing-)
 
 ## Overview
 
@@ -218,9 +221,7 @@ createServer(app).listen(PORT, () =>
 
 If you're deploying to a serverless environment such as AWS Lambda, replace `createTwirpServer` above with `createTwirpServerless`. See the [aws lambda example](https://github.com/tatethurston/twirpscript/blob/main/examples/aws-lambda) for a full project!
 
-### Configuring your Twirp Runtime
-
-#### Clients
+#### Client
 
 Clients can be configured globally, at the RPC callsite, or with [middleware](https://github.com/tatethurston/TwirpScript/blob/main/README.md#client). The order of precedence is _middleware_ > _call site configuration_ > _global configuration_. Middleware overrides call site configuration, and call site configuration overrides global configuration.
 
@@ -291,7 +292,7 @@ const hat = await MakeHat(
 console.log(hat);
 ```
 
-#### Servers
+#### Server
 
 Servers can be configured by passing a configuration object to `createTwirpServer`.
 
@@ -319,6 +320,27 @@ createServer(app).listen(PORT, () =>
 );
 ```
 
+### Context
+
+#### Client
+
+| Name    | Description                                                                                         |
+| ------- | --------------------------------------------------------------------------------------------------- |
+| url     | The URL for the RPC. This is the full URL for the request: the baseURL + prefix + the service path. |
+| headers | HTTP headers to include in the RPC.                                                                 |
+
+#### Server
+
+| Name                                                      | Description                                 |
+| --------------------------------------------------------- | ------------------------------------------- |
+| request                                                   | The request object.                         |
+| response                                                  | The response object.                        |
+| Any added headers will be merged into the final response. |
+| service                                                   | HTTP headers to include in the RPC.         |
+| service                                                   | The requested RPC service.                  |
+| method                                                    | The requested RPC service method.           |
+| contentType                                               | The requested content-type for the request. |
+
 ### Middleware / Interceptors
 
 TwirpScript's client and server request response lifecycle can be programmed via middleware.
@@ -329,16 +351,9 @@ Because each middleware is responsible for invoking the next handler, middleware
 
 #### Client
 
-Clients can be configured via the `client` export's `use` method. `use` registers middleware to manipulate the client request / response lifecycle. The middleware handler will receive `context` and `next` parameters. `context` sets the headers and url for the RPC. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp RPC.
+Clients can be configured via the `client` export's `use` method. `use` registers middleware to manipulate the client request / response lifecycle. The middleware handler will receive [context](#client-1) and `next` parameters. You can set the headers and url for the RPC via `context`. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp RPC.
 
-##### Client Middleware Configuration Options
-
-| Name    | Description                                                                                         | Type                   | Example                                             |
-| ------- | --------------------------------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------- |
-| url     | The URL for the RPC. This is the full URL for the request: the baseURL + prefix + the service path. | string                 | "https://www.example.com/twirp/haberdasher.MakeHat" |
-| headers | HTTP headers to include in the RPC.                                                                 | Record<string, string> | { "idempotency-key": "foo" }                        |
-
-##### Client Middleware Examples
+##### Example
 
 ```ts
 import { client } from "twirpscript";
@@ -380,7 +395,7 @@ Servers can be configured via your `server`'s `use` method. `use` registers midd
 
 The middleware handler will receive `req`, `ctx` and `next` parameters. `req` is the incoming request. `ctx` is a request context object which will be passed to each middleware handler and finally the Twirp service handler you implemented. `ctx` enables you to pass extra parameters to your service handlers that are not available via your service's defined request parameters, and can be used to implement things such as authentication or rate limiting. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp service handler you implemented.
 
-##### Server Middleware Example
+##### Example
 
 ```ts
 import { createServer } from "http";
@@ -429,7 +444,7 @@ While hooks and [middleware](https://github.com/tatethurston/TwirpScript/blob/ma
 
 #### Client
 
-Every client event handler is invoked with a [context](https://github.com/tatethurston/TwirpScript#client-middleware-context-object) object, which has the same shape as the middle context object.
+Every client event handler is invoked with the request [context](#client-1).
 
 ##### Events
 
@@ -453,7 +468,7 @@ client.on("responseReceived", (context) => {
 
 #### Server
 
-Every server event handler is invoked with the current `Context`.
+Every server event handler is invoked with the request [context](#server-1).
 
 ##### Events
 

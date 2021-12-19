@@ -333,12 +333,10 @@ createServer(app).listen(PORT, () =>
 
 #### Server
 
-| Name | Description |
-| ---- | ----------- |
-
-| service | HTTP headers to include in the RPC. |
-| service | The requested RPC service. |
-| method | The requested RPC service method. |
+| Name        | Description                                 |
+| ----------- | ------------------------------------------- |
+| service     | The requested RPC service.                  |
+| method      | The requested RPC service method.           |
 | contentType | The requested content-type for the request. |
 
 Your service handlers are invoked with `context` as their second argument. The base fields are documented above, but you may extend this object with arbitrary fields. This means you can use `context` to provide information to your handler that doesn't come from the RPC request itself, such as http headers or server-side API invocations.

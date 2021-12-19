@@ -1,6 +1,6 @@
 {
   "name": "twirpscript",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "A protobuf RPC framework for JavaScript and TypeScript",
   "license": "MIT",
   "author": "Tate Thurston <tatethurston@gmail.com>",

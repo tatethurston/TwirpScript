@@ -185,8 +185,8 @@ export function JSONrequest<T = unknown>(
       const res = await client.rpcTransport(c.url, {
         method: "POST",
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          accept: "application/json",
+          "content-type": "application/json",
           ...c.headers,
         },
         body: JSON.stringify(body),
@@ -214,8 +214,8 @@ export function PBrequest(
       const res = await client.rpcTransport(c.url, {
         method: "POST",
         headers: {
-          Accept: "application/protobuf",
-          "Content-Type": "application/protobuf",
+          accept: "application/protobuf",
+          "content-type": "application/protobuf",
           ...c.headers,
         },
         body,

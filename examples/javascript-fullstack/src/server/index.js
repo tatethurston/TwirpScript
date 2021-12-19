@@ -12,11 +12,11 @@ app.use(async (req, _ctx, next) => {
     return {
       statusCode: 204,
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Request-Method": "*",
-        "Access-Control-Allow-Methods": "*",
-        "Access-Control-Allow-Headers": "*",
-        "Content-Type": "application/json",
+        "access-control-allow-origin": "*",
+        "access-control-request-method": "*",
+        "access-control-allow-methods": "*",
+        "access-control-allow-headers": "*",
+        "content-type": "application/json",
       },
       body: "",
     };
@@ -27,7 +27,7 @@ app.use(async (req, _ctx, next) => {
     statusCode,
     body,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "access-control-allow-origin": "*",
       ...headers,
     },
   };

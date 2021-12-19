@@ -6,7 +6,7 @@ import { withRequestLogging } from "./requestLogging";
 interface Response {
   body: string | Buffer;
   headers: {
-    "Content-Type": "application/json" | "application/protobuf";
+    "content-type": "application/json" | "application/protobuf";
     [key: string]: string | undefined;
   };
   statusCode: number;
@@ -15,7 +15,7 @@ interface Response {
 interface Request {
   body: string | Buffer | undefined | null;
   headers: {
-    "Content-Type": "application/json" | "application/protobuf";
+    "content-type": "application/json" | "application/protobuf";
     [key: string]: string | undefined;
   };
   url: string;
@@ -57,7 +57,7 @@ export function TwirpErrorResponse(error: TwirpError): Response {
   return {
     statusCode: statusCodeForErrorCode[error.code],
     headers: {
-      "Content-Type": "application/json",
+      "content-type": "application/json",
     },
     body: JSON.stringify(error),
   };
@@ -89,7 +89,7 @@ export function createMethodHandler<T, Context>({
 }: ServiceMethod<Context>): Handler<Context> {
   return async (req, context) => {
     try {
-      switch (req.headers["Content-Type"]) {
+      switch (req.headers["content-type"]) {
         case "application/json": {
           const body = parseJSON<T>(req.body as string);
           if (!body) {
@@ -113,7 +113,7 @@ export function createMethodHandler<T, Context>({
           return Buffer.from(encode(response));
         }
         default: {
-          const _exhaust: never = req.headers["Content-Type"];
+          const _exhaust: never = req.headers["content-type"];
           return _exhaust;
         }
       }
@@ -162,16 +162,13 @@ function parseRequest(req: RawRequest): TwirpError | Omit<Request, "body"> {
     });
   }
 
-  const contentType =
-    req.headers["Content-Type"] ?? req.headers["content-type"];
-
+  const contentType = req.headers["content-type"];
   if (!contentType) {
     return new TwirpError({
       code: "malformed",
       msg: `no request content-type provided`,
     });
   }
-
   if (
     contentType !== "application/json" &&
     contentType !== "application/protobuf"
@@ -185,7 +182,7 @@ function parseRequest(req: RawRequest): TwirpError | Omit<Request, "body"> {
   return {
     url: req.url,
     headers: {
-      "Content-Type": contentType,
+      "content-type": contentType,
     },
   };
 }

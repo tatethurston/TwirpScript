@@ -4,6 +4,22 @@ import { spawnSync } from "child_process";
 import { existsSync, readFileSync, mkdirSync } from "fs";
 import { join, relative, resolve } from "path";
 import { findFiles, commandIsInPath, isWindows } from "../utils";
+import { createHash } from "crypto";
+
+const logger: Pick<Console, "info" | "warn" | "error"> = {
+  info: (str: string) => console.info("[TwirpScript] " + str),
+  warn: (str: string) => console.warn("[TwirpScript] " + str),
+  error: (str: string) => console.error("[TwirpScript] " + str),
+};
+
+function checksum(file: string): string {
+  const hash = createHash("md5");
+  return hash.update(readFileSync(file, "utf8"), "utf8").digest("hex");
+}
+
+function pluralize(str: string, count: number): string {
+  return count === 1 ? str : str + "s";
+}
 
 export type UserConfig = Partial<Config>;
 
@@ -92,12 +108,12 @@ function getConfig(): Config {
 
   let userConfig: UserConfig = {};
   if (existsSync(configFilePath)) {
-    console.info(`Using configuration file at '${configFilePath}'.`);
+    logger.info(`Using configuration file at '${configFilePath}'.`);
     const userConfigFile = readFileSync(configFilePath);
     try {
       userConfig = JSON.parse(userConfigFile.toString());
     } catch {
-      console.error(`Failed to parse configuration file.`);
+      logger.error(`Failed to parse configuration file.`);
       process.exit(1);
     }
 
@@ -105,7 +121,7 @@ function getConfig(): Config {
       (key) => !defaultConfig.hasOwnProperty(key)
     );
     if (unknownKeys.length) {
-      console.warn(
+      logger.warn(
         `Found unknown configuration options: ${unknownKeys
           .map((k) => `'${k}'`)
           .join(", ")}.`
@@ -126,7 +142,7 @@ const protos = findFiles(config.root, ".proto").map((filepath) =>
 );
 
 if (!commandIsInPath("protoc")) {
-  console.error(
+  logger.error(
     `Could not find the protobuf compiler. Please make sure 'protoc' is installed and in your '$PATH'.
 
   MacOS:
@@ -145,15 +161,27 @@ if (!commandIsInPath("protoc")) {
   process.exit(1);
 }
 
+if (protos.length === 0) {
+  logger.info("No '.proto' files found.");
+  process.exit(0);
+}
+
 try {
   const destination = config.dest === "." ? "." : resolve(config.dest);
 
   if (!existsSync(destination)) {
-    console.info(`Created destination folder '${destination}'.`);
+    logger.info(`Created destination folder '${destination}'.`);
     mkdirSync(destination, { recursive: true });
   }
 
   process.chdir(config.root);
+
+  const protoExt = config.language === "typescript" ? "pb.ts" : "pb.js";
+  const protosBeforeCompile = Object.fromEntries(
+    findFiles(destination, protoExt)
+      .map((filepath) => relative(config.root, filepath))
+      .map((file) => [file, checksum(file)])
+  );
 
   spawnSync(
     `\
@@ -170,6 +198,44 @@ protoc \
   ${protos.join(" ")}
 `,
     { shell: true, stdio: "inherit" }
+  );
+
+  const protosAfterCompile = findFiles(destination, protoExt)
+    .map((filepath) => relative(config.root, filepath))
+    .map((file) => [file, checksum(file)]);
+
+  const created = protosAfterCompile.filter(
+    (file) => !protosBeforeCompile[file[0]]
+  );
+  const updated = protosAfterCompile.filter(
+    (file) =>
+      protosBeforeCompile[file[0]] && protosBeforeCompile[file[0]] !== file[1]
+  );
+  const unchanged = protosAfterCompile.filter(
+    (file) => protosBeforeCompile[file[0]] === file[1]
+  );
+
+  logger.info("\n");
+  if (created.length > 0) {
+    console.info(
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      `Created:\n${created.map((f) => `  - ${f[0]}`).join("\n")}\n`
+    );
+  }
+  if (updated.length > 0) {
+    console.info(
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      `Updated:\n${updated.map((f) => `  - ${f[0]}`).join("\n")}\n`
+    );
+  }
+  console.info(
+    `${created.length} ${pluralize("file", created.length)} created, ${
+      updated.length
+    } ${pluralize("file", updated.length)} updated, ${
+      unchanged.length
+    } ${pluralize("file", unchanged.length)} unchanged. ${
+      protos.length
+    } ${pluralize("file", protos.length)} found.`
   );
 } catch (error) {
   process.exit(1);

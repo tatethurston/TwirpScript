@@ -2,7 +2,8 @@
 
 exports[` 1`] = `
 "$ /Users/tatethurston/twirpscript/e2e-tests/test-protos/node_modules/.bin/twirpscript
-Using configuration file at '/Users/tatethurston/twirpscript/e2e-tests/test-protos/.twirp.json'.
+[TwirpScript] Using configuration file at '/Users/tatethurston/twirpscript/e2e-tests/test-protos/.twirp.json'.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
 "
 `;
 

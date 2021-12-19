@@ -343,7 +343,7 @@ Your service handlers are invoked with `context` as their second argument. The b
 
 Custom fields can be added to the context object via [middleware](#middleware--interceptors).
 
-##### Example 
+##### Example
 
 If you setup middleware similiar to the [authentication middleware example](https://github.com/tatethurston/TwirpScript#example-3), you could read the `currentUser` `username` property in your service handler. See the [authentication example](https://github.com/tatethurston/twirpscript/tree/main/examples/authentication) for a full application.
 
@@ -366,7 +366,6 @@ const Haberdasher: HaberdasherService<Context> = {
 
 export const HaberdasherHandler = createHaberdasherHandler(HaberdasherService);
 ```
-
 
 ### Middleware / Interceptors
 
@@ -462,6 +461,7 @@ createServer(app).listen(PORT, () =>
   console.log(`Server listening on port ${PORT}`)
 );
 ```
+
 See the [authentication example](https://github.com/tatethurston/twirpscript/tree/main/examples/authentication) for a full application.
 
 ### Hooks

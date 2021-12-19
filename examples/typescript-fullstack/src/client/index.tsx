@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { render } from "react-dom";
-import { MakeHatJSON, Hat, Size } from "../protos/haberdasher.pb";
+import { MakeHat, Hat, Size } from "../protos/haberdasher.pb";
 import { client } from "twirpscript";
 
 client.baseURL = "http://localhost:8080";
@@ -15,7 +15,7 @@ const App: FC = () => {
 
   async function makeHat() {
     if (size) {
-      const hat = await MakeHatJSON(size);
+      const hat = await MakeHat(size);
       setHats((hats) => [...hats, hat]);
     }
   }

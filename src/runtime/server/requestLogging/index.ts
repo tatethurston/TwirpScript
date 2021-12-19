@@ -14,8 +14,7 @@ export function withRequestLogging(
 
   app.on("requestRouted", (ctx) => {
     const content =
-      (ctx.request.headers["Content-Type"] ??
-        ctx.request.headers["content-type"]) === "application/json"
+      ctx.request.headers["content-type"] === "application/json"
         ? "JSON"
         : "Protobuf";
     console.info(

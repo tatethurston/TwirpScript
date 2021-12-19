@@ -117,7 +117,7 @@ export async function twirpErrorFromResponse(
       http_error_from_intermediary: "true",
       status_code: res.status.toString(),
       body: text,
-      location: res.headers.get("Location") ?? undefined,
+      location: res.headers.get("location") ?? undefined,
     },
   });
 }

@@ -49,7 +49,7 @@ type Handler<Context> = (
 ) => Promise<TwirpError | string | Buffer> | TwirpError | string | Buffer;
 
 export interface ServiceHandler<Context> {
-  path: string;
+  name: string;
   methods: Record<string, Handler<Context> | undefined>;
 }
 
@@ -228,12 +228,12 @@ function twirpHandler<Context extends TwirpContext>(
 
     const prefix = config.prefix + "/";
     const methodIdx = request.url.lastIndexOf("/");
-    const servicePath = request.url.slice(prefix.length, methodIdx);
+    const serviceName = request.url.slice(prefix.length, methodIdx);
     const serviceMethod = request.url.slice(methodIdx + 1);
 
     const service = services.find(
       (service) =>
-        servicePath === service.path && service.methods[serviceMethod]
+        serviceName === service.name && service.methods[serviceMethod]
     );
     const method = service?.methods[serviceMethod];
 
@@ -246,7 +246,7 @@ function twirpHandler<Context extends TwirpContext>(
       return TwirpErrorResponse(error);
     }
 
-    ctx.service = servicePath;
+    ctx.service = serviceName;
     ctx.method = serviceMethod;
     ee.emit("requestRouted", ctx);
 

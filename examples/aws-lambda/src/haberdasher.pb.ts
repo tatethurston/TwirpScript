@@ -65,7 +65,7 @@ export function createHaberdasherHandler<Context>(
   service: HaberdasherService<Context>
 ): ServiceHandler<Context> {
   return {
-    path: "Haberdasher",
+    name: "Haberdasher",
     methods: {
       MakeHat: createMethodHandler({
         handler: service.MakeHat,

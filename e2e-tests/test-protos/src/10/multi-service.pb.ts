@@ -120,7 +120,7 @@ export function createCheckServiceHandler<Context>(
   service: CheckServiceService<Context>
 ): ServiceHandler<Context> {
   return {
-    path: "api.v1.CheckService",
+    name: "api.v1.CheckService",
     methods: {
       Info: createMethodHandler({
         handler: service.Info,
@@ -151,7 +151,7 @@ export function createVerificationServiceHandler<Context>(
   service: VerificationServiceService<Context>
 ): ServiceHandler<Context> {
   return {
-    path: "api.v1.VerificationService",
+    name: "api.v1.VerificationService",
     methods: {
       Verify: createMethodHandler({
         handler: service.Verify,

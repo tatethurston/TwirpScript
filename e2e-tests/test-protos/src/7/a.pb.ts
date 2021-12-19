@@ -181,7 +181,7 @@ export function createFooServiceHandler<Context>(
   service: FooServiceService<Context>
 ): ServiceHandler<Context> {
   return {
-    path: "A.FooService",
+    name: "A.FooService",
     methods: {
       Foo1: createMethodHandler({
         handler: service.Foo1,

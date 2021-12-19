@@ -62,7 +62,7 @@ export function createVeryLongNameThatCausesAnErrorServiceHandler<Context>(
   service: VeryLongNameThatCausesAnErrorServiceService<Context>
 ): ServiceHandler<Context> {
   return {
-    path: "pkg.VeryLongNameThatCausesAnErrorService",
+    name: "pkg.VeryLongNameThatCausesAnErrorService",
     methods: {
       GetAll: createMethodHandler({
         handler: service.GetAll,

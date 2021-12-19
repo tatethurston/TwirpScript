@@ -406,7 +406,7 @@ app.use(async (req, ctx, next) => {
   const currentUser = getCurrentUser(token);
 
   if (!currentUser) {
-    throw new TwirpError({
+    return TwirpErrorResponse({
       code: "unauthenticated",
       msg: "Access denied",
     });

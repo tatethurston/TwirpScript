@@ -13,12 +13,8 @@ export function withRequestLogging(
   });
 
   app.on("requestRouted", (ctx) => {
-    const content =
-      ctx.request.headers["content-type"] === "application/json"
-        ? "JSON"
-        : "Protobuf";
     console.info(
-      `[TwirpScript] Processing by ${ctx.service}#${ctx.method} as ${content}`
+      `[TwirpScript] Processing by ${ctx.service}#${ctx.method} as ${ctx.contentType}`
     );
   });
 
@@ -30,7 +26,7 @@ export function withRequestLogging(
   });
 
   app.on("error", (_ctx, error) => {
-    console.error("[TwirpScript] encountered an error:");
+    console.error("[TwirpScript] Error:");
     console.error(error);
   });
 

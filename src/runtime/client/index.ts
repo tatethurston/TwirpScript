@@ -90,10 +90,17 @@ interface RpcTransportOpts {
   body: string | Uint8Array | undefined | null;
 }
 
+/**
+ * Subset of [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) from Fetch API. Redefined so that end users don't need to include lib.dom.d.ts in server only applications.
+ */
+interface Headers {
+  get(name: string): string | null;
+}
+
 export interface RpcTransportResponse {
   arrayBuffer: () => Promise<ArrayBuffer>;
   json: () => Promise<unknown>;
-  readonly headers: Pick<Headers, "get">;
+  readonly headers: Headers;
   readonly ok: boolean;
   readonly status: number;
   text: () => Promise<string>;

@@ -19,7 +19,7 @@
 
 ## What is this? 🧐
 
-TwirpScript is an implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates Javascript or TypeScript clients and servers from [protocol buffers](https://developers.google.com/protocol-buffers/). The generated clients can be used in the browser _or_ NodeJS runtimes, enabling both fullstack protobuf web applications and server-to-server communication.
+TwirpScript is an implementation of [Twirp](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f). TwirpScript autogenerates Javascript or TypeScript clients and servers from [protocol buffers](https://developers.google.com/protocol-buffers/). The generated clients can be used in the browser _or_ Node.js runtimes, enabling both fullstack protobuf web applications and server-to-server communication.
 
 TwirpScript implements the latest [Twirp Wire Protocol (v7)](https://twitchtv.github.io/twirp/docs/spec_v7.html).
 
@@ -56,7 +56,7 @@ TwirpScript implements the latest [Twirp Wire Protocol (v7)](https://twitchtv.gi
 
 ## Overview
 
-Twirp is a simple RPC framework built on [protocol buffers](https://developers.google.com/protocol-buffers/). TwirpScript generates JavaScript or TypeScript clients and servers from `.proto` service specifications. The generated clients can be used in the browser or in NodeJS runtimes. This enables type safe communication between the client and server, as well as reduced payload sizes when using `protobuf` as the serialization format.
+Twirp is a simple RPC framework built on [protocol buffers](https://developers.google.com/protocol-buffers/). TwirpScript generates JavaScript or TypeScript clients and servers from `.proto` service specifications. The generated clients can be used in the browser or in Node.js runtimes. This enables type safe communication between the client and server, as well as reduced payload sizes when using `protobuf` as the serialization format.
 
 You define your service in a `.proto` specification file, and TwirpScript will generate client and service handlers for that service. You fill in the business logic that powers the server, and TwirpScript handles the boilerplate.
 
@@ -651,11 +651,11 @@ The examples also demonstrate testing using [jest](https://jestjs.io/).
 
 ### JavaScript Servers (does not apply to servers written in TypeScript)
 
-JavaScript Server implementations require special consideration. The NodeJS ecosystem is in a transition period from CommonJS to modules. TwirpScript generates JavaScript modules to enable tree shaking for clients. This means that NodeJS servers either need to [opt-in to modules](https://nodejs.org/api/esm.html#esm_enabling), or use a bundler like Webpack or ESBuild. See the [JavaScript fullstack](https://github.com/tatethurston/twirpscript/blob/main/examples/typescript-fullstack) to see what this looks like.
+JavaScript Server implementations require special consideration. The Node.js ecosystem is in a transition period from CommonJS to modules. TwirpScript generates JavaScript modules to enable tree shaking for clients. This means that Node.js servers either need to [opt-in to modules](https://nodejs.org/api/esm.html#esm_enabling), or use a bundler like Webpack or ESBuild. See the [JavaScript fullstack](https://github.com/tatethurston/twirpscript/blob/main/examples/typescript-fullstack) to see what this looks like.
 
 This rough edge is under active consideration. If you have thoughts, feel free to open an issue or pull request.
 
-Note that this does not apply to TypeScript servers, because TypeScript will compile the ES modules to CommonJS when targeting NodeJS. Servers written in TypeScript will "just work".
+Note that this does not apply to TypeScript servers, because TypeScript will compile the ES modules to CommonJS when targeting Node.js. Servers written in TypeScript will "just work".
 
 ## FAQ
 

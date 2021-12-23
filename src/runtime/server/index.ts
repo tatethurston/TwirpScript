@@ -306,6 +306,7 @@ export function createTwirpServer<
     const body = await getBody(req);
     const response = await _app({
       ...req,
+      headers: req.headers,
       body,
     } as RawRequest);
     res.writeHead(response.statusCode, response.headers);

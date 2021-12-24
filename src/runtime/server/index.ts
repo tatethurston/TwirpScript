@@ -304,10 +304,9 @@ export function createTwirpServer<
 
   async function app(req: Request, res: ServerResponse): Promise<void> {
     const body = await getBody(req);
-    const response = await _app({
-      ...req,
-      body,
-    } as RawRequest);
+    const request = req as unknown as RawRequest;
+    request.body = body;
+    const response = await _app(request);
     res.writeHead(response.statusCode, response.headers);
     res.end(response.body);
   }

@@ -29,6 +29,10 @@ export const nodeHttpTransport: RpcTransport = (url, options) => {
       }
     ).on("error", reject);
 
-    req.end(options.body);
+    req.end(
+      options.body instanceof Uint8Array
+        ? Buffer.from(options.body)
+        : options.body
+    );
   });
 };

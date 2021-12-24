@@ -84,7 +84,7 @@ interface Client extends ClientConfiguration {
 const clientMiddleware: ClientMiddleware[] = [];
 const ee = createEventEmitter<ClientHooks<MiddlewareConfig>>();
 
-interface RpcTransportOpts {
+export interface RpcTransportOpts {
   method: string;
   headers: Record<string, string>;
   body: string | Uint8Array | undefined | null;

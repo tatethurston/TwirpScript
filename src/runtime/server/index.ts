@@ -3,7 +3,7 @@ import { TwirpError, statusCodeForErrorCode } from "../error";
 import { Emitter, createEventEmitter } from "../eventEmitter";
 import { withRequestLogging } from "./requestLogging";
 
-interface Response {
+export interface Response {
   body: string | Buffer;
   headers: {
     [key: string]: string | undefined;

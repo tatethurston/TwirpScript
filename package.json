@@ -23,7 +23,7 @@
     "build:watch": "yarn build:commonjs --watch",
     "clean": "rm -rf dist",
     "examples:check": "for example in examples/*; do (cd \"$example\" && yarn twirpscript && yarn tsc --noEmit); done",
-    "examples:gen": "for example in examples/*; do (cd \"$example\" && yarn twirpscript); done",
+    "examples:setup": "yarn build && npm link && for example in examples/*; do (cd \"$example\" && npm link twirpscript && yarn); done",
     "lint": "yarn typecheck && prettier --check . && prettier-package-json --list-different '{,example/,}package.json'",
     "lint:fix": "prettier --write . && prettier-package-json --write '{,example/}package.json'",
     "lint:package:fix": "prettier-package-json --write ./package.json",
@@ -31,7 +31,7 @@
     "test": "yarn jest src/*",
     "test:compat": "(cd e2e-tests/clientcompat && yarn test)",
     "test:e2e": "(cd e2e-tests/test-protos && yarn test)",
-    "test:e2e:prepare": "yarn build && npm link",
+    "test:e2e:setup": "yarn build && npm link && for test in e2e-tests/*; do (cd \"$test\" && npm link twirpscript && yarn); done",
     "typecheck": "yarn tsc --noEmit",
     "version": "git add -A package.json",
     "postversion": "git push && git push --tags"

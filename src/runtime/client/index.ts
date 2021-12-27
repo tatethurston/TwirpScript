@@ -27,10 +27,10 @@ interface MiddlewareConfig {
   headers: Record<string, string>;
 }
 
-type ClientMiddleware = (
+type ClientMiddleware<T = unknown> = (
   context: MiddlewareConfig,
-  next: (context: MiddlewareConfig) => Promise<unknown>
-) => Promise<unknown>;
+  next: (context: MiddlewareConfig) => Promise<T>
+) => Promise<T>;
 
 type HookListener<MiddlewareConfig> = (
   context: Readonly<MiddlewareConfig>
@@ -137,13 +137,13 @@ export const client: Client = {
   rpcTransport: fetchTransport,
 };
 
-function runMiddleware(
+function runMiddleware<T>(
   config: MiddlewareConfig,
-  request: (c: MiddlewareConfig) => Promise<unknown>
-): Promise<unknown> {
+  request: (c: MiddlewareConfig) => Promise<T>
+): Promise<T> {
   let cfg = config;
   let idx = 1;
-  const middleware = [...clientMiddleware, request];
+  const middleware = [...(clientMiddleware as ClientMiddleware<T>[]), request];
   try {
     return middleware[0](config, function next(c: MiddlewareConfig) {
       cfg = c;
@@ -180,49 +180,21 @@ function mergeConfig(
   };
 }
 
-export function JSONrequest<T = unknown>(
+async function makeRequest<T>(
+  contentType: "application/json" | "application/protobuf",
   path: string,
-  body?: unknown,
+  body?: RpcTransportOpts["body"],
   config?: ClientConfiguration
 ): Promise<T> {
-  return runMiddleware(
+  return runMiddleware<T>(
     mergeConfig(config, path),
     async (c: MiddlewareConfig) => {
       ee.emit("requestPrepared", c);
       const res = await client.rpcTransport(c.url, {
         method: "POST",
         headers: {
-          accept: "application/json",
-          "content-type": "application/json",
-          ...c.headers,
-        },
-        body: JSON.stringify(body),
-      });
-      ee.emit("responseReceived", c);
-
-      if (!res.ok) {
-        throw await twirpErrorFromResponse(res);
-      }
-
-      return res.json();
-    }
-  ) as Promise<T>;
-}
-
-export function PBrequest(
-  path: string,
-  body?: Uint8Array,
-  config?: ClientConfiguration
-): Promise<Uint8Array> {
-  return runMiddleware(
-    mergeConfig(config, path),
-    async (c: MiddlewareConfig) => {
-      ee.emit("requestPrepared", c);
-      const res = await client.rpcTransport(c.url, {
-        method: "POST",
-        headers: {
-          accept: "application/protobuf",
-          "content-type": "application/protobuf",
+          accept: contentType,
+          "content-type": contentType,
           ...c.headers,
         },
         body,
@@ -233,8 +205,35 @@ export function PBrequest(
         throw await twirpErrorFromResponse(res);
       }
 
-      const buffer = await res.arrayBuffer();
-      return new Uint8Array(buffer);
+      switch (contentType) {
+        case "application/protobuf": {
+          const buffer = await res.arrayBuffer();
+          return new Uint8Array(buffer) as unknown as T;
+        }
+        case "application/json": {
+          return res.json() as Promise<T>;
+        }
+        default: {
+          const _exhaust: never = contentType;
+          return _exhaust;
+        }
+      }
     }
-  ) as Promise<Uint8Array>;
+  );
+}
+
+export function JSONrequest<T = unknown>(
+  path: string,
+  body?: unknown,
+  config?: ClientConfiguration
+): Promise<T> {
+  return makeRequest<T>("application/json", path, JSON.stringify(body), config);
+}
+
+export function PBrequest(
+  path: string,
+  body?: Uint8Array,
+  config?: ClientConfiguration
+): Promise<Uint8Array> {
+  return makeRequest<Uint8Array>("application/protobuf", path, body, config);
 }

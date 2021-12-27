@@ -1,17 +1,8 @@
 import { describe, it } from "@jest/globals";
 import { twirpErrorFromResponse } from ".";
-import { RpcTransportResponse } from "../client";
+import { mockRpcTransportResponse } from "../client/mocks";
 
 describe("twirpErrorFromResponse", () => {
-  const mockResponse: RpcTransportResponse = {
-    arrayBuffer: () => Promise.resolve(new Uint8Array()),
-    json: () => Promise.resolve({}),
-    headers: { get: () => null },
-    ok: false,
-    status: 500,
-    text: () => Promise.resolve(""),
-  };
-
   it("Twirp error when Twirp error", async () => {
     const twirpError = {
       code: "malformed",
@@ -19,7 +10,7 @@ describe("twirpErrorFromResponse", () => {
     };
 
     const res = await twirpErrorFromResponse({
-      ...mockResponse,
+      ...mockRpcTransportResponse,
       text: () => Promise.resolve(JSON.stringify(twirpError)),
     });
 
@@ -28,7 +19,7 @@ describe("twirpErrorFromResponse", () => {
 
   it("TwirpIntermediaryError when JSON parsing fails", async () => {
     const res = await twirpErrorFromResponse({
-      ...mockResponse,
+      ...mockRpcTransportResponse,
       text: () => Promise.resolve("an error occurred at the CDN"),
       status: 300,
       headers: { get: () => "foo" },
@@ -50,7 +41,7 @@ describe("twirpErrorFromResponse", () => {
     const notATwirpError = JSON.stringify({ error: "uh oh!" });
 
     const res = await twirpErrorFromResponse({
-      ...mockResponse,
+      ...mockRpcTransportResponse,
       text: () => Promise.resolve(notATwirpError),
     });
 

@@ -70,7 +70,7 @@ export const statusCodeForErrorCode = {
   data_loss: 500,
 } as const;
 
-export function isTwirpError(error: unknown): error is TwirpError {
+function isTwirpError(error: unknown): error is TwirpError {
   if (typeof error === "object" && error !== null) {
     return (
       "code" in error && (error as TwirpError).code in statusCodeForErrorCode

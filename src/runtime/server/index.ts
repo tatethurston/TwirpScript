@@ -241,7 +241,7 @@ function twirpHandler<Context extends TwirpContext>(
   };
 }
 
-type ServerHooks<Context, Request> = {
+export type ServerHooks<Context, Request> = {
   requestReceived: (ctx: TwirpContext & Context, req: Request) => void;
   requestRouted: (ctx: TwirpContext & Context, req: Request) => void;
   responsePrepared: (ctx: TwirpContext & Context, res: Response) => void;

@@ -76,7 +76,7 @@ interface Client extends ClientConfiguration {
    */
   off: (...args: Parameters<TwirpClientEvent<MiddlewareConfig>["off"]>) => this;
   /**
-   * The network transport to use for the RPC. Defaults to `fetch`. Overrides must conform to the narrow fetch interface `RpcTransport`.
+   * The transport to use for the RPC. Defaults to `fetch`. Overrides must conform to a subset of the fetch interface defined by the `RpcTransport` type.
    */
   rpcTransport: RpcTransport;
 }
@@ -137,15 +137,16 @@ export const client: Client = {
   rpcTransport: fetchTransport,
 };
 
-function runMiddleware<T>(
+async function runMiddleware<T>(
   config: MiddlewareConfig,
   request: (c: MiddlewareConfig) => Promise<T>
 ): Promise<T> {
+  // outer scope for error event callback arg
   let cfg = config;
   let idx = 1;
   const middleware = [...(clientMiddleware as ClientMiddleware<T>[]), request];
   try {
-    return middleware[0](config, function next(c: MiddlewareConfig) {
+    return await middleware[0](config, function next(c: MiddlewareConfig) {
       cfg = c;
       const nxt = middleware[idx];
       idx++;

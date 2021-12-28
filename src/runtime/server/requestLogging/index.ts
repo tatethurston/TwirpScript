@@ -1,6 +1,6 @@
 import { TwirpServerRuntime, RawRequest } from "..";
 
-const timingField = "__twirpRequestStartMs__";
+export const timingField = "__twirpRequestStartMs__";
 
 export function withRequestLogging<Context, Request extends RawRequest>(
   app: TwirpServerRuntime<Context, Request>

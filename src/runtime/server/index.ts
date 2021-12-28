@@ -11,7 +11,7 @@ export interface Response {
   statusCode: number;
 }
 
-interface Request {
+export interface Request {
   body: string | Buffer | undefined | null;
   headers: {
     [key: string]: string | undefined;
@@ -201,7 +201,7 @@ export type Middleware<Context, Request = unknown> = (
   next: Next
 ) => Promise<Response>;
 
-function twirpHandler<Context extends TwirpContext>(
+export function twirpHandler<Context extends TwirpContext>(
   services: ServiceMap<Context>,
   ee: Emitter<ServerHooks<Context, Request>>
 ) {
@@ -225,17 +225,18 @@ function twirpHandler<Context extends TwirpContext>(
     ee.emit("requestRouted", ctx, req);
 
     const response = await handler(req, ctx);
-    const res =
-      response instanceof TwirpError
-        ? TwirpErrorResponse(response)
-        : {
-            statusCode: 200,
-            headers: {
-              "content-type": req.headers["content-type"],
-            },
-            body: response,
-          };
+    if (response instanceof TwirpError) {
+      ee.emit("error", ctx, response);
+      return TwirpErrorResponse(response);
+    }
 
+    const res = {
+      statusCode: 200,
+      headers: {
+        "content-type": req.headers["content-type"],
+      },
+      body: response,
+    };
     ee.emit("responsePrepared", ctx, res);
     return res;
   };

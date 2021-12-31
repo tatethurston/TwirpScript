@@ -23,22 +23,21 @@ export interface RawRequest extends Request {
   method: string;
 }
 
-interface TwirpContext {
-  /**
-   * The requested RPC service.
-   */
-  service: string | undefined;
-  /**
-   * The requested RPC service method.
-   */
-  method: string | undefined;
+type ServiceContext<U> = U extends ServiceHandler
+  ? { service: U["name"]; method: keyof U["methods"] }
+  : never;
+
+type TwirpContext<
+  ContextExt = unknown,
+  Services extends ServiceHandler[] = ServiceHandler[]
+> = ContextExt & {
   /**
    * The requested content-type for the request.
    */
   contentType: "JSON" | "Protobuf" | "Unknown";
-}
+} & ServiceContext<Pick<Services, number>[number]>;
 
-interface ServiceMethod<Context = unknown> {
+interface ServiceMethod<Context> {
   handler: (req: any, context: Context) => Promise<unknown> | unknown;
   encode: any;
   decode: any;
@@ -46,12 +45,12 @@ interface ServiceMethod<Context = unknown> {
 
 type Handler<Context> = (
   req: Request,
-  ctx: TwirpContext & Context
+  ctx: TwirpContext<Context>
 ) => Promise<TwirpError | string | Buffer> | TwirpError | string | Buffer;
 
-export interface ServiceHandler<Context> {
+interface ServiceHandler {
   name: string;
-  methods: Record<string, Handler<Context> | undefined>;
+  methods: Record<string, Handler<any> | undefined>;
 }
 
 export function TwirpErrorResponse(error: TwirpError): Response {
@@ -133,7 +132,7 @@ export function createMethodHandler<T, Context>({
   };
 }
 
-async function getBody(req: IncomingMessage): Promise<Buffer> {
+async function getBody(req: ServerRequest): Promise<Buffer> {
   const buffers = [];
   for await (const chunk of req) {
     buffers.push(chunk);
@@ -195,9 +194,9 @@ interface TwirpServerConfig {
   prefix?: string;
 }
 
-export type Middleware<Context, Request = unknown> = (
+export type Middleware<Context = unknown, Request = unknown> = (
   req: Request,
-  ctx: Readonly<TwirpContext> & Context,
+  ctx: TwirpContext<Context>,
   next: Next
 ) => Promise<Response>;
 
@@ -243,18 +242,17 @@ export function twirpHandler<Context extends TwirpContext>(
 }
 
 export type ServerHooks<Context, Request> = {
-  requestReceived: (ctx: TwirpContext & Context, req: Request) => void;
-  requestRouted: (ctx: TwirpContext & Context, req: Request) => void;
-  responsePrepared: (ctx: TwirpContext & Context, res: Response) => void;
-  responseSent: (ctx: TwirpContext & Context, res: Response) => void;
-  error: (ctx: Readonly<TwirpContext & Context>, err: TwirpError) => void;
+  requestReceived: (ctx: Context, req: Request) => void;
+  requestRouted: (ctx: Context, req: Request) => void;
+  responsePrepared: (ctx: Context, res: Response) => void;
+  responseSent: (ctx: Context, res: Response) => void;
+  error: (ctx: Readonly<Context>, err: TwirpError) => void;
 };
 
-type TwirpServerEvent<Context, Request> = Emitter<
-  ServerHooks<Context, Request>
->;
-
-export interface TwirpServerRuntime<Context, Request> {
+export interface TwirpServerRuntime<
+  Context extends TwirpContext = TwirpContext,
+  Request = RawRequest
+> {
   /**
    * Registers middleware to manipulate the server request / response lifecycle.
    *
@@ -277,30 +275,42 @@ export interface TwirpServerRuntime<Context, Request> {
    *
    * `error` is called when an error occurs while handling a request. Called with the current `context` and the error that occurred.
    */
-  on: TwirpServerEvent<Context, Request>["on"];
+  on: <Event extends keyof ServerHooks<Context, Request>>(
+    event: Event,
+    handler: ServerHooks<Context, Request>[Event]
+  ) => this;
   /**
    * Removes a registered event handler.
    */
-  off: TwirpServerEvent<Context, Request>["off"];
+  off: <Event extends keyof ServerHooks<Context, Request>>(
+    event: Event,
+    handler: ServerHooks<Context, Request>[Event]
+  ) => this;
 }
 
-interface TwirpServer<Context, Request>
+interface TwirpServer<Context extends TwirpContext, Request>
   extends TwirpServerRuntime<Context, Request> {
   (req: Request, res: ServerResponse): void;
 }
 
-interface TwirpServerless<Context, Request>
+interface TwirpServerless<Context extends TwirpContext, Request>
   extends TwirpServerRuntime<Context, Request> {
   (req: Request): Promise<Response>;
 }
 
+type ServerRequest = Pick<
+  IncomingMessage,
+  "method" | "url" | "headers" | typeof Symbol.asyncIterator
+>;
+
 export function createTwirpServer<
-  Context = unknown,
-  Request extends IncomingMessage = IncomingMessage
+  ContextExt,
+  Services extends ServiceHandler[],
+  Request extends ServerRequest = IncomingMessage
 >(
-  services: ServiceHandler<Context>[],
+  services: Services,
   config: TwirpServerConfig = {}
-): TwirpServer<Context, Request> {
+): TwirpServer<TwirpContext<ContextExt, typeof services>, Request> {
   const _app = createTwirpServerless(services, config);
 
   async function app(req: Request, res: ServerResponse): Promise<void> {
@@ -312,18 +322,32 @@ export function createTwirpServer<
     res.end(response.body);
   }
 
-  app.use = (handler: Middleware<Context, Request>) => {
-    _app.use(handler as unknown as Middleware<Context, RawRequest>);
-    return app;
-  };
-  app.on = (...args: Parameters<TwirpServerEvent<Context, Request>["on"]>) => {
-    _app.on(...(args as Parameters<typeof _app.on>));
-    return app;
-  };
-  app.off = (
-    ...args: Parameters<TwirpServerEvent<Context, Request>["off"]>
+  app.use = (
+    handler: Middleware<TwirpContext<ContextExt, typeof services>, Request>
   ) => {
-    _app.off(...(args as Parameters<typeof _app.off>));
+    _app.use(handler as any);
+    return app;
+  };
+
+  app.on = (
+    ...args: Parameters<
+      Emitter<
+        ServerHooks<TwirpContext<ContextExt, typeof services>, Request>
+      >["on"]
+    >
+  ) => {
+    _app.on(...(args as [any, any]));
+    return app;
+  };
+
+  app.off = (
+    ...args: Parameters<
+      Emitter<
+        ServerHooks<TwirpContext<ContextExt, typeof services>, Request>
+      >["off"]
+    >
+  ) => {
+    _app.off(...(args as [any, any]));
     return app;
   };
 
@@ -339,17 +363,17 @@ const contentTypeName: {
 
 type ServiceMap<Context> = Record<string, Handler<Context> | undefined>;
 
-function getRequestContext<Context>(
+function getRequestContext<Context extends TwirpContext>(
   req: RawRequest,
   services: ServiceMap<Context>,
-  config: TwirpServerConfig
-): TwirpContext {
-  const ctx: TwirpContext = {
+  config: Required<TwirpServerConfig>
+): Context {
+  const ctx: Context = {
     service: undefined,
     method: undefined,
     contentType:
       contentTypeName[req.headers["content-type"] as string] ?? "Unknown",
-  };
+  } as unknown as Context;
 
   const prefix = config.prefix + "/";
   const startsWithPrefix = req.url.startsWith(prefix);
@@ -361,27 +385,34 @@ function getRequestContext<Context>(
   const serviceMethod = req.url.slice(methodIdx + 1);
   const handler = services[serviceName + serviceMethod];
   if (handler) {
-    ctx.service = serviceName;
-    ctx.method = serviceMethod;
+    ctx.service = serviceName as Context["service"];
+    ctx.method = serviceMethod as unknown as Context["method"];
   }
   return ctx;
 }
 
 export function createTwirpServerless<
-  Context = unknown,
+  ContextExt,
+  Services extends ServiceHandler[],
   Request extends RawRequest = RawRequest
 >(
-  services: ServiceHandler<Context>[],
+  services: Services,
   config: TwirpServerConfig = {}
-): TwirpServerless<Context, Request> {
+): TwirpServerless<TwirpContext<ContextExt, typeof services>, Request> {
   const configWithDefaults = {
     debug: true,
     prefix: "/twirp",
     ...config,
   };
-  const serverMiddleware: Middleware<Context, Request>[] = [];
-  const ee = createEventEmitter<ServerHooks<Context, Request>>();
-  const serviceMap = services.reduce<ServiceMap<Context>>(
+  const serverMiddleware: Middleware<
+    TwirpContext<ContextExt, typeof services>,
+    Request
+  >[] = [];
+  const ee =
+    createEventEmitter<
+      ServerHooks<TwirpContext<ContextExt, Services>, Request>
+    >();
+  const serviceMap = services.reduce<ServiceMap<ContextExt>>(
     (acc, service) => ({
       ...acc,
       ...Object.fromEntries(
@@ -393,14 +424,17 @@ export function createTwirpServerless<
     }),
     {}
   );
-  const twirp = twirpHandler<Context & TwirpContext>(serviceMap, ee);
+  const twirp = twirpHandler<TwirpContext<ContextExt, Services>>(
+    serviceMap,
+    ee
+  );
 
   async function app(req: Request): Promise<Response> {
-    const ctx = getRequestContext(
+    const ctx = getRequestContext<TwirpContext<ContextExt, Services>>(
       req,
       serviceMap,
       configWithDefaults
-    ) as Context & TwirpContext;
+    );
     ee.emit("requestReceived", ctx, req);
 
     let response: Response;
@@ -425,18 +459,26 @@ export function createTwirpServerless<
     return response;
   }
 
-  app.use = (handler: Middleware<Context, Request>) => {
+  app.use = (
+    handler: Middleware<TwirpContext<ContextExt, Services>, Request>
+  ) => {
     serverMiddleware.push(handler);
     return app;
   };
 
-  app.on = (...args: Parameters<TwirpServerEvent<Context, Request>["on"]>) => {
+  app.on = (
+    ...args: Parameters<
+      Emitter<ServerHooks<TwirpContext<ContextExt, Services>, Request>>["on"]
+    >
+  ) => {
     ee.on(...args);
     return app;
   };
 
   app.off = (
-    ...args: Parameters<TwirpServerEvent<Context, Request>["off"]>
+    ...args: Parameters<
+      Emitter<ServerHooks<TwirpContext<ContextExt, Services>, Request>>["off"]
+    >
   ) => {
     ee.off(...args);
     return app;

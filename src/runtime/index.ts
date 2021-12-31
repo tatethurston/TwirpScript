@@ -1,7 +1,7 @@
 export { client, JSONrequest, PBrequest } from "./client";
 export type { RpcTransport, ClientConfiguration } from "./client";
 export { TwirpError } from "./error";
-export type { ServiceHandler, Middleware } from "./server";
+export type { Middleware } from "./server";
 export {
   createMethodHandler,
   createTwirpServer,

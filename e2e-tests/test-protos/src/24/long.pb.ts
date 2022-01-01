@@ -6,7 +6,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from "twirpscript";
 
 //======================================================//
@@ -60,11 +59,12 @@ export function createVeryLongNameThatCausesAnErrorServiceHandler<Context>(
   return {
     name: "pkg.VeryLongNameThatCausesAnErrorService",
     methods: {
-      GetAll: createMethodHandler({
+      GetAll: {
+        name: "GetAll",
         handler: service.GetAll,
-        encode: GetAllResponse.encode,
-        decode: GetAllRequest.decode,
-      }),
+        input: GetAllRequest,
+        output: GetAllResponse,
+      },
     },
   } as const;
 }

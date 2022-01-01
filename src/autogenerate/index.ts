@@ -352,7 +352,7 @@ function writeServers(
     name: '${[packageName, service.name].filter(Boolean).join(".")}',
     methods: {\n`;
     service.methods.forEach((method) => {
-      result += `${method.name}: createMethodHandler({ handler: service.${method.name}, encode: ${method.output}.encode, decode: ${method.input}.decode }),`;
+      result += `${method.name}: { name: '${method.name}', handler: service.${method.name}, input: ${method.input}, output: ${method.output} },`;
     });
     result += "}\n";
     result += `} ${printIfTypescript("as const")}\n`;
@@ -398,9 +398,7 @@ ${printIfTypescript(
 import {
   BinaryReader,
   BinaryWriter
-  ${
-    hasServices ? `,\nJSONrequest, PBrequest, createMethodHandler` : ""
-  }} from 'twirpscript';
+  ${hasServices ? `,\nJSONrequest, PBrequest` : ""}} from 'twirpscript';
 
 ${imports
   .map(

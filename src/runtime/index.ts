@@ -3,7 +3,6 @@ export type { RpcTransport, ClientConfiguration } from "./client";
 export { TwirpError } from "./error";
 export type { Middleware } from "./server";
 export {
-  createMethodHandler,
   createTwirpServer,
   createTwirpServerless,
   TwirpErrorResponse,

@@ -6,7 +6,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from "twirpscript";
 
 //========================================//
@@ -80,16 +79,18 @@ export function createCompatServiceHandler<Context>(
   return {
     name: "twirp.clientcompat.CompatService",
     methods: {
-      Method: createMethodHandler({
+      Method: {
+        name: "Method",
         handler: service.Method,
-        encode: Resp.encode,
-        decode: Req.decode,
-      }),
-      NoopMethod: createMethodHandler({
+        input: Req,
+        output: Resp,
+      },
+      NoopMethod: {
+        name: "NoopMethod",
         handler: service.NoopMethod,
-        encode: Empty.encode,
-        decode: Empty.decode,
-      }),
+        input: Empty,
+        output: Empty,
+      },
     },
   } as const;
 }

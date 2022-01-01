@@ -6,7 +6,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from "twirpscript";
 
 //========================================//
@@ -179,31 +178,36 @@ export function createFooServiceHandler<Context>(
   return {
     name: "C.FooService",
     methods: {
-      Foo1: createMethodHandler({
+      Foo1: {
+        name: "Foo1",
         handler: service.Foo1,
-        encode: Foo1Response.encode,
-        decode: Foo1Request.decode,
-      }),
-      Foo2: createMethodHandler({
+        input: Foo1Request,
+        output: Foo1Response,
+      },
+      Foo2: {
+        name: "Foo2",
         handler: service.Foo2,
-        encode: Foo2Response.encode,
-        decode: Foo2Request.decode,
-      }),
-      Foo3: createMethodHandler({
+        input: Foo2Request,
+        output: Foo2Response,
+      },
+      Foo3: {
+        name: "Foo3",
         handler: service.Foo3,
-        encode: Foo3Response.encode,
-        decode: Foo3Request.decode,
-      }),
-      Foo4: createMethodHandler({
+        input: Foo3Request,
+        output: Foo3Response,
+      },
+      Foo4: {
+        name: "Foo4",
         handler: service.Foo4,
-        encode: Foo4Response.encode,
-        decode: Foo4Request.decode,
-      }),
-      Foo5: createMethodHandler({
+        input: Foo4Request,
+        output: Foo4Response,
+      },
+      Foo5: {
+        name: "Foo5",
         handler: service.Foo5,
-        encode: Foo5Response.encode,
-        decode: Foo5Request.decode,
-      }),
+        input: Foo5Request,
+        output: Foo5Response,
+      },
     },
   } as const;
 }

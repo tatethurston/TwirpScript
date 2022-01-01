@@ -6,7 +6,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from "twirpscript";
 
 //========================================//
@@ -67,11 +66,12 @@ export function createAuthenticationHandler<Context>(
   return {
     name: "Authentication",
     methods: {
-      Login: createMethodHandler({
+      Login: {
+        name: "Login",
         handler: service.Login,
-        encode: CurrentUser.encode,
-        decode: Credentials.decode,
-      }),
+        input: Credentials,
+        output: CurrentUser,
+      },
     },
   } as const;
 }

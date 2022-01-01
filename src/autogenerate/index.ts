@@ -348,14 +348,14 @@ function writeServers(
       "<Context>"
     )}(service${printIfTypescript(
       `: ${service.name}Service<Context>`
-    )})${printIfTypescript(": ServiceHandler<Context>")} { return {
+    )}) { return {
     name: '${[packageName, service.name].filter(Boolean).join(".")}',
     methods: {\n`;
     service.methods.forEach((method) => {
       result += `${method.name}: createMethodHandler({ handler: service.${method.name}, encode: ${method.output}.encode, decode: ${method.input}.decode }),`;
     });
     result += "}\n";
-    result += "}\n";
+    result += `} ${printIfTypescript("as const")}\n`;
     result += "}\n";
     result += "\n";
   });
@@ -392,7 +392,7 @@ export function generate(
 // Source: ${sourceFile}
 ${printIfTypescript(
   `import type { ByteSource ${
-    hasServices ? ", ClientConfiguration, ServiceHandler" : ""
+    hasServices ? ", ClientConfiguration" : ""
   }} from 'twirpscript';`
 )};
 import {

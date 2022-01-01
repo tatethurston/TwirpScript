@@ -1,25 +1,28 @@
-import { TwirpServerRuntime, RawRequest } from "..";
+import { TwirpServerRuntime } from "..";
 
 export const timingField = "__twirpRequestStartMs__";
 
-export function withRequestLogging<Context, Request extends RawRequest>(
-  app: TwirpServerRuntime<Context, Request>
+export function withRequestLogging<App extends TwirpServerRuntime>(
+  app: App
 ): typeof app {
   app.on("requestReceived", (ctx, request) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
     (ctx as any)[timingField] = Date.now();
     console.info(`[TwirpScript] Started ${request.method} "${request.url}"`);
   });
 
   app.on("requestRouted", (ctx) => {
     console.info(
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       `[TwirpScript] Processing by ${ctx.service}#${ctx.method} as ${ctx.contentType}`
     );
   });
 
   app.on("responseSent", (ctx, response) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
     const time = Date.now() - (ctx as any)[timingField];
     console.info(
-      `[TwirpScript] Completed ${response?.statusCode} in ${time} ms.`
+      `[TwirpScript] Completed ${response.statusCode} in ${time} ms.`
     );
   });
 

@@ -432,7 +432,8 @@ export interface Context {
   currentUser: { username: string };
 }
 
-const app = createTwirpServer<Context>([AuthenticationHandler]);
+const services = [AuthenticationHandler]
+const app = createTwirpServer<Context, typeof services>(services);
 
 app.use(async (req, ctx, next) => {
   // exception so unauthenticated users can authenticate

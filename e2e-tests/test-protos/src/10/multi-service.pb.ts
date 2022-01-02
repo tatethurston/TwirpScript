@@ -6,7 +6,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from "twirpscript";
 
 //========================================//
@@ -118,16 +117,18 @@ export function createCheckServiceHandler<Context>(
   return {
     name: "api.v1.CheckService",
     methods: {
-      Info: createMethodHandler({
+      Info: {
+        name: "Info",
         handler: service.Info,
-        encode: InfoResponse.encode,
-        decode: InfoRequest.decode,
-      }),
-      DoStuff: createMethodHandler({
+        input: InfoRequest,
+        output: InfoResponse,
+      },
+      DoStuff: {
+        name: "DoStuff",
         handler: service.DoStuff,
-        encode: DoStuffResponse.encode,
-        decode: DoStuffRequest.decode,
-      }),
+        input: DoStuffRequest,
+        output: DoStuffResponse,
+      },
     },
   } as const;
 }
@@ -149,11 +150,12 @@ export function createVerificationServiceHandler<Context>(
   return {
     name: "api.v1.VerificationService",
     methods: {
-      Verify: createMethodHandler({
+      Verify: {
+        name: "Verify",
         handler: service.Verify,
-        encode: VerifyResponse.encode,
-        decode: VerifyRequest.decode,
-      }),
+        input: VerifyRequest,
+        output: VerifyResponse,
+      },
     },
   } as const;
 }

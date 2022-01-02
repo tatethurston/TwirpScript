@@ -1,3 +1,4 @@
+import { ByteSource } from "google-protobuf";
 import { IncomingMessage, ServerResponse } from "http";
 import { TwirpError, statusCodeForErrorCode } from "../error";
 import { Emitter, createEventEmitter } from "../eventEmitter";
@@ -23,13 +24,13 @@ export interface RawRequest extends Request {
   method: string;
 }
 
-type ServiceContext<U> = U extends ServiceHandler
+type ServiceContext<U> = U extends Service
   ? { service: U["name"]; method: keyof U["methods"] }
   : never;
 
-type TwirpContext<
+export type TwirpContext<
   ContextExt = unknown,
-  Services extends ServiceHandler[] = ServiceHandler[]
+  Services extends Service[] = Service[]
 > = ContextExt & {
   /**
    * The requested content-type for the request.
@@ -37,20 +38,21 @@ type TwirpContext<
   contentType: "JSON" | "Protobuf" | "Unknown";
 } & ServiceContext<Pick<Services, number>[number]>;
 
-interface ServiceMethod<Context> {
-  handler: (req: any, context: Context) => Promise<unknown> | unknown;
-  encode: any;
-  decode: any;
+interface Message<T> {
+  encode: (message: T) => Uint8Array;
+  decode: (bytes: ByteSource) => T;
 }
 
-type Handler<Context> = (
-  req: Request,
-  ctx: TwirpContext<Context>
-) => Promise<TwirpError | string | Buffer> | TwirpError | string | Buffer;
-
-interface ServiceHandler {
+export interface ServiceMethod<Context = any> {
   name: string;
-  methods: Record<string, Handler<any> | undefined>;
+  handler: (input: any, ctx: Context) => any;
+  input: Message<any>;
+  output: Message<any>;
+}
+
+interface Service {
+  name: string;
+  methods: Record<string, ServiceMethod | undefined>;
 }
 
 export function TwirpErrorResponse(error: TwirpError): Response {
@@ -82,54 +84,52 @@ function parseProto<T>(
   }
 }
 
-export function createMethodHandler<T, Context>({
-  handler,
-  encode,
-  decode,
-}: ServiceMethod<Context>): Handler<Context> {
-  return async (req, context) => {
-    try {
-      switch (context.contentType) {
-        case "JSON": {
-          const body = parseJSON<T>(req.body as string);
-          if (!body) {
-            return new TwirpError({
-              code: "invalid_argument",
-              msg: `failed to deserialize argument as JSON`,
-            });
-          }
-          const response = await handler(body, context);
-          return JSON.stringify(response);
-        }
-        case "Protobuf": {
-          const body = parseProto<T>(req.body as Buffer, decode);
-          if (!body) {
-            return new TwirpError({
-              code: "invalid_argument",
-              msg: `failed to deserialize argument as Protobuf`,
-            });
-          }
-          const response = await handler(body, context);
-          return Buffer.from(encode(response));
-        }
-        default: {
+export async function executeServiceMethod<Context extends TwirpContext>(
+  method: ServiceMethod,
+  req: Request,
+  context: Context
+): Promise<TwirpError | string | Buffer> {
+  try {
+    switch (context.contentType) {
+      case "JSON": {
+        const body = parseJSON(req.body as string);
+        if (!body) {
           return new TwirpError({
-            code: "malformed",
-            msg: `Unexpected or missing content-type`,
+            code: "invalid_argument",
+            msg: `failed to deserialize argument as JSON`,
           });
         }
+        const response = await method.handler(body as any, context);
+        return JSON.stringify(response);
       }
-    } catch (error) {
-      if (error instanceof TwirpError) {
-        return error;
-      } else {
+      case "Protobuf": {
+        const body = parseProto(req.body as Buffer, method.input.decode);
+        if (!body) {
+          return new TwirpError({
+            code: "invalid_argument",
+            msg: `failed to deserialize argument as Protobuf`,
+          });
+        }
+        const response = await method.handler(body, context);
+        return Buffer.from(method.output.encode(response));
+      }
+      default: {
         return new TwirpError({
-          code: "internal",
-          msg: "server error",
+          code: "malformed",
+          msg: `Unexpected or missing content-type`,
         });
       }
     }
-  };
+  } catch (error) {
+    if (error instanceof TwirpError) {
+      return error;
+    } else {
+      return new TwirpError({
+        code: "internal",
+        msg: "server error",
+      });
+    }
+  }
 }
 
 async function getBody(req: ServerRequest): Promise<Buffer> {
@@ -223,7 +223,7 @@ export function twirpHandler<Context extends TwirpContext>(
 
     ee.emit("requestRouted", ctx, req);
 
-    const response = await handler(req, ctx);
+    const response = await executeServiceMethod(handler, req, ctx);
     if (response instanceof TwirpError) {
       ee.emit("error", ctx, response);
       return TwirpErrorResponse(response);
@@ -305,7 +305,7 @@ type ServerRequest = Pick<
 
 export function createTwirpServer<
   ContextExt,
-  Services extends ServiceHandler[],
+  Services extends Service[],
   Request extends ServerRequest = IncomingMessage
 >(
   services: Services,
@@ -361,7 +361,7 @@ const contentTypeName: {
   "application/protobuf": "Protobuf",
 };
 
-type ServiceMap<Context> = Record<string, Handler<Context> | undefined>;
+type ServiceMap<Context> = Record<string, ServiceMethod<Context> | undefined>;
 
 function getRequestContext<Context extends TwirpContext>(
   req: RawRequest,
@@ -393,7 +393,7 @@ function getRequestContext<Context extends TwirpContext>(
 
 export function createTwirpServerless<
   ContextExt,
-  Services extends ServiceHandler[],
+  Services extends Service[],
   Request extends RawRequest = RawRequest
 >(
   services: Services,

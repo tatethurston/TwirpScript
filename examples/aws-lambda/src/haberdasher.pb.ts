@@ -6,7 +6,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from "twirpscript";
 
 //========================================//
@@ -63,11 +62,12 @@ export function createHaberdasherHandler<Context>(
   return {
     name: "Haberdasher",
     methods: {
-      MakeHat: createMethodHandler({
+      MakeHat: {
+        name: "MakeHat",
         handler: service.MakeHat,
-        encode: Hat.encode,
-        decode: Size.decode,
-      }),
+        input: Size,
+        output: Hat,
+      },
     },
   } as const;
 }

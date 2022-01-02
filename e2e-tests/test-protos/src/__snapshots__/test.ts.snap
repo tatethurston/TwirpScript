@@ -21,7 +21,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from \\"twirpscript\\";
 
 //========================================//
@@ -194,31 +193,36 @@ export function createFooServiceHandler<Context>(
   return {
     name: \\"A.FooService\\",
     methods: {
-      Foo1: createMethodHandler({
+      Foo1: {
+        name: \\"Foo1\\",
         handler: service.Foo1,
-        encode: Foo1Response.encode,
-        decode: Foo1Request.decode,
-      }),
-      Foo2: createMethodHandler({
+        input: Foo1Request,
+        output: Foo1Response,
+      },
+      Foo2: {
+        name: \\"Foo2\\",
         handler: service.Foo2,
-        encode: Foo2Response.encode,
-        decode: Foo2Request.decode,
-      }),
-      Foo3: createMethodHandler({
+        input: Foo2Request,
+        output: Foo2Response,
+      },
+      Foo3: {
+        name: \\"Foo3\\",
         handler: service.Foo3,
-        encode: Foo3Response.encode,
-        decode: Foo3Request.decode,
-      }),
-      Foo4: createMethodHandler({
+        input: Foo3Request,
+        output: Foo3Response,
+      },
+      Foo4: {
+        name: \\"Foo4\\",
         handler: service.Foo4,
-        encode: Foo4Response.encode,
-        decode: Foo4Request.decode,
-      }),
-      Foo5: createMethodHandler({
+        input: Foo4Request,
+        output: Foo4Response,
+      },
+      Foo5: {
+        name: \\"Foo5\\",
         handler: service.Foo5,
-        encode: Foo5Response.encode,
-        decode: Foo5Request.decode,
-      }),
+        input: Foo5Request,
+        output: Foo5Response,
+      },
     },
   } as const;
 }
@@ -1182,7 +1186,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from \\"twirpscript\\";
 
 //========================================//
@@ -1355,31 +1358,36 @@ export function createFooServiceHandler<Context>(
   return {
     name: \\"B.FooService\\",
     methods: {
-      Foo1: createMethodHandler({
+      Foo1: {
+        name: \\"Foo1\\",
         handler: service.Foo1,
-        encode: Foo1Response.encode,
-        decode: Foo1Request.decode,
-      }),
-      Foo2: createMethodHandler({
+        input: Foo1Request,
+        output: Foo1Response,
+      },
+      Foo2: {
+        name: \\"Foo2\\",
         handler: service.Foo2,
-        encode: Foo2Response.encode,
-        decode: Foo2Request.decode,
-      }),
-      Foo3: createMethodHandler({
+        input: Foo2Request,
+        output: Foo2Response,
+      },
+      Foo3: {
+        name: \\"Foo3\\",
         handler: service.Foo3,
-        encode: Foo3Response.encode,
-        decode: Foo3Request.decode,
-      }),
-      Foo4: createMethodHandler({
+        input: Foo3Request,
+        output: Foo3Response,
+      },
+      Foo4: {
+        name: \\"Foo4\\",
         handler: service.Foo4,
-        encode: Foo4Response.encode,
-        decode: Foo4Request.decode,
-      }),
-      Foo5: createMethodHandler({
+        input: Foo4Request,
+        output: Foo4Response,
+      },
+      Foo5: {
+        name: \\"Foo5\\",
         handler: service.Foo5,
-        encode: Foo5Response.encode,
-        decode: Foo5Request.decode,
-      }),
+        input: Foo5Request,
+        output: Foo5Response,
+      },
     },
   } as const;
 }
@@ -2343,7 +2351,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from \\"twirpscript\\";
 
 //========================================//
@@ -2516,31 +2523,36 @@ export function createFooServiceHandler<Context>(
   return {
     name: \\"C.FooService\\",
     methods: {
-      Foo1: createMethodHandler({
+      Foo1: {
+        name: \\"Foo1\\",
         handler: service.Foo1,
-        encode: Foo1Response.encode,
-        decode: Foo1Request.decode,
-      }),
-      Foo2: createMethodHandler({
+        input: Foo1Request,
+        output: Foo1Response,
+      },
+      Foo2: {
+        name: \\"Foo2\\",
         handler: service.Foo2,
-        encode: Foo2Response.encode,
-        decode: Foo2Request.decode,
-      }),
-      Foo3: createMethodHandler({
+        input: Foo2Request,
+        output: Foo2Response,
+      },
+      Foo3: {
+        name: \\"Foo3\\",
         handler: service.Foo3,
-        encode: Foo3Response.encode,
-        decode: Foo3Request.decode,
-      }),
-      Foo4: createMethodHandler({
+        input: Foo3Request,
+        output: Foo3Response,
+      },
+      Foo4: {
+        name: \\"Foo4\\",
         handler: service.Foo4,
-        encode: Foo4Response.encode,
-        decode: Foo4Request.decode,
-      }),
-      Foo5: createMethodHandler({
+        input: Foo4Request,
+        output: Foo4Response,
+      },
+      Foo5: {
+        name: \\"Foo5\\",
         handler: service.Foo5,
-        encode: Foo5Response.encode,
-        decode: Foo5Request.decode,
-      }),
+        input: Foo5Request,
+        output: Foo5Response,
+      },
     },
   } as const;
 }
@@ -3504,7 +3516,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from \\"twirpscript\\";
 
 //========================================//
@@ -3677,31 +3688,36 @@ export function createFooServiceHandler<Context>(
   return {
     name: \\"D.FooService\\",
     methods: {
-      Foo1: createMethodHandler({
+      Foo1: {
+        name: \\"Foo1\\",
         handler: service.Foo1,
-        encode: Foo1Response.encode,
-        decode: Foo1Request.decode,
-      }),
-      Foo2: createMethodHandler({
+        input: Foo1Request,
+        output: Foo1Response,
+      },
+      Foo2: {
+        name: \\"Foo2\\",
         handler: service.Foo2,
-        encode: Foo2Response.encode,
-        decode: Foo2Request.decode,
-      }),
-      Foo3: createMethodHandler({
+        input: Foo2Request,
+        output: Foo2Response,
+      },
+      Foo3: {
+        name: \\"Foo3\\",
         handler: service.Foo3,
-        encode: Foo3Response.encode,
-        decode: Foo3Request.decode,
-      }),
-      Foo4: createMethodHandler({
+        input: Foo3Request,
+        output: Foo3Response,
+      },
+      Foo4: {
+        name: \\"Foo4\\",
         handler: service.Foo4,
-        encode: Foo4Response.encode,
-        decode: Foo4Request.decode,
-      }),
-      Foo5: createMethodHandler({
+        input: Foo4Request,
+        output: Foo4Response,
+      },
+      Foo5: {
+        name: \\"Foo5\\",
         handler: service.Foo5,
-        encode: Foo5Response.encode,
-        decode: Foo5Request.decode,
-      }),
+        input: Foo5Request,
+        output: Foo5Response,
+      },
     },
   } as const;
 }
@@ -4665,7 +4681,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from \\"twirpscript\\";
 
 //========================================//
@@ -4777,16 +4792,18 @@ export function createCheckServiceHandler<Context>(
   return {
     name: \\"api.v1.CheckService\\",
     methods: {
-      Info: createMethodHandler({
+      Info: {
+        name: \\"Info\\",
         handler: service.Info,
-        encode: InfoResponse.encode,
-        decode: InfoRequest.decode,
-      }),
-      DoStuff: createMethodHandler({
+        input: InfoRequest,
+        output: InfoResponse,
+      },
+      DoStuff: {
+        name: \\"DoStuff\\",
         handler: service.DoStuff,
-        encode: DoStuffResponse.encode,
-        decode: DoStuffRequest.decode,
-      }),
+        input: DoStuffRequest,
+        output: DoStuffResponse,
+      },
     },
   } as const;
 }
@@ -4808,11 +4825,12 @@ export function createVerificationServiceHandler<Context>(
   return {
     name: \\"api.v1.VerificationService\\",
     methods: {
-      Verify: createMethodHandler({
+      Verify: {
+        name: \\"Verify\\",
         handler: service.Verify,
-        encode: VerifyResponse.encode,
-        decode: VerifyRequest.decode,
-      }),
+        input: VerifyRequest,
+        output: VerifyResponse,
+      },
     },
   } as const;
 }
@@ -5166,7 +5184,6 @@ import {
   BinaryWriter,
   JSONrequest,
   PBrequest,
-  createMethodHandler,
 } from \\"twirpscript\\";
 
 //======================================================//
@@ -5220,11 +5237,12 @@ export function createVeryLongNameThatCausesAnErrorServiceHandler<Context>(
   return {
     name: \\"pkg.VeryLongNameThatCausesAnErrorService\\",
     methods: {
-      GetAll: createMethodHandler({
+      GetAll: {
+        name: \\"GetAll\\",
         handler: service.GetAll,
-        encode: GetAllResponse.encode,
-        decode: GetAllRequest.decode,
-      }),
+        input: GetAllRequest,
+        output: GetAllResponse,
+      },
     },
   } as const;
 }

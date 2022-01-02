@@ -1,7 +1,6 @@
 import {
   RawRequest,
   Request,
-  ServerHooks,
   ServiceMethod,
   TwirpContext,
   TwirpErrorResponse,
@@ -10,7 +9,6 @@ import {
 } from ".";
 import { describe, it } from "@jest/globals";
 import { TwirpError } from "..";
-import { Emitter } from "../eventEmitter";
 
 describe("TwirpErrorResponse", () => {
   it("converts a Twirp error to a Response", () => {
@@ -176,17 +174,18 @@ describe("executeServiceMethod", () => {
 
 describe("twirpHandler", () => {
   const ee = { emit: jest.fn() };
-  const services = {
-    HaberdasherMakeHat: {
-      handler: jest.fn(),
-      request: { decode: jest.fn() },
-      response: { encode: jest.fn() },
+  const service = {
+    name: "Haberdasher",
+    methods: {
+      MakeHat: {
+        handler: jest.fn(),
+        request: { decode: jest.fn() },
+        response: { encode: jest.fn() },
+      },
     },
   };
-  const handler = twirpHandler(
-    services as any,
-    ee as unknown as Emitter<ServerHooks<any, any>>
-  );
+
+  const handler = twirpHandler(ee as any);
   const request = {
     url: "http://localhost:8080",
     method: "POST",
@@ -198,7 +197,7 @@ describe("twirpHandler", () => {
   describe("request validation", () => {
     it("missing url", async () => {
       const { url, ...rest } = request;
-      const res = await handler(rest as any, {});
+      const res = await handler(rest as any, {} as TwirpContext);
       expect(res).toEqual(
         TwirpErrorResponse(
           new TwirpError({
@@ -211,7 +210,7 @@ describe("twirpHandler", () => {
 
     it("missing method", async () => {
       const { method, ...rest } = request;
-      const res = await handler(rest as any, {});
+      const res = await handler(rest as any, {} as TwirpContext);
       expect(res).toEqual(
         TwirpErrorResponse(
           new TwirpError({
@@ -223,7 +222,10 @@ describe("twirpHandler", () => {
     });
 
     it("method other than POST", async () => {
-      const res = await handler({ ...request, method: "GET" } as any, {});
+      const res = await handler(
+        { ...request, method: "GET" } as any,
+        {} as TwirpContext
+      );
       expect(res).toEqual(
         TwirpErrorResponse(
           new TwirpError({
@@ -239,7 +241,7 @@ describe("twirpHandler", () => {
         ...request,
         headers: {},
       };
-      const res = await handler(req as any, {});
+      const res = await handler(req as any, {} as TwirpContext);
 
       expect(res).toEqual(
         TwirpErrorResponse(
@@ -256,7 +258,7 @@ describe("twirpHandler", () => {
         ...request,
         headers: { "content-type": "text/html" },
       };
-      const res = await handler(req as any, {});
+      const res = await handler(req as any, {} as TwirpContext);
 
       expect(res).toEqual(
         TwirpErrorResponse(
@@ -270,7 +272,7 @@ describe("twirpHandler", () => {
 
     it("emits error", async () => {
       const { url, ...rest } = request;
-      await handler(rest as any, {});
+      await handler(rest as any, {} as TwirpContext);
 
       expect(ee.emit).toBeCalledTimes(1);
       expect(ee.emit).toBeCalledWith(
@@ -286,8 +288,9 @@ describe("twirpHandler", () => {
 
   it("missing handler", async () => {
     const res = await handler(request, {
-      service: "Haberdasher",
-      method: "MakeScarf",
+      service: undefined,
+      method: undefined,
+      contentType: "JSON",
     });
 
     expect(res).toEqual(
@@ -317,15 +320,15 @@ describe("twirpHandler", () => {
       code: "internal",
       msg: "my handler errored",
     });
-    services["HaberdasherMakeHat"].handler.mockImplementationOnce(() => {
+    service.methods["MakeHat"].handler.mockImplementationOnce(() => {
       throw response;
     });
 
     const res = await handler(req, {
-      service: "Haberdasher",
-      method: "MakeHat",
+      service,
+      method: service.methods.MakeHat,
       contentType: "JSON",
-    });
+    } as unknown as TwirpContext);
 
     expect(res).toEqual(TwirpErrorResponse(response));
 
@@ -337,13 +340,13 @@ describe("twirpHandler", () => {
   it("processes the request (happy path)", async () => {
     const body = JSON.stringify({ foo: "bar" });
     const req = { ...request, body };
-    services["HaberdasherMakeHat"].handler.mockImplementationOnce((x) => x);
+    service.methods["MakeHat"].handler.mockImplementationOnce((x) => x);
 
     const res = await handler(req, {
-      service: "Haberdasher",
-      method: "MakeHat",
+      service,
+      method: service.methods.MakeHat,
       contentType: "JSON",
-    });
+    } as unknown as TwirpContext);
     const expectedResponse = {
       statusCode: 200,
       headers: {

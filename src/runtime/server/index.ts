@@ -25,7 +25,7 @@ export interface RawRequest extends Request {
 }
 
 type ServiceContext<U> = U extends Service
-  ? { service: U["name"]; method: keyof U["methods"] }
+  ? { service: U | undefined; method: U["methods"][keyof U["methods"]] }
   : never;
 
 export type TwirpContext<
@@ -201,7 +201,6 @@ export type Middleware<Context = unknown, Request = unknown> = (
 ) => Promise<Response>;
 
 export function twirpHandler<Context extends TwirpContext>(
-  services: ServiceMap<Context>,
   ee: Emitter<ServerHooks<Context, Request>>
 ) {
   return async (req: RawRequest, ctx: Context): Promise<Response> => {
@@ -211,7 +210,7 @@ export function twirpHandler<Context extends TwirpContext>(
       return TwirpErrorResponse(err);
     }
 
-    const handler = services[(ctx.service ?? "") + (ctx.method ?? "")];
+    const handler = ctx.method;
     if (!handler) {
       const error = new TwirpError({
         code: "bad_route",
@@ -361,19 +360,17 @@ const contentTypeName: {
   "application/protobuf": "Protobuf",
 };
 
-type ServiceMap<Context> = Record<string, ServiceMethod<Context> | undefined>;
-
-function getRequestContext<Context extends TwirpContext>(
+function getRequestContext<Services extends Service[]>(
   req: RawRequest,
-  services: ServiceMap<Context>,
+  services: Services,
   config: Required<TwirpServerConfig>
-): Context {
-  const ctx: Context = {
+): TwirpContext {
+  const ctx = {
     service: undefined,
     method: undefined,
     contentType:
       contentTypeName[req.headers["content-type"] as string] ?? "Unknown",
-  } as unknown as Context;
+  } as unknown as TwirpContext;
 
   const prefix = config.prefix + "/";
   const startsWithPrefix = req.url.startsWith(prefix);
@@ -383,10 +380,11 @@ function getRequestContext<Context extends TwirpContext>(
   const methodIdx = req.url.lastIndexOf("/");
   const serviceName = req.url.slice(prefix.length, methodIdx);
   const serviceMethod = req.url.slice(methodIdx + 1);
-  const handler = services[serviceName + serviceMethod];
+  const service = services.find((service) => service.name === serviceName);
+  const handler = service?.methods[serviceMethod];
   if (handler) {
-    ctx.service = serviceName as Context["service"];
-    ctx.method = serviceMethod as unknown as Context["method"];
+    ctx.service = service;
+    ctx.method = handler;
   }
   return ctx;
 }
@@ -412,29 +410,14 @@ export function createTwirpServerless<
     createEventEmitter<
       ServerHooks<TwirpContext<ContextExt, Services>, Request>
     >();
-  const serviceMap = services.reduce<ServiceMap<ContextExt>>(
-    (acc, service) => ({
-      ...acc,
-      ...Object.fromEntries(
-        Object.entries(service.methods).map(([method, handler]) => [
-          service.name + method,
-          handler,
-        ])
-      ),
-    }),
-    {}
-  );
-  const twirp = twirpHandler<TwirpContext<ContextExt, Services>>(
-    serviceMap,
-    ee
-  );
+  const twirp = twirpHandler<TwirpContext<ContextExt, Services>>(ee);
 
   async function app(req: Request): Promise<Response> {
-    const ctx = getRequestContext<TwirpContext<ContextExt, Services>>(
+    const ctx = getRequestContext(
       req,
-      serviceMap,
+      services,
       configWithDefaults
-    );
+    ) as TwirpContext<ContextExt, Services>;
     ee.emit("requestReceived", ctx, req);
 
     let response: Response;

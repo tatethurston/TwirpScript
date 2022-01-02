@@ -25,7 +25,11 @@ describe("withRequestLogging", () => {
   it("requestRouted", () => {
     ee.emit(
       "requestRouted",
-      { service: "foo", method: "bar", contentType: "JSON" },
+      {
+        service: { name: "foo" },
+        method: { name: "bar" },
+        contentType: "JSON",
+      },
       {}
     );
     expect((console.info as jest.Mock).mock.calls).toMatchInlineSnapshot(`

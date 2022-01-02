@@ -14,7 +14,7 @@ export function withRequestLogging<App extends TwirpServerRuntime>(
   app.on("requestRouted", (ctx) => {
     console.info(
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      `[TwirpScript] Processing by ${ctx.service}#${ctx.method} as ${ctx.contentType}`
+      `[TwirpScript] Processing by ${ctx.service?.name}#${ctx.method?.name} as ${ctx.contentType}`
     );
   });
 

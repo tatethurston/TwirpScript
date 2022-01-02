@@ -437,7 +437,7 @@ const app = createTwirpServer<Context, typeof services>(services);
 
 app.use(async (req, ctx, next) => {
   // exception so unauthenticated users can authenticate
-  if (ctx.service === AuthenticationHandler.name) {
+  if (ctx.service.name === AuthenticationHandler.name) {
     return next();
   }
 

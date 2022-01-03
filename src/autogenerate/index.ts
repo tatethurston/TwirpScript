@@ -102,9 +102,6 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             .map((field) => `msg.${field.name} = [];`)
             .join("\n")}
           while (reader.nextField()) {
-            if (reader.isEndGroup()) {
-              break;
-            }
             const field = reader.getFieldNumber();
             switch (field) {
               ${node.content.fields

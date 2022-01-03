@@ -120,9 +120,6 @@ export const Size = {
 
   readMessage: function (msg: Partial<Size>, reader: BinaryReader): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -175,9 +172,6 @@ export const Hat = {
 
   readMessage: function (msg: Partial<Hat>, reader: BinaryReader): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {

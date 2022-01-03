@@ -425,9 +425,6 @@ export const TestAllTypes = {
     msg.repeated_cord = [];
     msg.repeated_lazy_message = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -832,9 +829,6 @@ export const TestAllTypes = {
       reader: BinaryReader
     ): void {
       while (reader.nextField()) {
-        if (reader.isEndGroup()) {
-          break;
-        }
         const field = reader.getFieldNumber();
         switch (field) {
           case 1: {
@@ -938,9 +932,6 @@ export const TestPackedTypes = {
     msg.packed_bool = [];
     msg.packed_enum = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 90: {
@@ -1105,9 +1096,6 @@ export const TestUnpackedTypes = {
     msg.repeated_bool = [];
     msg.repeated_nested_enum = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -1224,9 +1212,6 @@ export const NestedTestAllTypes = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -1288,9 +1273,6 @@ export const ForeignMessage = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -1336,9 +1318,6 @@ export const TestEmptyMessage = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         default: {
@@ -1382,9 +1361,6 @@ export const TestMessageWithDummy = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 536870911: {
@@ -1431,9 +1407,6 @@ export const TestOneof2 = {
 
   readMessage: function (msg: Partial<TestOneof2>, reader: BinaryReader): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 6: {

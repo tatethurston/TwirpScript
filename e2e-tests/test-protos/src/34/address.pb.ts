@@ -62,9 +62,6 @@ export const GetUserResponse = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -129,9 +126,6 @@ export const GetUserResponse = {
       reader: BinaryReader
     ): void {
       while (reader.nextField()) {
-        if (reader.isEndGroup()) {
-          break;
-        }
         const field = reader.getFieldNumber();
         switch (field) {
           case 1: {
@@ -206,9 +200,6 @@ export const GetUserResponse = {
     ): void {
       msg.address = [];
       while (reader.nextField()) {
-        if (reader.isEndGroup()) {
-          break;
-        }
         const field = reader.getFieldNumber();
         switch (field) {
           case 1: {
@@ -283,9 +274,6 @@ export const AddressValue = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {

@@ -335,9 +335,6 @@ export const Foo1Request = {
     msg.d = [];
     msg.e = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -421,9 +418,6 @@ export const Foo1Response = {
     msg.d = [];
     msg.e = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -507,9 +501,6 @@ export const Foo2Request = {
     msg.d = [];
     msg.e = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -593,9 +584,6 @@ export const Foo2Response = {
     msg.d = [];
     msg.e = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -679,9 +667,6 @@ export const Foo3Request = {
     msg.d = [];
     msg.e = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -765,9 +750,6 @@ export const Foo3Response = {
     msg.d = [];
     msg.e = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -851,9 +833,6 @@ export const Foo4Request = {
     msg.d = [];
     msg.e = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -937,9 +916,6 @@ export const Foo4Response = {
     msg.d = [];
     msg.e = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -1023,9 +999,6 @@ export const Foo5Request = {
     msg.d = [];
     msg.e = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -1109,9 +1082,6 @@ export const Foo5Response = {
     msg.d = [];
     msg.e = [];
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {

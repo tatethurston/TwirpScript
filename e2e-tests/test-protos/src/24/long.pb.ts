@@ -111,9 +111,6 @@ export const VeryLongNameThatCausesAnError = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -159,9 +156,6 @@ export const GetAllRequest = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         default: {
@@ -198,9 +192,6 @@ export const GetAllResponse = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         default: {

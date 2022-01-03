@@ -204,9 +204,6 @@ export const InfoRequest = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         default: {
@@ -243,9 +240,6 @@ export const DoStuffRequest = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         default: {
@@ -286,9 +280,6 @@ export const InfoResponse = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -338,9 +329,6 @@ export const DoStuffResponse = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -393,9 +381,6 @@ export const VerifyRequest = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -456,9 +441,6 @@ export const VerifyResponse = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {

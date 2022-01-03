@@ -135,9 +135,6 @@ export const Empty = {
 
   readMessage: function (msg: Partial<Empty>, reader: BinaryReader): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         default: {
@@ -175,9 +172,6 @@ export const Req = {
 
   readMessage: function (msg: Partial<Req>, reader: BinaryReader): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -224,9 +218,6 @@ export const Resp = {
 
   readMessage: function (msg: Partial<Resp>, reader: BinaryReader): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
@@ -285,9 +276,6 @@ export const ClientCompatMessage = {
     reader: BinaryReader
   ): void {
     while (reader.nextField()) {
-      if (reader.isEndGroup()) {
-        break;
-      }
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {

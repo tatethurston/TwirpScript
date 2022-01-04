@@ -183,7 +183,7 @@ try {
       .map((file) => [file, checksum(file)])
   );
 
-  spawnSync(
+  const protoc = spawnSync(
     `\
 protoc \
   --plugin=protoc-gen-twirpscript=${join(
@@ -197,8 +197,15 @@ protoc \
   --twirpscript_opt=${config.language} \
   ${protos.join(" ")}
 `,
-    { shell: true, stdio: "inherit" }
+    { shell: true, encoding: "utf8" }
   );
+
+  if (protoc.stderr) {
+    logger.error("Protobuf Compiler Error: \n");
+    console.error(protoc.stderr);
+    console.error("No .pb.ts files were created or updated.");
+    process.exit(1);
+  }
 
   const protosAfterCompile = findFiles(destination, protoExt)
     .map((filepath) => relative(config.root, filepath))

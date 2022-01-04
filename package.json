@@ -1,6 +1,6 @@
 {
   "name": "twirpscript",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "A protobuf RPC framework for JavaScript and TypeScript",
   "license": "MIT",
   "author": "Tate Thurston <tatethurston@gmail.com>",
@@ -64,13 +64,11 @@
     "webpack-cli": "^4.7.0"
   },
   "keywords": [
-    "browser",
     "protobuf",
     "protocol buffers",
     "rpc",
     "twirp",
-    "typescript",
-    "web"
+    "typescript"
   ],
   "husky": {
     "hooks": {

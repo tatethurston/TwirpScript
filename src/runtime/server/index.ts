@@ -20,9 +20,17 @@ export interface Request {
   url: string;
 }
 
-export interface RawRequest extends Request {
+export interface InboundRequest extends Request {
   method: string;
 }
+
+type ServerRequest = Pick<
+  IncomingMessage,
+  "method" | "url" | "headers" | typeof Symbol.asyncIterator
+>;
+
+type ServerRequestWithBody<SR extends ServerRequest> = SR &
+  Pick<Request, "body">;
 
 type ServiceContext<U> = U extends Service
   ? { service: U | undefined; method: U["methods"][keyof U["methods"]] }
@@ -146,7 +154,7 @@ async function getBody(req: ServerRequest): Promise<Buffer> {
   return body;
 }
 
-function validateRequest(req: RawRequest): TwirpError | undefined {
+function validateRequest(req: InboundRequest): TwirpError | undefined {
   if (!req.url) {
     return new TwirpError({
       code: "malformed",
@@ -200,15 +208,15 @@ interface TwirpServerConfig {
 }
 
 export type Middleware<Context = unknown, Request = unknown> = (
-  req: Request,
-  ctx: TwirpContext<Context>,
+  request: Request,
+  context: TwirpContext<Context>,
   next: Next
 ) => Promise<Response>;
 
 export function twirpHandler<Context extends TwirpContext>(
   ee: Emitter<ServerHooks<Context, Request>>
 ) {
-  return async (req: RawRequest, ctx: Context): Promise<Response> => {
+  return async (req: InboundRequest, ctx: Context): Promise<Response> => {
     const err = validateRequest(req);
     if (err) {
       ee.emit("error", ctx, err);
@@ -241,27 +249,27 @@ export function twirpHandler<Context extends TwirpContext>(
 }
 
 export type ServerHooks<Context extends TwirpContext, Request> = {
-  requestReceived: (ctx: Context, req: Request) => void;
+  requestReceived: (context: Context, request: Request) => void;
   requestRouted: (
-    ctx: Context,
-    req: ReturnType<NonNullable<Context["method"]>["input"]["decode"]>
+    context: Context,
+    input: ReturnType<NonNullable<Context["method"]>["input"]["decode"]>
   ) => void;
   responsePrepared: (
-    ctx: Context,
-    req: ReturnType<NonNullable<Context["method"]>["output"]["decode"]>
+    context: Context,
+    output: ReturnType<NonNullable<Context["method"]>["output"]["decode"]>
   ) => void;
-  responseSent: (ctx: Context, res: Response) => void;
-  error: (ctx: Context, err: TwirpError) => void;
+  responseSent: (context: Context, response: Response) => void;
+  error: (context: Context, error: TwirpError) => void;
 };
 
 export interface TwirpServerRuntime<
   Context extends TwirpContext = TwirpContext,
-  Request = RawRequest
+  Request = InboundRequest
 > {
   /**
    * Registers middleware to manipulate the server request / response lifecycle.
    *
-   * The middleware handler will receive `req`, `ctx` and `next` parameters. `req` is the incoming request. `ctx` is a request context object which will be passed to each middleware handler and finally the Twirp service handler you implemented. `ctx` enables you to pass extra parameters to your service handlers that are not available via your service's defined request parameters, and can be used to implement things such as authentication or rate limiting. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp service handler you implemented.
+   * The middleware handler will receive `request`, `context` and `next` parameters. `request` is the incoming request. `context` is a request context object which will be passed to each middleware handler and finally the Twirp service handler you implemented. `context` enables you to pass extra parameters to your service handlers that are not available via your service's defined request parameters, and can be used to implement things such as authentication or rate limiting. `next` invokes the next handler in the chain -- either the next registered middleware, or the Twirp service handler you implemented.
    *
    * Middleware is called in order of registration, with the Twirp service handler you implemented invoked last.
    */
@@ -293,8 +301,10 @@ export interface TwirpServerRuntime<
   ) => this;
 }
 
-interface TwirpServer<Context extends TwirpContext, Request>
-  extends TwirpServerRuntime<Context, Request> {
+interface TwirpServer<
+  Context extends TwirpContext,
+  Request extends ServerRequest
+> extends TwirpServerRuntime<Context, ServerRequestWithBody<Request>> {
   (req: Request, res: ServerResponse): void;
 }
 
@@ -302,11 +312,6 @@ interface TwirpServerless<Context extends TwirpContext, Request>
   extends TwirpServerRuntime<Context, Request> {
   (req: Request): Promise<Response>;
 }
-
-type ServerRequest = Pick<
-  IncomingMessage,
-  "method" | "url" | "headers" | typeof Symbol.asyncIterator
->;
 
 export function createTwirpServer<
   ContextExt,
@@ -320,7 +325,7 @@ export function createTwirpServer<
 
   async function app(req: Request, res: ServerResponse): Promise<void> {
     const body = await getBody(req);
-    const request = req as unknown as RawRequest;
+    const request = req as unknown as InboundRequest;
     request.body = body;
     const response = await _app(request);
     res.writeHead(response.statusCode, response.headers);
@@ -328,7 +333,10 @@ export function createTwirpServer<
   }
 
   app.use = (
-    handler: Middleware<TwirpContext<ContextExt, typeof services>, Request>
+    handler: Middleware<
+      TwirpContext<ContextExt, typeof services>,
+      ServerRequestWithBody<Request>
+    >
   ) => {
     _app.use(handler as any);
     return app;
@@ -337,7 +345,10 @@ export function createTwirpServer<
   app.on = (
     ...args: Parameters<
       Emitter<
-        ServerHooks<TwirpContext<ContextExt, typeof services>, Request>
+        ServerHooks<
+          TwirpContext<ContextExt, typeof services>,
+          ServerRequestWithBody<Request>
+        >
       >["on"]
     >
   ) => {
@@ -348,7 +359,10 @@ export function createTwirpServer<
   app.off = (
     ...args: Parameters<
       Emitter<
-        ServerHooks<TwirpContext<ContextExt, typeof services>, Request>
+        ServerHooks<
+          TwirpContext<ContextExt, typeof services>,
+          ServerRequestWithBody<Request>
+        >
       >["off"]
     >
   ) => {
@@ -367,7 +381,7 @@ const contentTypeName: {
 };
 
 function getRequestContext<Services extends Service[]>(
-  req: RawRequest,
+  req: InboundRequest,
   services: Services,
   config: Required<TwirpServerConfig>
 ): TwirpContext {
@@ -398,7 +412,7 @@ function getRequestContext<Services extends Service[]>(
 export function createTwirpServerless<
   ContextExt,
   Services extends Service[],
-  Request extends RawRequest = RawRequest
+  Request extends InboundRequest = InboundRequest
 >(
   services: Services,
   config: TwirpServerConfig = {}

@@ -1,5 +1,5 @@
 import {
-  RawRequest,
+  InboundRequest,
   Request,
   ServiceMethod,
   TwirpContext,
@@ -200,7 +200,7 @@ describe("twirpHandler", () => {
     headers: {
       "content-type": "application/json",
     },
-  } as unknown as RawRequest;
+  } as unknown as InboundRequest;
 
   describe("request validation", () => {
     it("missing url", async () => {

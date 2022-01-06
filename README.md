@@ -198,7 +198,7 @@ const Haberdasher: HaberdasherService = {
   },
 };
 
-export const HaberdasherHandler = createHaberdasherHandler(HaberdasherService);
+export const HaberdasherHandler = createHaberdasherHandler(Haberdasher);
 ```
 
 #### 5. Connect your service to your application server

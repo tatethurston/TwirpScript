@@ -1,8 +1,9 @@
-import { ByteSource } from "google-protobuf";
 import { IncomingMessage, ServerResponse } from "http";
 import { TwirpError, statusCodeForErrorCode } from "../error";
 import { Emitter, createEventEmitter } from "../eventEmitter";
 import { withRequestLogging } from "./requestLogging";
+
+export type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
 
 export interface Response {
   body: string | Buffer;
@@ -82,8 +83,8 @@ function parseJSON<Result>(json: string): Result | undefined {
 }
 
 function parseProto<T>(
-  proto: Uint8Array,
-  decode: (proto: Uint8Array) => T
+  proto: ByteSource,
+  decode: (proto: ByteSource) => T
 ): T | undefined {
   try {
     return decode(proto);

@@ -90,7 +90,9 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                 ) as MessageType;
                 res += `for (const key in msg.${field.name}) {
                   writer.writeMessage(${field.index}, {}, (_, mapWriter) => {
-                    mapWriter.${map.content.fields[0].write}(1, key as any);
+                    mapWriter.${
+                      map.content.fields[0].write
+                    }(1, key${printIfTypescript(" as any")});
                     mapWriter.${map.content.fields[1].write}(2, msg.foo[key]);
                   });
                 }`;
@@ -156,7 +158,11 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                           }
                         }
                       }
-                      msg.${field.name}![key!] = value!;
+                      msg.${field.name}${printIfTypescript(
+                      "!"
+                    )}[key${printIfTypescript("!")}] = value${printIfTypescript(
+                      "!"
+                    )};
                     });`;
                   } else if (field.read === "readMessage") {
                     res += `

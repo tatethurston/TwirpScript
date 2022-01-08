@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.0.36
+
+- bytesource refactor by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/70
+- add version check by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/71
+- add map type by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/75
+
+**Full Changelog**: https://github.com/tatethurston/TwirpScript/compare/v0.0.35...v0.0.36
+
 ## v0.0.35
 
 - add body to request type for middleware and hooks by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/67

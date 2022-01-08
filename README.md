@@ -16,6 +16,9 @@
 <a href="https://github.com/tatethurston/twirpscript/actions/workflows/ci.yml">
   <img src="https://github.com/tatethurston/twirpscript/actions/workflows/ci.yml/badge.svg">
 </a>
+<a href="https://codecov.io/gh/tatethurston/twirpscript">
+  <img src="https://img.shields.io/codecov/c/github/tatethurston/twirpscript/main.svg?style=flat-square">
+</a>
 
 ## What is this? 🧐
 

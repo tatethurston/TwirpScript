@@ -652,6 +652,10 @@ The examples also demonstrate testing using [jest](https://jestjs.io/).
 
 ## Caveats, Warnings and Issues ⚠️
 
+### Protobuf2
+
+This library supports Protobuf3. Protobuf2 should work, with the notable exception of [Groups](https://developers.google.com/protocol-buffers/docs/proto#groups) which have not been implemented. If you encounter any issues with Protobuf2 or need `Group` support, please open an issue.
+
 ### JavaScript Servers (does not apply to servers written in TypeScript)
 
 JavaScript Server implementations require special consideration. The Node.js ecosystem is in a transition period from CommonJS to modules. TwirpScript generates JavaScript modules to enable tree shaking for clients. This means that Node.js servers either need to [opt-in to modules](https://nodejs.org/api/esm.html#esm_enabling), or use a bundler like Webpack or ESBuild. See the [JavaScript fullstack](https://github.com/tatethurston/twirpscript/blob/main/examples/typescript-fullstack) to see what this looks like.

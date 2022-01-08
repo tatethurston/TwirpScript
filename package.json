@@ -21,7 +21,7 @@
     "build:commonjs": "yarn tsc",
     "build:module": "yarn tsc --module esnext --outDir dist/module",
     "build:watch": "yarn build:commonjs --watch",
-    "check:all": "yarn examples:check && yarn test && yarn test:compat && yarn test:e2e:setup",
+    "check:all": "yarn examples:check && yarn test && yarn test:compat && yarn test:e2e",
     "clean": "rm -rf dist",
     "examples:check": "for example in examples/*; do (cd \"$example\" && yarn twirpscript && yarn tsc --noEmit) || exit 1; done",
     "examples:setup": "yarn build && npm link && for example in examples/*; do (cd \"$example\" && npm link twirpscript && yarn); done",

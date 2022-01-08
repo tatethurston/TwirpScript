@@ -5,6 +5,7 @@ import {
   ProtoTypes,
   Service,
   processTypes,
+  MessageType,
 } from "../utils";
 import { RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION } from "../runtimeCodegenCompat";
 
@@ -20,6 +21,11 @@ function writeTypes(types: ProtoTypes[]): string {
     }
     if (node.type === "enum") {
       result += `export type ${name} = typeof ${node.content.fullyQualifiedName}[keyof typeof ${node.content.fullyQualifiedName}];\n\n`;
+    } else if (node.type === "message" && node.content.isMap) {
+      result += `export type ${name} = Record<
+        ${node.content.fields[0].tsType},
+        ${node.content.fields[1].tsType} | undefined>;`;
+      result += `\n\n`;
     } else {
       result += `export interface ${name} {\n`;
       node.content.fields.forEach(
@@ -62,26 +68,39 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
           `: void`
         )} {
           ${node.content.fields
-            .map(
-              (field) => `\
-                ${
-                  field.repeated
-                    ? `if (msg.${field.name}.length > 0) {`
-                    : field.optional
-                    ? `if (msg.${field.name} != undefined) {`
-                    : `if (msg.${field.name}) {`
-                }
-                ${
-                  field.read === "readMessage"
-                    ? `writer.${field.write}(${field.index}, msg.${
-                        field.name
-                      } ${field.repeated ? printIfTypescript("as any") : ""}, ${
-                        field.tsType
-                      }.writeMessage);`
-                    : `writer.${field.write}(${field.index}, msg.${field.name});`
-                }
-                }`
-            )
+            .map((field) => {
+              let res = "";
+              if (field.repeated) {
+                res += `if (msg.${field.name}.length > 0) {`;
+              } else if (field.optional) {
+                res += `if (msg.${field.name} != undefined) {`;
+              } else {
+                res += `if (msg.${field.name}) {`;
+              }
+
+              if (field.read === "readMessage") {
+                res += `writer.${field.write}(${field.index}, msg.${
+                  field.name
+                } ${field.repeated ? printIfTypescript("as any") : ""}, ${
+                  field.tsType
+                }.writeMessage);`;
+              } else if (field.read === "map") {
+                const map = node.children.find(
+                  (c) => c.content.fullyQualifiedName === field.tsType
+                ) as MessageType;
+                res += `for (const key in msg.${field.name}) {
+                  writer.writeMessage(${field.index}, {}, (_, mapWriter) => {
+                    mapWriter.${map.content.fields[0].write}(1, key as any);
+                    mapWriter.${map.content.fields[1].write}(2, msg.foo[key]);
+                  });
+                }`;
+              } else {
+                res += `writer.${field.write}(${field.index}, msg.${field.name});`;
+              }
+
+              res += "}";
+              return res;
+            })
             .join("\n")}
         },
         
@@ -101,47 +120,76 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
           ": void "
         )}{
           ${node.content.fields
-            .filter(({ repeated }) => repeated)
-            .map((field) => `msg.${field.name} = [];`)
+            .map((field) => {
+              if (field.repeated) {
+                return `msg.${field.name} = [];`;
+              } else if (field.read === "map") {
+                return `msg.${field.name} = {};`;
+              }
+            })
+            .filter(Boolean)
             .join("\n")}
           while (reader.nextField()) {
             const field = reader.getFieldNumber();
             switch (field) {
               ${node.content.fields
-                .map(
-                  (field) => `\
-              case ${field.index}: {
-                ${
-                  field.read === "readMessage"
-                    ? `\
-                  const message = {};
-                  reader.readMessage(message, ${field.tsType}.readMessage);
-                  ${
-                    field.repeated
-                      ? `msg.${field.name}.push(message${printIfTypescript(
-                          ` as ${field.tsType}`
-                        )});`
-                      : `msg.${field.name} = message ${printIfTypescript(
-                          `as ${field.tsType}`
-                        )};`
-                  }`
-                    : `${
-                        field.repeated
-                          ? `msg.${field.name}.push(reader.${field.read}() ${
-                              field.read === "readEnum"
-                                ? printIfTypescript(`as ${field.tsType}`)
-                                : ""
-                            });`
-                          : `msg.${field.name} = reader.${field.read}() ${
-                              field.read === "readEnum"
-                                ? printIfTypescript(`as ${field.tsType}`)
-                                : ""
-                            };`
-                      }`
-                }
-                break;
-              }`
-                )
+                .map((field) => {
+                  let res = "";
+                  res += `case ${field.index}: {`;
+                  if (field.read == "map") {
+                    const map = node.children.find(
+                      (c) => c.content.fullyQualifiedName === field.tsType
+                    ) as MessageType;
+                    res += `reader.readMessage(undefined, () => {
+                      let key: ${map.content.fields[0].tsType};
+                      let value: ${map.content.fields[1].tsType};
+                      while (reader.nextField()) {
+                        const field = reader.getFieldNumber();
+                        switch (field) {
+                          case 1: {
+                            key = reader.${map.content.fields[0].read}();
+                            break;
+                          }
+                          case 2: {
+                            value = reader.${map.content.fields[1].read}();
+                            break;
+                          }
+                        }
+                      }
+                      msg.${field.name}![key!] = value!;
+                    });`;
+                  } else if (field.read === "readMessage") {
+                    res += `
+                    const message = {};
+                    reader.readMessage(message, ${field.tsType}.readMessage);
+                  `;
+                    if (field.repeated) {
+                      res += `msg.${field.name}.push(message${printIfTypescript(
+                        ` as ${field.tsType}`
+                      )});`;
+                    } else {
+                      res += `msg.${field.name} = message ${printIfTypescript(
+                        `as ${field.tsType}`
+                      )};`;
+                    }
+                  } else {
+                    if (field.repeated) {
+                      res += `msg.${field.name}.push(reader.${field.read}() ${
+                        field.read === "readEnum"
+                          ? printIfTypescript(`as ${field.tsType}`)
+                          : ""
+                      });`;
+                    } else {
+                      res += `msg.${field.name} = reader.${field.read}() ${
+                        field.read === "readEnum"
+                          ? printIfTypescript(`as ${field.tsType}`)
+                          : ""
+                      };`;
+                    }
+                  }
+                  res += "break;\n}";
+                  return res;
+                })
                 .join("\n")}
               default: {
                 reader.skipField();
@@ -198,8 +246,12 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
         },
 
       `;
-        if (node.children.length > 0) {
-          result += writeSerializers(node.children, false);
+        const childrenWithouMaps = node.children.filter(
+          (x) => x.type !== "message" || !x.content.isMap
+        );
+
+        if (childrenWithouMaps.length > 0) {
+          result += writeSerializers(childrenWithouMaps, false);
         }
         result += `}${isTopLevel ? ";" : ","}\n\n`;
         break;

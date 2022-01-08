@@ -46,8 +46,8 @@ export function commandIsInPath(cmd: string): boolean {
   }
 }
 
-type ReaderMethod = keyof BinaryReader;
-type WriterMethod = keyof BinaryWriter;
+type ReaderMethod = keyof BinaryReader | "map";
+type WriterMethod = keyof BinaryWriter | "map";
 
 interface Descriptor {
   defaultValue: string;
@@ -183,6 +183,21 @@ export function getDescriptor(
         identifierTable,
         fileDescriptorProto
       );
+      // Hack until better option:
+      // https://github.com/protocolbuffers/protobuf/issues/9369
+      const isMap =
+        _type.endsWith("Entry") && !field.toArray()[0].endsWith("Entry");
+
+      if (isMap) {
+        return {
+          defaultValue: "{}",
+          optional,
+          read: "map",
+          repeated: false,
+          tsType: name.slice(0, name.lastIndexOf("Entry")),
+          write: "map",
+        };
+      }
 
       return {
         defaultValue: "undefined",
@@ -445,10 +460,11 @@ interface MessageOpts {
   fullyQualifiedName: string;
   fields: Field[];
   comments?: Comments;
+  isMap: boolean;
 }
 
-type EnumType = { type: "enum"; content: EnumOpts };
-type MessageType = {
+export type EnumType = { type: "enum"; content: EnumOpts };
+export type MessageType = {
   type: "message";
   content: MessageOpts;
   children: ProtoTypes[];
@@ -627,15 +643,22 @@ export function processTypes(
   }
 
   function getMessage(namespacing: string, node: DescriptorProto): MessageOpts {
-    const name = node.getName();
+    let name = node.getName();
     if (!name) {
       throw new Error(`Expected name for ${node}`);
     }
+
+    // Hack until better option:
+    // https://github.com/protocolbuffers/protobuf/issues/9369
+    const isMap = name.endsWith("Entry") && node.getFieldList().length == 2;
+    name = isMap ? name.slice(0, name.lastIndexOf("Entry")) : name;
+
     const opts: MessageOpts = {
       name,
       fullyQualifiedName: applyNamespace(namespacing, name, {
         removeLeadingPeriod: true,
       }),
+      isMap,
       fields: node
         .getFieldList()
         .map((value) => {

@@ -943,11 +943,11 @@ message TestParsingMerge {
   }
 }
 
-// TODO fix comment escaping
-//message TestCommentInjectionMessage {
-//  // /* <- This should not close the generated doc comment
-//  optional string a = 1 [default="*/ <- Neither should this."];
-//}
+message TestCommentInjectionMessage {
+  // */ <- This should not close the generated doc comment
+  optional string a = 1 [default="*/ <- Neither should this."];
+}
+
 
 // Test that RPC services work.
 message FooRequest  {}

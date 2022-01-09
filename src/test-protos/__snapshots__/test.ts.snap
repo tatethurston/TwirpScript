@@ -6630,6 +6630,55 @@ export const TestParsingMerge = {
   },
 };
 
+export const TestCommentInjectionMessage = {
+  writeMessage: function (msg, writer) {
+    if (msg.a) {
+      writer.writeString(1, msg.a);
+    }
+  },
+
+  encode: function (testCommentInjectionMessage) {
+    const writer = new BinaryWriter();
+    TestCommentInjectionMessage.writeMessage(
+      testCommentInjectionMessage,
+      writer
+    );
+    return writer.getResultBuffer();
+  },
+
+  readMessage: function (msg, reader) {
+    while (reader.nextField()) {
+      const field = reader.getFieldNumber();
+      switch (field) {
+        case 1: {
+          msg.a = reader.readString();
+          break;
+        }
+        default: {
+          reader.skipField();
+          break;
+        }
+      }
+    }
+    if (!msg.a) {
+      msg.a = \\"\\";
+    }
+  },
+
+  decode: function (bytes) {
+    const reader = new BinaryReader(bytes);
+    const message = {};
+    TestCommentInjectionMessage.readMessage(message, reader);
+    return message;
+  },
+
+  defaultValue: function () {
+    return {
+      a: \\"\\",
+    };
+  },
+};
+
 export const FooRequest = {
   writeMessage: function (msg, writer) {},
 
@@ -17033,6 +17082,55 @@ export const TestParsingMerge = {
   },
 };
 
+export const TestCommentInjectionMessage = {
+  writeMessage: function (msg, writer) {
+    if (msg.a) {
+      writer.writeString(1, msg.a);
+    }
+  },
+
+  encode: function (testCommentInjectionMessage) {
+    const writer = new BinaryWriter();
+    TestCommentInjectionMessage.writeMessage(
+      testCommentInjectionMessage,
+      writer
+    );
+    return writer.getResultBuffer();
+  },
+
+  readMessage: function (msg, reader) {
+    while (reader.nextField()) {
+      const field = reader.getFieldNumber();
+      switch (field) {
+        case 1: {
+          msg.a = reader.readString();
+          break;
+        }
+        default: {
+          reader.skipField();
+          break;
+        }
+      }
+    }
+    if (!msg.a) {
+      msg.a = \\"\\";
+    }
+  },
+
+  decode: function (bytes) {
+    const reader = new BinaryReader(bytes);
+    const message = {};
+    TestCommentInjectionMessage.readMessage(message, reader);
+    return message;
+  },
+
+  defaultValue: function () {
+    return {
+      a: \\"\\",
+    };
+  },
+};
+
 export const FooRequest = {
   writeMessage: function (msg, writer) {},
 
@@ -21916,6 +22014,13 @@ export namespace TestParsingMerge {
   export interface RepeatedGroup {
     repeated_group_all_types: TestAllTypes;
   }
+}
+
+export interface TestCommentInjectionMessage {
+  /**
+   * *\\\\/ <- This should not close the generated doc comment
+   */
+  a: string;
 }
 
 /**
@@ -28863,6 +28968,63 @@ export const TestParsingMerge = {
         repeated_group_all_types: TestAllTypes.defaultValue(),
       };
     },
+  },
+};
+
+export const TestCommentInjectionMessage = {
+  writeMessage: function (
+    msg: TestCommentInjectionMessage,
+    writer: BinaryWriter
+  ): void {
+    if (msg.a) {
+      writer.writeString(1, msg.a);
+    }
+  },
+
+  encode: function (
+    testCommentInjectionMessage: TestCommentInjectionMessage
+  ): Uint8Array {
+    const writer = new BinaryWriter();
+    TestCommentInjectionMessage.writeMessage(
+      testCommentInjectionMessage,
+      writer
+    );
+    return writer.getResultBuffer();
+  },
+
+  readMessage: function (
+    msg: Partial<TestCommentInjectionMessage>,
+    reader: BinaryReader
+  ): void {
+    while (reader.nextField()) {
+      const field = reader.getFieldNumber();
+      switch (field) {
+        case 1: {
+          msg.a = reader.readString();
+          break;
+        }
+        default: {
+          reader.skipField();
+          break;
+        }
+      }
+    }
+    if (!msg.a) {
+      msg.a = \\"\\";
+    }
+  },
+
+  decode: function (bytes: ByteSource): TestCommentInjectionMessage {
+    const reader = new BinaryReader(bytes);
+    const message = {};
+    TestCommentInjectionMessage.readMessage(message, reader);
+    return message as TestCommentInjectionMessage;
+  },
+
+  defaultValue: function (): TestCommentInjectionMessage {
+    return {
+      a: \\"\\",
+    };
   },
 };
 
@@ -34217,6 +34379,13 @@ export namespace TestParsingMerge {
   }
 }
 
+export interface TestCommentInjectionMessage {
+  /**
+   * *\\\\/ <- This should not close the generated doc comment
+   */
+  a: string;
+}
+
 /**
  * Test that RPC services work.
  */
@@ -41162,6 +41331,63 @@ export const TestParsingMerge = {
         repeated_group_all_types: TestAllTypes.defaultValue(),
       };
     },
+  },
+};
+
+export const TestCommentInjectionMessage = {
+  writeMessage: function (
+    msg: TestCommentInjectionMessage,
+    writer: BinaryWriter
+  ): void {
+    if (msg.a) {
+      writer.writeString(1, msg.a);
+    }
+  },
+
+  encode: function (
+    testCommentInjectionMessage: TestCommentInjectionMessage
+  ): Uint8Array {
+    const writer = new BinaryWriter();
+    TestCommentInjectionMessage.writeMessage(
+      testCommentInjectionMessage,
+      writer
+    );
+    return writer.getResultBuffer();
+  },
+
+  readMessage: function (
+    msg: Partial<TestCommentInjectionMessage>,
+    reader: BinaryReader
+  ): void {
+    while (reader.nextField()) {
+      const field = reader.getFieldNumber();
+      switch (field) {
+        case 1: {
+          msg.a = reader.readString();
+          break;
+        }
+        default: {
+          reader.skipField();
+          break;
+        }
+      }
+    }
+    if (!msg.a) {
+      msg.a = \\"\\";
+    }
+  },
+
+  decode: function (bytes: ByteSource): TestCommentInjectionMessage {
+    const reader = new BinaryReader(bytes);
+    const message = {};
+    TestCommentInjectionMessage.readMessage(message, reader);
+    return message as TestCommentInjectionMessage;
+  },
+
+  defaultValue: function (): TestCommentInjectionMessage {
+    return {
+      a: \\"\\",
+    };
   },
 };
 

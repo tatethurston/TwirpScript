@@ -283,8 +283,15 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
   return result;
 }
 
+/**
+ * Escapes '*''/' which otherwise would terminate the block comment.
+ */
+function escapeComment(comment: string): string {
+  return comment.replace("*/", "*" + "\\" + "/");
+}
+
 function printComments(comment: string): string {
-  const lines = comment.split("\n");
+  const lines = escapeComment(comment).split("\n");
   return `\
     /**
      *${lines.slice(0, -1).join("\n *") + lines.slice(-1).join(" *")}

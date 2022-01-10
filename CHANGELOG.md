@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.0.37
+
+- Fix map generation for JavaScript clients by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/78
+- Add comment literal escaping by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/79
+- Remove version comment from generated code by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/80
+
+**Full Changelog**: https://github.com/tatethurston/TwirpScript/compare/v0.0.36...v0.0.37
+
 ## v0.0.36
 
 - bytesource refactor by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/70

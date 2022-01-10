@@ -1,6 +1,6 @@
 {
   "name": "twirpscript",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "description": "A protobuf RPC framework for JavaScript and TypeScript",
   "license": "MIT",
   "author": "Tate Thurston <tatethurston@gmail.com>",
@@ -29,6 +29,7 @@
     "lint:fix": "prettier --write . && prettier-package-json --write '{,example/}package.json'",
     "lint:package:fix": "prettier-package-json --write ./package.json",
     "prepack": "yarn build",
+    "regen": "yarn test -u && yarn examples:check && (cd e2e-tests/clientcompat && yarn twirpscript) && (cd e2e-tests/reported-issues && yarn test -u)",
     "test": "yarn jest src/*",
     "test:ci": "yarn test --coverage",
     "test:compat": "(cd e2e-tests/clientcompat && yarn twirpscript && yarn test)",

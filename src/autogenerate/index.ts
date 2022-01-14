@@ -141,8 +141,12 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                       (c) => c.content.fullyQualifiedName === field.tsType
                     ) as MessageType;
                     res += `reader.readMessage(undefined, () => {
-                      let key: ${map.content.fields[0].tsType};
-                      let value: ${map.content.fields[1].tsType};
+                      let key${printIfTypescript(
+                        `: ${map.content.fields[0].tsType}`
+                      )};
+                      let value${printIfTypescript(
+                        `: ${map.content.fields[1].tsType}`
+                      )};
                       while (reader.nextField()) {
                         const field = reader.getFieldNumber();
                         switch (field) {

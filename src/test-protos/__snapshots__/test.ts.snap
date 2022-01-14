@@ -7091,8 +7091,8 @@ export const TestHugeFieldNumbers = {
         }
         case 536870010: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7658,8 +7658,8 @@ export const TestMap = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7679,8 +7679,8 @@ export const TestMap = {
         }
         case 2: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7700,8 +7700,8 @@ export const TestMap = {
         }
         case 3: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7721,8 +7721,8 @@ export const TestMap = {
         }
         case 4: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7742,8 +7742,8 @@ export const TestMap = {
         }
         case 5: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7763,8 +7763,8 @@ export const TestMap = {
         }
         case 6: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7784,8 +7784,8 @@ export const TestMap = {
         }
         case 7: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7805,8 +7805,8 @@ export const TestMap = {
         }
         case 8: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7826,8 +7826,8 @@ export const TestMap = {
         }
         case 9: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7847,8 +7847,8 @@ export const TestMap = {
         }
         case 10: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7868,8 +7868,8 @@ export const TestMap = {
         }
         case 11: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7889,8 +7889,8 @@ export const TestMap = {
         }
         case 12: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7910,8 +7910,8 @@ export const TestMap = {
         }
         case 13: {
           reader.readMessage(undefined, () => {
-            let key: boolean;
-            let value: boolean;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7931,8 +7931,8 @@ export const TestMap = {
         }
         case 14: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7952,8 +7952,8 @@ export const TestMap = {
         }
         case 15: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: Uint8Array;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7973,8 +7973,8 @@ export const TestMap = {
         }
         case 16: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: MapEnum;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -7994,8 +7994,8 @@ export const TestMap = {
         }
         case 17: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: ForeignMessage;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8015,8 +8015,8 @@ export const TestMap = {
         }
         case 18: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: ForeignMessage;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8036,8 +8036,8 @@ export const TestMap = {
         }
         case 19: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: TestAllTypes;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8225,8 +8225,8 @@ export const TestMessageMap = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: TestAllTypes;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8303,8 +8303,8 @@ export const TestSameTypeMap = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8324,8 +8324,8 @@ export const TestSameTypeMap = {
         }
         case 2: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8397,8 +8397,8 @@ export const TestRequiredMessageMap = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: TestRequired;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8610,8 +8610,8 @@ export const TestArenaMap = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8631,8 +8631,8 @@ export const TestArenaMap = {
         }
         case 2: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8652,8 +8652,8 @@ export const TestArenaMap = {
         }
         case 3: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8673,8 +8673,8 @@ export const TestArenaMap = {
         }
         case 4: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8694,8 +8694,8 @@ export const TestArenaMap = {
         }
         case 5: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8715,8 +8715,8 @@ export const TestArenaMap = {
         }
         case 6: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8736,8 +8736,8 @@ export const TestArenaMap = {
         }
         case 7: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8757,8 +8757,8 @@ export const TestArenaMap = {
         }
         case 8: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8778,8 +8778,8 @@ export const TestArenaMap = {
         }
         case 9: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8799,8 +8799,8 @@ export const TestArenaMap = {
         }
         case 10: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8820,8 +8820,8 @@ export const TestArenaMap = {
         }
         case 11: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8841,8 +8841,8 @@ export const TestArenaMap = {
         }
         case 12: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8862,8 +8862,8 @@ export const TestArenaMap = {
         }
         case 13: {
           reader.readMessage(undefined, () => {
-            let key: boolean;
-            let value: boolean;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8883,8 +8883,8 @@ export const TestArenaMap = {
         }
         case 14: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8904,8 +8904,8 @@ export const TestArenaMap = {
         }
         case 15: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: Uint8Array;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8925,8 +8925,8 @@ export const TestArenaMap = {
         }
         case 16: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: MapEnum;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -8946,8 +8946,8 @@ export const TestArenaMap = {
         }
         case 17: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: ForeignMessage;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -9082,8 +9082,8 @@ export const MessageContainingMapCalledEntry = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -9151,8 +9151,8 @@ export const TestRecursiveMapMessage = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: TestRecursiveMapMessage;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -17538,8 +17538,8 @@ export const TestHugeFieldNumbers = {
         }
         case 536870010: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18112,8 +18112,8 @@ export const TestMap = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18133,8 +18133,8 @@ export const TestMap = {
         }
         case 2: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18154,8 +18154,8 @@ export const TestMap = {
         }
         case 3: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18175,8 +18175,8 @@ export const TestMap = {
         }
         case 4: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18196,8 +18196,8 @@ export const TestMap = {
         }
         case 5: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18217,8 +18217,8 @@ export const TestMap = {
         }
         case 6: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18238,8 +18238,8 @@ export const TestMap = {
         }
         case 7: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18259,8 +18259,8 @@ export const TestMap = {
         }
         case 8: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18280,8 +18280,8 @@ export const TestMap = {
         }
         case 9: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18301,8 +18301,8 @@ export const TestMap = {
         }
         case 10: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18322,8 +18322,8 @@ export const TestMap = {
         }
         case 11: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18343,8 +18343,8 @@ export const TestMap = {
         }
         case 12: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18364,8 +18364,8 @@ export const TestMap = {
         }
         case 13: {
           reader.readMessage(undefined, () => {
-            let key: boolean;
-            let value: boolean;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18385,8 +18385,8 @@ export const TestMap = {
         }
         case 14: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18406,8 +18406,8 @@ export const TestMap = {
         }
         case 15: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: Uint8Array;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18427,8 +18427,8 @@ export const TestMap = {
         }
         case 16: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: MapEnum;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18448,8 +18448,8 @@ export const TestMap = {
         }
         case 17: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: ForeignMessage;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18469,8 +18469,8 @@ export const TestMap = {
         }
         case 18: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: ForeignMessage;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18490,8 +18490,8 @@ export const TestMap = {
         }
         case 19: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: TestAllTypes;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18679,8 +18679,8 @@ export const TestMessageMap = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: TestAllTypes;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18757,8 +18757,8 @@ export const TestSameTypeMap = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18778,8 +18778,8 @@ export const TestSameTypeMap = {
         }
         case 2: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -18851,8 +18851,8 @@ export const TestRequiredMessageMap = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: TestRequired;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19064,8 +19064,8 @@ export const TestArenaMap = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19085,8 +19085,8 @@ export const TestArenaMap = {
         }
         case 2: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19106,8 +19106,8 @@ export const TestArenaMap = {
         }
         case 3: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19127,8 +19127,8 @@ export const TestArenaMap = {
         }
         case 4: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19148,8 +19148,8 @@ export const TestArenaMap = {
         }
         case 5: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19169,8 +19169,8 @@ export const TestArenaMap = {
         }
         case 6: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19190,8 +19190,8 @@ export const TestArenaMap = {
         }
         case 7: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19211,8 +19211,8 @@ export const TestArenaMap = {
         }
         case 8: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19232,8 +19232,8 @@ export const TestArenaMap = {
         }
         case 9: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19253,8 +19253,8 @@ export const TestArenaMap = {
         }
         case 10: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19274,8 +19274,8 @@ export const TestArenaMap = {
         }
         case 11: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19295,8 +19295,8 @@ export const TestArenaMap = {
         }
         case 12: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19316,8 +19316,8 @@ export const TestArenaMap = {
         }
         case 13: {
           reader.readMessage(undefined, () => {
-            let key: boolean;
-            let value: boolean;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19337,8 +19337,8 @@ export const TestArenaMap = {
         }
         case 14: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: string;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19358,8 +19358,8 @@ export const TestArenaMap = {
         }
         case 15: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: Uint8Array;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19379,8 +19379,8 @@ export const TestArenaMap = {
         }
         case 16: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: MapEnum;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19400,8 +19400,8 @@ export const TestArenaMap = {
         }
         case 17: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: ForeignMessage;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19536,8 +19536,8 @@ export const MessageContainingMapCalledEntry = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: number;
-            let value: number;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {
@@ -19605,8 +19605,8 @@ export const TestRecursiveMapMessage = {
       switch (field) {
         case 1: {
           reader.readMessage(undefined, () => {
-            let key: string;
-            let value: TestRecursiveMapMessage;
+            let key;
+            let value;
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
               switch (field) {

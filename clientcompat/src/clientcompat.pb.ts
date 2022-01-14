@@ -130,9 +130,9 @@ export namespace ClientCompatMessage {
 //========================================//
 
 export const Empty = {
-  writeMessage: function (msg: Empty, writer: BinaryWriter): void {},
+  writeMessage: function (msg: Partial<Empty>, writer: BinaryWriter): void {},
 
-  encode: function (empty: Empty): Uint8Array {
+  encode: function (empty: Partial<Empty>): Uint8Array {
     const writer = new BinaryWriter();
     Empty.writeMessage(empty, writer);
     return writer.getResultBuffer();
@@ -163,13 +163,13 @@ export const Empty = {
 };
 
 export const Req = {
-  writeMessage: function (msg: Req, writer: BinaryWriter): void {
+  writeMessage: function (msg: Partial<Req>, writer: BinaryWriter): void {
     if (msg.v) {
       writer.writeString(1, msg.v);
     }
   },
 
-  encode: function (req: Req): Uint8Array {
+  encode: function (req: Partial<Req>): Uint8Array {
     const writer = new BinaryWriter();
     Req.writeMessage(req, writer);
     return writer.getResultBuffer();
@@ -209,13 +209,13 @@ export const Req = {
 };
 
 export const Resp = {
-  writeMessage: function (msg: Resp, writer: BinaryWriter): void {
+  writeMessage: function (msg: Partial<Resp>, writer: BinaryWriter): void {
     if (msg.v) {
       writer.writeInt32(1, msg.v);
     }
   },
 
-  encode: function (resp: Resp): Uint8Array {
+  encode: function (resp: Partial<Resp>): Uint8Array {
     const writer = new BinaryWriter();
     Resp.writeMessage(resp, writer);
     return writer.getResultBuffer();
@@ -256,7 +256,7 @@ export const Resp = {
 
 export const ClientCompatMessage = {
   writeMessage: function (
-    msg: ClientCompatMessage,
+    msg: Partial<ClientCompatMessage>,
     writer: BinaryWriter
   ): void {
     if (msg.service_address) {
@@ -270,7 +270,9 @@ export const ClientCompatMessage = {
     }
   },
 
-  encode: function (clientCompatMessage: ClientCompatMessage): Uint8Array {
+  encode: function (
+    clientCompatMessage: Partial<ClientCompatMessage>
+  ): Uint8Array {
     const writer = new BinaryWriter();
     ClientCompatMessage.writeMessage(clientCompatMessage, writer);
     return writer.getResultBuffer();

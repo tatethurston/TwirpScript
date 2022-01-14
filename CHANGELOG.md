@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.0.38
+
+- Bug Fix: remove types from js map output by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/83
+- The generated message protobuf encoders now accept partials by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/84
+- TypeScript types for map are now inlined into the generated interface by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/85
+
+**Full Changelog**: https://github.com/tatethurston/TwirpScript/compare/v0.0.37...v0.0.38
+
 ## v0.0.37
 
 - Fix map generation for JavaScript clients by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/78

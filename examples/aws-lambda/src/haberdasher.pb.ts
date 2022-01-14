@@ -111,13 +111,13 @@ export interface Hat {
 //========================================//
 
 export const Size = {
-  writeMessage: function (msg: Size, writer: BinaryWriter): void {
+  writeMessage: function (msg: Partial<Size>, writer: BinaryWriter): void {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
     }
   },
 
-  encode: function (size: Size): Uint8Array {
+  encode: function (size: Partial<Size>): Uint8Array {
     const writer = new BinaryWriter();
     Size.writeMessage(size, writer);
     return writer.getResultBuffer();
@@ -157,7 +157,7 @@ export const Size = {
 };
 
 export const Hat = {
-  writeMessage: function (msg: Hat, writer: BinaryWriter): void {
+  writeMessage: function (msg: Partial<Hat>, writer: BinaryWriter): void {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
     }
@@ -169,7 +169,7 @@ export const Hat = {
     }
   },
 
-  encode: function (hat: Hat): Uint8Array {
+  encode: function (hat: Partial<Hat>): Uint8Array {
     const writer = new BinaryWriter();
     Hat.writeMessage(hat, writer);
     return writer.getResultBuffer();

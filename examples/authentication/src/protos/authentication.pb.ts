@@ -100,7 +100,10 @@ export interface Credentials {
 //========================================//
 
 export const CurrentUser = {
-  writeMessage: function (msg: CurrentUser, writer: BinaryWriter): void {
+  writeMessage: function (
+    msg: Partial<CurrentUser>,
+    writer: BinaryWriter
+  ): void {
     if (msg.username) {
       writer.writeString(1, msg.username);
     }
@@ -109,7 +112,7 @@ export const CurrentUser = {
     }
   },
 
-  encode: function (currentUser: CurrentUser): Uint8Array {
+  encode: function (currentUser: Partial<CurrentUser>): Uint8Array {
     const writer = new BinaryWriter();
     CurrentUser.writeMessage(currentUser, writer);
     return writer.getResultBuffer();
@@ -160,7 +163,10 @@ export const CurrentUser = {
 };
 
 export const Credentials = {
-  writeMessage: function (msg: Credentials, writer: BinaryWriter): void {
+  writeMessage: function (
+    msg: Partial<Credentials>,
+    writer: BinaryWriter
+  ): void {
     if (msg.username) {
       writer.writeString(1, msg.username);
     }
@@ -169,7 +175,7 @@ export const Credentials = {
     }
   },
 
-  encode: function (credentials: Credentials): Uint8Array {
+  encode: function (credentials: Partial<Credentials>): Uint8Array {
     const writer = new BinaryWriter();
     Credentials.writeMessage(credentials, writer);
     return writer.getResultBuffer();

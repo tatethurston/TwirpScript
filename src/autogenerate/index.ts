@@ -61,7 +61,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
       case "message": {
         result += `
         writeMessage: function(msg ${printIfTypescript(
-          `: ${node.content.fullyQualifiedName}`
+          `: Partial<${node.content.fullyQualifiedName}>`
         )}, writer${printIfTypescript(`: BinaryWriter`)})${printIfTypescript(
           `: void`
         )} {
@@ -69,7 +69,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             .map((field) => {
               let res = "";
               if (field.repeated) {
-                res += `if (msg.${field.name}.length > 0) {`;
+                res += `if (msg.${field.name}?.length) {`;
               } else if (field.optional) {
                 res += `if (msg.${field.name} != undefined) {`;
               } else {
@@ -91,7 +91,9 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                     mapWriter.${
                       map.content.fields[0].write
                     }(1, key${printIfTypescript(" as any")});
-                    mapWriter.${map.content.fields[1].write}(2, msg.foo[key]);
+                    mapWriter.${map.content.fields[1].write}(2, msg.${
+                  field.name
+                }${printIfTypescript("!")}[key]);
                   });
                 }`;
               } else {
@@ -105,7 +107,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
         },
         
         encode: function(${lowerCase(node.content.name)}${printIfTypescript(
-          `: ${node.content.fullyQualifiedName}`
+          `: Partial<${node.content.fullyQualifiedName}>`
         )})${printIfTypescript(`: Uint8Array`)} {
           const writer = new BinaryWriter();
           ${node.content.fullyQualifiedName}.writeMessage(${lowerCase(
@@ -209,7 +211,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             .map(
               (field) => `\
                 ${
-                  !field.repeated && !field.optional
+                  !field.repeated && !field.optional && field.read !== "map"
                     ? `if (!msg.${field.name}) {
                       msg.${field.name} = ${
                         field.read === "readMessage"

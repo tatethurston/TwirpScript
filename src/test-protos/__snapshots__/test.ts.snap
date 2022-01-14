@@ -21791,7 +21791,7 @@ export interface TestHugeFieldNumbers {
   optional_string: string;
   optional_bytes: Uint8Array;
   optional_message: ForeignMessage;
-  string_string_map: TestHugeFieldNumbers.StringStringMap;
+  string_string_map: Record<string, string | undefined>;
   oneof_uint32?: number;
   oneof_test_all_types?: TestAllTypes;
   oneof_string?: string;
@@ -21802,8 +21802,6 @@ export namespace TestHugeFieldNumbers {
   export interface OptionalGroup {
     group_a: number;
   }
-
-  export type StringStringMap = Record<string, string | undefined>;
 }
 
 export interface TestExtensionInsideTable {
@@ -29747,71 +29745,25 @@ export type MapEnum = typeof MapEnum[keyof typeof MapEnum];
  * Tests maps.
  */
 export interface TestMap {
-  map_int32_int32: TestMap.MapInt32Int32;
-  map_int64_int64: TestMap.MapInt64Int64;
-  map_uint32_uint32: TestMap.MapUint32Uint32;
-  map_uint64_uint64: TestMap.MapUint64Uint64;
-  map_sint32_sint32: TestMap.MapSint32Sint32;
-  map_sint64_sint64: TestMap.MapSint64Sint64;
-  map_fixed32_fixed32: TestMap.MapFixed32Fixed32;
-  map_fixed64_fixed64: TestMap.MapFixed64Fixed64;
-  map_sfixed32_sfixed32: TestMap.MapSfixed32Sfixed32;
-  map_sfixed64_sfixed64: TestMap.MapSfixed64Sfixed64;
-  map_int32_float: TestMap.MapInt32Float;
-  map_int32_double: TestMap.MapInt32Double;
-  map_bool_bool: TestMap.MapBoolBool;
-  map_string_string: TestMap.MapStringString;
-  map_int32_bytes: TestMap.MapInt32Bytes;
-  map_int32_enum: TestMap.MapInt32Enum;
-  map_int32_foreign_message: TestMap.MapInt32ForeignMessage;
-  map_string_foreign_message: TestMap.MapStringForeignMessage;
-  map_int32_all_types: TestMap.MapInt32AllTypes;
-}
-
-export namespace TestMap {
-  export type MapInt32Int32 = Record<number, number | undefined>;
-
-  export type MapInt64Int64 = Record<string, string | undefined>;
-
-  export type MapUint32Uint32 = Record<number, number | undefined>;
-
-  export type MapUint64Uint64 = Record<string, string | undefined>;
-
-  export type MapSint32Sint32 = Record<number, number | undefined>;
-
-  export type MapSint64Sint64 = Record<string, string | undefined>;
-
-  export type MapFixed32Fixed32 = Record<number, number | undefined>;
-
-  export type MapFixed64Fixed64 = Record<string, string | undefined>;
-
-  export type MapSfixed32Sfixed32 = Record<number, number | undefined>;
-
-  export type MapSfixed64Sfixed64 = Record<string, string | undefined>;
-
-  export type MapInt32Float = Record<number, number | undefined>;
-
-  export type MapInt32Double = Record<number, number | undefined>;
-
-  export type MapBoolBool = Record<boolean, boolean | undefined>;
-
-  export type MapStringString = Record<string, string | undefined>;
-
-  export type MapInt32Bytes = Record<number, Uint8Array | undefined>;
-
-  export type MapInt32Enum = Record<number, MapEnum | undefined>;
-
-  export type MapInt32ForeignMessage = Record<
-    number,
-    ForeignMessage | undefined
-  >;
-
-  export type MapStringForeignMessage = Record<
-    string,
-    ForeignMessage | undefined
-  >;
-
-  export type MapInt32AllTypes = Record<number, TestAllTypes | undefined>;
+  map_int32_int32: Record<number, number | undefined>;
+  map_int64_int64: Record<string, string | undefined>;
+  map_uint32_uint32: Record<number, number | undefined>;
+  map_uint64_uint64: Record<string, string | undefined>;
+  map_sint32_sint32: Record<number, number | undefined>;
+  map_sint64_sint64: Record<string, string | undefined>;
+  map_fixed32_fixed32: Record<number, number | undefined>;
+  map_fixed64_fixed64: Record<string, string | undefined>;
+  map_sfixed32_sfixed32: Record<number, number | undefined>;
+  map_sfixed64_sfixed64: Record<string, string | undefined>;
+  map_int32_float: Record<number, number | undefined>;
+  map_int32_double: Record<number, number | undefined>;
+  map_bool_bool: Record<boolean, boolean | undefined>;
+  map_string_string: Record<string, string | undefined>;
+  map_int32_bytes: Record<number, Uint8Array | undefined>;
+  map_int32_enum: Record<number, MapEnum | undefined>;
+  map_int32_foreign_message: Record<number, ForeignMessage | undefined>;
+  map_string_foreign_message: Record<string, ForeignMessage | undefined>;
+  map_int32_all_types: Record<number, TestAllTypes | undefined>;
 }
 
 export interface TestMapSubmessage {
@@ -29819,114 +29771,53 @@ export interface TestMapSubmessage {
 }
 
 export interface TestMessageMap {
-  map_int32_message: TestMessageMap.MapInt32Message;
-}
-
-export namespace TestMessageMap {
-  export type MapInt32Message = Record<number, TestAllTypes | undefined>;
+  map_int32_message: Record<number, TestAllTypes | undefined>;
 }
 
 /**
  * Two map fields share the same entry default instance.
  */
 export interface TestSameTypeMap {
-  map1: TestSameTypeMap.Map1;
-  map2: TestSameTypeMap.Map2;
-}
-
-export namespace TestSameTypeMap {
-  export type Map1 = Record<number, number | undefined>;
-
-  export type Map2 = Record<number, number | undefined>;
+  map1: Record<number, number | undefined>;
+  map2: Record<number, number | undefined>;
 }
 
 /**
  * Test embedded message with required fields
  */
 export interface TestRequiredMessageMap {
-  map_field: TestRequiredMessageMap.MapField;
-}
-
-export namespace TestRequiredMessageMap {
-  export type MapField = Record<number, TestRequired | undefined>;
+  map_field: Record<number, TestRequired | undefined>;
 }
 
 export interface TestArenaMap {
-  map_int32_int32: TestArenaMap.MapInt32Int32;
-  map_int64_int64: TestArenaMap.MapInt64Int64;
-  map_uint32_uint32: TestArenaMap.MapUint32Uint32;
-  map_uint64_uint64: TestArenaMap.MapUint64Uint64;
-  map_sint32_sint32: TestArenaMap.MapSint32Sint32;
-  map_sint64_sint64: TestArenaMap.MapSint64Sint64;
-  map_fixed32_fixed32: TestArenaMap.MapFixed32Fixed32;
-  map_fixed64_fixed64: TestArenaMap.MapFixed64Fixed64;
-  map_sfixed32_sfixed32: TestArenaMap.MapSfixed32Sfixed32;
-  map_sfixed64_sfixed64: TestArenaMap.MapSfixed64Sfixed64;
-  map_int32_float: TestArenaMap.MapInt32Float;
-  map_int32_double: TestArenaMap.MapInt32Double;
-  map_bool_bool: TestArenaMap.MapBoolBool;
-  map_string_string: TestArenaMap.MapStringString;
-  map_int32_bytes: TestArenaMap.MapInt32Bytes;
-  map_int32_enum: TestArenaMap.MapInt32Enum;
-  map_int32_foreign_message: TestArenaMap.MapInt32ForeignMessage;
-}
-
-export namespace TestArenaMap {
-  export type MapInt32Int32 = Record<number, number | undefined>;
-
-  export type MapInt64Int64 = Record<string, string | undefined>;
-
-  export type MapUint32Uint32 = Record<number, number | undefined>;
-
-  export type MapUint64Uint64 = Record<string, string | undefined>;
-
-  export type MapSint32Sint32 = Record<number, number | undefined>;
-
-  export type MapSint64Sint64 = Record<string, string | undefined>;
-
-  export type MapFixed32Fixed32 = Record<number, number | undefined>;
-
-  export type MapFixed64Fixed64 = Record<string, string | undefined>;
-
-  export type MapSfixed32Sfixed32 = Record<number, number | undefined>;
-
-  export type MapSfixed64Sfixed64 = Record<string, string | undefined>;
-
-  export type MapInt32Float = Record<number, number | undefined>;
-
-  export type MapInt32Double = Record<number, number | undefined>;
-
-  export type MapBoolBool = Record<boolean, boolean | undefined>;
-
-  export type MapStringString = Record<string, string | undefined>;
-
-  export type MapInt32Bytes = Record<number, Uint8Array | undefined>;
-
-  export type MapInt32Enum = Record<number, MapEnum | undefined>;
-
-  export type MapInt32ForeignMessage = Record<
-    number,
-    ForeignMessage | undefined
-  >;
+  map_int32_int32: Record<number, number | undefined>;
+  map_int64_int64: Record<string, string | undefined>;
+  map_uint32_uint32: Record<number, number | undefined>;
+  map_uint64_uint64: Record<string, string | undefined>;
+  map_sint32_sint32: Record<number, number | undefined>;
+  map_sint64_sint64: Record<string, string | undefined>;
+  map_fixed32_fixed32: Record<number, number | undefined>;
+  map_fixed64_fixed64: Record<string, string | undefined>;
+  map_sfixed32_sfixed32: Record<number, number | undefined>;
+  map_sfixed64_sfixed64: Record<string, string | undefined>;
+  map_int32_float: Record<number, number | undefined>;
+  map_int32_double: Record<number, number | undefined>;
+  map_bool_bool: Record<boolean, boolean | undefined>;
+  map_string_string: Record<string, string | undefined>;
+  map_int32_bytes: Record<number, Uint8Array | undefined>;
+  map_int32_enum: Record<number, MapEnum | undefined>;
+  map_int32_foreign_message: Record<number, ForeignMessage | undefined>;
 }
 
 /**
  * Previously, message cannot contain map field called \\"entry\\".
  */
 export interface MessageContainingMapCalledEntry {
-  entry: MessageContainingMapCalledEntry.Entry;
-}
-
-export namespace MessageContainingMapCalledEntry {
-  export type Entry = Record<number, number | undefined>;
+  entry: Record<number, number | undefined>;
 }
 
 export interface TestRecursiveMapMessage {
-  a: TestRecursiveMapMessage.A;
-}
-
-export namespace TestRecursiveMapMessage {
-  export type A = Record<string, TestRecursiveMapMessage | undefined>;
+  a: Record<string, TestRecursiveMapMessage | undefined>;
 }
 
 //========================================//
@@ -34207,7 +34098,7 @@ export interface TestHugeFieldNumbers {
   optional_string: string;
   optional_bytes: Uint8Array;
   optional_message: ForeignMessage;
-  string_string_map: TestHugeFieldNumbers.StringStringMap;
+  string_string_map: Record<string, string | undefined>;
   oneof_uint32?: number;
   oneof_test_all_types?: TestAllTypes;
   oneof_string?: string;
@@ -34218,8 +34109,6 @@ export namespace TestHugeFieldNumbers {
   export interface OptionalGroup {
     group_a: number;
   }
-
-  export type StringStringMap = Record<string, string | undefined>;
 }
 
 export interface TestExtensionInsideTable {
@@ -42170,71 +42059,25 @@ export type MapEnum = typeof MapEnum[keyof typeof MapEnum];
  * Tests maps.
  */
 export interface TestMap {
-  map_int32_int32: TestMap.MapInt32Int32;
-  map_int64_int64: TestMap.MapInt64Int64;
-  map_uint32_uint32: TestMap.MapUint32Uint32;
-  map_uint64_uint64: TestMap.MapUint64Uint64;
-  map_sint32_sint32: TestMap.MapSint32Sint32;
-  map_sint64_sint64: TestMap.MapSint64Sint64;
-  map_fixed32_fixed32: TestMap.MapFixed32Fixed32;
-  map_fixed64_fixed64: TestMap.MapFixed64Fixed64;
-  map_sfixed32_sfixed32: TestMap.MapSfixed32Sfixed32;
-  map_sfixed64_sfixed64: TestMap.MapSfixed64Sfixed64;
-  map_int32_float: TestMap.MapInt32Float;
-  map_int32_double: TestMap.MapInt32Double;
-  map_bool_bool: TestMap.MapBoolBool;
-  map_string_string: TestMap.MapStringString;
-  map_int32_bytes: TestMap.MapInt32Bytes;
-  map_int32_enum: TestMap.MapInt32Enum;
-  map_int32_foreign_message: TestMap.MapInt32ForeignMessage;
-  map_string_foreign_message: TestMap.MapStringForeignMessage;
-  map_int32_all_types: TestMap.MapInt32AllTypes;
-}
-
-export namespace TestMap {
-  export type MapInt32Int32 = Record<number, number | undefined>;
-
-  export type MapInt64Int64 = Record<string, string | undefined>;
-
-  export type MapUint32Uint32 = Record<number, number | undefined>;
-
-  export type MapUint64Uint64 = Record<string, string | undefined>;
-
-  export type MapSint32Sint32 = Record<number, number | undefined>;
-
-  export type MapSint64Sint64 = Record<string, string | undefined>;
-
-  export type MapFixed32Fixed32 = Record<number, number | undefined>;
-
-  export type MapFixed64Fixed64 = Record<string, string | undefined>;
-
-  export type MapSfixed32Sfixed32 = Record<number, number | undefined>;
-
-  export type MapSfixed64Sfixed64 = Record<string, string | undefined>;
-
-  export type MapInt32Float = Record<number, number | undefined>;
-
-  export type MapInt32Double = Record<number, number | undefined>;
-
-  export type MapBoolBool = Record<boolean, boolean | undefined>;
-
-  export type MapStringString = Record<string, string | undefined>;
-
-  export type MapInt32Bytes = Record<number, Uint8Array | undefined>;
-
-  export type MapInt32Enum = Record<number, MapEnum | undefined>;
-
-  export type MapInt32ForeignMessage = Record<
-    number,
-    ForeignMessage | undefined
-  >;
-
-  export type MapStringForeignMessage = Record<
-    string,
-    ForeignMessage | undefined
-  >;
-
-  export type MapInt32AllTypes = Record<number, TestAllTypes | undefined>;
+  map_int32_int32: Record<number, number | undefined>;
+  map_int64_int64: Record<string, string | undefined>;
+  map_uint32_uint32: Record<number, number | undefined>;
+  map_uint64_uint64: Record<string, string | undefined>;
+  map_sint32_sint32: Record<number, number | undefined>;
+  map_sint64_sint64: Record<string, string | undefined>;
+  map_fixed32_fixed32: Record<number, number | undefined>;
+  map_fixed64_fixed64: Record<string, string | undefined>;
+  map_sfixed32_sfixed32: Record<number, number | undefined>;
+  map_sfixed64_sfixed64: Record<string, string | undefined>;
+  map_int32_float: Record<number, number | undefined>;
+  map_int32_double: Record<number, number | undefined>;
+  map_bool_bool: Record<boolean, boolean | undefined>;
+  map_string_string: Record<string, string | undefined>;
+  map_int32_bytes: Record<number, Uint8Array | undefined>;
+  map_int32_enum: Record<number, MapEnum | undefined>;
+  map_int32_foreign_message: Record<number, ForeignMessage | undefined>;
+  map_string_foreign_message: Record<string, ForeignMessage | undefined>;
+  map_int32_all_types: Record<number, TestAllTypes | undefined>;
 }
 
 export interface TestMapSubmessage {
@@ -42242,114 +42085,53 @@ export interface TestMapSubmessage {
 }
 
 export interface TestMessageMap {
-  map_int32_message: TestMessageMap.MapInt32Message;
-}
-
-export namespace TestMessageMap {
-  export type MapInt32Message = Record<number, TestAllTypes | undefined>;
+  map_int32_message: Record<number, TestAllTypes | undefined>;
 }
 
 /**
  * Two map fields share the same entry default instance.
  */
 export interface TestSameTypeMap {
-  map1: TestSameTypeMap.Map1;
-  map2: TestSameTypeMap.Map2;
-}
-
-export namespace TestSameTypeMap {
-  export type Map1 = Record<number, number | undefined>;
-
-  export type Map2 = Record<number, number | undefined>;
+  map1: Record<number, number | undefined>;
+  map2: Record<number, number | undefined>;
 }
 
 /**
  * Test embedded message with required fields
  */
 export interface TestRequiredMessageMap {
-  map_field: TestRequiredMessageMap.MapField;
-}
-
-export namespace TestRequiredMessageMap {
-  export type MapField = Record<number, TestRequired | undefined>;
+  map_field: Record<number, TestRequired | undefined>;
 }
 
 export interface TestArenaMap {
-  map_int32_int32: TestArenaMap.MapInt32Int32;
-  map_int64_int64: TestArenaMap.MapInt64Int64;
-  map_uint32_uint32: TestArenaMap.MapUint32Uint32;
-  map_uint64_uint64: TestArenaMap.MapUint64Uint64;
-  map_sint32_sint32: TestArenaMap.MapSint32Sint32;
-  map_sint64_sint64: TestArenaMap.MapSint64Sint64;
-  map_fixed32_fixed32: TestArenaMap.MapFixed32Fixed32;
-  map_fixed64_fixed64: TestArenaMap.MapFixed64Fixed64;
-  map_sfixed32_sfixed32: TestArenaMap.MapSfixed32Sfixed32;
-  map_sfixed64_sfixed64: TestArenaMap.MapSfixed64Sfixed64;
-  map_int32_float: TestArenaMap.MapInt32Float;
-  map_int32_double: TestArenaMap.MapInt32Double;
-  map_bool_bool: TestArenaMap.MapBoolBool;
-  map_string_string: TestArenaMap.MapStringString;
-  map_int32_bytes: TestArenaMap.MapInt32Bytes;
-  map_int32_enum: TestArenaMap.MapInt32Enum;
-  map_int32_foreign_message: TestArenaMap.MapInt32ForeignMessage;
-}
-
-export namespace TestArenaMap {
-  export type MapInt32Int32 = Record<number, number | undefined>;
-
-  export type MapInt64Int64 = Record<string, string | undefined>;
-
-  export type MapUint32Uint32 = Record<number, number | undefined>;
-
-  export type MapUint64Uint64 = Record<string, string | undefined>;
-
-  export type MapSint32Sint32 = Record<number, number | undefined>;
-
-  export type MapSint64Sint64 = Record<string, string | undefined>;
-
-  export type MapFixed32Fixed32 = Record<number, number | undefined>;
-
-  export type MapFixed64Fixed64 = Record<string, string | undefined>;
-
-  export type MapSfixed32Sfixed32 = Record<number, number | undefined>;
-
-  export type MapSfixed64Sfixed64 = Record<string, string | undefined>;
-
-  export type MapInt32Float = Record<number, number | undefined>;
-
-  export type MapInt32Double = Record<number, number | undefined>;
-
-  export type MapBoolBool = Record<boolean, boolean | undefined>;
-
-  export type MapStringString = Record<string, string | undefined>;
-
-  export type MapInt32Bytes = Record<number, Uint8Array | undefined>;
-
-  export type MapInt32Enum = Record<number, MapEnum | undefined>;
-
-  export type MapInt32ForeignMessage = Record<
-    number,
-    ForeignMessage | undefined
-  >;
+  map_int32_int32: Record<number, number | undefined>;
+  map_int64_int64: Record<string, string | undefined>;
+  map_uint32_uint32: Record<number, number | undefined>;
+  map_uint64_uint64: Record<string, string | undefined>;
+  map_sint32_sint32: Record<number, number | undefined>;
+  map_sint64_sint64: Record<string, string | undefined>;
+  map_fixed32_fixed32: Record<number, number | undefined>;
+  map_fixed64_fixed64: Record<string, string | undefined>;
+  map_sfixed32_sfixed32: Record<number, number | undefined>;
+  map_sfixed64_sfixed64: Record<string, string | undefined>;
+  map_int32_float: Record<number, number | undefined>;
+  map_int32_double: Record<number, number | undefined>;
+  map_bool_bool: Record<boolean, boolean | undefined>;
+  map_string_string: Record<string, string | undefined>;
+  map_int32_bytes: Record<number, Uint8Array | undefined>;
+  map_int32_enum: Record<number, MapEnum | undefined>;
+  map_int32_foreign_message: Record<number, ForeignMessage | undefined>;
 }
 
 /**
  * Previously, message cannot contain map field called \\"entry\\".
  */
 export interface MessageContainingMapCalledEntry {
-  entry: MessageContainingMapCalledEntry.Entry;
-}
-
-export namespace MessageContainingMapCalledEntry {
-  export type Entry = Record<number, number | undefined>;
+  entry: Record<number, number | undefined>;
 }
 
 export interface TestRecursiveMapMessage {
-  a: TestRecursiveMapMessage.A;
-}
-
-export namespace TestRecursiveMapMessage {
-  export type A = Record<string, TestRecursiveMapMessage | undefined>;
+  a: Record<string, TestRecursiveMapMessage | undefined>;
 }
 
 //========================================//

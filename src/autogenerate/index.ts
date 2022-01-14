@@ -19,26 +19,40 @@ function writeTypes(types: ProtoTypes[]): string {
     }
     if (node.type === "enum") {
       result += `export type ${name} = typeof ${node.content.fullyQualifiedName}[keyof typeof ${node.content.fullyQualifiedName}];\n\n`;
-    } else if (node.type === "message" && node.content.isMap) {
-      result += `export type ${name} = Record<
-        ${node.content.fields[0].tsType},
-        ${node.content.fields[1].tsType} | undefined>;`;
-      result += `\n\n`;
     } else {
+      // map type is inlined
+      if (node.content.isMap) {
+        return;
+      }
       result += `export interface ${name} {\n`;
       node.content.fields.forEach(
         ({ name: fieldName, tsType, repeated, optional, comments }) => {
           if (comments?.leading) {
             result += printComments(comments?.leading);
           }
-          result += `${fieldName}${optional ? "?" : ""}: ${tsType}${
+
+          const maybeMap = node.children.find(
+            (c) => c.content.fullyQualifiedName === tsType
+          ) as MessageType;
+
+          let _type = tsType;
+          if (maybeMap?.content?.isMap) {
+            _type = `Record<
+              ${maybeMap.content.fields[0].tsType},
+              ${maybeMap.content.fields[1].tsType} | undefined>`;
+          }
+
+          result += `${fieldName}${optional ? "?" : ""}: ${_type}${
             repeated ? "[]" : ""
           };\n`;
         }
       );
       result += "}\n\n";
 
-      if (node.children.length > 0) {
+      if (
+        node.children.filter((x) => !(x.type === "message" && x.content.isMap))
+          .length > 0
+      ) {
         result += `export namespace ${name} { \n`;
         result += writeTypes(node.children) + "\n\n";
         result += `}\n\n`;

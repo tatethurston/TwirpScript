@@ -17,7 +17,7 @@
     "dist/**/*"
   ],
   "scripts": {
-    "build": "yarn clean && yarn build:module && yarn build:commonjs && chmod +x dist/compiler.js dist/cli/index.js && cp src/compiler.cmd dist/compiler.cmd",
+    "build": "yarn clean && yarn build:module && yarn build:commonjs && chmod +x dist/compiler.js dist/cli/index.js dist/test-protos/gen-test-input.js && cp src/compiler.cmd dist/compiler.cmd",
     "build:commonjs": "yarn tsc",
     "build:module": "yarn tsc --module esnext --outDir dist/module",
     "build:watch": "yarn build:commonjs --watch",

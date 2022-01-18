@@ -178,9 +178,7 @@ try {
 
   const protoExt = config.language === "typescript" ? "pb.ts" : "pb.js";
   const protosBeforeCompile = Object.fromEntries(
-    findFiles(destination, protoExt)
-      .map((filepath) => relative(config.root, filepath))
-      .map((file) => [file, checksum(file)])
+    findFiles(destination, protoExt).map((file) => [file, checksum(file)])
   );
 
   const protoc = spawnSync(
@@ -207,9 +205,10 @@ protoc \
     process.exit(1);
   }
 
-  const protosAfterCompile = findFiles(destination, protoExt)
-    .map((filepath) => relative(config.root, filepath))
-    .map((file) => [file, checksum(file)]);
+  const protosAfterCompile = findFiles(destination, protoExt).map((file) => [
+    file,
+    checksum(file),
+  ]);
 
   const created = protosAfterCompile.filter(
     (file) => !protosBeforeCompile[file[0]]

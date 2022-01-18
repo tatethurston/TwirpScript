@@ -100,28 +100,56 @@ export interface Credentials {
 //========================================//
 
 export const CurrentUser = {
-  writeMessage: function (
+  /**
+   * Serializes a CurrentUser to protobuf.
+   */
+  encode: function (currentUser: Partial<CurrentUser>): Uint8Array {
+    return CurrentUser._writeMessage(
+      currentUser,
+      new BinaryWriter()
+    ).getResultBuffer();
+  },
+
+  /**
+   * Deserializes a CurrentUser from protobuf.
+   */
+  decode: function (bytes: ByteSource): CurrentUser {
+    return CurrentUser._readMessage(
+      CurrentUser.initialize(),
+      new BinaryReader(bytes)
+    );
+  },
+
+  /**
+   * Initializes a CurrentUser with all fields set to their default value.
+   */
+  initialize: function (): CurrentUser {
+    return {
+      username: "",
+      token: "",
+    };
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
     msg: Partial<CurrentUser>,
     writer: BinaryWriter
-  ): void {
+  ): BinaryWriter {
     if (msg.username) {
       writer.writeString(1, msg.username);
     }
     if (msg.token) {
       writer.writeString(2, msg.token);
     }
+    return writer;
   },
 
-  encode: function (currentUser: Partial<CurrentUser>): Uint8Array {
-    const writer = new BinaryWriter();
-    CurrentUser.writeMessage(currentUser, writer);
-    return writer.getResultBuffer();
-  },
-
-  readMessage: function (
-    msg: Partial<CurrentUser>,
-    reader: BinaryReader
-  ): void {
+  /**
+   * @private
+   */
+  _readMessage: function (msg: CurrentUser, reader: BinaryReader): CurrentUser {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -139,52 +167,61 @@ export const CurrentUser = {
         }
       }
     }
-    if (!msg.username) {
-      msg.username = "";
-    }
-    if (!msg.token) {
-      msg.token = "";
-    }
-  },
-
-  decode: function (bytes: ByteSource): CurrentUser {
-    const reader = new BinaryReader(bytes);
-    const message = {};
-    CurrentUser.readMessage(message, reader);
-    return message as CurrentUser;
-  },
-
-  defaultValue: function (): CurrentUser {
-    return {
-      username: "",
-      token: "",
-    };
+    return msg;
   },
 };
 
 export const Credentials = {
-  writeMessage: function (
+  /**
+   * Serializes a Credentials to protobuf.
+   */
+  encode: function (credentials: Partial<Credentials>): Uint8Array {
+    return Credentials._writeMessage(
+      credentials,
+      new BinaryWriter()
+    ).getResultBuffer();
+  },
+
+  /**
+   * Deserializes a Credentials from protobuf.
+   */
+  decode: function (bytes: ByteSource): Credentials {
+    return Credentials._readMessage(
+      Credentials.initialize(),
+      new BinaryReader(bytes)
+    );
+  },
+
+  /**
+   * Initializes a Credentials with all fields set to their default value.
+   */
+  initialize: function (): Credentials {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
     msg: Partial<Credentials>,
     writer: BinaryWriter
-  ): void {
+  ): BinaryWriter {
     if (msg.username) {
       writer.writeString(1, msg.username);
     }
     if (msg.password) {
       writer.writeString(2, msg.password);
     }
+    return writer;
   },
 
-  encode: function (credentials: Partial<Credentials>): Uint8Array {
-    const writer = new BinaryWriter();
-    Credentials.writeMessage(credentials, writer);
-    return writer.getResultBuffer();
-  },
-
-  readMessage: function (
-    msg: Partial<Credentials>,
-    reader: BinaryReader
-  ): void {
+  /**
+   * @private
+   */
+  _readMessage: function (msg: Credentials, reader: BinaryReader): Credentials {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -202,25 +239,6 @@ export const Credentials = {
         }
       }
     }
-    if (!msg.username) {
-      msg.username = "";
-    }
-    if (!msg.password) {
-      msg.password = "";
-    }
-  },
-
-  decode: function (bytes: ByteSource): Credentials {
-    const reader = new BinaryReader(bytes);
-    const message = {};
-    Credentials.readMessage(message, reader);
-    return message as Credentials;
-  },
-
-  defaultValue: function (): Credentials {
-    return {
-      username: "",
-      password: "",
-    };
+    return msg;
   },
 };

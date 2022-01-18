@@ -3,12 +3,13 @@ syntax = "proto3";
 message Foo {
   int32 field_one = 1;
   map<string, int32> field_two = 2;
-  Bar bar = 3;
-  repeated int32 field_four = 4;
+  repeated Bar field_three = 3;
+  Bar field_four = 4;
+  repeated int32 field_five = 5;
 }
 
 message Bar {
   string field_one = 1;
   map<string, int32> field_two = 2;
-  repeated int32 field_four = 3;
+  repeated int32 field_three = 3;
 }

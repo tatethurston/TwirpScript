@@ -59,19 +59,43 @@ export function createHaberdasherHandler(service) {
 //========================================//
 
 export const Size = {
-  writeMessage: function (msg, writer) {
+  /**
+   * Serializes a Size to protobuf.
+   */
+  encode: function (size) {
+    return Size._writeMessage(size, new BinaryWriter()).getResultBuffer();
+  },
+
+  /**
+   * Deserializes a Size from protobuf.
+   */
+  decode: function (bytes) {
+    return Size._readMessage(Size.initialize(), new BinaryReader(bytes));
+  },
+
+  /**
+   * Initializes a Size with all fields set to their default value.
+   */
+  initialize: function () {
+    return {
+      inches: 0,
+    };
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (msg, writer) {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
     }
+    return writer;
   },
 
-  encode: function (size) {
-    const writer = new BinaryWriter();
-    Size.writeMessage(size, writer);
-    return writer.getResultBuffer();
-  },
-
-  readMessage: function (msg, reader) {
+  /**
+   * @private
+   */
+  _readMessage: function (msg, reader) {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -85,27 +109,40 @@ export const Size = {
         }
       }
     }
-    if (!msg.inches) {
-      msg.inches = 0;
-    }
-  },
-
-  decode: function (bytes) {
-    const reader = new BinaryReader(bytes);
-    const message = {};
-    Size.readMessage(message, reader);
-    return message;
-  },
-
-  defaultValue: function () {
-    return {
-      inches: 0,
-    };
+    return msg;
   },
 };
 
 export const Hat = {
-  writeMessage: function (msg, writer) {
+  /**
+   * Serializes a Hat to protobuf.
+   */
+  encode: function (hat) {
+    return Hat._writeMessage(hat, new BinaryWriter()).getResultBuffer();
+  },
+
+  /**
+   * Deserializes a Hat from protobuf.
+   */
+  decode: function (bytes) {
+    return Hat._readMessage(Hat.initialize(), new BinaryReader(bytes));
+  },
+
+  /**
+   * Initializes a Hat with all fields set to their default value.
+   */
+  initialize: function () {
+    return {
+      inches: 0,
+      color: "",
+      name: "",
+    };
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (msg, writer) {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
     }
@@ -115,15 +152,13 @@ export const Hat = {
     if (msg.name) {
       writer.writeString(3, msg.name);
     }
+    return writer;
   },
 
-  encode: function (hat) {
-    const writer = new BinaryWriter();
-    Hat.writeMessage(hat, writer);
-    return writer.getResultBuffer();
-  },
-
-  readMessage: function (msg, reader) {
+  /**
+   * @private
+   */
+  _readMessage: function (msg, reader) {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -145,29 +180,6 @@ export const Hat = {
         }
       }
     }
-    if (!msg.inches) {
-      msg.inches = 0;
-    }
-    if (!msg.color) {
-      msg.color = "";
-    }
-    if (!msg.name) {
-      msg.name = "";
-    }
-  },
-
-  decode: function (bytes) {
-    const reader = new BinaryReader(bytes);
-    const message = {};
-    Hat.readMessage(message, reader);
-    return message;
-  },
-
-  defaultValue: function () {
-    return {
-      inches: 0,
-      color: "",
-      name: "",
-    };
+    return msg;
   },
 };

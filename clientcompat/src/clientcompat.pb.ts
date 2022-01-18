@@ -130,15 +130,41 @@ export namespace ClientCompatMessage {
 //========================================//
 
 export const Empty = {
-  writeMessage: function (msg: Partial<Empty>, writer: BinaryWriter): void {},
-
+  /**
+   * Serializes a Empty to protobuf.
+   */
   encode: function (empty: Partial<Empty>): Uint8Array {
-    const writer = new BinaryWriter();
-    Empty.writeMessage(empty, writer);
-    return writer.getResultBuffer();
+    return Empty._writeMessage(empty, new BinaryWriter()).getResultBuffer();
   },
 
-  readMessage: function (msg: Partial<Empty>, reader: BinaryReader): void {
+  /**
+   * Deserializes a Empty from protobuf.
+   */
+  decode: function (bytes: ByteSource): Empty {
+    return Empty._readMessage(Empty.initialize(), new BinaryReader(bytes));
+  },
+
+  /**
+   * Initializes a Empty with all fields set to their default value.
+   */
+  initialize: function (): Empty {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    msg: Partial<Empty>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (msg: Empty, reader: BinaryReader): Empty {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -148,34 +174,51 @@ export const Empty = {
         }
       }
     }
-  },
-
-  decode: function (bytes: ByteSource): Empty {
-    const reader = new BinaryReader(bytes);
-    const message = {};
-    Empty.readMessage(message, reader);
-    return message as Empty;
-  },
-
-  defaultValue: function (): Empty {
-    return {};
+    return msg;
   },
 };
 
 export const Req = {
-  writeMessage: function (msg: Partial<Req>, writer: BinaryWriter): void {
+  /**
+   * Serializes a Req to protobuf.
+   */
+  encode: function (req: Partial<Req>): Uint8Array {
+    return Req._writeMessage(req, new BinaryWriter()).getResultBuffer();
+  },
+
+  /**
+   * Deserializes a Req from protobuf.
+   */
+  decode: function (bytes: ByteSource): Req {
+    return Req._readMessage(Req.initialize(), new BinaryReader(bytes));
+  },
+
+  /**
+   * Initializes a Req with all fields set to their default value.
+   */
+  initialize: function (): Req {
+    return {
+      v: "",
+    };
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    msg: Partial<Req>,
+    writer: BinaryWriter
+  ): BinaryWriter {
     if (msg.v) {
       writer.writeString(1, msg.v);
     }
+    return writer;
   },
 
-  encode: function (req: Partial<Req>): Uint8Array {
-    const writer = new BinaryWriter();
-    Req.writeMessage(req, writer);
-    return writer.getResultBuffer();
-  },
-
-  readMessage: function (msg: Partial<Req>, reader: BinaryReader): void {
+  /**
+   * @private
+   */
+  _readMessage: function (msg: Req, reader: BinaryReader): Req {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -189,39 +232,51 @@ export const Req = {
         }
       }
     }
-    if (!msg.v) {
-      msg.v = "";
-    }
-  },
-
-  decode: function (bytes: ByteSource): Req {
-    const reader = new BinaryReader(bytes);
-    const message = {};
-    Req.readMessage(message, reader);
-    return message as Req;
-  },
-
-  defaultValue: function (): Req {
-    return {
-      v: "",
-    };
+    return msg;
   },
 };
 
 export const Resp = {
-  writeMessage: function (msg: Partial<Resp>, writer: BinaryWriter): void {
+  /**
+   * Serializes a Resp to protobuf.
+   */
+  encode: function (resp: Partial<Resp>): Uint8Array {
+    return Resp._writeMessage(resp, new BinaryWriter()).getResultBuffer();
+  },
+
+  /**
+   * Deserializes a Resp from protobuf.
+   */
+  decode: function (bytes: ByteSource): Resp {
+    return Resp._readMessage(Resp.initialize(), new BinaryReader(bytes));
+  },
+
+  /**
+   * Initializes a Resp with all fields set to their default value.
+   */
+  initialize: function (): Resp {
+    return {
+      v: 0,
+    };
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    msg: Partial<Resp>,
+    writer: BinaryWriter
+  ): BinaryWriter {
     if (msg.v) {
       writer.writeInt32(1, msg.v);
     }
+    return writer;
   },
 
-  encode: function (resp: Partial<Resp>): Uint8Array {
-    const writer = new BinaryWriter();
-    Resp.writeMessage(resp, writer);
-    return writer.getResultBuffer();
-  },
-
-  readMessage: function (msg: Partial<Resp>, reader: BinaryReader): void {
+  /**
+   * @private
+   */
+  _readMessage: function (msg: Resp, reader: BinaryReader): Resp {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -235,30 +290,51 @@ export const Resp = {
         }
       }
     }
-    if (!msg.v) {
-      msg.v = 0;
-    }
-  },
-
-  decode: function (bytes: ByteSource): Resp {
-    const reader = new BinaryReader(bytes);
-    const message = {};
-    Resp.readMessage(message, reader);
-    return message as Resp;
-  },
-
-  defaultValue: function (): Resp {
-    return {
-      v: 0,
-    };
+    return msg;
   },
 };
 
 export const ClientCompatMessage = {
-  writeMessage: function (
+  /**
+   * Serializes a ClientCompatMessage to protobuf.
+   */
+  encode: function (
+    clientCompatMessage: Partial<ClientCompatMessage>
+  ): Uint8Array {
+    return ClientCompatMessage._writeMessage(
+      clientCompatMessage,
+      new BinaryWriter()
+    ).getResultBuffer();
+  },
+
+  /**
+   * Deserializes a ClientCompatMessage from protobuf.
+   */
+  decode: function (bytes: ByteSource): ClientCompatMessage {
+    return ClientCompatMessage._readMessage(
+      ClientCompatMessage.initialize(),
+      new BinaryReader(bytes)
+    );
+  },
+
+  /**
+   * Initializes a ClientCompatMessage with all fields set to their default value.
+   */
+  initialize: function (): ClientCompatMessage {
+    return {
+      service_address: "",
+      method: 0,
+      request: new Uint8Array(),
+    };
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
     msg: Partial<ClientCompatMessage>,
     writer: BinaryWriter
-  ): void {
+  ): BinaryWriter {
     if (msg.service_address) {
       writer.writeString(1, msg.service_address);
     }
@@ -268,20 +344,16 @@ export const ClientCompatMessage = {
     if (msg.request) {
       writer.writeBytes(3, msg.request);
     }
+    return writer;
   },
 
-  encode: function (
-    clientCompatMessage: Partial<ClientCompatMessage>
-  ): Uint8Array {
-    const writer = new BinaryWriter();
-    ClientCompatMessage.writeMessage(clientCompatMessage, writer);
-    return writer.getResultBuffer();
-  },
-
-  readMessage: function (
-    msg: Partial<ClientCompatMessage>,
+  /**
+   * @private
+   */
+  _readMessage: function (
+    msg: ClientCompatMessage,
     reader: BinaryReader
-  ): void {
+  ): ClientCompatMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -304,30 +376,7 @@ export const ClientCompatMessage = {
         }
       }
     }
-    if (!msg.service_address) {
-      msg.service_address = "";
-    }
-    if (!msg.method) {
-      msg.method = 0;
-    }
-    if (!msg.request) {
-      msg.request = new Uint8Array();
-    }
-  },
-
-  decode: function (bytes: ByteSource): ClientCompatMessage {
-    const reader = new BinaryReader(bytes);
-    const message = {};
-    ClientCompatMessage.readMessage(message, reader);
-    return message as ClientCompatMessage;
-  },
-
-  defaultValue: function (): ClientCompatMessage {
-    return {
-      service_address: "",
-      method: 0,
-      request: new Uint8Array(),
-    };
+    return msg;
   },
 
   CompatServiceMethod: { NOOP: 0, METHOD: 1 } as const,

@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.0.39
+
+- Add TSDoc comments to generated serializer/deserializers by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/90
+- Bug Fix: invalid filepaths generated when using `root` by @arranf in https://github.com/tatethurston/TwirpScript/pull/89
+
+**Full Changelog**: https://github.com/tatethurston/TwirpScript/compare/v0.0.38...v0.0.39
+
 ## v0.0.38
 
 - Bug Fix: remove types from js map output by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/83
@@ -10,7 +17,7 @@
 
 ## v0.0.37
 
-- Fix map generation for JavaScript clients by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/78
+- Bug Fix: map generation for JavaScript clients by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/78
 - Add comment literal escaping by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/79
 - Remove version comment from generated code by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/80
 
@@ -45,7 +52,7 @@ app.on('requestReceived', (ctx, req) => {
 
 3. `requestRouted` and `responsePrepared` are now invoked with the JavaScript object input / output to your handler, rather than the serialized input / output. This should improve debugging workflows, because you may now simply console log the input / output instead of needing to deserialize protobuf human readable output.
 
-- fix client error hook by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/56
+- Bug Fix: client error hook by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/56
 - improve types for context's method and service properties by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/61
 - Tate/service object by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/62
 - context service and method now point to implementation instead of string by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/63

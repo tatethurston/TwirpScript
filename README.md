@@ -639,10 +639,9 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
 <tr>
   <td>language</td>
 <td>
-Whether to generate JavaScript or TypeScript.
+  Whether to generate JavaScript or TypeScript.
 
-If omitted, TwirpScript will attempt to autodetect the language by looking for a `tsconfig.json` in the project root. If found, TwirpScript will generate TypeScript, otherwise JavaScript.
-
+  If omitted, TwirpScript will attempt to autodetect the language by looking for a `tsconfig.json` in the project root. If found, TwirpScript will generate TypeScript, otherwise JavaScript.
 </td>
   <td>javascript | typescript</td>
 </tr>

@@ -21,6 +21,14 @@ function pluralize(str: string, count: number): string {
   return count === 1 ? str : str + "s";
 }
 
+function onCliError(error: string): void {
+  logger.error("Protobuf Compiler Error: \n");
+  console.error(error);
+  console.error();
+  console.error("No .pb.ts files were created or updated.");
+  process.exit(1);
+}
+
 export type UserConfig = Partial<Config>;
 
 type Config = {
@@ -76,6 +84,18 @@ type Config = {
    *   B.pb.ts
    *
    * Setting `dest` to `out`:
+   *
+   * /src
+   *   A.proto
+   *   B.proto
+   * /out
+   *   /src
+   *     A.pb.ts
+   *     B.pb.ts
+   *
+   * Note that the generated directory structure will mirror the `proto` paths exactly as is, only nested under the `dest` directory. If you want to change this, for instance, to omit `src` from the `out` directory above, you can set the `root`.
+   *
+   * Setting `root` to `src`:
    *
    * /src
    *   A.proto
@@ -199,10 +219,7 @@ protoc \
   );
 
   if (protoc.stderr) {
-    logger.error("Protobuf Compiler Error: \n");
-    console.error(protoc.stderr);
-    console.error("No .pb.ts files were created or updated.");
-    process.exit(1);
+    onCliError(protoc.stderr);
   }
 
   const protosAfterCompile = findFiles(destination, protoExt).map((file) => [
@@ -244,5 +261,5 @@ protoc \
     } ${pluralize("file", protos.length)} found.`
   );
 } catch (error) {
-  process.exit(1);
+  onCliError(error as string);
 }

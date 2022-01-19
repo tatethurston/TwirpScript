@@ -619,6 +619,20 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
     A.proto
     B.proto
   /out
+    /src
+      A.pb.ts
+      B.pb.ts
+  ```
+  
+  Note that the generated directory structure will mirror the `proto` paths exactly as is, only nested under the `dest` directory. If you want to change this, for instance, to omit `src` from the `out` directory above, you can set the `root`.
+  
+  Setting `root` to `src`:
+  
+  ```
+  /src
+    A.proto
+    B.proto
+  /out
     A.pb.ts
     B.pb.ts
   ```

@@ -590,7 +590,6 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
   The destination folder for generated files.
  
   Defaults to colocating generated files with the corresponding `proto` definition.
-  Example:
  
   If we have the following project structure:
  
@@ -599,8 +598,6 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
     A.proto
     B.proto
   ```
- 
-  Default:
  
   TwirpScript will generate the following:
  
@@ -612,7 +609,7 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
     B.pb.ts
   ```
  
-  Setting `dest` to `out`:
+  Setting `dest` to `out` will generate the following:
  
   ```
   /src
@@ -626,7 +623,7 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
   
   Note that the generated directory structure will mirror the `proto` paths exactly as is, only nested under the `dest` directory. If you want to change this, for instance, to omit `src` from the `out` directory above, you can set the `root`.
   
-  Setting `root` to `src`:
+  Setting `root` to `src` (in addition to setting `dest` to `out`) will generate the following:
   
   ```
   /src

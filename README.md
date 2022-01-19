@@ -588,9 +588,9 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
   <td>dest</td>
 <td>
   The destination folder for generated files.
- 
+   
   Defaults to colocating generated files with the corresponding `proto` definition.
- 
+   
   If we have the following project structure:
  
   ```
@@ -641,7 +641,6 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
 <td>
   Whether to generate JavaScript or TypeScript.
   
-
   If omitted, TwirpScript will attempt to autodetect the language by looking for a `tsconfig.json` in the project root. If found, TwirpScript will generate TypeScript, otherwise JavaScript.
 </td>
   <td>javascript | typescript</td>

@@ -115,7 +115,7 @@ export interface Resp {
 }
 
 export interface ClientCompatMessage {
-  service_address: string;
+  serviceAddress: string;
   method: ClientCompatMessage.CompatServiceMethod;
   request: Uint8Array;
 }
@@ -322,7 +322,7 @@ export const ClientCompatMessage = {
    */
   initialize: function (): ClientCompatMessage {
     return {
-      service_address: "",
+      serviceAddress: "",
       method: 0,
       request: new Uint8Array(),
     };
@@ -335,8 +335,8 @@ export const ClientCompatMessage = {
     msg: Partial<ClientCompatMessage>,
     writer: BinaryWriter
   ): BinaryWriter {
-    if (msg.service_address) {
-      writer.writeString(1, msg.service_address);
+    if (msg.serviceAddress) {
+      writer.writeString(1, msg.serviceAddress);
     }
     if (msg.method) {
       writer.writeEnum(2, msg.method);
@@ -358,7 +358,7 @@ export const ClientCompatMessage = {
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
-          msg.service_address = reader.readString();
+          msg.serviceAddress = reader.readString();
           break;
         }
         case 2: {

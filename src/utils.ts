@@ -16,6 +16,15 @@ export function lowerCase(str: string): string {
   return str[0].toLowerCase() + str.slice(1);
 }
 
+function titleCase(str: string): string {
+  return str[0].toUpperCase() + str.slice(1);
+}
+
+function camelCase(str: string): string {
+  const [first, ...rest] = str.split("_");
+  return first + rest.map(titleCase).join("");
+}
+
 const FileLabel = {
   Message: 4,
   Enum: 5,
@@ -677,7 +686,7 @@ export function processTypes(
             processIdentifier(value.getTypeName() ?? "");
           }
           return {
-            name: value.getName() ?? "",
+            name: camelCase(value.getName() ?? ""),
             index: value.getNumber() ?? 0,
             ...descriptor,
           };

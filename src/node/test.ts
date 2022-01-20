@@ -3,7 +3,7 @@ import { nodeHttpTransport } from ".";
 import { createServer, IncomingMessage, ServerResponse } from "http";
 import { RpcTransportOpts } from "../runtime/client";
 
-const server = jest.fn((req: IncomingMessage, res: ServerResponse) => {
+const server = jest.fn((_req: IncomingMessage, res: ServerResponse) => {
   res.writeHead(200, {});
   res.end("");
 });

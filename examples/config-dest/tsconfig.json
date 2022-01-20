@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
     "module": "commonjs",
     "moduleResolution": "Node",
+    "noEmitOnError": false,
+    "noUnusedLocals": true,
     "outDir": "dist",
     "rootDir": ".",
     "strict": true,

@@ -9,12 +9,16 @@ import { BinaryReader, BinaryWriter } from "../../src";
 //                 Types                  //
 //========================================//
 
+export type Baz = typeof Baz[keyof typeof Baz];
+
 export interface Foo {
   field_one: number;
   field_two: Record<string, number | undefined>;
   field_three: Bar[];
   field_four: Bar;
   field_five: number[];
+  field_six: Baz;
+  field_seven: Baz[];
 }
 
 export interface Bar {
@@ -26,6 +30,8 @@ export interface Bar {
 //========================================//
 //        Protobuf Encode / Decode        //
 //========================================//
+
+export const Baz = { FOO: 0, BAR: 1 } as const;
 
 export const Foo = {
   /**
@@ -52,6 +58,8 @@ export const Foo = {
       field_three: [],
       field_four: Bar.initialize(),
       field_five: [],
+      field_six: 0,
+      field_seven: [],
     };
   },
 
@@ -81,6 +89,12 @@ export const Foo = {
     }
     if (msg.field_five?.length) {
       writer.writeRepeatedInt32(5, msg.field_five);
+    }
+    if (msg.field_six) {
+      writer.writeEnum(6, msg.field_six);
+    }
+    if (msg.field_seven?.length) {
+      writer.writeRepeatedEnum(7, msg.field_seven);
     }
     return writer;
   },
@@ -131,6 +145,14 @@ export const Foo = {
         }
         case 5: {
           msg.field_five.push(reader.readInt32());
+          break;
+        }
+        case 6: {
+          msg.field_six = reader.readEnum() as Baz;
+          break;
+        }
+        case 7: {
+          msg.field_seven.push(reader.readEnum() as Baz);
           break;
         }
         default: {

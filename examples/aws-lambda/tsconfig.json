@@ -8,6 +8,8 @@
     "module": "commonjs",
     "moduleResolution": "Node",
     "noEmitOnError": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "dist",
     "removeComments": false,
     "resolveJsonModule": true,

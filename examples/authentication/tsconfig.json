@@ -3,6 +3,8 @@
     "jsx": "react-jsx",
     "module": "commonjs",
     "moduleResolution": "Node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,

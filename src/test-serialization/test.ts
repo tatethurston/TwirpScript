@@ -14,6 +14,8 @@ describe("Serialization/Deserialization", () => {
               "field_two": Object {},
             },
             "field_one": 0,
+            "field_seven": Array [],
+            "field_six": 0,
             "field_three": Array [],
             "field_two": Object {},
           }
@@ -36,6 +38,8 @@ describe("Serialization/Deserialization", () => {
               "field_two": Object {},
             },
             "field_one": 3,
+            "field_seven": Array [],
+            "field_six": 0,
             "field_three": Array [],
             "field_two": Object {},
           }
@@ -52,6 +56,8 @@ describe("Serialization/Deserialization", () => {
               "field_two": Object {},
             },
             "field_one": 0,
+            "field_seven": Array [],
+            "field_six": 0,
             "field_three": Array [],
             "field_two": Object {},
           }
@@ -111,6 +117,8 @@ describe("Serialization/Deserialization", () => {
               },
             },
             "field_one": 3,
+            "field_seven": Array [],
+            "field_six": 0,
             "field_three": Array [
               undefined,
             ],

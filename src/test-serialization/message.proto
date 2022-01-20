@@ -6,10 +6,17 @@ message Foo {
   repeated Bar field_three = 3;
   Bar field_four = 4;
   repeated int32 field_five = 5;
+  Baz field_six = 6;
+  repeated Baz field_seven = 7;
 }
 
 message Bar {
   string field_one = 1;
   map<string, int32> field_two = 2;
   repeated int32 field_three = 3;
+}
+
+enum Baz {
+  FOO = 0;
+  BAR = 1;
 }

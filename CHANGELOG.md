@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.0.40
+
+- export MIN_SUPPORTED_VERSION_X by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/95
+
+**Full Changelog**: https://github.com/tatethurston/TwirpScript/compare/v0.0.39...v0.0.40
+
 ## v0.0.39
 
 - Add TSDoc comments to generated serializer/deserializers by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/90

@@ -10,12 +10,12 @@ protoc \
   --plugin=protoc-gen-twirpscript=../../dist/test-protos/gen-test-input.js \
   --twirpscript_out=. \
   --twirpscript_opt=typescript \
-  $(find . -name *.proto)
+  $(find . -name '*.proto')
 
 protoc \
   --plugin=protoc-gen-twirpscript=../../dist/test-protos/gen-test-input.js \
   --twirpscript_out=. \
   --twirpscript_opt=javascript \
-  $(find . -name *.proto)
+  $(find . -name '*.proto')
 
 echo "Generated test-input-typescript and test-input-javascript"

@@ -1473,14 +1473,16 @@ export const TestDeprecatedMessage = {
   /**
    * Serializes a TestDeprecatedMessage to protobuf.
    */
-  encode: function (testDeprecatedMessage) {
+
+  encode: function (_testDeprecatedMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestDeprecatedMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -1565,14 +1567,16 @@ export const TestReservedFields = {
   /**
    * Serializes a TestReservedFields to protobuf.
    */
-  encode: function (testReservedFields) {
+
+  encode: function (_testReservedFields) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestReservedFields from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -1588,14 +1592,16 @@ export const TestAllExtensions = {
   /**
    * Serializes a TestAllExtensions to protobuf.
    */
-  encode: function (testAllExtensions) {
+
+  encode: function (_testAllExtensions) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestAllExtensions from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -1855,14 +1861,16 @@ export const TestGroupExtension = {
   /**
    * Serializes a TestGroupExtension to protobuf.
    */
-  encode: function (testGroupExtension) {
+
+  encode: function (_testGroupExtension) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestGroupExtension from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -1878,14 +1886,16 @@ export const TestNestedExtension = {
   /**
    * Serializes a TestNestedExtension to protobuf.
    */
-  encode: function (testNestedExtension) {
+
+  encode: function (_testNestedExtension) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestNestedExtension from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -2603,14 +2613,16 @@ export const TestEmptyMessage = {
   /**
    * Serializes a TestEmptyMessage to protobuf.
    */
-  encode: function (testEmptyMessage) {
+
+  encode: function (_testEmptyMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -2626,14 +2638,16 @@ export const TestEmptyMessageWithExtensions = {
   /**
    * Serializes a TestEmptyMessageWithExtensions to protobuf.
    */
-  encode: function (testEmptyMessageWithExtensions) {
+
+  encode: function (_testEmptyMessageWithExtensions) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessageWithExtensions from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -2649,14 +2663,16 @@ export const TestPickleNestedMessage = {
   /**
    * Serializes a TestPickleNestedMessage to protobuf.
    */
-  encode: function (testPickleNestedMessage) {
+
+  encode: function (_testPickleNestedMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPickleNestedMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -2794,14 +2810,16 @@ export const TestMultipleExtensionRanges = {
   /**
    * Serializes a TestMultipleExtensionRanges to protobuf.
    */
-  encode: function (testMultipleExtensionRanges) {
+
+  encode: function (_testMultipleExtensionRanges) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestMultipleExtensionRanges from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -3289,14 +3307,16 @@ export const TestIsInitialized = {
     /**
      * Serializes a TestIsInitialized.SubMessage to protobuf.
      */
-    encode: function (subMessage) {
+
+    encode: function (_subMessage) {
       return new Uint8Array();
     },
 
     /**
      * Deserializes a TestIsInitialized.SubMessage from protobuf.
      */
-    decode: function (bytes) {
+
+    decode: function (_bytes) {
       return {};
     },
 
@@ -6321,14 +6341,16 @@ export const TestPackedExtensions = {
   /**
    * Serializes a TestPackedExtensions to protobuf.
    */
-  encode: function (testPackedExtensions) {
+
+  encode: function (_testPackedExtensions) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPackedExtensions from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -6344,14 +6366,16 @@ export const TestUnpackedExtensions = {
   /**
    * Serializes a TestUnpackedExtensions to protobuf.
    */
-  encode: function (testUnpackedExtensions) {
+
+  encode: function (_testUnpackedExtensions) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestUnpackedExtensions from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -7175,14 +7199,16 @@ export const FooRequest = {
   /**
    * Serializes a FooRequest to protobuf.
    */
-  encode: function (fooRequest) {
+
+  encode: function (_fooRequest) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooRequest from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -7198,14 +7224,16 @@ export const FooResponse = {
   /**
    * Serializes a FooResponse to protobuf.
    */
-  encode: function (fooResponse) {
+
+  encode: function (_fooResponse) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooResponse from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -7221,14 +7249,16 @@ export const FooClientMessage = {
   /**
    * Serializes a FooClientMessage to protobuf.
    */
-  encode: function (fooClientMessage) {
+
+  encode: function (_fooClientMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooClientMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -7244,14 +7274,16 @@ export const FooServerMessage = {
   /**
    * Serializes a FooServerMessage to protobuf.
    */
-  encode: function (fooServerMessage) {
+
+  encode: function (_fooServerMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooServerMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -7267,14 +7299,16 @@ export const BarRequest = {
   /**
    * Serializes a BarRequest to protobuf.
    */
-  encode: function (barRequest) {
+
+  encode: function (_barRequest) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a BarRequest from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -7290,14 +7324,16 @@ export const BarResponse = {
   /**
    * Serializes a BarResponse to protobuf.
    */
-  encode: function (barResponse) {
+
+  encode: function (_barResponse) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a BarResponse from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -10787,14 +10823,16 @@ export const TestEmptyMessage = {
   /**
    * Serializes a TestEmptyMessage to protobuf.
    */
-  encode: function (testEmptyMessage) {
+
+  encode: function (_testEmptyMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -10947,8 +10985,6 @@ export const TestOneof2 = {
         "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
 // Source: google/protobuf/empty.proto
 
-import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
-
 //========================================//
 //        Protobuf Encode / Decode        //
 //========================================//
@@ -10957,14 +10993,16 @@ export const Empty = {
   /**
    * Serializes a Empty to protobuf.
    */
-  encode: function (empty) {
+
+  encode: function (_empty) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a Empty from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -12509,14 +12547,16 @@ export const TestDeprecatedMessage = {
   /**
    * Serializes a TestDeprecatedMessage to protobuf.
    */
-  encode: function (testDeprecatedMessage) {
+
+  encode: function (_testDeprecatedMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestDeprecatedMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -12601,14 +12641,16 @@ export const TestReservedFields = {
   /**
    * Serializes a TestReservedFields to protobuf.
    */
-  encode: function (testReservedFields) {
+
+  encode: function (_testReservedFields) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestReservedFields from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -12624,14 +12666,16 @@ export const TestAllExtensions = {
   /**
    * Serializes a TestAllExtensions to protobuf.
    */
-  encode: function (testAllExtensions) {
+
+  encode: function (_testAllExtensions) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestAllExtensions from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -12891,14 +12935,16 @@ export const TestGroupExtension = {
   /**
    * Serializes a TestGroupExtension to protobuf.
    */
-  encode: function (testGroupExtension) {
+
+  encode: function (_testGroupExtension) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestGroupExtension from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -12914,14 +12960,16 @@ export const TestNestedExtension = {
   /**
    * Serializes a TestNestedExtension to protobuf.
    */
-  encode: function (testNestedExtension) {
+
+  encode: function (_testNestedExtension) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestNestedExtension from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -13639,14 +13687,16 @@ export const TestEmptyMessage = {
   /**
    * Serializes a TestEmptyMessage to protobuf.
    */
-  encode: function (testEmptyMessage) {
+
+  encode: function (_testEmptyMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -13662,14 +13712,16 @@ export const TestEmptyMessageWithExtensions = {
   /**
    * Serializes a TestEmptyMessageWithExtensions to protobuf.
    */
-  encode: function (testEmptyMessageWithExtensions) {
+
+  encode: function (_testEmptyMessageWithExtensions) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessageWithExtensions from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -13685,14 +13737,16 @@ export const TestPickleNestedMessage = {
   /**
    * Serializes a TestPickleNestedMessage to protobuf.
    */
-  encode: function (testPickleNestedMessage) {
+
+  encode: function (_testPickleNestedMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPickleNestedMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -13830,14 +13884,16 @@ export const TestMultipleExtensionRanges = {
   /**
    * Serializes a TestMultipleExtensionRanges to protobuf.
    */
-  encode: function (testMultipleExtensionRanges) {
+
+  encode: function (_testMultipleExtensionRanges) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestMultipleExtensionRanges from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -14325,14 +14381,16 @@ export const TestIsInitialized = {
     /**
      * Serializes a TestIsInitialized.SubMessage to protobuf.
      */
-    encode: function (subMessage) {
+
+    encode: function (_subMessage) {
       return new Uint8Array();
     },
 
     /**
      * Deserializes a TestIsInitialized.SubMessage from protobuf.
      */
-    decode: function (bytes) {
+
+    decode: function (_bytes) {
       return {};
     },
 
@@ -17357,14 +17415,16 @@ export const TestPackedExtensions = {
   /**
    * Serializes a TestPackedExtensions to protobuf.
    */
-  encode: function (testPackedExtensions) {
+
+  encode: function (_testPackedExtensions) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPackedExtensions from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -17380,14 +17440,16 @@ export const TestUnpackedExtensions = {
   /**
    * Serializes a TestUnpackedExtensions to protobuf.
    */
-  encode: function (testUnpackedExtensions) {
+
+  encode: function (_testUnpackedExtensions) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestUnpackedExtensions from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -18211,14 +18273,16 @@ export const FooRequest = {
   /**
    * Serializes a FooRequest to protobuf.
    */
-  encode: function (fooRequest) {
+
+  encode: function (_fooRequest) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooRequest from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -18234,14 +18298,16 @@ export const FooResponse = {
   /**
    * Serializes a FooResponse to protobuf.
    */
-  encode: function (fooResponse) {
+
+  encode: function (_fooResponse) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooResponse from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -18257,14 +18323,16 @@ export const FooClientMessage = {
   /**
    * Serializes a FooClientMessage to protobuf.
    */
-  encode: function (fooClientMessage) {
+
+  encode: function (_fooClientMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooClientMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -18280,14 +18348,16 @@ export const FooServerMessage = {
   /**
    * Serializes a FooServerMessage to protobuf.
    */
-  encode: function (fooServerMessage) {
+
+  encode: function (_fooServerMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooServerMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -18303,14 +18373,16 @@ export const BarRequest = {
   /**
    * Serializes a BarRequest to protobuf.
    */
-  encode: function (barRequest) {
+
+  encode: function (_barRequest) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a BarRequest from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -18326,14 +18398,16 @@ export const BarResponse = {
   /**
    * Serializes a BarResponse to protobuf.
    */
-  encode: function (barResponse) {
+
+  encode: function (_barResponse) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a BarResponse from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -21837,14 +21911,16 @@ export const TestEmptyMessage = {
   /**
    * Serializes a TestEmptyMessage to protobuf.
    */
-  encode: function (testEmptyMessage) {
+
+  encode: function (_testEmptyMessage) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -22004,8 +22080,6 @@ export const TestOneof2 = {
           "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
 // Source: google/protobuf/empty.proto
 
-import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
-
 //========================================//
 //        Protobuf Encode / Decode        //
 //========================================//
@@ -22014,14 +22088,16 @@ export const Empty = {
   /**
    * Serializes a Empty to protobuf.
    */
-  encode: function (empty) {
+
+  encode: function (_empty) {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a Empty from protobuf.
    */
-  decode: function (bytes) {
+
+  decode: function (_bytes) {
     return {};
   },
 
@@ -24538,8 +24614,9 @@ export const TestDeprecatedMessage = {
   /**
    * Serializes a TestDeprecatedMessage to protobuf.
    */
+
   encode: function (
-    testDeprecatedMessage: Partial<TestDeprecatedMessage>
+    _testDeprecatedMessage?: Partial<TestDeprecatedMessage>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -24547,7 +24624,8 @@ export const TestDeprecatedMessage = {
   /**
    * Deserializes a TestDeprecatedMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): TestDeprecatedMessage {
+
+  decode: function (_bytes?: ByteSource): TestDeprecatedMessage {
     return {};
   },
 
@@ -24638,8 +24716,9 @@ export const TestReservedFields = {
   /**
    * Serializes a TestReservedFields to protobuf.
    */
+
   encode: function (
-    testReservedFields: Partial<TestReservedFields>
+    _testReservedFields?: Partial<TestReservedFields>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -24647,7 +24726,8 @@ export const TestReservedFields = {
   /**
    * Deserializes a TestReservedFields from protobuf.
    */
-  decode: function (bytes: ByteSource): TestReservedFields {
+
+  decode: function (_bytes?: ByteSource): TestReservedFields {
     return {};
   },
 
@@ -24663,14 +24743,18 @@ export const TestAllExtensions = {
   /**
    * Serializes a TestAllExtensions to protobuf.
    */
-  encode: function (testAllExtensions: Partial<TestAllExtensions>): Uint8Array {
+
+  encode: function (
+    _testAllExtensions?: Partial<TestAllExtensions>
+  ): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestAllExtensions from protobuf.
    */
-  decode: function (bytes: ByteSource): TestAllExtensions {
+
+  decode: function (_bytes?: ByteSource): TestAllExtensions {
     return {};
   },
 
@@ -24957,8 +25041,9 @@ export const TestGroupExtension = {
   /**
    * Serializes a TestGroupExtension to protobuf.
    */
+
   encode: function (
-    testGroupExtension: Partial<TestGroupExtension>
+    _testGroupExtension?: Partial<TestGroupExtension>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -24966,7 +25051,8 @@ export const TestGroupExtension = {
   /**
    * Deserializes a TestGroupExtension from protobuf.
    */
-  decode: function (bytes: ByteSource): TestGroupExtension {
+
+  decode: function (_bytes?: ByteSource): TestGroupExtension {
     return {};
   },
 
@@ -24982,8 +25068,9 @@ export const TestNestedExtension = {
   /**
    * Serializes a TestNestedExtension to protobuf.
    */
+
   encode: function (
-    testNestedExtension: Partial<TestNestedExtension>
+    _testNestedExtension?: Partial<TestNestedExtension>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -24991,7 +25078,8 @@ export const TestNestedExtension = {
   /**
    * Deserializes a TestNestedExtension from protobuf.
    */
-  decode: function (bytes: ByteSource): TestNestedExtension {
+
+  decode: function (_bytes?: ByteSource): TestNestedExtension {
     return {};
   },
 
@@ -25755,14 +25843,16 @@ export const TestEmptyMessage = {
   /**
    * Serializes a TestEmptyMessage to protobuf.
    */
-  encode: function (testEmptyMessage: Partial<TestEmptyMessage>): Uint8Array {
+
+  encode: function (_testEmptyMessage?: Partial<TestEmptyMessage>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): TestEmptyMessage {
+
+  decode: function (_bytes?: ByteSource): TestEmptyMessage {
     return {};
   },
 
@@ -25778,8 +25868,9 @@ export const TestEmptyMessageWithExtensions = {
   /**
    * Serializes a TestEmptyMessageWithExtensions to protobuf.
    */
+
   encode: function (
-    testEmptyMessageWithExtensions: Partial<TestEmptyMessageWithExtensions>
+    _testEmptyMessageWithExtensions?: Partial<TestEmptyMessageWithExtensions>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -25787,7 +25878,8 @@ export const TestEmptyMessageWithExtensions = {
   /**
    * Deserializes a TestEmptyMessageWithExtensions from protobuf.
    */
-  decode: function (bytes: ByteSource): TestEmptyMessageWithExtensions {
+
+  decode: function (_bytes?: ByteSource): TestEmptyMessageWithExtensions {
     return {};
   },
 
@@ -25803,8 +25895,9 @@ export const TestPickleNestedMessage = {
   /**
    * Serializes a TestPickleNestedMessage to protobuf.
    */
+
   encode: function (
-    testPickleNestedMessage: Partial<TestPickleNestedMessage>
+    _testPickleNestedMessage?: Partial<TestPickleNestedMessage>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -25812,7 +25905,8 @@ export const TestPickleNestedMessage = {
   /**
    * Deserializes a TestPickleNestedMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): TestPickleNestedMessage {
+
+  decode: function (_bytes?: ByteSource): TestPickleNestedMessage {
     return {};
   },
 
@@ -25971,8 +26065,9 @@ export const TestMultipleExtensionRanges = {
   /**
    * Serializes a TestMultipleExtensionRanges to protobuf.
    */
+
   encode: function (
-    testMultipleExtensionRanges: Partial<TestMultipleExtensionRanges>
+    _testMultipleExtensionRanges?: Partial<TestMultipleExtensionRanges>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -25980,7 +26075,8 @@ export const TestMultipleExtensionRanges = {
   /**
    * Deserializes a TestMultipleExtensionRanges from protobuf.
    */
-  decode: function (bytes: ByteSource): TestMultipleExtensionRanges {
+
+  decode: function (_bytes?: ByteSource): TestMultipleExtensionRanges {
     return {};
   },
 
@@ -26522,8 +26618,9 @@ export const TestIsInitialized = {
     /**
      * Serializes a TestIsInitialized.SubMessage to protobuf.
      */
+
     encode: function (
-      subMessage: Partial<TestIsInitialized.SubMessage>
+      _subMessage?: Partial<TestIsInitialized.SubMessage>
     ): Uint8Array {
       return new Uint8Array();
     },
@@ -26531,7 +26628,8 @@ export const TestIsInitialized = {
     /**
      * Deserializes a TestIsInitialized.SubMessage from protobuf.
      */
-    decode: function (bytes: ByteSource): TestIsInitialized.SubMessage {
+
+    decode: function (_bytes?: ByteSource): TestIsInitialized.SubMessage {
       return {};
     },
 
@@ -29789,8 +29887,9 @@ export const TestPackedExtensions = {
   /**
    * Serializes a TestPackedExtensions to protobuf.
    */
+
   encode: function (
-    testPackedExtensions: Partial<TestPackedExtensions>
+    _testPackedExtensions?: Partial<TestPackedExtensions>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -29798,7 +29897,8 @@ export const TestPackedExtensions = {
   /**
    * Deserializes a TestPackedExtensions from protobuf.
    */
-  decode: function (bytes: ByteSource): TestPackedExtensions {
+
+  decode: function (_bytes?: ByteSource): TestPackedExtensions {
     return {};
   },
 
@@ -29814,8 +29914,9 @@ export const TestUnpackedExtensions = {
   /**
    * Serializes a TestUnpackedExtensions to protobuf.
    */
+
   encode: function (
-    testUnpackedExtensions: Partial<TestUnpackedExtensions>
+    _testUnpackedExtensions?: Partial<TestUnpackedExtensions>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -29823,7 +29924,8 @@ export const TestUnpackedExtensions = {
   /**
    * Deserializes a TestUnpackedExtensions from protobuf.
    */
-  decode: function (bytes: ByteSource): TestUnpackedExtensions {
+
+  decode: function (_bytes?: ByteSource): TestUnpackedExtensions {
     return {};
   },
 
@@ -30758,14 +30860,16 @@ export const FooRequest = {
   /**
    * Serializes a FooRequest to protobuf.
    */
-  encode: function (fooRequest: Partial<FooRequest>): Uint8Array {
+
+  encode: function (_fooRequest?: Partial<FooRequest>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooRequest from protobuf.
    */
-  decode: function (bytes: ByteSource): FooRequest {
+
+  decode: function (_bytes?: ByteSource): FooRequest {
     return {};
   },
 
@@ -30781,14 +30885,16 @@ export const FooResponse = {
   /**
    * Serializes a FooResponse to protobuf.
    */
-  encode: function (fooResponse: Partial<FooResponse>): Uint8Array {
+
+  encode: function (_fooResponse?: Partial<FooResponse>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooResponse from protobuf.
    */
-  decode: function (bytes: ByteSource): FooResponse {
+
+  decode: function (_bytes?: ByteSource): FooResponse {
     return {};
   },
 
@@ -30804,14 +30910,16 @@ export const FooClientMessage = {
   /**
    * Serializes a FooClientMessage to protobuf.
    */
-  encode: function (fooClientMessage: Partial<FooClientMessage>): Uint8Array {
+
+  encode: function (_fooClientMessage?: Partial<FooClientMessage>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooClientMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): FooClientMessage {
+
+  decode: function (_bytes?: ByteSource): FooClientMessage {
     return {};
   },
 
@@ -30827,14 +30935,16 @@ export const FooServerMessage = {
   /**
    * Serializes a FooServerMessage to protobuf.
    */
-  encode: function (fooServerMessage: Partial<FooServerMessage>): Uint8Array {
+
+  encode: function (_fooServerMessage?: Partial<FooServerMessage>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooServerMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): FooServerMessage {
+
+  decode: function (_bytes?: ByteSource): FooServerMessage {
     return {};
   },
 
@@ -30850,14 +30960,16 @@ export const BarRequest = {
   /**
    * Serializes a BarRequest to protobuf.
    */
-  encode: function (barRequest: Partial<BarRequest>): Uint8Array {
+
+  encode: function (_barRequest?: Partial<BarRequest>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a BarRequest from protobuf.
    */
-  decode: function (bytes: ByteSource): BarRequest {
+
+  decode: function (_bytes?: ByteSource): BarRequest {
     return {};
   },
 
@@ -30873,14 +30985,16 @@ export const BarResponse = {
   /**
    * Serializes a BarResponse to protobuf.
    */
-  encode: function (barResponse: Partial<BarResponse>): Uint8Array {
+
+  encode: function (_barResponse?: Partial<BarResponse>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a BarResponse from protobuf.
    */
-  decode: function (bytes: ByteSource): BarResponse {
+
+  decode: function (_bytes?: ByteSource): BarResponse {
     return {};
   },
 
@@ -34764,14 +34878,16 @@ export const TestEmptyMessage = {
   /**
    * Serializes a TestEmptyMessage to protobuf.
    */
-  encode: function (testEmptyMessage: Partial<TestEmptyMessage>): Uint8Array {
+
+  encode: function (_testEmptyMessage?: Partial<TestEmptyMessage>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): TestEmptyMessage {
+
+  decode: function (_bytes?: ByteSource): TestEmptyMessage {
     return {};
   },
 
@@ -34936,7 +35052,6 @@ export const TestOneof2 = {
 // Source: google/protobuf/empty.proto
 
 import type { ByteSource } from \\"twirpscript\\";
-import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
 
 //========================================//
 //                 Types                  //
@@ -34963,14 +35078,16 @@ export const Empty = {
   /**
    * Serializes a Empty to protobuf.
    */
-  encode: function (empty: Partial<Empty>): Uint8Array {
+
+  encode: function (_empty?: Partial<Empty>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a Empty from protobuf.
    */
-  decode: function (bytes: ByteSource): Empty {
+
+  decode: function (_bytes?: ByteSource): Empty {
     return {};
   },
 
@@ -37489,8 +37606,9 @@ export const TestDeprecatedMessage = {
   /**
    * Serializes a TestDeprecatedMessage to protobuf.
    */
+
   encode: function (
-    testDeprecatedMessage: Partial<TestDeprecatedMessage>
+    _testDeprecatedMessage?: Partial<TestDeprecatedMessage>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -37498,7 +37616,8 @@ export const TestDeprecatedMessage = {
   /**
    * Deserializes a TestDeprecatedMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): TestDeprecatedMessage {
+
+  decode: function (_bytes?: ByteSource): TestDeprecatedMessage {
     return {};
   },
 
@@ -37589,8 +37708,9 @@ export const TestReservedFields = {
   /**
    * Serializes a TestReservedFields to protobuf.
    */
+
   encode: function (
-    testReservedFields: Partial<TestReservedFields>
+    _testReservedFields?: Partial<TestReservedFields>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -37598,7 +37718,8 @@ export const TestReservedFields = {
   /**
    * Deserializes a TestReservedFields from protobuf.
    */
-  decode: function (bytes: ByteSource): TestReservedFields {
+
+  decode: function (_bytes?: ByteSource): TestReservedFields {
     return {};
   },
 
@@ -37614,14 +37735,18 @@ export const TestAllExtensions = {
   /**
    * Serializes a TestAllExtensions to protobuf.
    */
-  encode: function (testAllExtensions: Partial<TestAllExtensions>): Uint8Array {
+
+  encode: function (
+    _testAllExtensions?: Partial<TestAllExtensions>
+  ): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestAllExtensions from protobuf.
    */
-  decode: function (bytes: ByteSource): TestAllExtensions {
+
+  decode: function (_bytes?: ByteSource): TestAllExtensions {
     return {};
   },
 
@@ -37908,8 +38033,9 @@ export const TestGroupExtension = {
   /**
    * Serializes a TestGroupExtension to protobuf.
    */
+
   encode: function (
-    testGroupExtension: Partial<TestGroupExtension>
+    _testGroupExtension?: Partial<TestGroupExtension>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -37917,7 +38043,8 @@ export const TestGroupExtension = {
   /**
    * Deserializes a TestGroupExtension from protobuf.
    */
-  decode: function (bytes: ByteSource): TestGroupExtension {
+
+  decode: function (_bytes?: ByteSource): TestGroupExtension {
     return {};
   },
 
@@ -37933,8 +38060,9 @@ export const TestNestedExtension = {
   /**
    * Serializes a TestNestedExtension to protobuf.
    */
+
   encode: function (
-    testNestedExtension: Partial<TestNestedExtension>
+    _testNestedExtension?: Partial<TestNestedExtension>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -37942,7 +38070,8 @@ export const TestNestedExtension = {
   /**
    * Deserializes a TestNestedExtension from protobuf.
    */
-  decode: function (bytes: ByteSource): TestNestedExtension {
+
+  decode: function (_bytes?: ByteSource): TestNestedExtension {
     return {};
   },
 
@@ -38706,14 +38835,16 @@ export const TestEmptyMessage = {
   /**
    * Serializes a TestEmptyMessage to protobuf.
    */
-  encode: function (testEmptyMessage: Partial<TestEmptyMessage>): Uint8Array {
+
+  encode: function (_testEmptyMessage?: Partial<TestEmptyMessage>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): TestEmptyMessage {
+
+  decode: function (_bytes?: ByteSource): TestEmptyMessage {
     return {};
   },
 
@@ -38729,8 +38860,9 @@ export const TestEmptyMessageWithExtensions = {
   /**
    * Serializes a TestEmptyMessageWithExtensions to protobuf.
    */
+
   encode: function (
-    testEmptyMessageWithExtensions: Partial<TestEmptyMessageWithExtensions>
+    _testEmptyMessageWithExtensions?: Partial<TestEmptyMessageWithExtensions>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -38738,7 +38870,8 @@ export const TestEmptyMessageWithExtensions = {
   /**
    * Deserializes a TestEmptyMessageWithExtensions from protobuf.
    */
-  decode: function (bytes: ByteSource): TestEmptyMessageWithExtensions {
+
+  decode: function (_bytes?: ByteSource): TestEmptyMessageWithExtensions {
     return {};
   },
 
@@ -38754,8 +38887,9 @@ export const TestPickleNestedMessage = {
   /**
    * Serializes a TestPickleNestedMessage to protobuf.
    */
+
   encode: function (
-    testPickleNestedMessage: Partial<TestPickleNestedMessage>
+    _testPickleNestedMessage?: Partial<TestPickleNestedMessage>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -38763,7 +38897,8 @@ export const TestPickleNestedMessage = {
   /**
    * Deserializes a TestPickleNestedMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): TestPickleNestedMessage {
+
+  decode: function (_bytes?: ByteSource): TestPickleNestedMessage {
     return {};
   },
 
@@ -38922,8 +39057,9 @@ export const TestMultipleExtensionRanges = {
   /**
    * Serializes a TestMultipleExtensionRanges to protobuf.
    */
+
   encode: function (
-    testMultipleExtensionRanges: Partial<TestMultipleExtensionRanges>
+    _testMultipleExtensionRanges?: Partial<TestMultipleExtensionRanges>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -38931,7 +39067,8 @@ export const TestMultipleExtensionRanges = {
   /**
    * Deserializes a TestMultipleExtensionRanges from protobuf.
    */
-  decode: function (bytes: ByteSource): TestMultipleExtensionRanges {
+
+  decode: function (_bytes?: ByteSource): TestMultipleExtensionRanges {
     return {};
   },
 
@@ -39473,8 +39610,9 @@ export const TestIsInitialized = {
     /**
      * Serializes a TestIsInitialized.SubMessage to protobuf.
      */
+
     encode: function (
-      subMessage: Partial<TestIsInitialized.SubMessage>
+      _subMessage?: Partial<TestIsInitialized.SubMessage>
     ): Uint8Array {
       return new Uint8Array();
     },
@@ -39482,7 +39620,8 @@ export const TestIsInitialized = {
     /**
      * Deserializes a TestIsInitialized.SubMessage from protobuf.
      */
-    decode: function (bytes: ByteSource): TestIsInitialized.SubMessage {
+
+    decode: function (_bytes?: ByteSource): TestIsInitialized.SubMessage {
       return {};
     },
 
@@ -42740,8 +42879,9 @@ export const TestPackedExtensions = {
   /**
    * Serializes a TestPackedExtensions to protobuf.
    */
+
   encode: function (
-    testPackedExtensions: Partial<TestPackedExtensions>
+    _testPackedExtensions?: Partial<TestPackedExtensions>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -42749,7 +42889,8 @@ export const TestPackedExtensions = {
   /**
    * Deserializes a TestPackedExtensions from protobuf.
    */
-  decode: function (bytes: ByteSource): TestPackedExtensions {
+
+  decode: function (_bytes?: ByteSource): TestPackedExtensions {
     return {};
   },
 
@@ -42765,8 +42906,9 @@ export const TestUnpackedExtensions = {
   /**
    * Serializes a TestUnpackedExtensions to protobuf.
    */
+
   encode: function (
-    testUnpackedExtensions: Partial<TestUnpackedExtensions>
+    _testUnpackedExtensions?: Partial<TestUnpackedExtensions>
   ): Uint8Array {
     return new Uint8Array();
   },
@@ -42774,7 +42916,8 @@ export const TestUnpackedExtensions = {
   /**
    * Deserializes a TestUnpackedExtensions from protobuf.
    */
-  decode: function (bytes: ByteSource): TestUnpackedExtensions {
+
+  decode: function (_bytes?: ByteSource): TestUnpackedExtensions {
     return {};
   },
 
@@ -43709,14 +43852,16 @@ export const FooRequest = {
   /**
    * Serializes a FooRequest to protobuf.
    */
-  encode: function (fooRequest: Partial<FooRequest>): Uint8Array {
+
+  encode: function (_fooRequest?: Partial<FooRequest>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooRequest from protobuf.
    */
-  decode: function (bytes: ByteSource): FooRequest {
+
+  decode: function (_bytes?: ByteSource): FooRequest {
     return {};
   },
 
@@ -43732,14 +43877,16 @@ export const FooResponse = {
   /**
    * Serializes a FooResponse to protobuf.
    */
-  encode: function (fooResponse: Partial<FooResponse>): Uint8Array {
+
+  encode: function (_fooResponse?: Partial<FooResponse>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooResponse from protobuf.
    */
-  decode: function (bytes: ByteSource): FooResponse {
+
+  decode: function (_bytes?: ByteSource): FooResponse {
     return {};
   },
 
@@ -43755,14 +43902,16 @@ export const FooClientMessage = {
   /**
    * Serializes a FooClientMessage to protobuf.
    */
-  encode: function (fooClientMessage: Partial<FooClientMessage>): Uint8Array {
+
+  encode: function (_fooClientMessage?: Partial<FooClientMessage>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooClientMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): FooClientMessage {
+
+  decode: function (_bytes?: ByteSource): FooClientMessage {
     return {};
   },
 
@@ -43778,14 +43927,16 @@ export const FooServerMessage = {
   /**
    * Serializes a FooServerMessage to protobuf.
    */
-  encode: function (fooServerMessage: Partial<FooServerMessage>): Uint8Array {
+
+  encode: function (_fooServerMessage?: Partial<FooServerMessage>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a FooServerMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): FooServerMessage {
+
+  decode: function (_bytes?: ByteSource): FooServerMessage {
     return {};
   },
 
@@ -43801,14 +43952,16 @@ export const BarRequest = {
   /**
    * Serializes a BarRequest to protobuf.
    */
-  encode: function (barRequest: Partial<BarRequest>): Uint8Array {
+
+  encode: function (_barRequest?: Partial<BarRequest>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a BarRequest from protobuf.
    */
-  decode: function (bytes: ByteSource): BarRequest {
+
+  decode: function (_bytes?: ByteSource): BarRequest {
     return {};
   },
 
@@ -43824,14 +43977,16 @@ export const BarResponse = {
   /**
    * Serializes a BarResponse to protobuf.
    */
-  encode: function (barResponse: Partial<BarResponse>): Uint8Array {
+
+  encode: function (_barResponse?: Partial<BarResponse>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a BarResponse from protobuf.
    */
-  decode: function (bytes: ByteSource): BarResponse {
+
+  decode: function (_bytes?: ByteSource): BarResponse {
     return {};
   },
 
@@ -47729,14 +47884,16 @@ export const TestEmptyMessage = {
   /**
    * Serializes a TestEmptyMessage to protobuf.
    */
-  encode: function (testEmptyMessage: Partial<TestEmptyMessage>): Uint8Array {
+
+  encode: function (_testEmptyMessage?: Partial<TestEmptyMessage>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
-  decode: function (bytes: ByteSource): TestEmptyMessage {
+
+  decode: function (_bytes?: ByteSource): TestEmptyMessage {
     return {};
   },
 
@@ -47908,7 +48065,6 @@ export const TestOneof2 = {
 // Source: google/protobuf/empty.proto
 
 import type { ByteSource } from \\"twirpscript\\";
-import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
 
 //========================================//
 //                 Types                  //
@@ -47935,14 +48091,16 @@ export const Empty = {
   /**
    * Serializes a Empty to protobuf.
    */
-  encode: function (empty: Partial<Empty>): Uint8Array {
+
+  encode: function (_empty?: Partial<Empty>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a Empty from protobuf.
    */
-  decode: function (bytes: ByteSource): Empty {
+
+  decode: function (_bytes?: ByteSource): Empty {
     return {};
   },
 

@@ -1,6 +1,6 @@
 {
   "name": "twirpscript",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "description": "A protobuf RPC framework for JavaScript and TypeScript",
   "license": "MIT",
   "author": "Tate Thurston <tatethurston@gmail.com>",
@@ -34,9 +34,7 @@
     "regen": "yarn test -u && yarn examples:check && (cd clientcompat && yarn twirpscript)",
     "test": "yarn jest src/*",
     "test:ci": "yarn test --coverage",
-    "typecheck": "yarn tsc --noEmit",
-    "version": "git add -A package.json",
-    "postversion": "git push && git push --tags"
+    "typecheck": "yarn tsc --noEmit"
   },
   "sideEffects": false,
   "types": "dist",

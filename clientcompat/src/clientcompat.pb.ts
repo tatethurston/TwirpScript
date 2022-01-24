@@ -133,14 +133,16 @@ export const Empty = {
   /**
    * Serializes a Empty to protobuf.
    */
-  encode: function (empty: Partial<Empty>): Uint8Array {
+
+  encode: function (_empty?: Partial<Empty>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
    * Deserializes a Empty from protobuf.
    */
-  decode: function (bytes: ByteSource): Empty {
+
+  decode: function (_bytes?: ByteSource): Empty {
     return {};
   },
 

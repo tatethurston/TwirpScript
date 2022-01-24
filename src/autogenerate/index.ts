@@ -15,7 +15,7 @@ function writeTypes(types: ProtoTypes[]): string {
   types.forEach((node) => {
     const name = node.content.name;
     if (node.content.comments?.leading) {
-      result += printComments(node.content.comments?.leading);
+      result += printComments(node.content.comments.leading);
     }
     if (node.type === "enum") {
       result += `export type ${name} = typeof ${node.content.fullyQualifiedName}[keyof typeof ${node.content.fullyQualifiedName}];\n\n`;
@@ -28,7 +28,7 @@ function writeTypes(types: ProtoTypes[]): string {
       node.content.fields.forEach(
         ({ name: fieldName, tsType, repeated, optional, comments }) => {
           if (comments?.leading) {
-            result += printComments(comments?.leading);
+            result += printComments(comments.leading);
           }
 
           const maybeMap = node.children.find(
@@ -36,7 +36,7 @@ function writeTypes(types: ProtoTypes[]): string {
           ) as MessageType;
 
           let _type = tsType;
-          if (maybeMap?.content?.isMap) {
+          if (maybeMap.content.isMap) {
             _type = `Record<
               ${maybeMap.content.fields[0].tsType},
               ${maybeMap.content.fields[1].tsType} | undefined>`;
@@ -122,7 +122,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
         /**
          * @private
          */
-        _writeMessage: function(msg ${printIfTypescript(
+        _writeMessage: function(_msg ${printIfTypescript(
           `: Partial<${node.content.fullyQualifiedName}>`
         )}, writer${printIfTypescript(`: BinaryWriter`)})${printIfTypescript(
           `: BinaryWriter`
@@ -131,15 +131,15 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             .map((field) => {
               let res = "";
               if (field.repeated) {
-                res += `if (msg.${field.name}?.length) {`;
+                res += `if (_msg.${field.name}?.length) {`;
               } else if (field.optional) {
-                res += `if (msg.${field.name} != undefined) {`;
+                res += `if (_msg.${field.name} != undefined) {`;
               } else {
-                res += `if (msg.${field.name}) {`;
+                res += `if (_msg.${field.name}) {`;
               }
 
               if (field.read === "readMessage") {
-                res += `writer.${field.write}(${field.index}, msg.${
+                res += `writer.${field.write}(${field.index}, _msg.${
                   field.name
                 } ${field.repeated ? printIfTypescript("as any") : ""}, ${
                   field.tsType
@@ -148,20 +148,20 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                 const map = node.children.find(
                   (c) => c.content.fullyQualifiedName === field.tsType
                 ) as MessageType;
-                res += `for (const key in msg.${field.name}) {
+                res += `for (const key in _msg.${field.name}) {
                   writer.writeMessage(${field.index}, {}, (_, mapWriter) => {
                     mapWriter.${
                       map.content.fields[0].write
                     }(1, key${printIfTypescript(
                   ` as unknown as ${map.content.fields[0].tsType} `
                 )});
-                    mapWriter.${map.content.fields[1].write}(2, msg.${
+                    mapWriter.${map.content.fields[1].write}(2, _msg.${
                   field.name
                 }${printIfTypescript("!")}[key]);
                   });
                 }`;
               } else {
-                res += `writer.${field.write}(${field.index}, msg.${field.name});`;
+                res += `writer.${field.write}(${field.index}, _msg.${field.name});`;
               }
 
               res += "}";
@@ -265,7 +265,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
       case "enum": {
         node.content.values.forEach(({ name, value, comments }) => {
           if (comments?.leading) {
-            result += printComments(comments?.leading);
+            result += printComments(comments.leading);
           }
           result += `${name}: ${value},\n`;
         });

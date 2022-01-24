@@ -581,6 +581,8 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
   ```protobuf
   import "B.proto";
   ```
+ 
+  TypeScript projects will generally want to set this value to match their `rootDir`, particularly when using [Protocol Buffers Well-Known Types](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf) so that the generated well-known type files are under the `rootDir`.
 </td>
 <td>string (filepath)</td>
 </tr>

@@ -1474,20 +1474,14 @@ export const TestDeprecatedMessage = {
    * Serializes a TestDeprecatedMessage to protobuf.
    */
   encode: function (testDeprecatedMessage) {
-    return TestDeprecatedMessage._writeMessage(
-      testDeprecatedMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestDeprecatedMessage from protobuf.
    */
   decode: function (bytes) {
-    return TestDeprecatedMessage._readMessage(
-      TestDeprecatedMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -1495,29 +1489,6 @@ export const TestDeprecatedMessage = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -1595,20 +1566,14 @@ export const TestReservedFields = {
    * Serializes a TestReservedFields to protobuf.
    */
   encode: function (testReservedFields) {
-    return TestReservedFields._writeMessage(
-      testReservedFields,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestReservedFields from protobuf.
    */
   decode: function (bytes) {
-    return TestReservedFields._readMessage(
-      TestReservedFields.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -1617,29 +1582,6 @@ export const TestReservedFields = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestAllExtensions = {
@@ -1647,20 +1589,14 @@ export const TestAllExtensions = {
    * Serializes a TestAllExtensions to protobuf.
    */
   encode: function (testAllExtensions) {
-    return TestAllExtensions._writeMessage(
-      testAllExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestAllExtensions from protobuf.
    */
   decode: function (bytes) {
-    return TestAllExtensions._readMessage(
-      TestAllExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -1668,29 +1604,6 @@ export const TestAllExtensions = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -1943,20 +1856,14 @@ export const TestGroupExtension = {
    * Serializes a TestGroupExtension to protobuf.
    */
   encode: function (testGroupExtension) {
-    return TestGroupExtension._writeMessage(
-      testGroupExtension,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestGroupExtension from protobuf.
    */
   decode: function (bytes) {
-    return TestGroupExtension._readMessage(
-      TestGroupExtension.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -1965,29 +1872,6 @@ export const TestGroupExtension = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestNestedExtension = {
@@ -1995,20 +1879,14 @@ export const TestNestedExtension = {
    * Serializes a TestNestedExtension to protobuf.
    */
   encode: function (testNestedExtension) {
-    return TestNestedExtension._writeMessage(
-      testNestedExtension,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestNestedExtension from protobuf.
    */
   decode: function (bytes) {
-    return TestNestedExtension._readMessage(
-      TestNestedExtension.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -2016,29 +1894,6 @@ export const TestNestedExtension = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 
   OptionalGroup_extension: {
@@ -2749,20 +2604,14 @@ export const TestEmptyMessage = {
    * Serializes a TestEmptyMessage to protobuf.
    */
   encode: function (testEmptyMessage) {
-    return TestEmptyMessage._writeMessage(
-      testEmptyMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
   decode: function (bytes) {
-    return TestEmptyMessage._readMessage(
-      TestEmptyMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -2771,29 +2620,6 @@ export const TestEmptyMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestEmptyMessageWithExtensions = {
@@ -2801,20 +2627,14 @@ export const TestEmptyMessageWithExtensions = {
    * Serializes a TestEmptyMessageWithExtensions to protobuf.
    */
   encode: function (testEmptyMessageWithExtensions) {
-    return TestEmptyMessageWithExtensions._writeMessage(
-      testEmptyMessageWithExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessageWithExtensions from protobuf.
    */
   decode: function (bytes) {
-    return TestEmptyMessageWithExtensions._readMessage(
-      TestEmptyMessageWithExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -2823,29 +2643,6 @@ export const TestEmptyMessageWithExtensions = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestPickleNestedMessage = {
@@ -2853,20 +2650,14 @@ export const TestPickleNestedMessage = {
    * Serializes a TestPickleNestedMessage to protobuf.
    */
   encode: function (testPickleNestedMessage) {
-    return TestPickleNestedMessage._writeMessage(
-      testPickleNestedMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPickleNestedMessage from protobuf.
    */
   decode: function (bytes) {
-    return TestPickleNestedMessage._readMessage(
-      TestPickleNestedMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -2874,29 +2665,6 @@ export const TestPickleNestedMessage = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 
   NestedMessage: {
@@ -3027,20 +2795,14 @@ export const TestMultipleExtensionRanges = {
    * Serializes a TestMultipleExtensionRanges to protobuf.
    */
   encode: function (testMultipleExtensionRanges) {
-    return TestMultipleExtensionRanges._writeMessage(
-      testMultipleExtensionRanges,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestMultipleExtensionRanges from protobuf.
    */
   decode: function (bytes) {
-    return TestMultipleExtensionRanges._readMessage(
-      TestMultipleExtensionRanges.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -3048,29 +2810,6 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -3551,20 +3290,14 @@ export const TestIsInitialized = {
      * Serializes a TestIsInitialized.SubMessage to protobuf.
      */
     encode: function (subMessage) {
-      return TestIsInitialized.SubMessage._writeMessage(
-        subMessage,
-        new BinaryWriter()
-      ).getResultBuffer();
+      return new Uint8Array();
     },
 
     /**
      * Deserializes a TestIsInitialized.SubMessage from protobuf.
      */
     decode: function (bytes) {
-      return TestIsInitialized.SubMessage._readMessage(
-        TestIsInitialized.SubMessage.initialize(),
-        new BinaryReader(bytes)
-      );
+      return {};
     },
 
     /**
@@ -3572,29 +3305,6 @@ export const TestIsInitialized = {
      */
     initialize: function () {
       return {};
-    },
-
-    /**
-     * @private
-     */
-    _writeMessage: function (msg, writer) {
-      return writer;
-    },
-
-    /**
-     * @private
-     */
-    _readMessage: function (msg, reader) {
-      while (reader.nextField()) {
-        const field = reader.getFieldNumber();
-        switch (field) {
-          default: {
-            reader.skipField();
-            break;
-          }
-        }
-      }
-      return msg;
     },
 
     SubGroup: {
@@ -6612,20 +6322,14 @@ export const TestPackedExtensions = {
    * Serializes a TestPackedExtensions to protobuf.
    */
   encode: function (testPackedExtensions) {
-    return TestPackedExtensions._writeMessage(
-      testPackedExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPackedExtensions from protobuf.
    */
   decode: function (bytes) {
-    return TestPackedExtensions._readMessage(
-      TestPackedExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -6634,29 +6338,6 @@ export const TestPackedExtensions = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestUnpackedExtensions = {
@@ -6664,20 +6345,14 @@ export const TestUnpackedExtensions = {
    * Serializes a TestUnpackedExtensions to protobuf.
    */
   encode: function (testUnpackedExtensions) {
-    return TestUnpackedExtensions._writeMessage(
-      testUnpackedExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestUnpackedExtensions from protobuf.
    */
   decode: function (bytes) {
-    return TestUnpackedExtensions._readMessage(
-      TestUnpackedExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -6685,29 +6360,6 @@ export const TestUnpackedExtensions = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -7524,20 +7176,14 @@ export const FooRequest = {
    * Serializes a FooRequest to protobuf.
    */
   encode: function (fooRequest) {
-    return FooRequest._writeMessage(
-      fooRequest,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooRequest from protobuf.
    */
   decode: function (bytes) {
-    return FooRequest._readMessage(
-      FooRequest.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -7546,29 +7192,6 @@ export const FooRequest = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooResponse = {
@@ -7576,20 +7199,14 @@ export const FooResponse = {
    * Serializes a FooResponse to protobuf.
    */
   encode: function (fooResponse) {
-    return FooResponse._writeMessage(
-      fooResponse,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooResponse from protobuf.
    */
   decode: function (bytes) {
-    return FooResponse._readMessage(
-      FooResponse.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -7598,29 +7215,6 @@ export const FooResponse = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooClientMessage = {
@@ -7628,20 +7222,14 @@ export const FooClientMessage = {
    * Serializes a FooClientMessage to protobuf.
    */
   encode: function (fooClientMessage) {
-    return FooClientMessage._writeMessage(
-      fooClientMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooClientMessage from protobuf.
    */
   decode: function (bytes) {
-    return FooClientMessage._readMessage(
-      FooClientMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -7650,29 +7238,6 @@ export const FooClientMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooServerMessage = {
@@ -7680,20 +7245,14 @@ export const FooServerMessage = {
    * Serializes a FooServerMessage to protobuf.
    */
   encode: function (fooServerMessage) {
-    return FooServerMessage._writeMessage(
-      fooServerMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooServerMessage from protobuf.
    */
   decode: function (bytes) {
-    return FooServerMessage._readMessage(
-      FooServerMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -7702,29 +7261,6 @@ export const FooServerMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const BarRequest = {
@@ -7732,20 +7268,14 @@ export const BarRequest = {
    * Serializes a BarRequest to protobuf.
    */
   encode: function (barRequest) {
-    return BarRequest._writeMessage(
-      barRequest,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a BarRequest from protobuf.
    */
   decode: function (bytes) {
-    return BarRequest._readMessage(
-      BarRequest.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -7754,29 +7284,6 @@ export const BarRequest = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const BarResponse = {
@@ -7784,20 +7291,14 @@ export const BarResponse = {
    * Serializes a BarResponse to protobuf.
    */
   encode: function (barResponse) {
-    return BarResponse._writeMessage(
-      barResponse,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a BarResponse from protobuf.
    */
   decode: function (bytes) {
-    return BarResponse._readMessage(
-      BarResponse.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -7805,29 +7306,6 @@ export const BarResponse = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -11310,20 +10788,14 @@ export const TestEmptyMessage = {
    * Serializes a TestEmptyMessage to protobuf.
    */
   encode: function (testEmptyMessage) {
-    return TestEmptyMessage._writeMessage(
-      testEmptyMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
   decode: function (bytes) {
-    return TestEmptyMessage._readMessage(
-      TestEmptyMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -11331,29 +10803,6 @@ export const TestEmptyMessage = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -11478,6 +10927,108 @@ export const TestOneof2 = {
 
   NestedEnum: { UNKNOWN: 0, FOO: 1, BAR: 2, BAZ: 3 },
 };
+",
+      ],
+      Array [
+        "google/protobuf/empty.pb.js",
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
+// Source: google/protobuf/empty.proto
+
+import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
+
+//========================================//
+//        Protobuf Encode / Decode        //
+//========================================//
+
+export const Empty = {
+  /**
+   * Serializes a Empty to protobuf.
+   */
+  encode: function (empty) {
+    return new Uint8Array();
+  },
+
+  /**
+   * Deserializes a Empty from protobuf.
+   */
+  decode: function (bytes) {
+    return {};
+  },
+
+  /**
+   * Initializes a Empty with all fields set to their default value.
+   */
+  initialize: function () {
+    return {};
+  },
+};
+",
+      ],
+      Array [
+        "empty.pb.js",
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
+// Source: empty.proto
+
+import { JSONrequest, PBrequest } from \\"twirpscript\\";
+// This is the minimum version supported by the current runtime.
+// If this line fails typechecking, breaking changes have been introduced and this
+// file needs to be regenerated by running \`yarn twirpscript\`.
+export { MIN_SUPPORTED_VERSION_0_0_34 } from \\"twirpscript\\";
+
+import { Empty } from \\"./google/protobuf/empty.pb\\";
+
+//========================================//
+//          Foo Protobuf Client           //
+//========================================//
+
+export async function Bar(empty, config) {
+  const response = await PBrequest(\\"/Foo/Bar\\", Empty.encode(empty), config);
+  return Empty.decode(response);
+}
+
+//========================================//
+//            Foo JSON Client             //
+//========================================//
+
+export async function BarJSON(empty, config) {
+  const response = await JSONrequest(\\"/Foo/Bar\\", empty, config);
+  return response;
+}
+
+export function createFooHandler(service) {
+  return {
+    name: \\"Foo\\",
+    methods: {
+      Bar: { name: \\"Bar\\", handler: service.Bar, input: Empty, output: Empty },
+    },
+  };
+}
 ",
       ],
     ],
@@ -12959,20 +12510,14 @@ export const TestDeprecatedMessage = {
    * Serializes a TestDeprecatedMessage to protobuf.
    */
   encode: function (testDeprecatedMessage) {
-    return TestDeprecatedMessage._writeMessage(
-      testDeprecatedMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestDeprecatedMessage from protobuf.
    */
   decode: function (bytes) {
-    return TestDeprecatedMessage._readMessage(
-      TestDeprecatedMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -12980,29 +12525,6 @@ export const TestDeprecatedMessage = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -13080,20 +12602,14 @@ export const TestReservedFields = {
    * Serializes a TestReservedFields to protobuf.
    */
   encode: function (testReservedFields) {
-    return TestReservedFields._writeMessage(
-      testReservedFields,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestReservedFields from protobuf.
    */
   decode: function (bytes) {
-    return TestReservedFields._readMessage(
-      TestReservedFields.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -13102,29 +12618,6 @@ export const TestReservedFields = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestAllExtensions = {
@@ -13132,20 +12625,14 @@ export const TestAllExtensions = {
    * Serializes a TestAllExtensions to protobuf.
    */
   encode: function (testAllExtensions) {
-    return TestAllExtensions._writeMessage(
-      testAllExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestAllExtensions from protobuf.
    */
   decode: function (bytes) {
-    return TestAllExtensions._readMessage(
-      TestAllExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -13153,29 +12640,6 @@ export const TestAllExtensions = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -13428,20 +12892,14 @@ export const TestGroupExtension = {
    * Serializes a TestGroupExtension to protobuf.
    */
   encode: function (testGroupExtension) {
-    return TestGroupExtension._writeMessage(
-      testGroupExtension,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestGroupExtension from protobuf.
    */
   decode: function (bytes) {
-    return TestGroupExtension._readMessage(
-      TestGroupExtension.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -13450,29 +12908,6 @@ export const TestGroupExtension = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestNestedExtension = {
@@ -13480,20 +12915,14 @@ export const TestNestedExtension = {
    * Serializes a TestNestedExtension to protobuf.
    */
   encode: function (testNestedExtension) {
-    return TestNestedExtension._writeMessage(
-      testNestedExtension,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestNestedExtension from protobuf.
    */
   decode: function (bytes) {
-    return TestNestedExtension._readMessage(
-      TestNestedExtension.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -13501,29 +12930,6 @@ export const TestNestedExtension = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 
   OptionalGroup_extension: {
@@ -14234,20 +13640,14 @@ export const TestEmptyMessage = {
    * Serializes a TestEmptyMessage to protobuf.
    */
   encode: function (testEmptyMessage) {
-    return TestEmptyMessage._writeMessage(
-      testEmptyMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
   decode: function (bytes) {
-    return TestEmptyMessage._readMessage(
-      TestEmptyMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -14256,29 +13656,6 @@ export const TestEmptyMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestEmptyMessageWithExtensions = {
@@ -14286,20 +13663,14 @@ export const TestEmptyMessageWithExtensions = {
    * Serializes a TestEmptyMessageWithExtensions to protobuf.
    */
   encode: function (testEmptyMessageWithExtensions) {
-    return TestEmptyMessageWithExtensions._writeMessage(
-      testEmptyMessageWithExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessageWithExtensions from protobuf.
    */
   decode: function (bytes) {
-    return TestEmptyMessageWithExtensions._readMessage(
-      TestEmptyMessageWithExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -14308,29 +13679,6 @@ export const TestEmptyMessageWithExtensions = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestPickleNestedMessage = {
@@ -14338,20 +13686,14 @@ export const TestPickleNestedMessage = {
    * Serializes a TestPickleNestedMessage to protobuf.
    */
   encode: function (testPickleNestedMessage) {
-    return TestPickleNestedMessage._writeMessage(
-      testPickleNestedMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPickleNestedMessage from protobuf.
    */
   decode: function (bytes) {
-    return TestPickleNestedMessage._readMessage(
-      TestPickleNestedMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -14359,29 +13701,6 @@ export const TestPickleNestedMessage = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 
   NestedMessage: {
@@ -14512,20 +13831,14 @@ export const TestMultipleExtensionRanges = {
    * Serializes a TestMultipleExtensionRanges to protobuf.
    */
   encode: function (testMultipleExtensionRanges) {
-    return TestMultipleExtensionRanges._writeMessage(
-      testMultipleExtensionRanges,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestMultipleExtensionRanges from protobuf.
    */
   decode: function (bytes) {
-    return TestMultipleExtensionRanges._readMessage(
-      TestMultipleExtensionRanges.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -14533,29 +13846,6 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -15036,20 +14326,14 @@ export const TestIsInitialized = {
      * Serializes a TestIsInitialized.SubMessage to protobuf.
      */
     encode: function (subMessage) {
-      return TestIsInitialized.SubMessage._writeMessage(
-        subMessage,
-        new BinaryWriter()
-      ).getResultBuffer();
+      return new Uint8Array();
     },
 
     /**
      * Deserializes a TestIsInitialized.SubMessage from protobuf.
      */
     decode: function (bytes) {
-      return TestIsInitialized.SubMessage._readMessage(
-        TestIsInitialized.SubMessage.initialize(),
-        new BinaryReader(bytes)
-      );
+      return {};
     },
 
     /**
@@ -15057,29 +14341,6 @@ export const TestIsInitialized = {
      */
     initialize: function () {
       return {};
-    },
-
-    /**
-     * @private
-     */
-    _writeMessage: function (msg, writer) {
-      return writer;
-    },
-
-    /**
-     * @private
-     */
-    _readMessage: function (msg, reader) {
-      while (reader.nextField()) {
-        const field = reader.getFieldNumber();
-        switch (field) {
-          default: {
-            reader.skipField();
-            break;
-          }
-        }
-      }
-      return msg;
     },
 
     SubGroup: {
@@ -18097,20 +17358,14 @@ export const TestPackedExtensions = {
    * Serializes a TestPackedExtensions to protobuf.
    */
   encode: function (testPackedExtensions) {
-    return TestPackedExtensions._writeMessage(
-      testPackedExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPackedExtensions from protobuf.
    */
   decode: function (bytes) {
-    return TestPackedExtensions._readMessage(
-      TestPackedExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -18119,29 +17374,6 @@ export const TestPackedExtensions = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestUnpackedExtensions = {
@@ -18149,20 +17381,14 @@ export const TestUnpackedExtensions = {
    * Serializes a TestUnpackedExtensions to protobuf.
    */
   encode: function (testUnpackedExtensions) {
-    return TestUnpackedExtensions._writeMessage(
-      testUnpackedExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestUnpackedExtensions from protobuf.
    */
   decode: function (bytes) {
-    return TestUnpackedExtensions._readMessage(
-      TestUnpackedExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -18170,29 +17396,6 @@ export const TestUnpackedExtensions = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -19009,20 +18212,14 @@ export const FooRequest = {
    * Serializes a FooRequest to protobuf.
    */
   encode: function (fooRequest) {
-    return FooRequest._writeMessage(
-      fooRequest,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooRequest from protobuf.
    */
   decode: function (bytes) {
-    return FooRequest._readMessage(
-      FooRequest.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -19031,29 +18228,6 @@ export const FooRequest = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooResponse = {
@@ -19061,20 +18235,14 @@ export const FooResponse = {
    * Serializes a FooResponse to protobuf.
    */
   encode: function (fooResponse) {
-    return FooResponse._writeMessage(
-      fooResponse,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooResponse from protobuf.
    */
   decode: function (bytes) {
-    return FooResponse._readMessage(
-      FooResponse.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -19083,29 +18251,6 @@ export const FooResponse = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooClientMessage = {
@@ -19113,20 +18258,14 @@ export const FooClientMessage = {
    * Serializes a FooClientMessage to protobuf.
    */
   encode: function (fooClientMessage) {
-    return FooClientMessage._writeMessage(
-      fooClientMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooClientMessage from protobuf.
    */
   decode: function (bytes) {
-    return FooClientMessage._readMessage(
-      FooClientMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -19135,29 +18274,6 @@ export const FooClientMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooServerMessage = {
@@ -19165,20 +18281,14 @@ export const FooServerMessage = {
    * Serializes a FooServerMessage to protobuf.
    */
   encode: function (fooServerMessage) {
-    return FooServerMessage._writeMessage(
-      fooServerMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooServerMessage from protobuf.
    */
   decode: function (bytes) {
-    return FooServerMessage._readMessage(
-      FooServerMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -19187,29 +18297,6 @@ export const FooServerMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const BarRequest = {
@@ -19217,20 +18304,14 @@ export const BarRequest = {
    * Serializes a BarRequest to protobuf.
    */
   encode: function (barRequest) {
-    return BarRequest._writeMessage(
-      barRequest,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a BarRequest from protobuf.
    */
   decode: function (bytes) {
-    return BarRequest._readMessage(
-      BarRequest.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -19239,29 +18320,6 @@ export const BarRequest = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const BarResponse = {
@@ -19269,20 +18327,14 @@ export const BarResponse = {
    * Serializes a BarResponse to protobuf.
    */
   encode: function (barResponse) {
-    return BarResponse._writeMessage(
-      barResponse,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a BarResponse from protobuf.
    */
   decode: function (bytes) {
-    return BarResponse._readMessage(
-      BarResponse.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -19290,29 +18342,6 @@ export const BarResponse = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -22809,20 +21838,14 @@ export const TestEmptyMessage = {
    * Serializes a TestEmptyMessage to protobuf.
    */
   encode: function (testEmptyMessage) {
-    return TestEmptyMessage._writeMessage(
-      testEmptyMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
   decode: function (bytes) {
-    return TestEmptyMessage._readMessage(
-      TestEmptyMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -22830,29 +21853,6 @@ export const TestEmptyMessage = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (msg, writer) {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg, reader) {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -22977,6 +21977,122 @@ export const TestOneof2 = {
 
   NestedEnum: { UNKNOWN: 0, FOO: 1, BAR: 2, BAZ: 3 },
 };
+",
+        ],
+        "arrayIndexOffset_": -1,
+        "convertedPrimitiveFields_": Object {},
+        "messageId_": undefined,
+        "pivot_": 1.7976931348623157e+308,
+        "wrappers_": null,
+      },
+      Object {
+        "array": Array [
+          "google/protobuf/empty.pb.js",
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
+// Source: google/protobuf/empty.proto
+
+import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
+
+//========================================//
+//        Protobuf Encode / Decode        //
+//========================================//
+
+export const Empty = {
+  /**
+   * Serializes a Empty to protobuf.
+   */
+  encode: function (empty) {
+    return new Uint8Array();
+  },
+
+  /**
+   * Deserializes a Empty from protobuf.
+   */
+  decode: function (bytes) {
+    return {};
+  },
+
+  /**
+   * Initializes a Empty with all fields set to their default value.
+   */
+  initialize: function () {
+    return {};
+  },
+};
+",
+        ],
+        "arrayIndexOffset_": -1,
+        "convertedPrimitiveFields_": Object {},
+        "messageId_": undefined,
+        "pivot_": 1.7976931348623157e+308,
+        "wrappers_": null,
+      },
+      Object {
+        "array": Array [
+          "empty.pb.js",
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
+// Source: empty.proto
+
+import { JSONrequest, PBrequest } from \\"twirpscript\\";
+// This is the minimum version supported by the current runtime.
+// If this line fails typechecking, breaking changes have been introduced and this
+// file needs to be regenerated by running \`yarn twirpscript\`.
+export { MIN_SUPPORTED_VERSION_0_0_34 } from \\"twirpscript\\";
+
+import { Empty } from \\"./google/protobuf/empty.pb\\";
+
+//========================================//
+//          Foo Protobuf Client           //
+//========================================//
+
+export async function Bar(empty, config) {
+  const response = await PBrequest(\\"/Foo/Bar\\", Empty.encode(empty), config);
+  return Empty.decode(response);
+}
+
+//========================================//
+//            Foo JSON Client             //
+//========================================//
+
+export async function BarJSON(empty, config) {
+  const response = await JSONrequest(\\"/Foo/Bar\\", empty, config);
+  return response;
+}
+
+export function createFooHandler(service) {
+  return {
+    name: \\"Foo\\",
+    methods: {
+      Bar: { name: \\"Bar\\", handler: service.Bar, input: Empty, output: Empty },
+    },
+  };
+}
 ",
         ],
         "arrayIndexOffset_": -1,
@@ -25425,20 +24541,14 @@ export const TestDeprecatedMessage = {
   encode: function (
     testDeprecatedMessage: Partial<TestDeprecatedMessage>
   ): Uint8Array {
-    return TestDeprecatedMessage._writeMessage(
-      testDeprecatedMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestDeprecatedMessage from protobuf.
    */
   decode: function (bytes: ByteSource): TestDeprecatedMessage {
-    return TestDeprecatedMessage._readMessage(
-      TestDeprecatedMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -25446,35 +24556,6 @@ export const TestDeprecatedMessage = {
    */
   initialize: function (): TestDeprecatedMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestDeprecatedMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestDeprecatedMessage,
-    reader: BinaryReader
-  ): TestDeprecatedMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -25560,20 +24641,14 @@ export const TestReservedFields = {
   encode: function (
     testReservedFields: Partial<TestReservedFields>
   ): Uint8Array {
-    return TestReservedFields._writeMessage(
-      testReservedFields,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestReservedFields from protobuf.
    */
   decode: function (bytes: ByteSource): TestReservedFields {
-    return TestReservedFields._readMessage(
-      TestReservedFields.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -25582,35 +24657,6 @@ export const TestReservedFields = {
   initialize: function (): TestReservedFields {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestReservedFields>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestReservedFields,
-    reader: BinaryReader
-  ): TestReservedFields {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestAllExtensions = {
@@ -25618,20 +24664,14 @@ export const TestAllExtensions = {
    * Serializes a TestAllExtensions to protobuf.
    */
   encode: function (testAllExtensions: Partial<TestAllExtensions>): Uint8Array {
-    return TestAllExtensions._writeMessage(
-      testAllExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestAllExtensions from protobuf.
    */
   decode: function (bytes: ByteSource): TestAllExtensions {
-    return TestAllExtensions._readMessage(
-      TestAllExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -25639,35 +24679,6 @@ export const TestAllExtensions = {
    */
   initialize: function (): TestAllExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestAllExtensions>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestAllExtensions,
-    reader: BinaryReader
-  ): TestAllExtensions {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -25949,20 +24960,14 @@ export const TestGroupExtension = {
   encode: function (
     testGroupExtension: Partial<TestGroupExtension>
   ): Uint8Array {
-    return TestGroupExtension._writeMessage(
-      testGroupExtension,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestGroupExtension from protobuf.
    */
   decode: function (bytes: ByteSource): TestGroupExtension {
-    return TestGroupExtension._readMessage(
-      TestGroupExtension.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -25970,35 +24975,6 @@ export const TestGroupExtension = {
    */
   initialize: function (): TestGroupExtension {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestGroupExtension>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestGroupExtension,
-    reader: BinaryReader
-  ): TestGroupExtension {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -26009,20 +24985,14 @@ export const TestNestedExtension = {
   encode: function (
     testNestedExtension: Partial<TestNestedExtension>
   ): Uint8Array {
-    return TestNestedExtension._writeMessage(
-      testNestedExtension,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestNestedExtension from protobuf.
    */
   decode: function (bytes: ByteSource): TestNestedExtension {
-    return TestNestedExtension._readMessage(
-      TestNestedExtension.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -26030,35 +25000,6 @@ export const TestNestedExtension = {
    */
   initialize: function (): TestNestedExtension {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestNestedExtension>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestNestedExtension,
-    reader: BinaryReader
-  ): TestNestedExtension {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 
   OptionalGroup_extension: {
@@ -26815,20 +25756,14 @@ export const TestEmptyMessage = {
    * Serializes a TestEmptyMessage to protobuf.
    */
   encode: function (testEmptyMessage: Partial<TestEmptyMessage>): Uint8Array {
-    return TestEmptyMessage._writeMessage(
-      testEmptyMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
   decode: function (bytes: ByteSource): TestEmptyMessage {
-    return TestEmptyMessage._readMessage(
-      TestEmptyMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -26836,35 +25771,6 @@ export const TestEmptyMessage = {
    */
   initialize: function (): TestEmptyMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestEmptyMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestEmptyMessage,
-    reader: BinaryReader
-  ): TestEmptyMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -26875,20 +25781,14 @@ export const TestEmptyMessageWithExtensions = {
   encode: function (
     testEmptyMessageWithExtensions: Partial<TestEmptyMessageWithExtensions>
   ): Uint8Array {
-    return TestEmptyMessageWithExtensions._writeMessage(
-      testEmptyMessageWithExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessageWithExtensions from protobuf.
    */
   decode: function (bytes: ByteSource): TestEmptyMessageWithExtensions {
-    return TestEmptyMessageWithExtensions._readMessage(
-      TestEmptyMessageWithExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -26896,35 +25796,6 @@ export const TestEmptyMessageWithExtensions = {
    */
   initialize: function (): TestEmptyMessageWithExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestEmptyMessageWithExtensions>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestEmptyMessageWithExtensions,
-    reader: BinaryReader
-  ): TestEmptyMessageWithExtensions {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -26935,20 +25806,14 @@ export const TestPickleNestedMessage = {
   encode: function (
     testPickleNestedMessage: Partial<TestPickleNestedMessage>
   ): Uint8Array {
-    return TestPickleNestedMessage._writeMessage(
-      testPickleNestedMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPickleNestedMessage from protobuf.
    */
   decode: function (bytes: ByteSource): TestPickleNestedMessage {
-    return TestPickleNestedMessage._readMessage(
-      TestPickleNestedMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -26956,35 +25821,6 @@ export const TestPickleNestedMessage = {
    */
   initialize: function (): TestPickleNestedMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestPickleNestedMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestPickleNestedMessage,
-    reader: BinaryReader
-  ): TestPickleNestedMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 
   NestedMessage: {
@@ -27138,20 +25974,14 @@ export const TestMultipleExtensionRanges = {
   encode: function (
     testMultipleExtensionRanges: Partial<TestMultipleExtensionRanges>
   ): Uint8Array {
-    return TestMultipleExtensionRanges._writeMessage(
-      testMultipleExtensionRanges,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestMultipleExtensionRanges from protobuf.
    */
   decode: function (bytes: ByteSource): TestMultipleExtensionRanges {
-    return TestMultipleExtensionRanges._readMessage(
-      TestMultipleExtensionRanges.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -27159,35 +25989,6 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function (): TestMultipleExtensionRanges {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestMultipleExtensionRanges>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestMultipleExtensionRanges,
-    reader: BinaryReader
-  ): TestMultipleExtensionRanges {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -27724,20 +26525,14 @@ export const TestIsInitialized = {
     encode: function (
       subMessage: Partial<TestIsInitialized.SubMessage>
     ): Uint8Array {
-      return TestIsInitialized.SubMessage._writeMessage(
-        subMessage,
-        new BinaryWriter()
-      ).getResultBuffer();
+      return new Uint8Array();
     },
 
     /**
      * Deserializes a TestIsInitialized.SubMessage from protobuf.
      */
     decode: function (bytes: ByteSource): TestIsInitialized.SubMessage {
-      return TestIsInitialized.SubMessage._readMessage(
-        TestIsInitialized.SubMessage.initialize(),
-        new BinaryReader(bytes)
-      );
+      return {};
     },
 
     /**
@@ -27745,35 +26540,6 @@ export const TestIsInitialized = {
      */
     initialize: function (): TestIsInitialized.SubMessage {
       return {};
-    },
-
-    /**
-     * @private
-     */
-    _writeMessage: function (
-      msg: Partial<TestIsInitialized.SubMessage>,
-      writer: BinaryWriter
-    ): BinaryWriter {
-      return writer;
-    },
-
-    /**
-     * @private
-     */
-    _readMessage: function (
-      msg: TestIsInitialized.SubMessage,
-      reader: BinaryReader
-    ): TestIsInitialized.SubMessage {
-      while (reader.nextField()) {
-        const field = reader.getFieldNumber();
-        switch (field) {
-          default: {
-            reader.skipField();
-            break;
-          }
-        }
-      }
-      return msg;
     },
 
     SubGroup: {
@@ -31026,20 +29792,14 @@ export const TestPackedExtensions = {
   encode: function (
     testPackedExtensions: Partial<TestPackedExtensions>
   ): Uint8Array {
-    return TestPackedExtensions._writeMessage(
-      testPackedExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPackedExtensions from protobuf.
    */
   decode: function (bytes: ByteSource): TestPackedExtensions {
-    return TestPackedExtensions._readMessage(
-      TestPackedExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -31047,35 +29807,6 @@ export const TestPackedExtensions = {
    */
   initialize: function (): TestPackedExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestPackedExtensions>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestPackedExtensions,
-    reader: BinaryReader
-  ): TestPackedExtensions {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -31086,20 +29817,14 @@ export const TestUnpackedExtensions = {
   encode: function (
     testUnpackedExtensions: Partial<TestUnpackedExtensions>
   ): Uint8Array {
-    return TestUnpackedExtensions._writeMessage(
-      testUnpackedExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestUnpackedExtensions from protobuf.
    */
   decode: function (bytes: ByteSource): TestUnpackedExtensions {
-    return TestUnpackedExtensions._readMessage(
-      TestUnpackedExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -31107,35 +29832,6 @@ export const TestUnpackedExtensions = {
    */
   initialize: function (): TestUnpackedExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestUnpackedExtensions>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestUnpackedExtensions,
-    reader: BinaryReader
-  ): TestUnpackedExtensions {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -32063,20 +30759,14 @@ export const FooRequest = {
    * Serializes a FooRequest to protobuf.
    */
   encode: function (fooRequest: Partial<FooRequest>): Uint8Array {
-    return FooRequest._writeMessage(
-      fooRequest,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooRequest from protobuf.
    */
   decode: function (bytes: ByteSource): FooRequest {
-    return FooRequest._readMessage(
-      FooRequest.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -32085,32 +30775,6 @@ export const FooRequest = {
   initialize: function (): FooRequest {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<FooRequest>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg: FooRequest, reader: BinaryReader): FooRequest {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooResponse = {
@@ -32118,20 +30782,14 @@ export const FooResponse = {
    * Serializes a FooResponse to protobuf.
    */
   encode: function (fooResponse: Partial<FooResponse>): Uint8Array {
-    return FooResponse._writeMessage(
-      fooResponse,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooResponse from protobuf.
    */
   decode: function (bytes: ByteSource): FooResponse {
-    return FooResponse._readMessage(
-      FooResponse.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -32140,32 +30798,6 @@ export const FooResponse = {
   initialize: function (): FooResponse {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<FooResponse>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg: FooResponse, reader: BinaryReader): FooResponse {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooClientMessage = {
@@ -32173,20 +30805,14 @@ export const FooClientMessage = {
    * Serializes a FooClientMessage to protobuf.
    */
   encode: function (fooClientMessage: Partial<FooClientMessage>): Uint8Array {
-    return FooClientMessage._writeMessage(
-      fooClientMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooClientMessage from protobuf.
    */
   decode: function (bytes: ByteSource): FooClientMessage {
-    return FooClientMessage._readMessage(
-      FooClientMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -32195,35 +30821,6 @@ export const FooClientMessage = {
   initialize: function (): FooClientMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<FooClientMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: FooClientMessage,
-    reader: BinaryReader
-  ): FooClientMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooServerMessage = {
@@ -32231,20 +30828,14 @@ export const FooServerMessage = {
    * Serializes a FooServerMessage to protobuf.
    */
   encode: function (fooServerMessage: Partial<FooServerMessage>): Uint8Array {
-    return FooServerMessage._writeMessage(
-      fooServerMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooServerMessage from protobuf.
    */
   decode: function (bytes: ByteSource): FooServerMessage {
-    return FooServerMessage._readMessage(
-      FooServerMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -32253,35 +30844,6 @@ export const FooServerMessage = {
   initialize: function (): FooServerMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<FooServerMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: FooServerMessage,
-    reader: BinaryReader
-  ): FooServerMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const BarRequest = {
@@ -32289,20 +30851,14 @@ export const BarRequest = {
    * Serializes a BarRequest to protobuf.
    */
   encode: function (barRequest: Partial<BarRequest>): Uint8Array {
-    return BarRequest._writeMessage(
-      barRequest,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a BarRequest from protobuf.
    */
   decode: function (bytes: ByteSource): BarRequest {
-    return BarRequest._readMessage(
-      BarRequest.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -32311,32 +30867,6 @@ export const BarRequest = {
   initialize: function (): BarRequest {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<BarRequest>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg: BarRequest, reader: BinaryReader): BarRequest {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const BarResponse = {
@@ -32344,20 +30874,14 @@ export const BarResponse = {
    * Serializes a BarResponse to protobuf.
    */
   encode: function (barResponse: Partial<BarResponse>): Uint8Array {
-    return BarResponse._writeMessage(
-      barResponse,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a BarResponse from protobuf.
    */
   decode: function (bytes: ByteSource): BarResponse {
-    return BarResponse._readMessage(
-      BarResponse.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -32365,32 +30889,6 @@ export const BarResponse = {
    */
   initialize: function (): BarResponse {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<BarResponse>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg: BarResponse, reader: BinaryReader): BarResponse {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -36267,20 +34765,14 @@ export const TestEmptyMessage = {
    * Serializes a TestEmptyMessage to protobuf.
    */
   encode: function (testEmptyMessage: Partial<TestEmptyMessage>): Uint8Array {
-    return TestEmptyMessage._writeMessage(
-      testEmptyMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
   decode: function (bytes: ByteSource): TestEmptyMessage {
-    return TestEmptyMessage._readMessage(
-      TestEmptyMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -36288,35 +34780,6 @@ export const TestEmptyMessage = {
    */
   initialize: function (): TestEmptyMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestEmptyMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestEmptyMessage,
-    reader: BinaryReader
-  ): TestEmptyMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -36452,6 +34915,141 @@ export const TestOneof2 = {
 
   NestedEnum: { UNKNOWN: 0, FOO: 1, BAR: 2, BAZ: 3 } as const,
 };
+",
+      ],
+      Array [
+        "google/protobuf/empty.pb.ts",
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
+// Source: google/protobuf/empty.proto
+
+import type { ByteSource } from \\"twirpscript\\";
+import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
+
+//========================================//
+//                 Types                  //
+//========================================//
+
+/**
+ * A generic empty message that you can re-use to avoid defining duplicated
+ * empty messages in your APIs. A typical example is to use it as the request
+ * or the response type of an API method. For instance:
+ *
+ *     service Foo {
+ *       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+ *     }
+ *
+ * The JSON representation for \`Empty\` is empty JSON object \`{}\`.
+ */
+export interface Empty {}
+
+//========================================//
+//        Protobuf Encode / Decode        //
+//========================================//
+
+export const Empty = {
+  /**
+   * Serializes a Empty to protobuf.
+   */
+  encode: function (empty: Partial<Empty>): Uint8Array {
+    return new Uint8Array();
+  },
+
+  /**
+   * Deserializes a Empty from protobuf.
+   */
+  decode: function (bytes: ByteSource): Empty {
+    return {};
+  },
+
+  /**
+   * Initializes a Empty with all fields set to their default value.
+   */
+  initialize: function (): Empty {
+    return {};
+  },
+};
+",
+      ],
+      Array [
+        "empty.pb.ts",
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
+// Source: empty.proto
+
+import type { ClientConfiguration } from \\"twirpscript\\";
+import { JSONrequest, PBrequest } from \\"twirpscript\\";
+// This is the minimum version supported by the current runtime.
+// If this line fails typechecking, breaking changes have been introduced and this
+// file needs to be regenerated by running \`yarn twirpscript\`.
+export { MIN_SUPPORTED_VERSION_0_0_34 } from \\"twirpscript\\";
+
+import { Empty } from \\"./google/protobuf/empty.pb\\";
+
+//========================================//
+//          Foo Protobuf Client           //
+//========================================//
+
+export async function Bar(
+  empty: Empty,
+  config?: ClientConfiguration
+): Promise<Empty> {
+  const response = await PBrequest(\\"/Foo/Bar\\", Empty.encode(empty), config);
+  return Empty.decode(response);
+}
+
+//========================================//
+//            Foo JSON Client             //
+//========================================//
+
+export async function BarJSON(
+  empty: Empty,
+  config?: ClientConfiguration
+): Promise<Empty> {
+  const response = await JSONrequest<Empty>(\\"/Foo/Bar\\", empty, config);
+  return response;
+}
+
+//========================================//
+//              Foo Service               //
+//========================================//
+
+export interface FooService<Context = unknown> {
+  Bar: (empty: Empty, context: Context) => Promise<Empty> | Empty;
+}
+
+export function createFooHandler<Context>(service: FooService<Context>) {
+  return {
+    name: \\"Foo\\",
+    methods: {
+      Bar: { name: \\"Bar\\", handler: service.Bar, input: Empty, output: Empty },
+    },
+  } as const;
+}
 ",
       ],
     ],
@@ -38894,20 +37492,14 @@ export const TestDeprecatedMessage = {
   encode: function (
     testDeprecatedMessage: Partial<TestDeprecatedMessage>
   ): Uint8Array {
-    return TestDeprecatedMessage._writeMessage(
-      testDeprecatedMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestDeprecatedMessage from protobuf.
    */
   decode: function (bytes: ByteSource): TestDeprecatedMessage {
-    return TestDeprecatedMessage._readMessage(
-      TestDeprecatedMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -38915,35 +37507,6 @@ export const TestDeprecatedMessage = {
    */
   initialize: function (): TestDeprecatedMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestDeprecatedMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestDeprecatedMessage,
-    reader: BinaryReader
-  ): TestDeprecatedMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -39029,20 +37592,14 @@ export const TestReservedFields = {
   encode: function (
     testReservedFields: Partial<TestReservedFields>
   ): Uint8Array {
-    return TestReservedFields._writeMessage(
-      testReservedFields,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestReservedFields from protobuf.
    */
   decode: function (bytes: ByteSource): TestReservedFields {
-    return TestReservedFields._readMessage(
-      TestReservedFields.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -39051,35 +37608,6 @@ export const TestReservedFields = {
   initialize: function (): TestReservedFields {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestReservedFields>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestReservedFields,
-    reader: BinaryReader
-  ): TestReservedFields {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const TestAllExtensions = {
@@ -39087,20 +37615,14 @@ export const TestAllExtensions = {
    * Serializes a TestAllExtensions to protobuf.
    */
   encode: function (testAllExtensions: Partial<TestAllExtensions>): Uint8Array {
-    return TestAllExtensions._writeMessage(
-      testAllExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestAllExtensions from protobuf.
    */
   decode: function (bytes: ByteSource): TestAllExtensions {
-    return TestAllExtensions._readMessage(
-      TestAllExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -39108,35 +37630,6 @@ export const TestAllExtensions = {
    */
   initialize: function (): TestAllExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestAllExtensions>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestAllExtensions,
-    reader: BinaryReader
-  ): TestAllExtensions {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -39418,20 +37911,14 @@ export const TestGroupExtension = {
   encode: function (
     testGroupExtension: Partial<TestGroupExtension>
   ): Uint8Array {
-    return TestGroupExtension._writeMessage(
-      testGroupExtension,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestGroupExtension from protobuf.
    */
   decode: function (bytes: ByteSource): TestGroupExtension {
-    return TestGroupExtension._readMessage(
-      TestGroupExtension.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -39439,35 +37926,6 @@ export const TestGroupExtension = {
    */
   initialize: function (): TestGroupExtension {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestGroupExtension>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestGroupExtension,
-    reader: BinaryReader
-  ): TestGroupExtension {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -39478,20 +37936,14 @@ export const TestNestedExtension = {
   encode: function (
     testNestedExtension: Partial<TestNestedExtension>
   ): Uint8Array {
-    return TestNestedExtension._writeMessage(
-      testNestedExtension,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestNestedExtension from protobuf.
    */
   decode: function (bytes: ByteSource): TestNestedExtension {
-    return TestNestedExtension._readMessage(
-      TestNestedExtension.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -39499,35 +37951,6 @@ export const TestNestedExtension = {
    */
   initialize: function (): TestNestedExtension {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestNestedExtension>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestNestedExtension,
-    reader: BinaryReader
-  ): TestNestedExtension {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 
   OptionalGroup_extension: {
@@ -40284,20 +38707,14 @@ export const TestEmptyMessage = {
    * Serializes a TestEmptyMessage to protobuf.
    */
   encode: function (testEmptyMessage: Partial<TestEmptyMessage>): Uint8Array {
-    return TestEmptyMessage._writeMessage(
-      testEmptyMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
   decode: function (bytes: ByteSource): TestEmptyMessage {
-    return TestEmptyMessage._readMessage(
-      TestEmptyMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -40305,35 +38722,6 @@ export const TestEmptyMessage = {
    */
   initialize: function (): TestEmptyMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestEmptyMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestEmptyMessage,
-    reader: BinaryReader
-  ): TestEmptyMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -40344,20 +38732,14 @@ export const TestEmptyMessageWithExtensions = {
   encode: function (
     testEmptyMessageWithExtensions: Partial<TestEmptyMessageWithExtensions>
   ): Uint8Array {
-    return TestEmptyMessageWithExtensions._writeMessage(
-      testEmptyMessageWithExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessageWithExtensions from protobuf.
    */
   decode: function (bytes: ByteSource): TestEmptyMessageWithExtensions {
-    return TestEmptyMessageWithExtensions._readMessage(
-      TestEmptyMessageWithExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -40365,35 +38747,6 @@ export const TestEmptyMessageWithExtensions = {
    */
   initialize: function (): TestEmptyMessageWithExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestEmptyMessageWithExtensions>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestEmptyMessageWithExtensions,
-    reader: BinaryReader
-  ): TestEmptyMessageWithExtensions {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -40404,20 +38757,14 @@ export const TestPickleNestedMessage = {
   encode: function (
     testPickleNestedMessage: Partial<TestPickleNestedMessage>
   ): Uint8Array {
-    return TestPickleNestedMessage._writeMessage(
-      testPickleNestedMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPickleNestedMessage from protobuf.
    */
   decode: function (bytes: ByteSource): TestPickleNestedMessage {
-    return TestPickleNestedMessage._readMessage(
-      TestPickleNestedMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -40425,35 +38772,6 @@ export const TestPickleNestedMessage = {
    */
   initialize: function (): TestPickleNestedMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestPickleNestedMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestPickleNestedMessage,
-    reader: BinaryReader
-  ): TestPickleNestedMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 
   NestedMessage: {
@@ -40607,20 +38925,14 @@ export const TestMultipleExtensionRanges = {
   encode: function (
     testMultipleExtensionRanges: Partial<TestMultipleExtensionRanges>
   ): Uint8Array {
-    return TestMultipleExtensionRanges._writeMessage(
-      testMultipleExtensionRanges,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestMultipleExtensionRanges from protobuf.
    */
   decode: function (bytes: ByteSource): TestMultipleExtensionRanges {
-    return TestMultipleExtensionRanges._readMessage(
-      TestMultipleExtensionRanges.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -40628,35 +38940,6 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function (): TestMultipleExtensionRanges {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestMultipleExtensionRanges>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestMultipleExtensionRanges,
-    reader: BinaryReader
-  ): TestMultipleExtensionRanges {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -41193,20 +39476,14 @@ export const TestIsInitialized = {
     encode: function (
       subMessage: Partial<TestIsInitialized.SubMessage>
     ): Uint8Array {
-      return TestIsInitialized.SubMessage._writeMessage(
-        subMessage,
-        new BinaryWriter()
-      ).getResultBuffer();
+      return new Uint8Array();
     },
 
     /**
      * Deserializes a TestIsInitialized.SubMessage from protobuf.
      */
     decode: function (bytes: ByteSource): TestIsInitialized.SubMessage {
-      return TestIsInitialized.SubMessage._readMessage(
-        TestIsInitialized.SubMessage.initialize(),
-        new BinaryReader(bytes)
-      );
+      return {};
     },
 
     /**
@@ -41214,35 +39491,6 @@ export const TestIsInitialized = {
      */
     initialize: function (): TestIsInitialized.SubMessage {
       return {};
-    },
-
-    /**
-     * @private
-     */
-    _writeMessage: function (
-      msg: Partial<TestIsInitialized.SubMessage>,
-      writer: BinaryWriter
-    ): BinaryWriter {
-      return writer;
-    },
-
-    /**
-     * @private
-     */
-    _readMessage: function (
-      msg: TestIsInitialized.SubMessage,
-      reader: BinaryReader
-    ): TestIsInitialized.SubMessage {
-      while (reader.nextField()) {
-        const field = reader.getFieldNumber();
-        switch (field) {
-          default: {
-            reader.skipField();
-            break;
-          }
-        }
-      }
-      return msg;
     },
 
     SubGroup: {
@@ -44495,20 +42743,14 @@ export const TestPackedExtensions = {
   encode: function (
     testPackedExtensions: Partial<TestPackedExtensions>
   ): Uint8Array {
-    return TestPackedExtensions._writeMessage(
-      testPackedExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestPackedExtensions from protobuf.
    */
   decode: function (bytes: ByteSource): TestPackedExtensions {
-    return TestPackedExtensions._readMessage(
-      TestPackedExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -44516,35 +42758,6 @@ export const TestPackedExtensions = {
    */
   initialize: function (): TestPackedExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestPackedExtensions>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestPackedExtensions,
-    reader: BinaryReader
-  ): TestPackedExtensions {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -44555,20 +42768,14 @@ export const TestUnpackedExtensions = {
   encode: function (
     testUnpackedExtensions: Partial<TestUnpackedExtensions>
   ): Uint8Array {
-    return TestUnpackedExtensions._writeMessage(
-      testUnpackedExtensions,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestUnpackedExtensions from protobuf.
    */
   decode: function (bytes: ByteSource): TestUnpackedExtensions {
-    return TestUnpackedExtensions._readMessage(
-      TestUnpackedExtensions.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -44576,35 +42783,6 @@ export const TestUnpackedExtensions = {
    */
   initialize: function (): TestUnpackedExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestUnpackedExtensions>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestUnpackedExtensions,
-    reader: BinaryReader
-  ): TestUnpackedExtensions {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -45532,20 +43710,14 @@ export const FooRequest = {
    * Serializes a FooRequest to protobuf.
    */
   encode: function (fooRequest: Partial<FooRequest>): Uint8Array {
-    return FooRequest._writeMessage(
-      fooRequest,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooRequest from protobuf.
    */
   decode: function (bytes: ByteSource): FooRequest {
-    return FooRequest._readMessage(
-      FooRequest.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -45554,32 +43726,6 @@ export const FooRequest = {
   initialize: function (): FooRequest {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<FooRequest>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg: FooRequest, reader: BinaryReader): FooRequest {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooResponse = {
@@ -45587,20 +43733,14 @@ export const FooResponse = {
    * Serializes a FooResponse to protobuf.
    */
   encode: function (fooResponse: Partial<FooResponse>): Uint8Array {
-    return FooResponse._writeMessage(
-      fooResponse,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooResponse from protobuf.
    */
   decode: function (bytes: ByteSource): FooResponse {
-    return FooResponse._readMessage(
-      FooResponse.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -45609,32 +43749,6 @@ export const FooResponse = {
   initialize: function (): FooResponse {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<FooResponse>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg: FooResponse, reader: BinaryReader): FooResponse {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooClientMessage = {
@@ -45642,20 +43756,14 @@ export const FooClientMessage = {
    * Serializes a FooClientMessage to protobuf.
    */
   encode: function (fooClientMessage: Partial<FooClientMessage>): Uint8Array {
-    return FooClientMessage._writeMessage(
-      fooClientMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooClientMessage from protobuf.
    */
   decode: function (bytes: ByteSource): FooClientMessage {
-    return FooClientMessage._readMessage(
-      FooClientMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -45664,35 +43772,6 @@ export const FooClientMessage = {
   initialize: function (): FooClientMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<FooClientMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: FooClientMessage,
-    reader: BinaryReader
-  ): FooClientMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const FooServerMessage = {
@@ -45700,20 +43779,14 @@ export const FooServerMessage = {
    * Serializes a FooServerMessage to protobuf.
    */
   encode: function (fooServerMessage: Partial<FooServerMessage>): Uint8Array {
-    return FooServerMessage._writeMessage(
-      fooServerMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a FooServerMessage from protobuf.
    */
   decode: function (bytes: ByteSource): FooServerMessage {
-    return FooServerMessage._readMessage(
-      FooServerMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -45722,35 +43795,6 @@ export const FooServerMessage = {
   initialize: function (): FooServerMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<FooServerMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: FooServerMessage,
-    reader: BinaryReader
-  ): FooServerMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const BarRequest = {
@@ -45758,20 +43802,14 @@ export const BarRequest = {
    * Serializes a BarRequest to protobuf.
    */
   encode: function (barRequest: Partial<BarRequest>): Uint8Array {
-    return BarRequest._writeMessage(
-      barRequest,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a BarRequest from protobuf.
    */
   decode: function (bytes: ByteSource): BarRequest {
-    return BarRequest._readMessage(
-      BarRequest.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -45780,32 +43818,6 @@ export const BarRequest = {
   initialize: function (): BarRequest {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<BarRequest>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg: BarRequest, reader: BinaryReader): BarRequest {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
-  },
 };
 
 export const BarResponse = {
@@ -45813,20 +43825,14 @@ export const BarResponse = {
    * Serializes a BarResponse to protobuf.
    */
   encode: function (barResponse: Partial<BarResponse>): Uint8Array {
-    return BarResponse._writeMessage(
-      barResponse,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a BarResponse from protobuf.
    */
   decode: function (bytes: ByteSource): BarResponse {
-    return BarResponse._readMessage(
-      BarResponse.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -45834,32 +43840,6 @@ export const BarResponse = {
    */
   initialize: function (): BarResponse {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<BarResponse>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg: BarResponse, reader: BinaryReader): BarResponse {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -49750,20 +47730,14 @@ export const TestEmptyMessage = {
    * Serializes a TestEmptyMessage to protobuf.
    */
   encode: function (testEmptyMessage: Partial<TestEmptyMessage>): Uint8Array {
-    return TestEmptyMessage._writeMessage(
-      testEmptyMessage,
-      new BinaryWriter()
-    ).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a TestEmptyMessage from protobuf.
    */
   decode: function (bytes: ByteSource): TestEmptyMessage {
-    return TestEmptyMessage._readMessage(
-      TestEmptyMessage.initialize(),
-      new BinaryReader(bytes)
-    );
+    return {};
   },
 
   /**
@@ -49771,35 +47745,6 @@ export const TestEmptyMessage = {
    */
   initialize: function (): TestEmptyMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<TestEmptyMessage>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (
-    msg: TestEmptyMessage,
-    reader: BinaryReader
-  ): TestEmptyMessage {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 
@@ -49935,6 +47880,155 @@ export const TestOneof2 = {
 
   NestedEnum: { UNKNOWN: 0, FOO: 1, BAR: 2, BAZ: 3 } as const,
 };
+",
+        ],
+        "arrayIndexOffset_": -1,
+        "convertedPrimitiveFields_": Object {},
+        "messageId_": undefined,
+        "pivot_": 1.7976931348623157e+308,
+        "wrappers_": null,
+      },
+      Object {
+        "array": Array [
+          "google/protobuf/empty.pb.ts",
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
+// Source: google/protobuf/empty.proto
+
+import type { ByteSource } from \\"twirpscript\\";
+import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
+
+//========================================//
+//                 Types                  //
+//========================================//
+
+/**
+ * A generic empty message that you can re-use to avoid defining duplicated
+ * empty messages in your APIs. A typical example is to use it as the request
+ * or the response type of an API method. For instance:
+ *
+ *     service Foo {
+ *       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+ *     }
+ *
+ * The JSON representation for \`Empty\` is empty JSON object \`{}\`.
+ */
+export interface Empty {}
+
+//========================================//
+//        Protobuf Encode / Decode        //
+//========================================//
+
+export const Empty = {
+  /**
+   * Serializes a Empty to protobuf.
+   */
+  encode: function (empty: Partial<Empty>): Uint8Array {
+    return new Uint8Array();
+  },
+
+  /**
+   * Deserializes a Empty from protobuf.
+   */
+  decode: function (bytes: ByteSource): Empty {
+    return {};
+  },
+
+  /**
+   * Initializes a Empty with all fields set to their default value.
+   */
+  initialize: function (): Empty {
+    return {};
+  },
+};
+",
+        ],
+        "arrayIndexOffset_": -1,
+        "convertedPrimitiveFields_": Object {},
+        "messageId_": undefined,
+        "pivot_": 1.7976931348623157e+308,
+        "wrappers_": null,
+      },
+      Object {
+        "array": Array [
+          "empty.pb.ts",
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
+// Source: empty.proto
+
+import type { ClientConfiguration } from \\"twirpscript\\";
+import { JSONrequest, PBrequest } from \\"twirpscript\\";
+// This is the minimum version supported by the current runtime.
+// If this line fails typechecking, breaking changes have been introduced and this
+// file needs to be regenerated by running \`yarn twirpscript\`.
+export { MIN_SUPPORTED_VERSION_0_0_34 } from \\"twirpscript\\";
+
+import { Empty } from \\"./google/protobuf/empty.pb\\";
+
+//========================================//
+//          Foo Protobuf Client           //
+//========================================//
+
+export async function Bar(
+  empty: Empty,
+  config?: ClientConfiguration
+): Promise<Empty> {
+  const response = await PBrequest(\\"/Foo/Bar\\", Empty.encode(empty), config);
+  return Empty.decode(response);
+}
+
+//========================================//
+//            Foo JSON Client             //
+//========================================//
+
+export async function BarJSON(
+  empty: Empty,
+  config?: ClientConfiguration
+): Promise<Empty> {
+  const response = await JSONrequest<Empty>(\\"/Foo/Bar\\", empty, config);
+  return response;
+}
+
+//========================================//
+//              Foo Service               //
+//========================================//
+
+export interface FooService<Context = unknown> {
+  Bar: (empty: Empty, context: Context) => Promise<Empty> | Empty;
+}
+
+export function createFooHandler<Context>(service: FooService<Context>) {
+  return {
+    name: \\"Foo\\",
+    methods: {
+      Bar: { name: \\"Bar\\", handler: service.Bar, input: Empty, output: Empty },
+    },
+  } as const;
+}
 ",
         ],
         "arrayIndexOffset_": -1,

@@ -134,14 +134,14 @@ export const Empty = {
    * Serializes a Empty to protobuf.
    */
   encode: function (empty: Partial<Empty>): Uint8Array {
-    return Empty._writeMessage(empty, new BinaryWriter()).getResultBuffer();
+    return new Uint8Array();
   },
 
   /**
    * Deserializes a Empty from protobuf.
    */
   decode: function (bytes: ByteSource): Empty {
-    return Empty._readMessage(Empty.initialize(), new BinaryReader(bytes));
+    return {};
   },
 
   /**
@@ -149,32 +149,6 @@ export const Empty = {
    */
   initialize: function (): Empty {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _writeMessage: function (
-    msg: Partial<Empty>,
-    writer: BinaryWriter
-  ): BinaryWriter {
-    return writer;
-  },
-
-  /**
-   * @private
-   */
-  _readMessage: function (msg: Empty, reader: BinaryReader): Empty {
-    while (reader.nextField()) {
-      const field = reader.getFieldNumber();
-      switch (field) {
-        default: {
-          reader.skipField();
-          break;
-        }
-      }
-    }
-    return msg;
   },
 };
 

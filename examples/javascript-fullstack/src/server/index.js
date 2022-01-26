@@ -1,6 +1,6 @@
 import { createServer } from "http";
 import { createTwirpServer } from "twirpscript";
-import { HaberdasherHandler } from "./services";
+import { HaberdasherHandler } from "./haberdasher/index.js";
 
 const PORT = 8080;
 

@@ -1,7 +1,8 @@
 {
   "name": "js-fullstack",
+  "type": "module",
   "scripts": {
-    "start": "yarn build && open dist/index.html && node dist/server.js",
+    "start": "yarn build && open dist/index.html && node src/server/index.js",
     "build": "yarn twirpscript && yarn webpack",
     "test": "yarn jest"
   },

@@ -1,4 +1,4 @@
-import { createHaberdasherHandler } from "../../../protos/haberdasher.pb.js";
+import { createHaberdasherHandler } from "../../protos/haberdasher.pb.js";
 
 function choose(list) {
   return list[Math.floor(Math.random() * list.length)];

@@ -467,6 +467,25 @@ createServer(app).listen(PORT, () =>
 
 See the [authentication example](https://github.com/tatethurston/twirpscript/tree/main/examples/authentication) for a full application.
 
+### Errors
+
+Twirp defines a [list of error codes](https://twitchtv.github.io/twirp/docs/spec_v7.html#error-codes). You can throw an error from your service handler by using `TwirpError`:
+
+```ts
+import { TwirpError } from "twirpscript";
+
+if (!currentUser) {
+  throw new TwirpError({
+    code: "unauthenticated",
+    msg: "Access denied",
+  });
+}
+```
+
+Note: You must use `TwirpError`. Any unhandled errors will otherwise be caught and the TwirpScript server will respond with the following JSON response: `{ code: "internal", msg: "server error" }` and set the appropriate headers and status code.
+
+If you want to respond with a Twirp Error from `middleware`, use `TwirpErrorResponse`. This will create a Twirp Error response while still running any remaining `middleware` in the chain. You may explictly define `try / catch` clauses in your middleware, but any unhandled errors will otherwise be caught and the TwirpScript server will respond with the error described above.
+
 ### Hooks
 
 TwirpScript clients and servers can be instrumented by listening to events at key moments during the request / response life cycle. These hooks are ideal placements for instrumentation such as metrics reporting and logging. Event handlers for both clients and servers are passed a `context` object as the first argument. As a best practice, this `context` object should be treated as readonly / immutable.

@@ -710,6 +710,12 @@ export function processTypes(
     addIdentiferToImports(identifier);
   }
 
+  function getServiceName(name: string): string {
+    return name.toLowerCase().endsWith("service")
+      ? name.replace(new RegExp("(?:s)*service", "i"), "")
+      : name;
+  }
+
   function walk(
     namespacing: string,
     descriptorProto: DescriptorProto
@@ -767,7 +773,7 @@ export function processTypes(
   });
 
   typeFile.services = fileDescriptorProto.getServiceList().map((service) => ({
-    name: service.getName() ?? "",
+    name: getServiceName(service.getName() ?? ""),
     methods: service.getMethodList().map((method) => {
       processIdentifier(method.getInputType() ?? "");
       processIdentifier(method.getOutputType() ?? "");

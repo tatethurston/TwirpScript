@@ -482,11 +482,9 @@ if (!currentUser) {
 }
 ```
 
-Note: You must use `TwirpError`.
+Note: You must use `TwirpError`. Any unhandled errors will otherwise be caught and the TwirpScript server will respond with the following JSON response: `{ code: "internal", msg: "server error" }` and set the appropriate headers and status code.
 
-Any unhandled errors will otherwise be caught and the TwirpScript server will respond with `{ code: "internal", msg: "server error" }`
-
-If you want to respond with a Twirp Error in middleware, use the `TwirpErrorResponse`. This will create a Twirp Error response while still running any remaining middleware in the chain.
+If you want to respond with a Twirp Error from `middleware`, use `TwirpErrorResponse`. This will create a Twirp Error response while still running any remaining `middleware` in the chain. You may explictly define `try / catch` clauses in your middleware, but any unhandled errors will otherwise be caught and the TwirpScript server will respond with the error described above.
 
 ### Hooks
 

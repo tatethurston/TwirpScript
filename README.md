@@ -691,7 +691,7 @@ This does not hold true for tools like linters and formatters such as [prettier]
 
 ```js
 module.exports = {
-  ignorePatterns: ["*.pb.[t|j]s]
+  ignorePatterns: ["*.pb.[t|j]s"]
 }
 ```
 

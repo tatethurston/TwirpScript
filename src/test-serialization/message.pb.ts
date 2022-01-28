@@ -12,19 +12,19 @@ import { BinaryReader, BinaryWriter } from "../../src";
 export type Baz = typeof Baz[keyof typeof Baz];
 
 export interface Foo {
-  field_one: number;
-  field_two: Record<string, number | undefined>;
-  field_three: Bar[];
-  field_four: Bar;
-  field_five: number[];
-  field_six: Baz;
-  field_seven: Baz[];
+  fieldOne: number;
+  fieldTwo: Record<string, number | undefined>;
+  fieldThree: Bar[];
+  fieldFour: Bar;
+  fieldFive: number[];
+  fieldSix: Baz;
+  fieldSeven: Baz[];
 }
 
 export interface Bar {
-  field_one: string;
-  field_two: Record<string, number | undefined>;
-  field_three: number[];
+  fieldOne: string;
+  fieldTwo: Record<string, number | undefined>;
+  fieldThree: number[];
 }
 
 //========================================//
@@ -53,13 +53,13 @@ export const Foo = {
    */
   initialize: function (): Foo {
     return {
-      field_one: 0,
-      field_two: {},
-      field_three: [],
-      field_four: Bar.initialize(),
-      field_five: [],
-      field_six: 0,
-      field_seven: [],
+      fieldOne: 0,
+      fieldTwo: {},
+      fieldThree: [],
+      fieldFour: Bar.initialize(),
+      fieldFive: [],
+      fieldSix: 0,
+      fieldSeven: [],
     };
   },
 
@@ -70,31 +70,31 @@ export const Foo = {
     msg: Partial<Foo>,
     writer: BinaryWriter
   ): BinaryWriter {
-    if (msg.field_one) {
-      writer.writeInt32(1, msg.field_one);
+    if (msg.fieldOne) {
+      writer.writeInt32(1, msg.fieldOne);
     }
-    if (msg.field_two) {
-      for (const key in msg.field_two) {
+    if (msg.fieldTwo) {
+      for (const key in msg.fieldTwo) {
         writer.writeMessage(2, {}, (_, mapWriter) => {
           mapWriter.writeString(1, key as unknown as string);
-          mapWriter.writeInt32(2, msg.field_two![key]);
+          mapWriter.writeInt32(2, msg.fieldTwo![key]);
         });
       }
     }
-    if (msg.field_three?.length) {
-      writer.writeRepeatedMessage(3, msg.field_three as any, Bar._writeMessage);
+    if (msg.fieldThree?.length) {
+      writer.writeRepeatedMessage(3, msg.fieldThree as any, Bar._writeMessage);
     }
-    if (msg.field_four) {
-      writer.writeMessage(4, msg.field_four, Bar._writeMessage);
+    if (msg.fieldFour) {
+      writer.writeMessage(4, msg.fieldFour, Bar._writeMessage);
     }
-    if (msg.field_five?.length) {
-      writer.writeRepeatedInt32(5, msg.field_five);
+    if (msg.fieldFive?.length) {
+      writer.writeRepeatedInt32(5, msg.fieldFive);
     }
-    if (msg.field_six) {
-      writer.writeEnum(6, msg.field_six);
+    if (msg.fieldSix) {
+      writer.writeEnum(6, msg.fieldSix);
     }
-    if (msg.field_seven?.length) {
-      writer.writeRepeatedEnum(7, msg.field_seven);
+    if (msg.fieldSeven?.length) {
+      writer.writeRepeatedEnum(7, msg.fieldSeven);
     }
     return writer;
   },
@@ -107,7 +107,7 @@ export const Foo = {
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
-          msg.field_one = reader.readInt32();
+          msg.fieldOne = reader.readInt32();
           break;
         }
         case 2: {
@@ -128,31 +128,31 @@ export const Foo = {
               }
             }
             if (key) {
-              msg.field_two[key] = value;
+              msg.fieldTwo[key] = value;
             }
           });
           break;
         }
         case 3: {
-          msg.field_three.push(
+          msg.fieldThree.push(
             reader.readMessage(Bar.initialize(), Bar._readMessage)
           );
           break;
         }
         case 4: {
-          reader.readMessage(msg.field_four, Bar._readMessage);
+          reader.readMessage(msg.fieldFour, Bar._readMessage);
           break;
         }
         case 5: {
-          msg.field_five.push(reader.readInt32());
+          msg.fieldFive.push(reader.readInt32());
           break;
         }
         case 6: {
-          msg.field_six = reader.readEnum() as Baz;
+          msg.fieldSix = reader.readEnum() as Baz;
           break;
         }
         case 7: {
-          msg.field_seven.push(reader.readEnum() as Baz);
+          msg.fieldSeven.push(reader.readEnum() as Baz);
           break;
         }
         default: {
@@ -185,9 +185,9 @@ export const Bar = {
    */
   initialize: function (): Bar {
     return {
-      field_one: "",
-      field_two: {},
-      field_three: [],
+      fieldOne: "",
+      fieldTwo: {},
+      fieldThree: [],
     };
   },
 
@@ -198,19 +198,19 @@ export const Bar = {
     msg: Partial<Bar>,
     writer: BinaryWriter
   ): BinaryWriter {
-    if (msg.field_one) {
-      writer.writeString(1, msg.field_one);
+    if (msg.fieldOne) {
+      writer.writeString(1, msg.fieldOne);
     }
-    if (msg.field_two) {
-      for (const key in msg.field_two) {
+    if (msg.fieldTwo) {
+      for (const key in msg.fieldTwo) {
         writer.writeMessage(2, {}, (_, mapWriter) => {
           mapWriter.writeString(1, key as unknown as string);
-          mapWriter.writeInt32(2, msg.field_two![key]);
+          mapWriter.writeInt32(2, msg.fieldTwo![key]);
         });
       }
     }
-    if (msg.field_three?.length) {
-      writer.writeRepeatedInt32(3, msg.field_three);
+    if (msg.fieldThree?.length) {
+      writer.writeRepeatedInt32(3, msg.fieldThree);
     }
     return writer;
   },
@@ -223,7 +223,7 @@ export const Bar = {
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
-          msg.field_one = reader.readString();
+          msg.fieldOne = reader.readString();
           break;
         }
         case 2: {
@@ -244,13 +244,13 @@ export const Bar = {
               }
             }
             if (key) {
-              msg.field_two[key] = value;
+              msg.fieldTwo[key] = value;
             }
           });
           break;
         }
         case 3: {
-          msg.field_three.push(reader.readInt32());
+          msg.fieldThree.push(reader.readInt32());
           break;
         }
         default: {

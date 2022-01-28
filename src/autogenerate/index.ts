@@ -240,9 +240,9 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                     });`;
                   } else if (field.read === "readMessage") {
                     if (field.repeated) {
-                      res += `msg.${field.name}.push(
-                      reader.readMessage(${field.tsType}.initialize(), ${field.tsType}._readMessage));
-                    `;
+                      res += `const m = ${field.tsType}.initialize();`;
+                      res += `reader.readMessage(m, ${field.tsType}._readMessage);`;
+                      res += `msg.${field.name}.push(m);`;
                     } else {
                       res += `
                       reader.readMessage(msg.${field.name}, ${field.tsType}._readMessage);

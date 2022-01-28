@@ -134,9 +134,9 @@ export const Foo = {
           break;
         }
         case 3: {
-          msg.fieldThree.push(
-            reader.readMessage(Bar.initialize(), Bar._readMessage)
-          );
+          const m = Bar.initialize();
+          reader.readMessage(m, Bar._readMessage);
+          msg.fieldThree.push(m);
           break;
         }
         case 4: {

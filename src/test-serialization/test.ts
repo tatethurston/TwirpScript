@@ -7,17 +7,17 @@ describe("Serialization/Deserialization", () => {
       it("empty deserialization", () => {
         expect(Foo.decode(Foo.encode({}))).toMatchInlineSnapshot(`
           Object {
-            "field_five": Array [],
-            "field_four": Object {
-              "field_one": "",
-              "field_three": Array [],
-              "field_two": Object {},
+            "fieldFive": Array [],
+            "fieldFour": Object {
+              "fieldOne": "",
+              "fieldThree": Array [],
+              "fieldTwo": Object {},
             },
-            "field_one": 0,
-            "field_seven": Array [],
-            "field_six": 0,
-            "field_three": Array [],
-            "field_two": Object {},
+            "fieldOne": 0,
+            "fieldSeven": Array [],
+            "fieldSix": 0,
+            "fieldThree": Array [],
+            "fieldTwo": Object {},
           }
         `);
       });
@@ -26,22 +26,22 @@ describe("Serialization/Deserialization", () => {
         expect(
           Foo.decode(
             Foo.encode({
-              field_one: 3,
+              fieldOne: 3,
             })
           )
         ).toMatchInlineSnapshot(`
           Object {
-            "field_five": Array [],
-            "field_four": Object {
-              "field_one": "",
-              "field_three": Array [],
-              "field_two": Object {},
+            "fieldFive": Array [],
+            "fieldFour": Object {
+              "fieldOne": "",
+              "fieldThree": Array [],
+              "fieldTwo": Object {},
             },
-            "field_one": 3,
-            "field_seven": Array [],
-            "field_six": 0,
-            "field_three": Array [],
-            "field_two": Object {},
+            "fieldOne": 3,
+            "fieldSeven": Array [],
+            "fieldSix": 0,
+            "fieldThree": Array [],
+            "fieldTwo": Object {},
           }
         `);
       });
@@ -49,17 +49,17 @@ describe("Serialization/Deserialization", () => {
       it("default message deserialization", () => {
         expect(Foo.decode(Foo.encode(Foo.initialize()))).toMatchInlineSnapshot(`
           Object {
-            "field_five": Array [],
-            "field_four": Object {
-              "field_one": "",
-              "field_three": Array [],
-              "field_two": Object {},
+            "fieldFive": Array [],
+            "fieldFour": Object {
+              "fieldOne": "",
+              "fieldThree": Array [],
+              "fieldTwo": Object {},
             },
-            "field_one": 0,
-            "field_seven": Array [],
-            "field_six": 0,
-            "field_three": Array [],
-            "field_two": Object {},
+            "fieldOne": 0,
+            "fieldSeven": Array [],
+            "fieldSix": 0,
+            "fieldThree": Array [],
+            "fieldTwo": Object {},
           }
         `);
       });
@@ -68,61 +68,61 @@ describe("Serialization/Deserialization", () => {
         expect(
           Foo.decode(
             Foo.encode({
-              field_one: 3,
-              field_two: {
+              fieldOne: 3,
+              fieldTwo: {
                 foo: 4,
               },
 
-              field_three: [
+              fieldThree: [
                 {
-                  field_one: "foo",
-                  field_two: {
+                  fieldOne: "foo",
+                  fieldTwo: {
                     foo: 3,
                     bar: 4,
                   },
 
-                  field_three: [1, 2, 3],
+                  fieldThree: [1, 2, 3],
                 },
               ],
 
-              field_four: {
-                field_one: "foo",
-                field_two: {
+              fieldFour: {
+                fieldOne: "foo",
+                fieldTwo: {
                   foo: 3,
                   bar: 4,
                 },
 
-                field_three: [1, 2, 3],
+                fieldThree: [1, 2, 3],
               },
 
-              field_five: [1, 2],
+              fieldFive: [1, 2],
             })
           )
         ).toMatchInlineSnapshot(`
           Object {
-            "field_five": Array [
+            "fieldFive": Array [
               1,
               2,
             ],
-            "field_four": Object {
-              "field_one": "foo",
-              "field_three": Array [
+            "fieldFour": Object {
+              "fieldOne": "foo",
+              "fieldThree": Array [
                 1,
                 2,
                 3,
               ],
-              "field_two": Object {
+              "fieldTwo": Object {
                 "bar": 4,
                 "foo": 3,
               },
             },
-            "field_one": 3,
-            "field_seven": Array [],
-            "field_six": 0,
-            "field_three": Array [
+            "fieldOne": 3,
+            "fieldSeven": Array [],
+            "fieldSix": 0,
+            "fieldThree": Array [
               undefined,
             ],
-            "field_two": Object {
+            "fieldTwo": Object {
               "foo": 4,
             },
           }
@@ -138,7 +138,7 @@ describe("Serialization/Deserialization", () => {
       it("partial serialization", () => {
         expect(
           Foo.encode({
-            field_one: 3,
+            fieldOne: 3,
           })
         ).toMatchInlineSnapshot(`
                   Uint8Array [
@@ -160,34 +160,34 @@ describe("Serialization/Deserialization", () => {
       it("full serialization", () => {
         expect(
           Foo.encode({
-            field_one: 3,
-            field_two: {
+            fieldOne: 3,
+            fieldTwo: {
               foo: 4,
             },
 
-            field_three: [
+            fieldThree: [
               {
-                field_one: "foo",
-                field_two: {
+                fieldOne: "foo",
+                fieldTwo: {
                   foo: 3,
                   bar: 4,
                 },
 
-                field_three: [1, 2, 3],
+                fieldThree: [1, 2, 3],
               },
             ],
 
-            field_four: {
-              field_one: "foo",
-              field_two: {
+            fieldFour: {
+              fieldOne: "foo",
+              fieldTwo: {
                 foo: 3,
                 bar: 4,
               },
 
-              field_three: [1, 2, 3],
+              fieldThree: [1, 2, 3],
             },
 
-            field_five: [1, 2],
+            fieldFive: [1, 2],
           })
         ).toMatchInlineSnapshot(`
           Uint8Array [

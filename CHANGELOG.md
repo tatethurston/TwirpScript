@@ -2,7 +2,7 @@
 
 ## v0.0.43
 
-- Fix repeated message deserialization by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/.
+- Fix repeated message deserialization by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/112.
 
 ## v0.0.42
 

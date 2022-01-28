@@ -120,7 +120,18 @@ describe("Serialization/Deserialization", () => {
             "fieldSeven": Array [],
             "fieldSix": 0,
             "fieldThree": Array [
-              undefined,
+              Object {
+                "fieldOne": "foo",
+                "fieldThree": Array [
+                  1,
+                  2,
+                  3,
+                ],
+                "fieldTwo": Object {
+                  "bar": 4,
+                  "foo": 3,
+                },
+              },
             ],
             "fieldTwo": Object {
               "foo": 4,

@@ -966,30 +966,21 @@ export const TestAllTypes = {
           break;
         }
         case 48: {
-          msg.repeatedNestedMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedNestedMessage.push(m);
           break;
         }
         case 49: {
-          msg.repeatedForeignMessage.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.repeatedForeignMessage.push(m);
           break;
         }
         case 50: {
-          msg.repeatedImportMessage.push(
-            reader.readMessage(
-              ImportMessage.initialize(),
-              ImportMessage._readMessage
-            )
-          );
+          const m = ImportMessage.initialize();
+          reader.readMessage(m, ImportMessage._readMessage);
+          msg.repeatedImportMessage.push(m);
           break;
         }
         case 51: {
@@ -1013,12 +1004,9 @@ export const TestAllTypes = {
           break;
         }
         case 57: {
-          msg.repeatedLazyMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedLazyMessage.push(m);
           break;
         }
         case 61: {
@@ -1383,12 +1371,9 @@ export const NestedTestAllTypes = {
           break;
         }
         case 3: {
-          msg.repeatedChild.push(
-            reader.readMessage(
-              NestedTestAllTypes.initialize(),
-              NestedTestAllTypes._readMessage
-            )
-          );
+          const m = NestedTestAllTypes.initialize();
+          reader.readMessage(m, NestedTestAllTypes._readMessage);
+          msg.repeatedChild.push(m);
           break;
         }
         default: {
@@ -2433,12 +2418,9 @@ export const TestRequiredForeign = {
           break;
         }
         case 2: {
-          msg.repeatedMessage.push(
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            )
-          );
+          const m = TestRequired.initialize();
+          reader.readMessage(m, TestRequired._readMessage);
+          msg.repeatedMessage.push(m);
           break;
         }
         case 3: {
@@ -2519,12 +2501,9 @@ export const TestRequiredMessage = {
           break;
         }
         case 2: {
-          msg.repeatedMessage.push(
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            )
-          );
+          const m = TestRequired.initialize();
+          reader.readMessage(m, TestRequired._readMessage);
+          msg.repeatedMessage.push(m);
           break;
         }
         case 3: {
@@ -3823,12 +3802,9 @@ export const TestNestedMessageHasBits = {
             break;
           }
           case 2: {
-            msg.nestedmessageRepeatedForeignmessage.push(
-              reader.readMessage(
-                ForeignMessage.initialize(),
-                ForeignMessage._readMessage
-              )
-            );
+            const m = ForeignMessage.initialize();
+            reader.readMessage(m, ForeignMessage._readMessage);
+            msg.nestedmessageRepeatedForeignmessage.push(m);
             break;
           }
           default: {
@@ -3974,12 +3950,9 @@ export const TestCamelCaseFieldNames = {
           break;
         }
         case 10: {
-          msg.RepeatedMessageField.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.RepeatedMessageField.push(m);
           break;
         }
         case 11: {
@@ -6740,12 +6713,9 @@ export const TestParsingMerge = {
           break;
         }
         case 3: {
-          msg.repeatedAllTypes.push(
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            )
-          );
+          const m = TestAllTypes.initialize();
+          reader.readMessage(m, TestAllTypes._readMessage);
+          msg.repeatedAllTypes.push(m);
           break;
         }
         default: {
@@ -6821,48 +6791,33 @@ export const TestParsingMerge = {
         const field = reader.getFieldNumber();
         switch (field) {
           case 1: {
-            msg.field1.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field1.push(m);
             break;
           }
           case 2: {
-            msg.field2.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field2.push(m);
             break;
           }
           case 3: {
-            msg.field3.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field3.push(m);
             break;
           }
           case 1000: {
-            msg.ext1.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.ext1.push(m);
             break;
           }
           case 1001: {
-            msg.ext2.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.ext2.push(m);
             break;
           }
           default: {
@@ -10216,30 +10171,21 @@ export const TestAllTypes = {
           break;
         }
         case 48: {
-          msg.repeatedNestedMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedNestedMessage.push(m);
           break;
         }
         case 49: {
-          msg.repeatedForeignMessage.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.repeatedForeignMessage.push(m);
           break;
         }
         case 50: {
-          msg.repeatedImportMessage.push(
-            reader.readMessage(
-              ImportMessage.initialize(),
-              ImportMessage._readMessage
-            )
-          );
+          const m = ImportMessage.initialize();
+          reader.readMessage(m, ImportMessage._readMessage);
+          msg.repeatedImportMessage.push(m);
           break;
         }
         case 51: {
@@ -10259,12 +10205,9 @@ export const TestAllTypes = {
           break;
         }
         case 57: {
-          msg.repeatedLazyMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedLazyMessage.push(m);
           break;
         }
         case 111: {
@@ -12040,30 +11983,21 @@ export const TestAllTypes = {
           break;
         }
         case 48: {
-          msg.repeatedNestedMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedNestedMessage.push(m);
           break;
         }
         case 49: {
-          msg.repeatedForeignMessage.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.repeatedForeignMessage.push(m);
           break;
         }
         case 50: {
-          msg.repeatedImportMessage.push(
-            reader.readMessage(
-              ImportMessage.initialize(),
-              ImportMessage._readMessage
-            )
-          );
+          const m = ImportMessage.initialize();
+          reader.readMessage(m, ImportMessage._readMessage);
+          msg.repeatedImportMessage.push(m);
           break;
         }
         case 51: {
@@ -12087,12 +12021,9 @@ export const TestAllTypes = {
           break;
         }
         case 57: {
-          msg.repeatedLazyMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedLazyMessage.push(m);
           break;
         }
         case 61: {
@@ -12457,12 +12388,9 @@ export const NestedTestAllTypes = {
           break;
         }
         case 3: {
-          msg.repeatedChild.push(
-            reader.readMessage(
-              NestedTestAllTypes.initialize(),
-              NestedTestAllTypes._readMessage
-            )
-          );
+          const m = NestedTestAllTypes.initialize();
+          reader.readMessage(m, NestedTestAllTypes._readMessage);
+          msg.repeatedChild.push(m);
           break;
         }
         default: {
@@ -13507,12 +13435,9 @@ export const TestRequiredForeign = {
           break;
         }
         case 2: {
-          msg.repeatedMessage.push(
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            )
-          );
+          const m = TestRequired.initialize();
+          reader.readMessage(m, TestRequired._readMessage);
+          msg.repeatedMessage.push(m);
           break;
         }
         case 3: {
@@ -13593,12 +13518,9 @@ export const TestRequiredMessage = {
           break;
         }
         case 2: {
-          msg.repeatedMessage.push(
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            )
-          );
+          const m = TestRequired.initialize();
+          reader.readMessage(m, TestRequired._readMessage);
+          msg.repeatedMessage.push(m);
           break;
         }
         case 3: {
@@ -14897,12 +14819,9 @@ export const TestNestedMessageHasBits = {
             break;
           }
           case 2: {
-            msg.nestedmessageRepeatedForeignmessage.push(
-              reader.readMessage(
-                ForeignMessage.initialize(),
-                ForeignMessage._readMessage
-              )
-            );
+            const m = ForeignMessage.initialize();
+            reader.readMessage(m, ForeignMessage._readMessage);
+            msg.nestedmessageRepeatedForeignmessage.push(m);
             break;
           }
           default: {
@@ -15048,12 +14967,9 @@ export const TestCamelCaseFieldNames = {
           break;
         }
         case 10: {
-          msg.RepeatedMessageField.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.RepeatedMessageField.push(m);
           break;
         }
         case 11: {
@@ -17814,12 +17730,9 @@ export const TestParsingMerge = {
           break;
         }
         case 3: {
-          msg.repeatedAllTypes.push(
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            )
-          );
+          const m = TestAllTypes.initialize();
+          reader.readMessage(m, TestAllTypes._readMessage);
+          msg.repeatedAllTypes.push(m);
           break;
         }
         default: {
@@ -17895,48 +17808,33 @@ export const TestParsingMerge = {
         const field = reader.getFieldNumber();
         switch (field) {
           case 1: {
-            msg.field1.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field1.push(m);
             break;
           }
           case 2: {
-            msg.field2.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field2.push(m);
             break;
           }
           case 3: {
-            msg.field3.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field3.push(m);
             break;
           }
           case 1000: {
-            msg.ext1.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.ext1.push(m);
             break;
           }
           case 1001: {
-            msg.ext2.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.ext2.push(m);
             break;
           }
           default: {
@@ -21304,30 +21202,21 @@ export const TestAllTypes = {
           break;
         }
         case 48: {
-          msg.repeatedNestedMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedNestedMessage.push(m);
           break;
         }
         case 49: {
-          msg.repeatedForeignMessage.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.repeatedForeignMessage.push(m);
           break;
         }
         case 50: {
-          msg.repeatedImportMessage.push(
-            reader.readMessage(
-              ImportMessage.initialize(),
-              ImportMessage._readMessage
-            )
-          );
+          const m = ImportMessage.initialize();
+          reader.readMessage(m, ImportMessage._readMessage);
+          msg.repeatedImportMessage.push(m);
           break;
         }
         case 51: {
@@ -21347,12 +21236,9 @@ export const TestAllTypes = {
           break;
         }
         case 57: {
-          msg.repeatedLazyMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedLazyMessage.push(m);
           break;
         }
         case 111: {
@@ -24065,30 +23951,21 @@ export const TestAllTypes = {
           break;
         }
         case 48: {
-          msg.repeatedNestedMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedNestedMessage.push(m);
           break;
         }
         case 49: {
-          msg.repeatedForeignMessage.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.repeatedForeignMessage.push(m);
           break;
         }
         case 50: {
-          msg.repeatedImportMessage.push(
-            reader.readMessage(
-              ImportMessage.initialize(),
-              ImportMessage._readMessage
-            )
-          );
+          const m = ImportMessage.initialize();
+          reader.readMessage(m, ImportMessage._readMessage);
+          msg.repeatedImportMessage.push(m);
           break;
         }
         case 51: {
@@ -24114,12 +23991,9 @@ export const TestAllTypes = {
           break;
         }
         case 57: {
-          msg.repeatedLazyMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedLazyMessage.push(m);
           break;
         }
         case 61: {
@@ -24516,12 +24390,9 @@ export const NestedTestAllTypes = {
           break;
         }
         case 3: {
-          msg.repeatedChild.push(
-            reader.readMessage(
-              NestedTestAllTypes.initialize(),
-              NestedTestAllTypes._readMessage
-            )
-          );
+          const m = NestedTestAllTypes.initialize();
+          reader.readMessage(m, NestedTestAllTypes._readMessage);
+          msg.repeatedChild.push(m);
           break;
         }
         default: {
@@ -25649,12 +25520,9 @@ export const TestRequiredForeign = {
           break;
         }
         case 2: {
-          msg.repeatedMessage.push(
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            )
-          );
+          const m = TestRequired.initialize();
+          reader.readMessage(m, TestRequired._readMessage);
+          msg.repeatedMessage.push(m);
           break;
         }
         case 3: {
@@ -25743,12 +25611,9 @@ export const TestRequiredMessage = {
           break;
         }
         case 2: {
-          msg.repeatedMessage.push(
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            )
-          );
+          const m = TestRequired.initialize();
+          reader.readMessage(m, TestRequired._readMessage);
+          msg.repeatedMessage.push(m);
           break;
         }
         case 3: {
@@ -27196,12 +27061,9 @@ export const TestNestedMessageHasBits = {
             break;
           }
           case 2: {
-            msg.nestedmessageRepeatedForeignmessage.push(
-              reader.readMessage(
-                ForeignMessage.initialize(),
-                ForeignMessage._readMessage
-              )
-            );
+            const m = ForeignMessage.initialize();
+            reader.readMessage(m, ForeignMessage._readMessage);
+            msg.nestedmessageRepeatedForeignmessage.push(m);
             break;
           }
           default: {
@@ -27355,12 +27217,9 @@ export const TestCamelCaseFieldNames = {
           break;
         }
         case 10: {
-          msg.RepeatedMessageField.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.RepeatedMessageField.push(m);
           break;
         }
         case 11: {
@@ -30327,12 +30186,9 @@ export const TestParsingMerge = {
           break;
         }
         case 3: {
-          msg.repeatedAllTypes.push(
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            )
-          );
+          const m = TestAllTypes.initialize();
+          reader.readMessage(m, TestAllTypes._readMessage);
+          msg.repeatedAllTypes.push(m);
           break;
         }
         default: {
@@ -30438,48 +30294,33 @@ export const TestParsingMerge = {
         const field = reader.getFieldNumber();
         switch (field) {
           case 1: {
-            msg.field1.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field1.push(m);
             break;
           }
           case 2: {
-            msg.field2.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field2.push(m);
             break;
           }
           case 3: {
-            msg.field3.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field3.push(m);
             break;
           }
           case 1000: {
-            msg.ext1.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.ext1.push(m);
             break;
           }
           case 1001: {
-            msg.ext2.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.ext2.push(m);
             break;
           }
           default: {
@@ -34233,30 +34074,21 @@ export const TestAllTypes = {
           break;
         }
         case 48: {
-          msg.repeatedNestedMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedNestedMessage.push(m);
           break;
         }
         case 49: {
-          msg.repeatedForeignMessage.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.repeatedForeignMessage.push(m);
           break;
         }
         case 50: {
-          msg.repeatedImportMessage.push(
-            reader.readMessage(
-              ImportMessage.initialize(),
-              ImportMessage._readMessage
-            )
-          );
+          const m = ImportMessage.initialize();
+          reader.readMessage(m, ImportMessage._readMessage);
+          msg.repeatedImportMessage.push(m);
           break;
         }
         case 51: {
@@ -34278,12 +34110,9 @@ export const TestAllTypes = {
           break;
         }
         case 57: {
-          msg.repeatedLazyMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedLazyMessage.push(m);
           break;
         }
         case 111: {
@@ -37057,30 +36886,21 @@ export const TestAllTypes = {
           break;
         }
         case 48: {
-          msg.repeatedNestedMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedNestedMessage.push(m);
           break;
         }
         case 49: {
-          msg.repeatedForeignMessage.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.repeatedForeignMessage.push(m);
           break;
         }
         case 50: {
-          msg.repeatedImportMessage.push(
-            reader.readMessage(
-              ImportMessage.initialize(),
-              ImportMessage._readMessage
-            )
-          );
+          const m = ImportMessage.initialize();
+          reader.readMessage(m, ImportMessage._readMessage);
+          msg.repeatedImportMessage.push(m);
           break;
         }
         case 51: {
@@ -37106,12 +36926,9 @@ export const TestAllTypes = {
           break;
         }
         case 57: {
-          msg.repeatedLazyMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedLazyMessage.push(m);
           break;
         }
         case 61: {
@@ -37508,12 +37325,9 @@ export const NestedTestAllTypes = {
           break;
         }
         case 3: {
-          msg.repeatedChild.push(
-            reader.readMessage(
-              NestedTestAllTypes.initialize(),
-              NestedTestAllTypes._readMessage
-            )
-          );
+          const m = NestedTestAllTypes.initialize();
+          reader.readMessage(m, NestedTestAllTypes._readMessage);
+          msg.repeatedChild.push(m);
           break;
         }
         default: {
@@ -38641,12 +38455,9 @@ export const TestRequiredForeign = {
           break;
         }
         case 2: {
-          msg.repeatedMessage.push(
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            )
-          );
+          const m = TestRequired.initialize();
+          reader.readMessage(m, TestRequired._readMessage);
+          msg.repeatedMessage.push(m);
           break;
         }
         case 3: {
@@ -38735,12 +38546,9 @@ export const TestRequiredMessage = {
           break;
         }
         case 2: {
-          msg.repeatedMessage.push(
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            )
-          );
+          const m = TestRequired.initialize();
+          reader.readMessage(m, TestRequired._readMessage);
+          msg.repeatedMessage.push(m);
           break;
         }
         case 3: {
@@ -40188,12 +39996,9 @@ export const TestNestedMessageHasBits = {
             break;
           }
           case 2: {
-            msg.nestedmessageRepeatedForeignmessage.push(
-              reader.readMessage(
-                ForeignMessage.initialize(),
-                ForeignMessage._readMessage
-              )
-            );
+            const m = ForeignMessage.initialize();
+            reader.readMessage(m, ForeignMessage._readMessage);
+            msg.nestedmessageRepeatedForeignmessage.push(m);
             break;
           }
           default: {
@@ -40347,12 +40152,9 @@ export const TestCamelCaseFieldNames = {
           break;
         }
         case 10: {
-          msg.RepeatedMessageField.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.RepeatedMessageField.push(m);
           break;
         }
         case 11: {
@@ -43319,12 +43121,9 @@ export const TestParsingMerge = {
           break;
         }
         case 3: {
-          msg.repeatedAllTypes.push(
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            )
-          );
+          const m = TestAllTypes.initialize();
+          reader.readMessage(m, TestAllTypes._readMessage);
+          msg.repeatedAllTypes.push(m);
           break;
         }
         default: {
@@ -43430,48 +43229,33 @@ export const TestParsingMerge = {
         const field = reader.getFieldNumber();
         switch (field) {
           case 1: {
-            msg.field1.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field1.push(m);
             break;
           }
           case 2: {
-            msg.field2.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field2.push(m);
             break;
           }
           case 3: {
-            msg.field3.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.field3.push(m);
             break;
           }
           case 1000: {
-            msg.ext1.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.ext1.push(m);
             break;
           }
           case 1001: {
-            msg.ext2.push(
-              reader.readMessage(
-                TestAllTypes.initialize(),
-                TestAllTypes._readMessage
-              )
-            );
+            const m = TestAllTypes.initialize();
+            reader.readMessage(m, TestAllTypes._readMessage);
+            msg.ext2.push(m);
             break;
           }
           default: {
@@ -47239,30 +47023,21 @@ export const TestAllTypes = {
           break;
         }
         case 48: {
-          msg.repeatedNestedMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedNestedMessage.push(m);
           break;
         }
         case 49: {
-          msg.repeatedForeignMessage.push(
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            )
-          );
+          const m = ForeignMessage.initialize();
+          reader.readMessage(m, ForeignMessage._readMessage);
+          msg.repeatedForeignMessage.push(m);
           break;
         }
         case 50: {
-          msg.repeatedImportMessage.push(
-            reader.readMessage(
-              ImportMessage.initialize(),
-              ImportMessage._readMessage
-            )
-          );
+          const m = ImportMessage.initialize();
+          reader.readMessage(m, ImportMessage._readMessage);
+          msg.repeatedImportMessage.push(m);
           break;
         }
         case 51: {
@@ -47284,12 +47059,9 @@ export const TestAllTypes = {
           break;
         }
         case 57: {
-          msg.repeatedLazyMessage.push(
-            reader.readMessage(
-              TestAllTypes.NestedMessage.initialize(),
-              TestAllTypes.NestedMessage._readMessage
-            )
-          );
+          const m = TestAllTypes.NestedMessage.initialize();
+          reader.readMessage(m, TestAllTypes.NestedMessage._readMessage);
+          msg.repeatedLazyMessage.push(m);
           break;
         }
         case 111: {

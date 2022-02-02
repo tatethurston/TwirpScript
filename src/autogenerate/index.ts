@@ -121,6 +121,54 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
         )}
 
         /**
+         * Serializes a ${node.content.fullyQualifiedName} to JSON.
+         */
+        ${printIf(
+          !isEmpty,
+          `encodeJSON: function(${lowerCase(
+            node.content.name
+          )}${printIfTypescript(
+            `: Partial<${node.content.fullyQualifiedName}>`
+          )})${printIfTypescript(`: string`)} {
+          return JSON.stringify(${
+            node.content.fullyQualifiedName
+          }._writeMessageJSON(${lowerCase(node.content.name)}));
+        },`
+        )}
+        ${printIf(
+          isEmpty,
+          `encodeJSON: function(_${lowerCase(
+            node.content.name
+          )}${printIfTypescript(
+            `?: Partial<${node.content.fullyQualifiedName}>`
+          )})${printIfTypescript(`: string`)} {
+            return "{}";
+        },`
+        )}
+
+        /**
+         * Deserializes a ${node.content.fullyQualifiedName} from JSON.
+         */
+        ${printIf(
+          !isEmpty,
+          `decodeJSON: function(json${printIfTypescript(
+            `: string`
+          )})${printIfTypescript(`: ${node.content.fullyQualifiedName}`)} {
+          return ${node.content.fullyQualifiedName}._readMessageJSON(${
+            node.content.fullyQualifiedName
+          }.initialize(), JSON.parse(json));
+        },`
+        )}
+        ${printIf(
+          isEmpty,
+          `decodeJSON: function(_json${printIfTypescript(
+            `?: string`
+          )})${printIfTypescript(`: ${node.content.fullyQualifiedName}`)} {
+            return {}
+        },`
+        )}
+
+        /**
          * Initializes a ${
            node.content.fullyQualifiedName
          } with all fields set to their default value.
@@ -196,6 +244,55 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             .join("\n")}
             return writer;
         },
+
+        ${printIf(
+          !isEmpty,
+          `/**
+         * @private
+         */
+        _writeMessageJSON: function(msg ${printIfTypescript(
+          `: Partial<${node.content.fullyQualifiedName}>`
+        )})${printIfTypescript(`: Record<string, unknown>`)} {
+          const json: Record<string, unknown> = {};
+          ${node.content.fields
+            .map((field) => {
+              let res = "";
+              const setField = field.jsonName
+                ? `json["${field.jsonName}"]`
+                : `json.${field.name}`;
+
+              if (field.repeated) {
+                res += `if (msg.${field.name}?.length) {`;
+              } else if (field.optional) {
+                res += `if (msg.${field.name} != undefined) {`;
+              } else {
+                res += `if (msg.${field.name}) {`;
+              }
+
+              if (field.read === "readMessage") {
+                if (field.repeated) {
+                  res += `${setField} = msg.${field.name}.map(${field.tsType}._writeMessageJSON)`;
+                } else {
+                  res += `const ${field.name} = ${field.tsType}._writeMessageJSON(msg.${field.name});`;
+                  res += `if (Object.keys(${field.name}).length > 0) {`;
+                  res += `${setField} = ${field.name};`;
+                  res += `}`;
+                }
+              } else if (field.read === "map") {
+                res += `if (Object.keys(msg.${field.name}).length > 0) {`;
+                res += `${setField} = msg.${field.name};`;
+                res += `}`;
+              } else {
+                res += `${setField} = msg.${field.name};`;
+              }
+
+              res += "}";
+              return res;
+            })
+            .join("\n")}
+          return json;
+        }`
+        )},
         
         /**
          * @private
@@ -276,6 +373,48 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
           return msg;
         },`
         )}
+
+        /**
+         * @private
+         */
+        _readMessageJSON: function(msg${printIfTypescript(
+          `: ${node.content.fullyQualifiedName}`
+        )}, json${printIfTypescript(`: any`)})${printIfTypescript(
+          `: ${node.content.fullyQualifiedName} `
+        )}{
+          ${node.content.fields
+            .map((field) => {
+              let res = "";
+              const name = field.name;
+              let getField = field.jsonName
+                ? `json["${field.jsonName}"] ?? json.${field.protoName}`
+                : `json.${field.name} ?? json.${field.protoName}`;
+
+              res += `const ${name} = ${getField};`;
+              res += `if (${name}) {`;
+              if (field.read == "map") {
+                res += `msg.${name} = ${name}`;
+              } else if (field.read === "readMessage") {
+                if (field.repeated) {
+                  res += `for (const item of ${name}) {`;
+                  res += `const m = ${field.tsType}.initialize();`;
+                  res += `${field.tsType}._readMessageJSON(m, item);`;
+                  res += `msg.${name}.push(m);`;
+                  res += `}`;
+                } else {
+                  res += `const m = ${field.tsType}.initialize();`;
+                  res += `${field.tsType}._readMessageJSON(m, ${name});`;
+                  res += `msg.${name} = m;`;
+                }
+              } else {
+                res += `msg.${name} = ${name}`;
+              }
+              res += "}";
+              return res;
+            })
+            .join("\n")}
+          return msg;
+        },
 
       `;
         const childrenWithouMaps = node.children.filter(

@@ -34,6 +34,20 @@ export const Bar = {
   },
 
   /**
+   * Serializes a Bar to JSON.
+   */
+  encodeJSON: function (bar: Partial<Bar>): string {
+    return JSON.stringify(Bar._writeMessageJSON(bar));
+  },
+
+  /**
+   * Deserializes a Bar from JSON.
+   */
+  decodeJSON: function (json: string): Bar {
+    return Bar._readMessageJSON(Bar.initialize(), JSON.parse(json));
+  },
+
+  /**
    * Initializes a Bar with all fields set to their default value.
    */
   initialize: function (): Bar {
@@ -58,6 +72,20 @@ export const Bar = {
   /**
    * @private
    */
+  _writeMessageJSON: function (msg: Partial<Bar>): Record<string, unknown> {
+    const json: Record<string, unknown> = {};
+    if (msg.foo) {
+      const foo = Foo._writeMessageJSON(msg.foo);
+      if (Object.keys(foo).length > 0) {
+        json["foo"] = foo;
+      }
+    }
+    return json;
+  },
+
+  /**
+   * @private
+   */
   _readMessage: function (msg: Bar, reader: BinaryReader): Bar {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -71,6 +99,19 @@ export const Bar = {
           break;
         }
       }
+    }
+    return msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: Bar, json: any): Bar {
+    const foo = json["foo"] ?? json.foo;
+    if (foo) {
+      const m = Foo.initialize();
+      Foo._readMessageJSON(m, foo);
+      msg.foo = m;
     }
     return msg;
   },

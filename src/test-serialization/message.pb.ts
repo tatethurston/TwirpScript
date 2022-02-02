@@ -49,6 +49,20 @@ export const Foo = {
   },
 
   /**
+   * Serializes a Foo to JSON.
+   */
+  encodeJSON: function (foo: Partial<Foo>): string {
+    return JSON.stringify(Foo._writeMessageJSON(foo));
+  },
+
+  /**
+   * Deserializes a Foo from JSON.
+   */
+  decodeJSON: function (json: string): Foo {
+    return Foo._readMessageJSON(Foo.initialize(), JSON.parse(json));
+  },
+
+  /**
    * Initializes a Foo with all fields set to their default value.
    */
   initialize: function (): Foo {
@@ -97,6 +111,40 @@ export const Foo = {
       writer.writeRepeatedEnum(7, msg.fieldSeven);
     }
     return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (msg: Partial<Foo>): Record<string, unknown> {
+    const json: Record<string, unknown> = {};
+    if (msg.fieldOne) {
+      json["fieldOne"] = msg.fieldOne;
+    }
+    if (msg.fieldTwo) {
+      if (Object.keys(msg.fieldTwo).length > 0) {
+        json["fieldTwo"] = msg.fieldTwo;
+      }
+    }
+    if (msg.fieldThree?.length) {
+      json["fieldThree"] = msg.fieldThree.map(Bar._writeMessageJSON);
+    }
+    if (msg.fieldFour) {
+      const fieldFour = Bar._writeMessageJSON(msg.fieldFour);
+      if (Object.keys(fieldFour).length > 0) {
+        json["fieldFour"] = fieldFour;
+      }
+    }
+    if (msg.fieldFive?.length) {
+      json["fieldFive"] = msg.fieldFive;
+    }
+    if (msg.fieldSix) {
+      json["fieldSix"] = msg.fieldSix;
+    }
+    if (msg.fieldSeven?.length) {
+      json["luckySeven"] = msg.fieldSeven;
+    }
+    return json;
   },
 
   /**
@@ -163,6 +211,47 @@ export const Foo = {
     }
     return msg;
   },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: Foo, json: any): Foo {
+    const fieldOne = json["fieldOne"] ?? json.field_one;
+    if (fieldOne) {
+      msg.fieldOne = fieldOne;
+    }
+    const fieldTwo = json["fieldTwo"] ?? json.field_two;
+    if (fieldTwo) {
+      msg.fieldTwo = fieldTwo;
+    }
+    const fieldThree = json["fieldThree"] ?? json.field_three;
+    if (fieldThree) {
+      for (const item of fieldThree) {
+        const m = Bar.initialize();
+        Bar._readMessageJSON(m, item);
+        msg.fieldThree.push(m);
+      }
+    }
+    const fieldFour = json["fieldFour"] ?? json.field_four;
+    if (fieldFour) {
+      const m = Bar.initialize();
+      Bar._readMessageJSON(m, fieldFour);
+      msg.fieldFour = m;
+    }
+    const fieldFive = json["fieldFive"] ?? json.field_five;
+    if (fieldFive) {
+      msg.fieldFive = fieldFive;
+    }
+    const fieldSix = json["fieldSix"] ?? json.field_six;
+    if (fieldSix) {
+      msg.fieldSix = fieldSix;
+    }
+    const fieldSeven = json["luckySeven"] ?? json.field_seven;
+    if (fieldSeven) {
+      msg.fieldSeven = fieldSeven;
+    }
+    return msg;
+  },
 };
 
 export const Bar = {
@@ -178,6 +267,20 @@ export const Bar = {
    */
   decode: function (bytes: ByteSource): Bar {
     return Bar._readMessage(Bar.initialize(), new BinaryReader(bytes));
+  },
+
+  /**
+   * Serializes a Bar to JSON.
+   */
+  encodeJSON: function (bar: Partial<Bar>): string {
+    return JSON.stringify(Bar._writeMessageJSON(bar));
+  },
+
+  /**
+   * Deserializes a Bar from JSON.
+   */
+  decodeJSON: function (json: string): Bar {
+    return Bar._readMessageJSON(Bar.initialize(), JSON.parse(json));
   },
 
   /**
@@ -213,6 +316,25 @@ export const Bar = {
       writer.writeRepeatedInt32(3, msg.fieldThree);
     }
     return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (msg: Partial<Bar>): Record<string, unknown> {
+    const json: Record<string, unknown> = {};
+    if (msg.fieldOne) {
+      json["fieldOne"] = msg.fieldOne;
+    }
+    if (msg.fieldTwo) {
+      if (Object.keys(msg.fieldTwo).length > 0) {
+        json["fieldTwo"] = msg.fieldTwo;
+      }
+    }
+    if (msg.fieldThree?.length) {
+      json["fieldThree"] = msg.fieldThree;
+    }
+    return json;
   },
 
   /**
@@ -258,6 +380,25 @@ export const Bar = {
           break;
         }
       }
+    }
+    return msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: Bar, json: any): Bar {
+    const fieldOne = json["fieldOne"] ?? json.field_one;
+    if (fieldOne) {
+      msg.fieldOne = fieldOne;
+    }
+    const fieldTwo = json["fieldTwo"] ?? json.field_two;
+    if (fieldTwo) {
+      msg.fieldTwo = fieldTwo;
+    }
+    const fieldThree = json["fieldThree"] ?? json.field_three;
+    if (fieldThree) {
+      msg.fieldThree = fieldThree;
     }
     return msg;
   },

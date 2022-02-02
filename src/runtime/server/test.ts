@@ -29,10 +29,12 @@ describe("executeServiceMethod", () => {
   const handler = jest.fn();
   const encode = jest.fn();
   const decode = jest.fn();
+  const encodeJSON = jest.fn(JSON.stringify);
+  const decodeJSON = jest.fn(JSON.parse);
   const methodHandler = {
     handler,
-    input: { decode },
-    output: { encode },
+    input: { decode, decodeJSON },
+    output: { encode, encodeJSON },
   } as unknown as ServiceMethod;
 
   describe("json", () => {
@@ -186,9 +188,16 @@ describe("twirpHandler", () => {
     name: "Haberdasher",
     methods: {
       MakeHat: {
+        name: "MakeHat",
         handler: jest.fn(),
-        request: { decode: jest.fn() },
-        response: { encode: jest.fn() },
+        input: {
+          decode: jest.fn(),
+          decodeJSON: jest.fn(JSON.parse),
+        } as any,
+        output: {
+          encode: jest.fn(),
+          encodeJSON: jest.fn(JSON.stringify),
+        } as any,
       },
     },
   };

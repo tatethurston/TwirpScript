@@ -50,6 +50,8 @@ export type TwirpContext<
 interface Message<T> {
   encode: (message: T) => Uint8Array;
   decode: (bytes: ByteSource) => T;
+  encodeJSON: (message: T) => string;
+  decodeJSON: (message: string) => T;
 }
 
 export interface ServiceMethod<Context = any> {
@@ -59,7 +61,7 @@ export interface ServiceMethod<Context = any> {
   output: Message<any>;
 }
 
-interface Service {
+export interface Service {
   name: string;
   methods: Record<string, ServiceMethod | undefined>;
 }
@@ -74,9 +76,12 @@ export function TwirpErrorResponse(error: TwirpError): Response {
   };
 }
 
-function parseJSON<Result>(json: string): Result | undefined {
+function parseJSON<T>(
+  json: string,
+  decode: (json: string) => T
+): T | undefined {
   try {
-    return JSON.parse(json) as Result;
+    return decode(json);
   } catch (e) {
     return undefined;
   }
@@ -102,7 +107,7 @@ export async function executeServiceMethod<Context extends TwirpContext>(
   try {
     switch (context.contentType) {
       case "JSON": {
-        const body = parseJSON(req.body as string);
+        const body = parseJSON(req.body as string, method.input.decodeJSON);
         if (!body) {
           return new TwirpError({
             code: "invalid_argument",
@@ -112,7 +117,7 @@ export async function executeServiceMethod<Context extends TwirpContext>(
         ee.emit("requestRouted", context, body as any);
         const response = await method.handler(body as any, context);
         ee.emit("responsePrepared", context, response);
-        return JSON.stringify(response);
+        return method.output.encodeJSON(response);
       }
       case "Protobuf": {
         const body = parseProto(req.body as Buffer, method.input.decode);

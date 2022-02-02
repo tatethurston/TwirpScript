@@ -45,13 +45,9 @@ describe("withRequestLogging", () => {
     ee.emit("responseSent", { [timingField]: Date.now() - 10 }, {
       statusCode: 200,
     } as any);
-    expect((console.info as jest.Mock).mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
-          "[TwirpScript] Completed 200 in 10 ms.",
-        ],
-      ]
-    `);
+    expect(console.info as jest.Mock).toBeCalledWith(
+      expect.stringContaining("[TwirpScript] Completed 200 in")
+    );
   });
 
   it("error", () => {

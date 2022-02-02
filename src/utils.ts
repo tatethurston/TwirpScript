@@ -462,6 +462,8 @@ interface Field extends Descriptor {
   comments?: Comments;
   index: number;
   name: string;
+  protoName: string;
+  jsonName: string | undefined;
 }
 
 interface MessageOpts {
@@ -687,6 +689,8 @@ export function processTypes(
           }
           return {
             name: camelCase(value.getName() ?? ""),
+            protoName: value.getName() ?? "",
+            jsonName: value.getJsonName(),
             index: value.getNumber() ?? 0,
             ...descriptor,
           };

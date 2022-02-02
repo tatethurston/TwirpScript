@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.0.44
+
+This version has breaking changes between the generated code and the runtime. Run `yarn twrispcript` to update your generated `.pb.ts` when updating to this version.
+
+TwirpScript now ships with JSON serializers and supports the `json_name` option described [here](https://developers.google.com/protocol-buffers/docs/proto3#json). This enables clients to specify custom JSON field names.
+
+_Breaking change:_ int64 types were previously encoded as strings, but are now encoded as [bigint](https://caniuse.com/bigint https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
+
+Changes:
+
+- add json_name support by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/116
+- use bigint for int64 types by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/118
+
 ## v0.0.43
 
 - Fix repeated message deserialization by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/112.

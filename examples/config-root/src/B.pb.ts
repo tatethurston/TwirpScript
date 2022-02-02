@@ -77,7 +77,7 @@ export const Bar = {
     if (msg.foo) {
       const foo = Foo._writeMessageJSON(msg.foo);
       if (Object.keys(foo).length > 0) {
-        json["foo"] = foo;
+        json.foo = foo;
       }
     }
     return json;
@@ -107,7 +107,7 @@ export const Bar = {
    * @private
    */
   _readMessageJSON: function (msg: Bar, json: any): Bar {
-    const foo = json["foo"] ?? json.foo;
+    const foo = json.foo ?? json.foo;
     if (foo) {
       const m = Foo.initialize();
       Foo._readMessageJSON(m, foo);

@@ -1,18 +1,19 @@
 syntax = "proto3";
 
 message Foo {
-  int32 field_one = 1;
-  map<string, int32> field_two = 2;
+  optional int32 field_one = 1;
+  map<string, Bar> field_two = 2;
   repeated Bar field_three = 3;
   Bar field_four = 4;
   repeated int32 field_five = 5;
   Baz field_six = 6;
   repeated Baz field_seven = 7 [json_name="luckySeven"];
+  int64 field_eight = 8;
 }
 
 message Bar {
   string field_one = 1;
-  map<string, int32> field_two = 2;
+  map<string, int64> field_two = 2;
   repeated int32 field_three = 3;
 }
 

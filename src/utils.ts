@@ -105,21 +105,21 @@ export function getDescriptor(
     }
     case FieldDescriptorProto.Type.TYPE_INT64: {
       return {
-        defaultValue: "''",
+        defaultValue: "0n",
         optional,
         read: "readInt64String",
         repeated,
-        tsType: "string",
+        tsType: "bigint",
         write: repeated ? "writeRepeatedInt64String" : "writeInt64String",
       };
     }
     case FieldDescriptorProto.Type.TYPE_UINT64: {
       return {
-        defaultValue: "''",
+        defaultValue: "0n",
         optional,
         read: "readUint64String",
         repeated,
-        tsType: "string",
+        tsType: "bigint",
         write: repeated ? "writeRepeatedUint64String" : "writeUint64String",
       };
     }
@@ -135,11 +135,11 @@ export function getDescriptor(
     }
     case FieldDescriptorProto.Type.TYPE_FIXED64: {
       return {
-        defaultValue: repeated ? "[]" : "''",
+        defaultValue: "0n",
         optional,
         read: "readFixed64String",
         repeated,
-        tsType: "string",
+        tsType: "bigint",
         write: repeated ? "writeRepeatedFixed64String" : "writeFixed64String",
       };
     }
@@ -259,11 +259,11 @@ export function getDescriptor(
     }
     case FieldDescriptorProto.Type.TYPE_SFIXED64: {
       return {
-        defaultValue: "''",
+        defaultValue: "0n",
         optional,
         read: "readSfixed64",
         repeated,
-        tsType: "string",
+        tsType: "bigint",
         write: repeated ? "writeRepeatedSfixed64" : "writeSfixed64",
       };
     }
@@ -279,11 +279,11 @@ export function getDescriptor(
     }
     case FieldDescriptorProto.Type.TYPE_SINT64: {
       return {
-        defaultValue: "''",
+        defaultValue: "0n",
         optional,
         read: "readSint64",
         repeated,
-        tsType: "string",
+        tsType: "bigint",
         write: repeated ? "writeRepeatedSint64String" : "writeSint64String",
       };
     }

@@ -222,20 +222,30 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                 const map = node.children.find(
                   (c) => c.content.fullyQualifiedName === field.tsType
                 ) as MessageType;
-                res += `for (const key in msg.${field.name}) {
-                  writer.writeMessage(${field.index}, {}, (_, mapWriter) => {
-                    mapWriter.${
-                      map.content.fields[0].write
-                    }(1, key${printIfTypescript(
-                  ` as unknown as ${map.content.fields[0].tsType} `
-                )});
-                    mapWriter.${map.content.fields[1].write}(2, msg.${
-                  field.name
-                }${printIfTypescript("!")}[key]);
-                  });
-                }`;
+                res += `for (const [key, value] of Object.entries(msg.${field.name})) {
+                  if (key && value) {
+                    writer.writeMessage(${field.index}, {}, (_, mapWriter) => {
+                `;
+                const [key, value] = map.content.fields;
+                res += `mapWriter.${key.write}(1, key ${printIfTypescript(
+                  `as any`
+                )});`;
+                if (value.read === "readMessage") {
+                  res += `mapWriter.${value.write}(2, value, ${value.tsType}._writeMessage);`;
+                } else if (value.read === "readEnum") {
+                  res += `mapWriter.${value.write}(2, value ${printIfTypescript(
+                    `as ${value.tsType}`
+                  )});`;
+                } else if (value.tsType === "bigint") {
+                  res += `mapWriter.${value.write}(2, value.toString());`;
+                } else {
+                  res += `mapWriter.${value.write}(2, value);`;
+                }
+                res += "})\n}}";
               } else {
-                res += `writer.${field.write}(${field.index}, msg.${field.name});`;
+                res += `writer.${field.write}(${field.index}, msg.${
+                  field.name
+                }${printIf(field.tsType === "bigint", ".toString()")});`;
               }
 
               res += "}";
@@ -253,13 +263,14 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
         _writeMessageJSON: function(msg ${printIfTypescript(
           `: Partial<${node.content.fullyQualifiedName}>`
         )})${printIfTypescript(`: Record<string, unknown>`)} {
-          const json: Record<string, unknown> = {};
+          const json${printIfTypescript(": Record<string, unknown>")} = {};
           ${node.content.fields
             .map((field) => {
               let res = "";
-              const setField = field.jsonName
-                ? `json["${field.jsonName}"]`
-                : `json.${field.name}`;
+              const setField =
+                field.jsonName !== field.name
+                  ? `json["${field.jsonName}"]`
+                  : `json.${field.name}`;
 
               if (field.repeated) {
                 res += `if (msg.${field.name}?.length) {`;
@@ -279,9 +290,35 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                   res += `}`;
                 }
               } else if (field.read === "map") {
-                res += `if (Object.keys(msg.${field.name}).length > 0) {`;
-                res += `${setField} = msg.${field.name};`;
+                res += `if (msg.${field.name}) {`;
+                const map = node.children.find(
+                  (c) => c.content.fullyQualifiedName === field.tsType
+                ) as MessageType;
+                res += `const map${printIfTypescript(
+                  `: Record<string, unknown>`
+                )} = {};`;
+                res += `for (const [key, value] of Object.entries(msg.${field.name})) {
+                  if (key && value) {`;
+                const [_key, value] = map.content.fields;
+                res += `map[key] =`;
+                if (value.read === "readMessage") {
+                  res += `${value.tsType}._writeMessageJSON(value);`;
+                } else if (value.read === "readEnum") {
+                  res += `value;`;
+                } else if (value.tsType === "bigint") {
+                  res += `value.toString();`;
+                } else {
+                  res += `value;`;
+                }
+                res += `${setField} = map`;
+                res += "}\n}";
                 res += `}`;
+              } else if (field.tsType === "bigint") {
+                if (field.repeated) {
+                  res += `${setField} = msg.${field.name}.map(x => x.toString());`;
+                } else {
+                  res += `${setField} = msg.${field.name}.toString();`;
+                }
               } else {
                 res += `${setField} = msg.${field.name};`;
               }
@@ -313,21 +350,34 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                     const map = node.children.find(
                       (c) => c.content.fullyQualifiedName === field.tsType
                     ) as MessageType;
+                    const [key, value] = map.content.fields;
                     res += `reader.readMessage(undefined, () => {
                       let key${printIfTypescript(
-                        `: ${map.content.fields[0].tsType} | undefined`
+                        `: ${key.tsType} | undefined`
                       )};
-                      let value = ${map.content.fields[1].defaultValue};
+                      let value = ${value.defaultValue};
                       while (reader.nextField()) {
                         const field = reader.getFieldNumber();
                         switch (field) {
                           case 1: {
-                            key = reader.${map.content.fields[0].read}();
+                            key = reader.${key.read}();
                             break;
                           }
                           case 2: {
-                            value = reader.${map.content.fields[1].read}();
-                            break;
+                        `;
+                    if (value.read === "readMessage") {
+                      res += `reader.readMessage(${value.tsType}.initialize(), ${value.tsType}._readMessage);`;
+                    } else if (value.read === "readEnum") {
+                      res += `value = reader.${value.read}()${printIfTypescript(
+                        ` as ${value.tsType}`
+                      )};`;
+                    } else if (value.tsType === "bigint") {
+                      res += `value = BigInt(reader.${value.read}());`;
+                    } else {
+                      res += `value = reader.${value.read}();`;
+                    }
+
+                    res += `break;
                           }
                         }
                       }
@@ -345,19 +395,27 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                       reader.readMessage(msg.${field.name}, ${field.tsType}._readMessage);
                     `;
                     }
+                  } else if (field.read === "readEnum") {
+                    if (field.repeated) {
+                      res += `msg.${field.name}.push(reader.${
+                        field.read
+                      }() ${printIfTypescript(`as ${field.tsType}`)});`;
+                    } else {
+                      res += `msg.${field.name} = reader.${
+                        field.read
+                      }() ${printIfTypescript(`as ${field.tsType}`)};`;
+                    }
+                  } else if (field.tsType === "bigint") {
+                    if (field.repeated) {
+                      res += `msg.${field.name} = reader.${field.read}().map(BigInt);`;
+                    } else {
+                      res += `msg.${field.name} = BigInt(reader.${field.read}());`;
+                    }
                   } else {
                     if (field.repeated) {
-                      res += `msg.${field.name}.push(reader.${field.read}() ${
-                        field.read === "readEnum"
-                          ? printIfTypescript(`as ${field.tsType}`)
-                          : ""
-                      });`;
+                      res += `msg.${field.name}.push(reader.${field.read}());`;
                     } else {
-                      res += `msg.${field.name} = reader.${field.read}() ${
-                        field.read === "readEnum"
-                          ? printIfTypescript(`as ${field.tsType}`)
-                          : ""
-                      };`;
+                      res += `msg.${field.name} = reader.${field.read}();`;
                     }
                   }
                   res += "break;\n}";
@@ -386,14 +444,30 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             .map((field) => {
               let res = "";
               const name = field.name;
-              let getField = field.jsonName
-                ? `json["${field.jsonName}"] ?? json.${field.protoName}`
-                : `json.${field.name} ?? json.${field.protoName}`;
+              let getField =
+                field.jsonName !== field.name
+                  ? `json["${field.jsonName}"] ?? json.${field.protoName}`
+                  : `json.${field.name} ?? json.${field.protoName}`;
 
               res += `const ${name} = ${getField};`;
               res += `if (${name}) {`;
               if (field.read == "map") {
-                res += `msg.${name} = ${name}`;
+                const map = node.children.find(
+                  (c) => c.content.fullyQualifiedName === field.tsType
+                ) as MessageType;
+                const [_key, value] = map.content.fields;
+                res += `for (const [key, value] of Object.entries(${name})) {`;
+                res += `msg.${name}[key] =`;
+                if (value.read === "readMessage") {
+                  res += `${value.tsType}._readMessageJSON(${value.tsType}.initialize(), value);`;
+                } else if (value.read === "readEnum") {
+                  res += `value${printIfTypescript(` as ${value.tsType}`)};`;
+                } else if (value.tsType === "bigint") {
+                  res += `BigInt(value${printIfTypescript(" as string")});`;
+                } else {
+                  res += `value;`;
+                }
+                res += "}";
               } else if (field.read === "readMessage") {
                 if (field.repeated) {
                   res += `for (const item of ${name}) {`;
@@ -406,8 +480,14 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                   res += `${field.tsType}._readMessageJSON(m, ${name});`;
                   res += `msg.${name} = m;`;
                 }
+              } else if (field.tsType === "bigint") {
+                if (field.repeated) {
+                  res += `msg.${name} = ${name}.map(BigInt);`;
+                } else {
+                  res += `msg.${name} = BigInt(${name});`;
+                }
               } else {
-                res += `msg.${name} = ${name}`;
+                res += `msg.${name} = ${name};`;
               }
               res += "}";
               return res;

@@ -73,7 +73,7 @@ export const Foo = {
   _writeMessageJSON: function (msg: Partial<Foo>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.name) {
-      json["name"] = msg.name;
+      json.name = msg.name;
     }
     return json;
   },
@@ -102,7 +102,7 @@ export const Foo = {
    * @private
    */
   _readMessageJSON: function (msg: Foo, json: any): Foo {
-    const name = json["name"] ?? json.name;
+    const name = json.name ?? json.name;
     if (name) {
       msg.name = name;
     }

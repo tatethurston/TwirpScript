@@ -110,9 +110,9 @@ export const Size = {
    * @private
    */
   _writeMessageJSON: function (msg) {
-    const json: Record<string, unknown> = {};
+    const json = {};
     if (msg.inches) {
-      json["inches"] = msg.inches;
+      json.inches = msg.inches;
     }
     return json;
   },
@@ -141,7 +141,7 @@ export const Size = {
    * @private
    */
   _readMessageJSON: function (msg, json) {
-    const inches = json["inches"] ?? json.inches;
+    const inches = json.inches ?? json.inches;
     if (inches) {
       msg.inches = inches;
     }
@@ -209,15 +209,15 @@ export const Hat = {
    * @private
    */
   _writeMessageJSON: function (msg) {
-    const json: Record<string, unknown> = {};
+    const json = {};
     if (msg.inches) {
-      json["inches"] = msg.inches;
+      json.inches = msg.inches;
     }
     if (msg.color) {
-      json["color"] = msg.color;
+      json.color = msg.color;
     }
     if (msg.name) {
-      json["name"] = msg.name;
+      json.name = msg.name;
     }
     return json;
   },
@@ -254,15 +254,15 @@ export const Hat = {
    * @private
    */
   _readMessageJSON: function (msg, json) {
-    const inches = json["inches"] ?? json.inches;
+    const inches = json.inches ?? json.inches;
     if (inches) {
       msg.inches = inches;
     }
-    const color = json["color"] ?? json.color;
+    const color = json.color ?? json.color;
     if (color) {
       msg.color = color;
     }
-    const name = json["name"] ?? json.name;
+    const name = json.name ?? json.name;
     if (name) {
       msg.name = name;
     }

@@ -234,7 +234,7 @@ export const Req = {
   _writeMessageJSON: function (msg: Partial<Req>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.v) {
-      json["v"] = msg.v;
+      json.v = msg.v;
     }
     return json;
   },
@@ -263,7 +263,7 @@ export const Req = {
    * @private
    */
   _readMessageJSON: function (msg: Req, json: any): Req {
-    const v = json["v"] ?? json.v;
+    const v = json.v ?? json.v;
     if (v) {
       msg.v = v;
     }
@@ -328,7 +328,7 @@ export const Resp = {
   _writeMessageJSON: function (msg: Partial<Resp>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.v) {
-      json["v"] = msg.v;
+      json.v = msg.v;
     }
     return json;
   },
@@ -357,7 +357,7 @@ export const Resp = {
    * @private
    */
   _readMessageJSON: function (msg: Resp, json: any): Resp {
-    const v = json["v"] ?? json.v;
+    const v = json.v ?? json.v;
     if (v) {
       msg.v = v;
     }
@@ -447,13 +447,13 @@ export const ClientCompatMessage = {
   ): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.serviceAddress) {
-      json["serviceAddress"] = msg.serviceAddress;
+      json.serviceAddress = msg.serviceAddress;
     }
     if (msg.method) {
-      json["method"] = msg.method;
+      json.method = msg.method;
     }
     if (msg.request) {
-      json["request"] = msg.request;
+      json.request = msg.request;
     }
     return json;
   },
@@ -497,15 +497,15 @@ export const ClientCompatMessage = {
     msg: ClientCompatMessage,
     json: any
   ): ClientCompatMessage {
-    const serviceAddress = json["serviceAddress"] ?? json.service_address;
+    const serviceAddress = json.serviceAddress ?? json.service_address;
     if (serviceAddress) {
       msg.serviceAddress = serviceAddress;
     }
-    const method = json["method"] ?? json.method;
+    const method = json.method ?? json.method;
     if (method) {
       msg.method = method;
     }
-    const request = json["request"] ?? json.request;
+    const request = json.request ?? json.request;
     if (request) {
       msg.request = request;
     }

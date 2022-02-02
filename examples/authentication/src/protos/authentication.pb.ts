@@ -171,10 +171,10 @@ export const CurrentUser = {
   ): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.username) {
-      json["username"] = msg.username;
+      json.username = msg.username;
     }
     if (msg.token) {
-      json["token"] = msg.token;
+      json.token = msg.token;
     }
     return json;
   },
@@ -207,11 +207,11 @@ export const CurrentUser = {
    * @private
    */
   _readMessageJSON: function (msg: CurrentUser, json: any): CurrentUser {
-    const username = json["username"] ?? json.username;
+    const username = json.username ?? json.username;
     if (username) {
       msg.username = username;
     }
-    const token = json["token"] ?? json.token;
+    const token = json.token ?? json.token;
     if (token) {
       msg.token = token;
     }
@@ -291,10 +291,10 @@ export const Credentials = {
   ): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.username) {
-      json["username"] = msg.username;
+      json.username = msg.username;
     }
     if (msg.password) {
-      json["password"] = msg.password;
+      json.password = msg.password;
     }
     return json;
   },
@@ -327,11 +327,11 @@ export const Credentials = {
    * @private
    */
   _readMessageJSON: function (msg: Credentials, json: any): Credentials {
-    const username = json["username"] ?? json.username;
+    const username = json.username ?? json.username;
     if (username) {
       msg.username = username;
     }
-    const password = json["password"] ?? json.password;
+    const password = json.password ?? json.password;
     if (password) {
       msg.password = password;
     }

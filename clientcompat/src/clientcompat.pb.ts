@@ -168,13 +168,6 @@ export const Empty = {
   initialize: function (): Empty {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: Empty, json: any): Empty {
-    return msg;
-  },
 };
 
 export const Req = {

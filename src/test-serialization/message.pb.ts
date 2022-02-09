@@ -89,7 +89,7 @@ export const Foo = {
     }
     if (msg.fieldTwo) {
       for (const [key, value] of Object.entries(msg.fieldTwo)) {
-        if (key && value) {
+        if (value) {
           writer.writeMessage(2, {}, (_, mapWriter) => {
             mapWriter.writeString(1, key as any);
             mapWriter.writeMessage(2, value, Bar._writeMessage);
@@ -127,13 +127,11 @@ export const Foo = {
       json.fieldOne = msg.fieldOne;
     }
     if (msg.fieldTwo) {
-      if (msg.fieldTwo) {
-        const map: Record<string, unknown> = {};
-        for (const [key, value] of Object.entries(msg.fieldTwo)) {
-          if (key && value) {
-            map[key] = Bar._writeMessageJSON(value);
-            json.fieldTwo = map;
-          }
+      const map: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(msg.fieldTwo)) {
+        if (value) {
+          map[key] = Bar._writeMessageJSON(value);
+          json.fieldTwo = map;
         }
       }
     }
@@ -240,7 +238,7 @@ export const Foo = {
     }
     const fieldTwo = json.fieldTwo ?? json.field_two;
     if (fieldTwo) {
-      for (const [key, value] of Object.entries(fieldTwo)) {
+      for (const [key, value] of Object.entries<Bar>(fieldTwo)) {
         msg.fieldTwo[key] = Bar._readMessageJSON(Bar.initialize(), value);
       }
     }
@@ -330,7 +328,7 @@ export const Bar = {
     }
     if (msg.fieldTwo) {
       for (const [key, value] of Object.entries(msg.fieldTwo)) {
-        if (key && value) {
+        if (value) {
           writer.writeMessage(2, {}, (_, mapWriter) => {
             mapWriter.writeString(1, key as any);
             mapWriter.writeInt64String(2, value.toString());
@@ -353,13 +351,11 @@ export const Bar = {
       json.fieldOne = msg.fieldOne;
     }
     if (msg.fieldTwo) {
-      if (msg.fieldTwo) {
-        const map: Record<string, unknown> = {};
-        for (const [key, value] of Object.entries(msg.fieldTwo)) {
-          if (key && value) {
-            map[key] = value.toString();
-            json.fieldTwo = map;
-          }
+      const map: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(msg.fieldTwo)) {
+        if (value) {
+          map[key] = value.toString();
+          json.fieldTwo = map;
         }
       }
     }
@@ -426,8 +422,8 @@ export const Bar = {
     }
     const fieldTwo = json.fieldTwo ?? json.field_two;
     if (fieldTwo) {
-      for (const [key, value] of Object.entries(fieldTwo)) {
-        msg.fieldTwo[key] = BigInt(value as string);
+      for (const [key, value] of Object.entries<bigint>(fieldTwo)) {
+        msg.fieldTwo[key] = BigInt(value);
       }
     }
     const fieldThree = json.fieldThree ?? json.field_three;

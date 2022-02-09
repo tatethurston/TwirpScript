@@ -223,7 +223,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                   (c) => c.content.fullyQualifiedName === field.tsType
                 ) as MessageType;
                 res += `for (const [key, value] of Object.entries(msg.${field.name})) {
-                  if (key && value) {
+                  if (value) {
                     writer.writeMessage(${field.index}, {}, (_, mapWriter) => {
                 `;
                 const [key, value] = map.content.fields;
@@ -290,7 +290,6 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                   res += `}`;
                 }
               } else if (field.read === "map") {
-                res += `if (msg.${field.name}) {`;
                 const map = node.children.find(
                   (c) => c.content.fullyQualifiedName === field.tsType
                 ) as MessageType;
@@ -298,7 +297,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                   `: Record<string, unknown>`
                 )} = {};`;
                 res += `for (const [key, value] of Object.entries(msg.${field.name})) {
-                  if (key && value) {`;
+                  if (value) {`;
                 const [_key, value] = map.content.fields;
                 res += `map[key] =`;
                 if (value.read === "readMessage") {
@@ -312,7 +311,6 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                 }
                 res += `${setField} = map`;
                 res += "}\n}";
-                res += `}`;
               } else if (field.tsType === "bigint") {
                 if (field.repeated) {
                   res += `${setField} = msg.${field.name}.map(x => x.toString());`;
@@ -456,14 +454,16 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                   (c) => c.content.fullyQualifiedName === field.tsType
                 ) as MessageType;
                 const [_key, value] = map.content.fields;
-                res += `for (const [key, value] of Object.entries(${name})) {`;
+                res += `for (const [key, value] of Object.entries${printIfTypescript(
+                  `<${value.tsType}>`
+                )}(${name})) {`;
                 res += `msg.${name}[key] =`;
                 if (value.read === "readMessage") {
                   res += `${value.tsType}._readMessageJSON(${value.tsType}.initialize(), value);`;
                 } else if (value.read === "readEnum") {
-                  res += `value${printIfTypescript(` as ${value.tsType}`)};`;
+                  res += `value;`;
                 } else if (value.tsType === "bigint") {
-                  res += `BigInt(value${printIfTypescript(" as string")});`;
+                  res += `BigInt(value);`;
                 } else {
                   res += `value;`;
                 }

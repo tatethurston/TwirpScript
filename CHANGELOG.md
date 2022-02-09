@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.45
+
+- no longer generate `_readMessageJSON` for empty messages
+- fix map types in `_readMessageJSON`
+
 ## v0.0.44
 
 This version has breaking changes between the generated code and the runtime. Run `yarn twrispcript` to update your generated `.pb.ts` when updating to this version.

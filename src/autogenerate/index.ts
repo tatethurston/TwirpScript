@@ -116,7 +116,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
           `decode: function(_bytes${printIfTypescript(
             `?: ByteSource`
           )})${printIfTypescript(`: ${node.content.fullyQualifiedName}`)} {
-            return {}
+            return {};
         },`
         )}
 
@@ -164,7 +164,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
           `decodeJSON: function(_json${printIfTypescript(
             `?: string`
           )})${printIfTypescript(`: ${node.content.fullyQualifiedName}`)} {
-            return {}
+            return {};
         },`
         )}
 
@@ -253,7 +253,8 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             })
             .join("\n")}
             return writer;
-        },
+        },`
+        )}
 
         ${printIf(
           !isEmpty,
@@ -326,10 +327,12 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             })
             .join("\n")}
           return json;
-        }`
-        )},
+        },`
+        )}
         
-        /**
+        ${printIf(
+          !isEmpty,
+          `/**
          * @private
          */
         _readMessage: function(msg${printIfTypescript(
@@ -430,14 +433,16 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
         },`
         )}
 
-        /**
+        ${printIf(
+          !isEmpty,
+          `/**
          * @private
          */
         _readMessageJSON: function(msg${printIfTypescript(
           `: ${node.content.fullyQualifiedName}`
         )}, json${printIfTypescript(`: any`)})${printIfTypescript(
-          `: ${node.content.fullyQualifiedName} `
-        )}{
+            `: ${node.content.fullyQualifiedName} `
+          )}{
           ${node.content.fields
             .map((field) => {
               let res = "";
@@ -494,7 +499,8 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
             })
             .join("\n")}
           return msg;
-        },
+        },`
+        )}
 
       `;
         const childrenWithouMaps = node.children.filter(

@@ -2446,13 +2446,6 @@ export const TestDeprecatedMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const ForeignMessage = {
@@ -2609,13 +2602,6 @@ export const TestReservedFields = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestAllExtensions = {
@@ -2656,13 +2642,6 @@ export const TestAllExtensions = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -3109,13 +3088,6 @@ export const TestGroupExtension = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestNestedExtension = {
@@ -3156,13 +3128,6 @@ export const TestNestedExtension = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 
   OptionalGroup_extension: {
@@ -4460,13 +4425,6 @@ export const TestEmptyMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestEmptyMessageWithExtensions = {
@@ -4508,13 +4466,6 @@ export const TestEmptyMessageWithExtensions = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestPickleNestedMessage = {
@@ -4555,13 +4506,6 @@ export const TestPickleNestedMessage = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 
   NestedMessage: {
@@ -4809,13 +4753,6 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -5683,13 +5620,6 @@ export const TestIsInitialized = {
      */
     initialize: function () {
       return {};
-    },
-
-    /**
-     * @private
-     */
-    _readMessageJSON: function (msg, json) {
-      return msg;
     },
 
     SubGroup: {
@@ -10943,13 +10873,6 @@ export const TestPackedExtensions = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestUnpackedExtensions = {
@@ -10990,13 +10913,6 @@ export const TestUnpackedExtensions = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -12452,13 +12368,6 @@ export const FooRequest = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const FooResponse = {
@@ -12499,13 +12408,6 @@ export const FooResponse = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -12548,13 +12450,6 @@ export const FooClientMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const FooServerMessage = {
@@ -12595,13 +12490,6 @@ export const FooServerMessage = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -12644,13 +12532,6 @@ export const BarRequest = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const BarResponse = {
@@ -12691,13 +12572,6 @@ export const BarResponse = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -18565,13 +18439,6 @@ export const TestEmptyMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestMessageWithDummy = {
@@ -18837,13 +18704,6 @@ export const Empty = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 ",
@@ -21353,13 +21213,6 @@ export const TestDeprecatedMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const ForeignMessage = {
@@ -21516,13 +21369,6 @@ export const TestReservedFields = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestAllExtensions = {
@@ -21563,13 +21409,6 @@ export const TestAllExtensions = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -22016,13 +21855,6 @@ export const TestGroupExtension = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestNestedExtension = {
@@ -22063,13 +21895,6 @@ export const TestNestedExtension = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 
   OptionalGroup_extension: {
@@ -23367,13 +23192,6 @@ export const TestEmptyMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestEmptyMessageWithExtensions = {
@@ -23415,13 +23233,6 @@ export const TestEmptyMessageWithExtensions = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestPickleNestedMessage = {
@@ -23462,13 +23273,6 @@ export const TestPickleNestedMessage = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 
   NestedMessage: {
@@ -23716,13 +23520,6 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -24590,13 +24387,6 @@ export const TestIsInitialized = {
      */
     initialize: function () {
       return {};
-    },
-
-    /**
-     * @private
-     */
-    _readMessageJSON: function (msg, json) {
-      return msg;
     },
 
     SubGroup: {
@@ -29850,13 +29640,6 @@ export const TestPackedExtensions = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestUnpackedExtensions = {
@@ -29897,13 +29680,6 @@ export const TestUnpackedExtensions = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -31359,13 +31135,6 @@ export const FooRequest = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const FooResponse = {
@@ -31406,13 +31175,6 @@ export const FooResponse = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -31455,13 +31217,6 @@ export const FooClientMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const FooServerMessage = {
@@ -31502,13 +31257,6 @@ export const FooServerMessage = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -31551,13 +31299,6 @@ export const BarRequest = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const BarResponse = {
@@ -31598,13 +31339,6 @@ export const BarResponse = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 
@@ -37486,13 +37220,6 @@ export const TestEmptyMessage = {
   initialize: function () {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
-  },
 };
 
 export const TestMessageWithDummy = {
@@ -37765,13 +37492,6 @@ export const Empty = {
    */
   initialize: function () {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg, json) {
-    return msg;
   },
 };
 ",
@@ -41303,16 +41023,6 @@ export const TestDeprecatedMessage = {
   initialize: function (): TestDeprecatedMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestDeprecatedMessage,
-    json: any
-  ): TestDeprecatedMessage {
-    return msg;
-  },
 };
 
 export const ForeignMessage = {
@@ -41481,16 +41191,6 @@ export const TestReservedFields = {
   initialize: function (): TestReservedFields {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestReservedFields,
-    json: any
-  ): TestReservedFields {
-    return msg;
-  },
 };
 
 export const TestAllExtensions = {
@@ -41535,16 +41235,6 @@ export const TestAllExtensions = {
    */
   initialize: function (): TestAllExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestAllExtensions,
-    json: any
-  ): TestAllExtensions {
-    return msg;
   },
 };
 
@@ -42045,16 +41735,6 @@ export const TestGroupExtension = {
   initialize: function (): TestGroupExtension {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestGroupExtension,
-    json: any
-  ): TestGroupExtension {
-    return msg;
-  },
 };
 
 export const TestNestedExtension = {
@@ -42099,16 +41779,6 @@ export const TestNestedExtension = {
    */
   initialize: function (): TestNestedExtension {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestNestedExtension,
-    json: any
-  ): TestNestedExtension {
-    return msg;
   },
 
   OptionalGroup_extension: {
@@ -43489,16 +43159,6 @@ export const TestEmptyMessage = {
   initialize: function (): TestEmptyMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestEmptyMessage,
-    json: any
-  ): TestEmptyMessage {
-    return msg;
-  },
 };
 
 export const TestEmptyMessageWithExtensions = {
@@ -43544,16 +43204,6 @@ export const TestEmptyMessageWithExtensions = {
   initialize: function (): TestEmptyMessageWithExtensions {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestEmptyMessageWithExtensions,
-    json: any
-  ): TestEmptyMessageWithExtensions {
-    return msg;
-  },
 };
 
 export const TestPickleNestedMessage = {
@@ -43598,16 +43248,6 @@ export const TestPickleNestedMessage = {
    */
   initialize: function (): TestPickleNestedMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestPickleNestedMessage,
-    json: any
-  ): TestPickleNestedMessage {
-    return msg;
   },
 
   NestedMessage: {
@@ -43896,16 +43536,6 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function (): TestMultipleExtensionRanges {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestMultipleExtensionRanges,
-    json: any
-  ): TestMultipleExtensionRanges {
-    return msg;
   },
 };
 
@@ -44878,16 +44508,6 @@ export const TestIsInitialized = {
      */
     initialize: function (): TestIsInitialized.SubMessage {
       return {};
-    },
-
-    /**
-     * @private
-     */
-    _readMessageJSON: function (
-      msg: TestIsInitialized.SubMessage,
-      json: any
-    ): TestIsInitialized.SubMessage {
-      return msg;
     },
 
     SubGroup: {
@@ -50561,16 +50181,6 @@ export const TestPackedExtensions = {
   initialize: function (): TestPackedExtensions {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestPackedExtensions,
-    json: any
-  ): TestPackedExtensions {
-    return msg;
-  },
 };
 
 export const TestUnpackedExtensions = {
@@ -50615,16 +50225,6 @@ export const TestUnpackedExtensions = {
    */
   initialize: function (): TestUnpackedExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestUnpackedExtensions,
-    json: any
-  ): TestUnpackedExtensions {
-    return msg;
   },
 };
 
@@ -52267,13 +51867,6 @@ export const FooRequest = {
   initialize: function (): FooRequest {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: FooRequest, json: any): FooRequest {
-    return msg;
-  },
 };
 
 export const FooResponse = {
@@ -52314,13 +51907,6 @@ export const FooResponse = {
    */
   initialize: function (): FooResponse {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: FooResponse, json: any): FooResponse {
-    return msg;
   },
 };
 
@@ -52363,16 +51949,6 @@ export const FooClientMessage = {
   initialize: function (): FooClientMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: FooClientMessage,
-    json: any
-  ): FooClientMessage {
-    return msg;
-  },
 };
 
 export const FooServerMessage = {
@@ -52413,16 +51989,6 @@ export const FooServerMessage = {
    */
   initialize: function (): FooServerMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: FooServerMessage,
-    json: any
-  ): FooServerMessage {
-    return msg;
   },
 };
 
@@ -52465,13 +52031,6 @@ export const BarRequest = {
   initialize: function (): BarRequest {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: BarRequest, json: any): BarRequest {
-    return msg;
-  },
 };
 
 export const BarResponse = {
@@ -52512,13 +52071,6 @@ export const BarResponse = {
    */
   initialize: function (): BarResponse {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: BarResponse, json: any): BarResponse {
-    return msg;
   },
 };
 
@@ -58883,16 +58435,6 @@ export const TestEmptyMessage = {
   initialize: function (): TestEmptyMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestEmptyMessage,
-    json: any
-  ): TestEmptyMessage {
-    return msg;
-  },
 };
 
 export const TestMessageWithDummy = {
@@ -59197,13 +58739,6 @@ export const Empty = {
    */
   initialize: function (): Empty {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: Empty, json: any): Empty {
-    return msg;
   },
 };
 ",
@@ -62737,16 +62272,6 @@ export const TestDeprecatedMessage = {
   initialize: function (): TestDeprecatedMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestDeprecatedMessage,
-    json: any
-  ): TestDeprecatedMessage {
-    return msg;
-  },
 };
 
 export const ForeignMessage = {
@@ -62915,16 +62440,6 @@ export const TestReservedFields = {
   initialize: function (): TestReservedFields {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestReservedFields,
-    json: any
-  ): TestReservedFields {
-    return msg;
-  },
 };
 
 export const TestAllExtensions = {
@@ -62969,16 +62484,6 @@ export const TestAllExtensions = {
    */
   initialize: function (): TestAllExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestAllExtensions,
-    json: any
-  ): TestAllExtensions {
-    return msg;
   },
 };
 
@@ -63479,16 +62984,6 @@ export const TestGroupExtension = {
   initialize: function (): TestGroupExtension {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestGroupExtension,
-    json: any
-  ): TestGroupExtension {
-    return msg;
-  },
 };
 
 export const TestNestedExtension = {
@@ -63533,16 +63028,6 @@ export const TestNestedExtension = {
    */
   initialize: function (): TestNestedExtension {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestNestedExtension,
-    json: any
-  ): TestNestedExtension {
-    return msg;
   },
 
   OptionalGroup_extension: {
@@ -64923,16 +64408,6 @@ export const TestEmptyMessage = {
   initialize: function (): TestEmptyMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestEmptyMessage,
-    json: any
-  ): TestEmptyMessage {
-    return msg;
-  },
 };
 
 export const TestEmptyMessageWithExtensions = {
@@ -64978,16 +64453,6 @@ export const TestEmptyMessageWithExtensions = {
   initialize: function (): TestEmptyMessageWithExtensions {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestEmptyMessageWithExtensions,
-    json: any
-  ): TestEmptyMessageWithExtensions {
-    return msg;
-  },
 };
 
 export const TestPickleNestedMessage = {
@@ -65032,16 +64497,6 @@ export const TestPickleNestedMessage = {
    */
   initialize: function (): TestPickleNestedMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestPickleNestedMessage,
-    json: any
-  ): TestPickleNestedMessage {
-    return msg;
   },
 
   NestedMessage: {
@@ -65330,16 +64785,6 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function (): TestMultipleExtensionRanges {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestMultipleExtensionRanges,
-    json: any
-  ): TestMultipleExtensionRanges {
-    return msg;
   },
 };
 
@@ -66312,16 +65757,6 @@ export const TestIsInitialized = {
      */
     initialize: function (): TestIsInitialized.SubMessage {
       return {};
-    },
-
-    /**
-     * @private
-     */
-    _readMessageJSON: function (
-      msg: TestIsInitialized.SubMessage,
-      json: any
-    ): TestIsInitialized.SubMessage {
-      return msg;
     },
 
     SubGroup: {
@@ -71995,16 +71430,6 @@ export const TestPackedExtensions = {
   initialize: function (): TestPackedExtensions {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestPackedExtensions,
-    json: any
-  ): TestPackedExtensions {
-    return msg;
-  },
 };
 
 export const TestUnpackedExtensions = {
@@ -72049,16 +71474,6 @@ export const TestUnpackedExtensions = {
    */
   initialize: function (): TestUnpackedExtensions {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestUnpackedExtensions,
-    json: any
-  ): TestUnpackedExtensions {
-    return msg;
   },
 };
 
@@ -73701,13 +73116,6 @@ export const FooRequest = {
   initialize: function (): FooRequest {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: FooRequest, json: any): FooRequest {
-    return msg;
-  },
 };
 
 export const FooResponse = {
@@ -73748,13 +73156,6 @@ export const FooResponse = {
    */
   initialize: function (): FooResponse {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: FooResponse, json: any): FooResponse {
-    return msg;
   },
 };
 
@@ -73797,16 +73198,6 @@ export const FooClientMessage = {
   initialize: function (): FooClientMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: FooClientMessage,
-    json: any
-  ): FooClientMessage {
-    return msg;
-  },
 };
 
 export const FooServerMessage = {
@@ -73847,16 +73238,6 @@ export const FooServerMessage = {
    */
   initialize: function (): FooServerMessage {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: FooServerMessage,
-    json: any
-  ): FooServerMessage {
-    return msg;
   },
 };
 
@@ -73899,13 +73280,6 @@ export const BarRequest = {
   initialize: function (): BarRequest {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: BarRequest, json: any): BarRequest {
-    return msg;
-  },
 };
 
 export const BarResponse = {
@@ -73946,13 +73320,6 @@ export const BarResponse = {
    */
   initialize: function (): BarResponse {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: BarResponse, json: any): BarResponse {
-    return msg;
   },
 };
 
@@ -80331,16 +79698,6 @@ export const TestEmptyMessage = {
   initialize: function (): TestEmptyMessage {
     return {};
   },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (
-    msg: TestEmptyMessage,
-    json: any
-  ): TestEmptyMessage {
-    return msg;
-  },
 };
 
 export const TestMessageWithDummy = {
@@ -80652,13 +80009,6 @@ export const Empty = {
    */
   initialize: function (): Empty {
     return {};
-  },
-
-  /**
-   * @private
-   */
-  _readMessageJSON: function (msg: Empty, json: any): Empty {
-    return msg;
   },
 };
 ",

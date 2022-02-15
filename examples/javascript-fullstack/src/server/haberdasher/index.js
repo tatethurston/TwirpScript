@@ -1,10 +1,10 @@
-import { createHaberdasherHandler } from "../../protos/haberdasher.pb.js";
+import { createHaberdasher } from "../../protos/haberdasher.pb.js";
 
 function choose(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-export const Haberdasher = {
+export const haberdasher = {
   MakeHat: (size) => {
     return {
       inches: size.inches,
@@ -14,4 +14,4 @@ export const Haberdasher = {
   },
 };
 
-export const HaberdasherHandler = createHaberdasherHandler(Haberdasher);
+export const habderdasherHandler = createHaberdasher(haberdasher);

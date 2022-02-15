@@ -70,17 +70,15 @@ export async function NoopMethodJSON(
 }
 
 //========================================//
-//         CompatService Service          //
+//             CompatService              //
 //========================================//
 
-export interface CompatServiceService<Context = unknown> {
+export interface CompatService<Context = unknown> {
   Method: (req: Req, context: Context) => Promise<Resp> | Resp;
   NoopMethod: (empty: Empty, context: Context) => Promise<Empty> | Empty;
 }
 
-export function createCompatServiceHandler<Context>(
-  service: CompatServiceService<Context>
-) {
+export function createCompatService<Context>(service: CompatService<Context>) {
   return {
     name: "twirp.clientcompat.CompatService",
     methods: {

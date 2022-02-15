@@ -350,7 +350,7 @@ export async function BarJSON(barRequest, config) {
   return response;
 }
 
-export function createTestServiceHandler(service) {
+export function createTestService(service) {
   return {
     name: \\"protobuf_unittest.TestService\\",
     methods: {
@@ -18752,7 +18752,7 @@ export async function BarJSON(empty, config) {
   return response;
 }
 
-export function createFooHandler(service) {
+export function createFoo(service) {
   return {
     name: \\"Foo\\",
     methods: {
@@ -19117,7 +19117,7 @@ export async function BarJSON(barRequest, config) {
   return response;
 }
 
-export function createTestServiceHandler(service) {
+export function createTestService(service) {
   return {
     name: \\"protobuf_unittest.TestService\\",
     methods: {
@@ -37547,7 +37547,7 @@ export async function BarJSON(empty, config) {
   return response;
 }
 
-export function createFooHandler(service) {
+export function createFoo(service) {
   return {
     name: \\"Foo\\",
     methods: {
@@ -37985,10 +37985,10 @@ export async function BarJSON(
 }
 
 //========================================//
-//          TestService Service           //
+//              TestService               //
 //========================================//
 
-export interface TestServiceService<Context = unknown> {
+export interface TestService<Context = unknown> {
   Foo: (
     fooRequest: FooRequest,
     context: Context
@@ -37999,9 +37999,7 @@ export interface TestServiceService<Context = unknown> {
   ) => Promise<BarResponse> | BarResponse;
 }
 
-export function createTestServiceHandler<Context>(
-  service: TestServiceService<Context>
-) {
+export function createTestService<Context>(service: TestService<Context>) {
   return {
     name: \\"protobuf_unittest.TestService\\",
     methods: {
@@ -58795,14 +58793,14 @@ export async function BarJSON(
 }
 
 //========================================//
-//              Foo Service               //
+//                  Foo                   //
 //========================================//
 
-export interface FooService<Context = unknown> {
+export interface Foo<Context = unknown> {
   Bar: (empty: Empty, context: Context) => Promise<Empty> | Empty;
 }
 
-export function createFooHandler<Context>(service: FooService<Context>) {
+export function createFoo<Context>(service: Foo<Context>) {
   return {
     name: \\"Foo\\",
     methods: {
@@ -59234,10 +59232,10 @@ export async function BarJSON(
 }
 
 //========================================//
-//          TestService Service           //
+//              TestService               //
 //========================================//
 
-export interface TestServiceService<Context = unknown> {
+export interface TestService<Context = unknown> {
   Foo: (
     fooRequest: FooRequest,
     context: Context
@@ -59248,9 +59246,7 @@ export interface TestServiceService<Context = unknown> {
   ) => Promise<BarResponse> | BarResponse;
 }
 
-export function createTestServiceHandler<Context>(
-  service: TestServiceService<Context>
-) {
+export function createTestService<Context>(service: TestService<Context>) {
   return {
     name: \\"protobuf_unittest.TestService\\",
     methods: {
@@ -80072,14 +80068,14 @@ export async function BarJSON(
 }
 
 //========================================//
-//              Foo Service               //
+//                  Foo                   //
 //========================================//
 
-export interface FooService<Context = unknown> {
+export interface Foo<Context = unknown> {
   Bar: (empty: Empty, context: Context) => Promise<Empty> | Empty;
 }
 
-export function createFooHandler<Context>(service: FooService<Context>) {
+export function createFoo<Context>(service: Foo<Context>) {
   return {
     name: \\"Foo\\",
     methods: {

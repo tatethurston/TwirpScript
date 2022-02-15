@@ -40,7 +40,7 @@ export async function MakeHatJSON(size, config) {
   return response;
 }
 
-export function createHaberdasherHandler(service) {
+export function createHaberdasher(service) {
   return {
     name: "Haberdasher",
     methods: {

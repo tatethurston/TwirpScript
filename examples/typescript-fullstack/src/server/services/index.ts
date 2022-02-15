@@ -1,1 +1,1 @@
-export { HaberdasherHandler } from "./haberdasher";
+export { habderdasherHandler } from "./haberdasher";

@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Haberdasher Service</h1>
+      <h1>Haberdasher </h1>
       <h3>Hats: </h3>
       <ul>
         {hats.map((hat) => (

@@ -50,6 +50,7 @@ TwirpScript implements the latest [Twirp Wire Protocol (v7)](https://twitchtv.gi
     - [Client](#client-3)
     - [Server](#server-3)
 - [Configuration 🛠](#configuration-)
+- [JSON](#JSON)
 - [Examples 🚀](#examples-)
 - [Working with other tools](#working-with-other-tools)
 - [Caveats, Warnings and Issues ⚠️](#caveats-warnings-and-issues-%EF%B8%8F)
@@ -659,6 +660,30 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
 </tr>
 </tbody>
 </table>
+
+## JSON
+
+TwirpScript's JSON serialization/deserialization is migrating to the [proto3 specification](https://developers.google.com/protocol-buffers/docs/proto3#json). This is nearly complete, but still in progress.
+
+TwirpScript will serialize JSON keys as `lowerCamelCase` versions of the proto field. Per the proto3 spec, the runtime will accept both `lowerCamelCase` and the original proto field name when deserializing. You can provide the `json_name` field option to specify an alternate key name. When doing so, the runtime will accept the `json_name` and the origin proto field name, but not `lowerCamelCase`.
+
+### Example
+
+```protobuf
+syntax = "proto3";
+
+message Hat {
+  // this key will serialize as 'userID' instead of 'userId'
+  int64 user_id = 1; [json_name="userID"];
+  int64 wardrobe_id = 2;
+}
+```
+
+The above `Hat` message would serialize to the following JSON:
+
+```json
+{ "userID": "some 64bit number", "wardrobeId": "some 64bit number" }
+```
 
 ## Examples 🚀
 

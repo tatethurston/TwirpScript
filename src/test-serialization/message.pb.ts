@@ -11,7 +11,7 @@ import { BinaryReader, BinaryWriter } from "../../src";
 export type Baz = typeof Baz[keyof typeof Baz];
 
 export interface Foo {
-  fieldOne?: number;
+  fieldOne?: number | null | undefined;
   fieldTwo: Record<string, Bar | undefined>;
   fieldThree: Bar[];
   fieldFour: Bar;

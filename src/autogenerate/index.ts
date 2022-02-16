@@ -42,9 +42,13 @@ function writeTypes(types: ProtoTypes[]): string {
               ${maybeMap.content.fields[1].tsType} | undefined>`;
           }
 
-          result += `${fieldName}${optional ? "?" : ""}: ${_type}${
-            repeated ? "[]" : ""
-          };\n`;
+          result += `${fieldName}${printIf(optional, "?")}: ${_type}`;
+          if (optional) {
+            result += "| null | undefined";
+          } else if (repeated) {
+            result += "[]";
+          }
+          result += ";\n";
         }
       );
       result += "}\n\n";

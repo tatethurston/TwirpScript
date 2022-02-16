@@ -38124,10 +38124,10 @@ export interface TestAllTypes {
   defaultImportEnum: ImportEnum;
   defaultStringPiece: string;
   defaultCord: string;
-  oneofUint32?: number;
-  oneofNestedMessage?: TestAllTypes.NestedMessage;
-  oneofString?: string;
-  oneofBytes?: Uint8Array;
+  oneofUint32?: number | null | undefined;
+  oneofNestedMessage?: TestAllTypes.NestedMessage | null | undefined;
+  oneofString?: string | null | undefined;
+  oneofBytes?: Uint8Array | null | undefined;
 }
 
 export namespace TestAllTypes {
@@ -38163,7 +38163,7 @@ export interface NestedTestAllTypes {
 
 export interface TestDeprecatedFields {
   deprecatedInt32: number;
-  deprecatedInt32InOneof?: number;
+  deprecatedInt32InOneof?: number | null | undefined;
 }
 
 export interface TestDeprecatedMessage {}
@@ -38570,9 +38570,9 @@ export interface BoolMessage {
  * Test oneofs.
  */
 export interface TestOneof {
-  fooInt?: number;
-  fooString?: string;
-  fooMessage?: TestAllTypes;
+  fooInt?: number | null | undefined;
+  fooString?: string | null | undefined;
+  fooMessage?: TestAllTypes | null | undefined;
 }
 
 export namespace TestOneof {
@@ -38596,24 +38596,24 @@ export namespace TestOneofBackwardsCompatible {
 }
 
 export interface TestOneof2 {
-  fooInt?: number;
-  fooString?: string;
-  fooCord?: string;
-  fooStringPiece?: string;
-  fooBytes?: Uint8Array;
-  fooEnum?: TestOneof2.NestedEnum;
-  fooMessage?: TestOneof2.NestedMessage;
-  fooLazyMessage?: TestOneof2.NestedMessage;
-  barInt?: number;
-  barString?: string;
-  barCord?: string;
-  barStringPiece?: string;
-  barBytes?: Uint8Array;
-  barEnum?: TestOneof2.NestedEnum;
-  barStringWithEmptyDefault?: string;
-  barCordWithEmptyDefault?: string;
-  barStringPieceWithEmptyDefault?: string;
-  barBytesWithEmptyDefault?: Uint8Array;
+  fooInt?: number | null | undefined;
+  fooString?: string | null | undefined;
+  fooCord?: string | null | undefined;
+  fooStringPiece?: string | null | undefined;
+  fooBytes?: Uint8Array | null | undefined;
+  fooEnum?: TestOneof2.NestedEnum | null | undefined;
+  fooMessage?: TestOneof2.NestedMessage | null | undefined;
+  fooLazyMessage?: TestOneof2.NestedMessage | null | undefined;
+  barInt?: number | null | undefined;
+  barString?: string | null | undefined;
+  barCord?: string | null | undefined;
+  barStringPiece?: string | null | undefined;
+  barBytes?: Uint8Array | null | undefined;
+  barEnum?: TestOneof2.NestedEnum | null | undefined;
+  barStringWithEmptyDefault?: string | null | undefined;
+  barCordWithEmptyDefault?: string | null | undefined;
+  barStringPieceWithEmptyDefault?: string | null | undefined;
+  barBytesWithEmptyDefault?: Uint8Array | null | undefined;
   bazInt: number;
   bazString: string;
 }
@@ -38634,9 +38634,9 @@ export namespace TestOneof2 {
 }
 
 export interface TestRequiredOneof {
-  fooInt?: number;
-  fooString?: string;
-  fooMessage?: TestRequiredOneof.NestedMessage;
+  fooInt?: number | null | undefined;
+  fooString?: string | null | undefined;
+  fooMessage?: TestRequiredOneof.NestedMessage | null | undefined;
 }
 
 export namespace TestRequiredOneof {
@@ -38821,10 +38821,10 @@ export interface TestHugeFieldNumbers {
   optionalBytes: Uint8Array;
   optionalMessage: ForeignMessage;
   stringStringMap: Record<string, string | undefined>;
-  oneofUint32?: number;
-  oneofTestAllTypes?: TestAllTypes;
-  oneofString?: string;
-  oneofBytes?: Uint8Array;
+  oneofUint32?: number | null | undefined;
+  oneofTestAllTypes?: TestAllTypes | null | undefined;
+  oneofString?: string | null | undefined;
+  oneofBytes?: Uint8Array | null | undefined;
 }
 
 export namespace TestHugeFieldNumbers {
@@ -56261,10 +56261,10 @@ export interface TestAllTypes {
   repeatedStringPiece: string[];
   repeatedCord: string[];
   repeatedLazyMessage: TestAllTypes.NestedMessage[];
-  oneofUint32?: number;
-  oneofNestedMessage?: TestAllTypes.NestedMessage;
-  oneofString?: string;
-  oneofBytes?: Uint8Array;
+  oneofUint32?: number | null | undefined;
+  oneofNestedMessage?: TestAllTypes.NestedMessage | null | undefined;
+  oneofString?: string | null | undefined;
+  oneofBytes?: Uint8Array | null | undefined;
 }
 
 export namespace TestAllTypes {
@@ -56355,7 +56355,7 @@ export interface TestMessageWithDummy {
  * parsing behavior in oneof.
  */
 export interface TestOneof2 {
-  fooEnum?: TestOneof2.NestedEnum;
+  fooEnum?: TestOneof2.NestedEnum | null | undefined;
 }
 
 export namespace TestOneof2 {
@@ -59371,10 +59371,10 @@ export interface TestAllTypes {
   defaultImportEnum: ImportEnum;
   defaultStringPiece: string;
   defaultCord: string;
-  oneofUint32?: number;
-  oneofNestedMessage?: TestAllTypes.NestedMessage;
-  oneofString?: string;
-  oneofBytes?: Uint8Array;
+  oneofUint32?: number | null | undefined;
+  oneofNestedMessage?: TestAllTypes.NestedMessage | null | undefined;
+  oneofString?: string | null | undefined;
+  oneofBytes?: Uint8Array | null | undefined;
 }
 
 export namespace TestAllTypes {
@@ -59410,7 +59410,7 @@ export interface NestedTestAllTypes {
 
 export interface TestDeprecatedFields {
   deprecatedInt32: number;
-  deprecatedInt32InOneof?: number;
+  deprecatedInt32InOneof?: number | null | undefined;
 }
 
 export interface TestDeprecatedMessage {}
@@ -59817,9 +59817,9 @@ export interface BoolMessage {
  * Test oneofs.
  */
 export interface TestOneof {
-  fooInt?: number;
-  fooString?: string;
-  fooMessage?: TestAllTypes;
+  fooInt?: number | null | undefined;
+  fooString?: string | null | undefined;
+  fooMessage?: TestAllTypes | null | undefined;
 }
 
 export namespace TestOneof {
@@ -59843,24 +59843,24 @@ export namespace TestOneofBackwardsCompatible {
 }
 
 export interface TestOneof2 {
-  fooInt?: number;
-  fooString?: string;
-  fooCord?: string;
-  fooStringPiece?: string;
-  fooBytes?: Uint8Array;
-  fooEnum?: TestOneof2.NestedEnum;
-  fooMessage?: TestOneof2.NestedMessage;
-  fooLazyMessage?: TestOneof2.NestedMessage;
-  barInt?: number;
-  barString?: string;
-  barCord?: string;
-  barStringPiece?: string;
-  barBytes?: Uint8Array;
-  barEnum?: TestOneof2.NestedEnum;
-  barStringWithEmptyDefault?: string;
-  barCordWithEmptyDefault?: string;
-  barStringPieceWithEmptyDefault?: string;
-  barBytesWithEmptyDefault?: Uint8Array;
+  fooInt?: number | null | undefined;
+  fooString?: string | null | undefined;
+  fooCord?: string | null | undefined;
+  fooStringPiece?: string | null | undefined;
+  fooBytes?: Uint8Array | null | undefined;
+  fooEnum?: TestOneof2.NestedEnum | null | undefined;
+  fooMessage?: TestOneof2.NestedMessage | null | undefined;
+  fooLazyMessage?: TestOneof2.NestedMessage | null | undefined;
+  barInt?: number | null | undefined;
+  barString?: string | null | undefined;
+  barCord?: string | null | undefined;
+  barStringPiece?: string | null | undefined;
+  barBytes?: Uint8Array | null | undefined;
+  barEnum?: TestOneof2.NestedEnum | null | undefined;
+  barStringWithEmptyDefault?: string | null | undefined;
+  barCordWithEmptyDefault?: string | null | undefined;
+  barStringPieceWithEmptyDefault?: string | null | undefined;
+  barBytesWithEmptyDefault?: Uint8Array | null | undefined;
   bazInt: number;
   bazString: string;
 }
@@ -59881,9 +59881,9 @@ export namespace TestOneof2 {
 }
 
 export interface TestRequiredOneof {
-  fooInt?: number;
-  fooString?: string;
-  fooMessage?: TestRequiredOneof.NestedMessage;
+  fooInt?: number | null | undefined;
+  fooString?: string | null | undefined;
+  fooMessage?: TestRequiredOneof.NestedMessage | null | undefined;
 }
 
 export namespace TestRequiredOneof {
@@ -60068,10 +60068,10 @@ export interface TestHugeFieldNumbers {
   optionalBytes: Uint8Array;
   optionalMessage: ForeignMessage;
   stringStringMap: Record<string, string | undefined>;
-  oneofUint32?: number;
-  oneofTestAllTypes?: TestAllTypes;
-  oneofString?: string;
-  oneofBytes?: Uint8Array;
+  oneofUint32?: number | null | undefined;
+  oneofTestAllTypes?: TestAllTypes | null | undefined;
+  oneofString?: string | null | undefined;
+  oneofBytes?: Uint8Array | null | undefined;
 }
 
 export namespace TestHugeFieldNumbers {
@@ -77522,10 +77522,10 @@ export interface TestAllTypes {
   repeatedStringPiece: string[];
   repeatedCord: string[];
   repeatedLazyMessage: TestAllTypes.NestedMessage[];
-  oneofUint32?: number;
-  oneofNestedMessage?: TestAllTypes.NestedMessage;
-  oneofString?: string;
-  oneofBytes?: Uint8Array;
+  oneofUint32?: number | null | undefined;
+  oneofNestedMessage?: TestAllTypes.NestedMessage | null | undefined;
+  oneofString?: string | null | undefined;
+  oneofBytes?: Uint8Array | null | undefined;
 }
 
 export namespace TestAllTypes {
@@ -77616,7 +77616,7 @@ export interface TestMessageWithDummy {
  * parsing behavior in oneof.
  */
 export interface TestOneof2 {
-  fooEnum?: TestOneof2.NestedEnum;
+  fooEnum?: TestOneof2.NestedEnum | null | undefined;
 }
 
 export namespace TestOneof2 {

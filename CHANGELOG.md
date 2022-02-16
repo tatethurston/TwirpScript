@@ -1,5 +1,37 @@
 # Changelog
 
+## v0.0.46
+
+This version has 3 breaking changes:
+
+1. (Only impacts TypeScript users) The 'Service' naming suffix has been removed from the generated TypeScript types for services. Given the following proto:
+
+```proto
+service Haberdasher {
+  rpc MakeHat(Size) returns (Hat);
+}
+```
+
+The generated service type will now be `Haberdasher` instead of `HaberdasherService`. This enables better out of the box compatibility with [buf](https://buf.build/) which expects all service names to end with `Service`. Following this recommendation would generate TwirpScript types with 'ServiceService' suffixes.
+
+`<Service>Service => <Service>`
+
+2. The 'Handler' suffix has been removed from the generated `create<Service>Handler` helper.
+
+Given the proto above, the generated helper is now `createHaberdasher` instead of `createHaberdasherHandler`.
+
+`create<Service>Handler=> create<Service>`
+
+3. (Only impacts TypeScript users) `optional` types now accept `null` and `undefined`. This enables better compatibility with other tools that may type optionals as `some type | null`
+
+Changes:
+
+- remove naming suffixes by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/125
+- add exclude option to twirp.json by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/127
+- add null to optional ts types by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/128
+
+**Full Changelog**: https://github.com/tatethurston/TwirpScript/compare/v0.0.45...v0.0.46
+
 ## v0.0.45
 
 - no longer generate `_readMessageJSON` for empty messages

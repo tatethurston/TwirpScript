@@ -1,4 +1,4 @@
-# TwirpScript Config Dest Example
+# TwirpScript Config Exclude Example
 
 ## Getting Started
 

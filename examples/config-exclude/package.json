@@ -1,0 +1,12 @@
+{
+  "name": "config-exclude",
+  "scripts": {
+    "build": "yarn twirpscript && yarn tsc"
+  },
+  "dependencies": {
+    "twirpscript": "*"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}

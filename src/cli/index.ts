@@ -55,6 +55,13 @@ type Config = {
    *
    * Setting `root` to `src`:
    *
+   * // twirp.json
+   * ```json
+   * {
+   *   root: "src"
+   * }
+   * ```
+   *
    * A.proto would `import` B.proto as follows:
    *
    * ```proto
@@ -64,6 +71,31 @@ type Config = {
    * TypeScript projects will generally want to set this value to match their `rootDir`, particularly when using [Protocol Buffers Well-Known Types](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf) so that the generated well-known type files are under the `rootDir`.
    */
   root: string;
+  /**
+   * An array of patterns that should be skipped when searching for `.proto` files.
+   *
+   * Example:
+   *
+   * If we have the following project structure:
+   * /src
+   *   /foo
+   *     A.proto
+   *   /bar
+   *     B.proto
+   *
+   * Setting `exclude` to `["/bar/"]`:
+   *
+   * // twirp.json
+   * ```json
+   * {
+   *   exclude: ["/bar/"]
+   * }
+   * ```
+   *
+   * Will only process A.proto (B.proto) will be excluded from TwirpScript's code generation.
+   *
+   */
+  exclude: string[];
   /** The destination folder for generated files.
    *
    * Defaults to colocating generated files with the corresponding `proto` definition.
@@ -87,6 +119,11 @@ type Config = {
    *
    * Setting `dest` to `out`:
    *
+   * // twirp.json
+   * {
+   *   dest: 'out',
+   * }
+   *
    * /src
    *   A.proto
    *   B.proto
@@ -98,6 +135,12 @@ type Config = {
    * Note that the generated directory structure will mirror the `proto` paths exactly as is, only nested under the `dest` directory. If you want to change this, for instance, to omit `src` from the `out` directory above, you can set the `root`.
    *
    * Setting `root` to `src`:
+   *
+   * // twirp.json
+   * {
+   *   root: 'src',
+   *   dest: 'out',
+   * }
    *
    * /src
    *   A.proto
@@ -120,6 +163,7 @@ const projectRoot = process.cwd();
 function getConfig(): Config {
   const defaultConfig: Config = {
     root: projectRoot,
+    exclude: [],
     dest: ".",
     language: existsSync(join(projectRoot, "tsconfig.json"))
       ? "typescript"
@@ -159,9 +203,11 @@ function getConfig(): Config {
 
 const config = getConfig();
 
-const protos = findFiles(config.root, ".proto").map((filepath) =>
-  relative(config.root, filepath)
-);
+const excludes = config.exclude.map((pattern) => RegExp(pattern));
+
+const protos = findFiles(config.root, ".proto")
+  .map((filepath) => relative(config.root, filepath))
+  .filter((file) => !excludes.some((exclude) => exclude.exec(file)));
 
 if (!commandIsInPath("protoc")) {
   logger.error(

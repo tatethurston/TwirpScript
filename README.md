@@ -586,16 +586,52 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
   ```
  
   Setting `root` to `src`:
- 
-  A.proto would `import` B.proto as follows:
- 
-  ```protobuf
-  import "B.proto";
-  ```
- 
-  TypeScript projects will generally want to set this value to match their `rootDir`, particularly when using [Protocol Buffers Well-Known Types](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf) so that the generated well-known type files are under the `rootDir`.
+
+// twirp.json
+
+```json
+{
+  "root": "src"
+}
+```
+
+A.proto would `import` B.proto as follows:
+
+```protobuf
+import "B.proto";
+```
+
+TypeScript projects will generally want to set this value to match their `rootDir`, particularly when using [Protocol Buffers Well-Known Types](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf) so that the generated well-known type files are under the `rootDir`.
+
 </td>
 <td>string (filepath)</td>
+</tr>
+<tr>
+  <td>exclude</td>
+<td>
+   An array of patterns that should be skipped when searching for `.proto` files.
+  
+   Example:
+  
+   If we have the following project structure:
+   /src
+     /foo
+       A.proto
+     /bar
+       B.proto
+  
+   Setting `exclude` to `["/bar/"]`:
+  
+   // twirp.json
+   ```json
+   {
+     exclude: ["/bar/"]
+   }
+   ```
+  
+   Will only process A.proto (B.proto) will be excluded from TwirpScript's code generation.
+</td>
+  <td>string[] (RegExp pattern)</td>
 </tr>
 <tr>
   <td>dest</td>
@@ -624,6 +660,13 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
  
   Setting `dest` to `out` will generate the following:
  
+  // twirp.json
+  ```json
+  {
+    dest: 'out',
+  }
+  ```
+ 
   ```
   /src
     A.proto
@@ -637,6 +680,14 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
   Note that the generated directory structure will mirror the `proto` paths exactly as is, only nested under the `dest` directory. If you want to change this, for instance, to omit `src` from the `out` directory above, you can set the `root`.
   
   Setting `root` to `src` (in addition to setting `dest` to `out`) will generate the following:
+ 
+  // twirp.json
+  ```json
+  {
+    root: 'src',
+    dest: 'out',
+  }
+  ```
   
   ```
   /src

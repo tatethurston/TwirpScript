@@ -48,22 +48,20 @@ export async function MakeHatJSON(
 }
 
 //========================================//
-//          Haberdasher Service           //
+//              Haberdasher               //
 //========================================//
 
 /**
  * Haberdasher service makes hats for clients.
  */
-export interface HaberdasherService<Context = unknown> {
+export interface Haberdasher<Context = unknown> {
   /**
    * MakeHat produces a hat of mysterious, randomly-selected color!
    */
   MakeHat: (size: Size, context: Context) => Promise<Hat> | Hat;
 }
 
-export function createHaberdasherHandler<Context>(
-  service: HaberdasherService<Context>
-) {
+export function createHaberdasher<Context>(service: Haberdasher<Context>) {
   return {
     name: "Haberdasher",
     methods: {

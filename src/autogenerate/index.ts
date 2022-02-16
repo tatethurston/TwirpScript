@@ -643,12 +643,12 @@ function writeServers(
   services.forEach((service) => {
     // print service types
     if (isTS) {
-      result += printHeading(`${service.name} Service`);
+      result += printHeading(`${service.name}`);
 
       if (service.comments?.leading) {
         result += printComments(service.comments.leading);
       }
-      result += `export interface ${service.name}Service<Context = unknown> {\n`;
+      result += `export interface ${service.name}<Context = unknown> {\n`;
       service.methods.forEach((method) => {
         if (method.comments?.leading) {
           result += printComments(method.comments.leading);
@@ -661,11 +661,9 @@ function writeServers(
 
     result += "\n";
 
-    result += `export function create${service.name}Handler${printIfTypescript(
+    result += `export function create${service.name}${printIfTypescript(
       "<Context>"
-    )}(service${printIfTypescript(
-      `: ${service.name}Service<Context>`
-    )}) { return {
+    )}(service${printIfTypescript(`: ${service.name}<Context>`)}) { return {
     name: '${[packageName, service.name].filter(Boolean).join(".")}',
     methods: {\n`;
     service.methods.forEach((method) => {

@@ -1,6 +1,6 @@
 import {
-  AuthenticationService,
-  createAuthenticationHandler,
+  Authentication,
+  createAuthentication,
   CurrentUser,
   Credentials,
 } from "../../../protos/authentication.pb";
@@ -27,7 +27,7 @@ function login(credentials: Credentials): CurrentUser | undefined {
 /**
  * Sentinal value for unauthenticated routes.
  */
-export const UnauthenticatedUser: CurrentUser = {
+export const unauthenticatedUser: CurrentUser = {
   username: "",
   token: "",
 };
@@ -41,7 +41,7 @@ export function getCurrentUser(
   return sessions.find((s) => s.token === token);
 }
 
-export const Authentication: AuthenticationService = {
+export const authentication: Authentication = {
   Login: (credentials) => {
     const user = login(credentials);
     if (!user) {
@@ -54,5 +54,4 @@ export const Authentication: AuthenticationService = {
   },
 };
 
-export const AuthenticationHandler =
-  createAuthenticationHandler(Authentication);
+export const authenticationHandler = createAuthentication(authentication);

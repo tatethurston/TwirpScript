@@ -52,10 +52,10 @@ export async function LoginJSON(
 }
 
 //========================================//
-//         Authentication Service         //
+//             Authentication             //
 //========================================//
 
-export interface AuthenticationService<Context = unknown> {
+export interface Authentication<Context = unknown> {
   /**
    * Login in a user
    */
@@ -65,8 +65,8 @@ export interface AuthenticationService<Context = unknown> {
   ) => Promise<CurrentUser> | CurrentUser;
 }
 
-export function createAuthenticationHandler<Context>(
-  service: AuthenticationService<Context>
+export function createAuthentication<Context>(
+  service: Authentication<Context>
 ) {
   return {
     name: "Authentication",

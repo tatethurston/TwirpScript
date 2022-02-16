@@ -182,12 +182,9 @@ If you have an existing Twirp server you're connecting to and only need a client
 `src/server/haberdasher/index.ts`
 
 ```ts
-import {
-  HaberdasherService,
-  createHaberdasherHandler,
-} from "../../protos/haberdasher.pb";
+import { Haberdasher, createHaberdasher } from "../../protos/haberdasher.pb";
 
-const Haberdasher: HaberdasherService = {
+const haberdasher: Haberdasher = {
   MakeHat: (size) => {
     return {
       inches: size.inches,
@@ -197,7 +194,7 @@ const Haberdasher: HaberdasherService = {
   },
 };
 
-export const HaberdasherHandler = createHaberdasherHandler(Haberdasher);
+export const haberdasherHandler = createHaberdasher(haberdasher);
 ```
 
 #### 5. Connect your service to your application server
@@ -207,11 +204,11 @@ export const HaberdasherHandler = createHaberdasherHandler(Haberdasher);
 ```ts
 import { createServer } from "http";
 import { createTwirpServer } from "twirpscript";
-import { HaberdasherHandler } from "./haberdasher";
+import { haberdasherHandler } from "./haberdasher";
 
 const PORT = 8080;
 
-const app = createTwirpServer([HaberdasherHandler]);
+const app = createTwirpServer([haberdasherHandler]);
 
 createServer(app).listen(PORT, () =>
   console.log(`Server listening on port ${PORT}`)
@@ -309,12 +306,12 @@ Servers can be configured by passing a configuration object to `createTwirpServe
 ```ts
 import { createServer } from "http";
 import { createTwirpServer } from "twirpscript";
-import { HaberdasherHandler } from "./haberdasher";
+import { haberdasherHandler } from "./haberdasher";
 
 const PORT = 8080;
 
 // This removes the "/twirp" prefix in the RPC path
-const app = createTwirpServer([HaberdasherHandler], { prefix: "" });
+const app = createTwirpServer([haberdasherHandler], { prefix: "" });
 
 createServer(app).listen(PORT, () =>
   console.log(`Server listening on port ${PORT}`)
@@ -347,13 +344,10 @@ Custom fields can be added to the context object via [middleware](#middleware--i
 If you setup middleware similiar to the [authentication middleware example](https://github.com/tatethurston/TwirpScript#example-3), you could read the `currentUser` `username` property in your service handler. See the [authentication example](https://github.com/tatethurston/twirpscript/tree/main/examples/authentication) for a full application.
 
 ```ts
-import {
-  HaberdasherService,
-  createHaberdasherHandler,
-} from "../../protos/haberdasher.pb";
+import { Haberdasher, createHaberdasher } from "../../protos/haberdasher.pb";
 import { Context } from "../some-path-to-your-definition";
 
-const Haberdasher: HaberdasherService<Context> = {
+const haberdasher: Haberdasher<Context> = {
   MakeHat: (size, ctx) => {
     return {
       inches: size.inches,
@@ -363,7 +357,7 @@ const Haberdasher: HaberdasherService<Context> = {
   },
 };
 
-export const HaberdasherHandler = createHaberdasherHandler(HaberdasherService);
+export const haberdasherHandler = createHaberdasher(haberdasher);
 ```
 
 ### Middleware / Interceptors
@@ -425,18 +419,18 @@ The middleware handler will receive `req`, `context` and `next` parameters. `req
 ```ts
 import { createServer } from "http";
 import { createTwirpServer, TwirpError } from "twirpscript";
-import { AuthenticationHandler } from "./authentication";
+import { authenticationHandler } from "./authentication";
 
 export interface Context {
   currentUser: { username: string };
 }
 
-const services = [AuthenticationHandler]
+const services = [authenticationHandler]
 const app = createTwirpServer<Context, typeof services>(services);
 
 app.use(async (req, ctx, next) => {
   // exception so unauthenticated users can authenticate
-  if (ctx.service.name === AuthenticationHandler.name) {
+  if (ctx.service.name === authenticationHandler.name) {
     return next();
   }
 
@@ -537,11 +531,11 @@ response) have been written. Called with the current `context` and the response.
 ```ts
 import { createServer } from "http";
 import { createTwirpServer } from "twirpscript";
-import { HaberdasherHandler } from "./haberdasher";
+import { habderdasherHandler } from "./haberdasher";
 
 const PORT = 8080;
 
-const app = createTwirpServer([HaberdasherHandler]);
+const app = createTwirpServer([habderdasherHandler]);
 
 app.on("responseSent", (ctx) => {
   // log or report

@@ -1,12 +1,12 @@
 import { createTwirpServerless } from "twirpscript";
-import { HaberdasherHandler } from "./habderdasher";
+import { habderdasherHandler } from "./habderdasher";
 import {
   Handler,
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
 } from "aws-lambda";
 
-const app = createTwirpServerless([HaberdasherHandler]);
+const app = createTwirpServerless([habderdasherHandler]);
 
 const handler: Handler<APIGatewayProxyEvent, APIGatewayProxyResult> = async (
   event

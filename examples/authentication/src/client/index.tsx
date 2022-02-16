@@ -65,7 +65,7 @@ const App: FC = () => {
 
   return (
     <div>
-      <h1>Haberdasher Service</h1>
+      <h1>Haberdasher </h1>
       <h3>Current User: </h3>
       {user ? (
         <div>

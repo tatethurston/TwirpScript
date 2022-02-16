@@ -1,10 +1,10 @@
-import { HaberdasherService, createHaberdasherHandler } from "./haberdasher.pb";
+import { Haberdasher, createHaberdasher } from "./haberdasher.pb";
 
 function choose<T>(list: T[]): T {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-export const Haberdasher: HaberdasherService = {
+export const haberdasher: Haberdasher = {
   MakeHat: (size) => {
     return {
       inches: size.inches,
@@ -14,4 +14,4 @@ export const Haberdasher: HaberdasherService = {
   },
 };
 
-export const HaberdasherHandler = createHaberdasherHandler(Haberdasher);
+export const habderdasherHandler = createHaberdasher(haberdasher);

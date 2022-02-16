@@ -1,7 +1,7 @@
 import { IncomingMessage } from "http";
 import { Middleware, TwirpErrorResponse } from "twirpscript";
 import { Context } from "../context";
-import { getCurrentUser, UnauthenticatedUser } from "../services";
+import { getCurrentUser, unauthenticatedUser } from "../services";
 
 interface RequireAuthenticationOpts {
   exceptions: string[];
@@ -13,7 +13,7 @@ export function requireAuthentication({
   return async (req, ctx, next) => {
     for (let exception of exceptions) {
       if (ctx.service?.name === exception) {
-        ctx.currentUser = UnauthenticatedUser;
+        ctx.currentUser = unauthenticatedUser;
         return next();
       }
     }

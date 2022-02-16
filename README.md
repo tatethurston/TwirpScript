@@ -625,7 +625,7 @@ TypeScript projects will generally want to set this value to match their `rootDi
    // twirp.json
    ```json
    {
-     exclude: ["/bar/"]
+     "exclude": ["/bar/"]
    }
    ```
   
@@ -663,7 +663,7 @@ TypeScript projects will generally want to set this value to match their `rootDi
   // twirp.json
   ```json
   {
-    dest: 'out',
+    "dest": "out",
   }
   ```
  
@@ -684,8 +684,8 @@ TypeScript projects will generally want to set this value to match their `rootDi
   // twirp.json
   ```json
   {
-    root: 'src',
-    dest: 'out',
+    "root": "src",
+    "dest": "out",
   }
   ```
   

@@ -9,10 +9,12 @@ import {
   getProtobufJSFileName,
 } from "./utils";
 import { format } from "prettier";
+import { deserializeConfig } from "./deserializeConfig";
 
 export function compile(input: Uint8Array): CodeGeneratorResponse {
   const request = CodeGeneratorRequest.deserializeBinary(input);
-  const isTypescript = request.getParameter()?.trim() === "typescript";
+  const options = deserializeConfig(request.getParameter() ?? "");
+  const isTypescript = options.language === "typescript";
   const response = new CodeGeneratorResponse();
   response.setSupportedFeatures(
     CodeGeneratorResponse.Feature.FEATURE_PROTO3_OPTIONAL
@@ -35,11 +37,7 @@ export function compile(input: Uint8Array): CodeGeneratorResponse {
       return;
     }
 
-    const protobufTs = generate(
-      fileDescriptorProto,
-      identifierTable,
-      isTypescript
-    );
+    const protobufTs = generate(fileDescriptorProto, identifierTable, options);
     writeFile(
       isTypescript ? getProtobufTSFileName(name) : getProtobufJSFileName(name),
       protobufTs

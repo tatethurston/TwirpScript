@@ -156,6 +156,23 @@ type Config = {
    * If omitted, TwirpScript will attempt to autodetect the language by looking for a `tsconfig.json` in the project root. If found, TwirpScript will generate TypeScript, otherwise JavaScript.
    */
   language: "javascript" | "typescript";
+  /**
+   * JSON serializer options.
+   *
+   * See https://developers.google.com/protocol-buffers/docs/proto3#json for more context.
+   */
+  json: {
+    /**
+     * Fields with default values are omitted by default in proto3 JSON. Setting this to true will serialize fields with their default values.
+     */
+    emitFieldsWithDefaultValues?: boolean;
+    /**
+     * Field names are converted to lowerCamelCase by default in proto3 JSON. Setting this to true will use the proto field name as the JSON key when serializing JSON.
+     *
+     * Either way, Proto3 JSON parsers are required to accept both the converted lowerCamelCase name and the proto field name.
+     */
+    useProtoFieldName?: boolean;
+  };
 };
 
 const projectRoot = process.cwd();
@@ -168,6 +185,7 @@ function getConfig(): Config {
     language: existsSync(join(projectRoot, "tsconfig.json"))
       ? "typescript"
       : "javascript",
+    json: {},
   };
 
   const configFilePath = join(projectRoot, ".twirp.json");
@@ -260,7 +278,17 @@ protoc \
     `compiler.${isWindows ? "cmd" : "js"}`
   )} \
   --twirpscript_out=${destination} \
-  --twirpscript_opt=${config.language} \
+  --twirpscript_opt=language=${config.language} \
+  ${
+    config.json.emitFieldsWithDefaultValues
+      ? "--twirpscript_opt=json=emitFieldsWithDefaultValues"
+      : ""
+  } \
+  ${
+    config.json.useProtoFieldName
+      ? "--twirpscript_opt=json=useProtoFieldName"
+      : ""
+  } \
   ${protos.join(" ")}
 `,
     { shell: true, encoding: "utf8" }

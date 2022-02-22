@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.47
+
+- Add json serialization options. See the README's [configuration section](https://github.com/tatethurston/TwirpScript#configuration-) for more context.
+
 ## v0.0.46
 
 This version has 3 breaking changes:

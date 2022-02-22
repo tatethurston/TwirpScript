@@ -8,6 +8,7 @@ import {
   MessageType,
 } from "../utils";
 import { RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION } from "../runtimeCodegenCompat";
+import { UserConfig } from "../cli";
 
 function writeTypes(types: ProtoTypes[]): string {
   let result = "";
@@ -272,17 +273,25 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
           ${node.content.fields
             .map((field) => {
               let res = "";
-              const setField =
-                field.jsonName !== field.name
-                  ? `json["${field.jsonName}"]`
-                  : `json.${field.name}`;
-
-              if (field.repeated) {
-                res += `if (msg.${field.name}?.length) {`;
-              } else if (field.optional) {
-                res += `if (msg.${field.name} != undefined) {`;
+              let setField = "";
+              if (config.json.useProtoFieldName) {
+                setField = `json.${field.protoName}`;
               } else {
-                res += `if (msg.${field.name}) {`;
+                setField =
+                  // use brackets to protect against unsafe json_name (eg 'foo bar').
+                  field.jsonName !== field.name
+                    ? `json["${field.jsonName}"]`
+                    : `json.${field.name}`;
+              }
+
+              if (!config.json.emitFieldsWithDefaultValues) {
+                if (field.repeated) {
+                  res += `if (msg.${field.name}?.length) {`;
+                } else if (field.optional) {
+                  res += `if (msg.${field.name} != undefined) {`;
+                } else {
+                  res += `if (msg.${field.name}) {`;
+                }
               }
 
               if (field.read === "readMessage") {
@@ -326,7 +335,10 @@ function writeSerializers(types: ProtoTypes[], isTopLevel = true): string {
                 res += `${setField} = msg.${field.name};`;
               }
 
-              res += "}";
+              if (!config.json.emitFieldsWithDefaultValues) {
+                res += "}";
+              }
+
               return res;
             })
             .join("\n")}
@@ -646,7 +658,7 @@ function writeServers(
 
   services.forEach((service) => {
     // print service types
-    if (isTS) {
+    if (config.isTS) {
       result += printHeading(`${service.name}`);
 
       if (service.comments?.leading) {
@@ -682,9 +694,16 @@ function writeServers(
   return result;
 }
 
-let isTS = false;
+let config = {
+  isTS: false,
+  json: {
+    emitFieldsWithDefaultValues: false,
+    useProtoFieldName: false,
+  },
+};
+
 function printIfTypescript(str: string): string {
-  return printIf(isTS, str);
+  return printIf(config.isTS, str);
 }
 
 function printIf(cond: boolean, str: string): string {
@@ -694,14 +713,17 @@ function printIf(cond: boolean, str: string): string {
 export function generate(
   fileDescriptorProto: FileDescriptorProto,
   identifierTable: IdentifierTable,
-  isTypescript: boolean
+  options: Pick<UserConfig, "language" | "json">
 ): string {
-  isTS = isTypescript;
+  config = {
+    isTS: options.language === "typescript",
+    json: options.json as any,
+  };
 
   const { imports, services, types, packageName } = processTypes(
     fileDescriptorProto,
     identifierTable,
-    isTypescript
+    config.isTS
   );
   const sourceFile = fileDescriptorProto.getName();
   if (!sourceFile) {
@@ -720,7 +742,7 @@ export function generate(
 
 
 ${printIf(
-  isTS && (hasServices || hasTypes),
+  config.isTS && (hasServices || hasTypes),
   `import type {
     ${printIf(hasTypes, "ByteSource,\n")}
     ${printIf(hasServices, "ClientConfiguration")}} from 'twirpscript';`

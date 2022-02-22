@@ -167,7 +167,7 @@ type Config = {
      */
     emitFieldsWithDefaultValues?: boolean;
     /**
-     * Field names are converted to lowerCamelCase by default in proto3 JSON. Setting this to true will use the proto field name as the JSON key instead.
+     * Field names are converted to lowerCamelCase by default in proto3 JSON. Setting this to true will use the proto field name as the JSON key when serializing JSON.
      *
      * Either way, Proto3 JSON parsers are required to accept both the converted lowerCamelCase name and the proto field name.
      */

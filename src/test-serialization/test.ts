@@ -383,8 +383,8 @@ describe("Serialization/Deserialization", () => {
                 3,
               ],
               "fieldTwo": Object {
-                "bar": 4n,
-                "foo": 3n,
+                "bar": "4",
+                "foo": "3",
               },
             },
             "fieldOne": 3,
@@ -402,8 +402,8 @@ describe("Serialization/Deserialization", () => {
                   3,
                 ],
                 "fieldTwo": Object {
-                  "bar": 4n,
-                  "foo": 3n,
+                  "bar": "4",
+                  "foo": "3",
                 },
               },
             ],
@@ -416,8 +416,8 @@ describe("Serialization/Deserialization", () => {
                   3,
                 ],
                 "fieldTwo": Object {
-                  "bar": 4n,
-                  "foo": 3n,
+                  "bar": "4",
+                  "foo": "3",
                 },
               },
             },

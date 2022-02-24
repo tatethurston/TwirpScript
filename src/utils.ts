@@ -51,6 +51,7 @@ interface Descriptor {
   optional: boolean;
   tsType: string;
   write: WriterMethod;
+  map: boolean;
 }
 
 export function getDescriptor(
@@ -72,6 +73,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_DOUBLE: {
       return {
         defaultValue: "0",
+        map: false,
         optional,
         read: "readDouble",
         repeated,
@@ -82,6 +84,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_FLOAT: {
       return {
         defaultValue: "0",
+        map: false,
         optional,
         read: "readFloat",
         repeated,
@@ -92,6 +95,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_INT64: {
       return {
         defaultValue: "0n",
+        map: false,
         optional,
         read: "readInt64String",
         repeated,
@@ -102,6 +106,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_UINT64: {
       return {
         defaultValue: "0n",
+        map: false,
         optional,
         read: "readUint64String",
         repeated,
@@ -112,6 +117,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_INT32: {
       return {
         defaultValue: "0",
+        map: false,
         optional,
         read: "readInt32",
         repeated,
@@ -122,6 +128,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_FIXED64: {
       return {
         defaultValue: "0n",
+        map: false,
         optional,
         read: "readFixed64String",
         repeated,
@@ -139,6 +146,7 @@ export function getDescriptor(
 
       return {
         defaultValue: "0",
+        map: false,
         optional,
         read: "readEnum",
         repeated,
@@ -149,6 +157,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_FIXED32: {
       return {
         defaultValue: "0",
+        map: false,
         optional,
         read: "readFixed32",
         repeated,
@@ -159,6 +168,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_BOOL: {
       return {
         defaultValue: "false",
+        map: false,
         optional,
         read: "readBool",
         repeated,
@@ -186,16 +196,18 @@ export function getDescriptor(
       if (isMap) {
         return {
           defaultValue: "{}",
+          map: true,
           optional,
-          read: "map",
+          read: "readMessage",
           repeated: false,
           tsType: name.slice(0, name.lastIndexOf("Entry")),
-          write: "map",
+          write: "writeRepeatedMessage",
         };
       }
 
       return {
         defaultValue: "undefined",
+        map: false,
         optional,
         read: "readMessage",
         repeated,
@@ -206,6 +218,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_STRING: {
       return {
         defaultValue: "''",
+        map: false,
         optional,
         read: "readString",
         repeated,
@@ -216,6 +229,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_BYTES: {
       return {
         defaultValue: "new Uint8Array()",
+        map: false,
         optional,
         read: "readBytes",
         repeated,
@@ -226,6 +240,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_UINT32: {
       return {
         defaultValue: "0",
+        map: false,
         optional,
         read: "readUint32",
         repeated,
@@ -236,6 +251,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_SFIXED32: {
       return {
         defaultValue: "0",
+        map: false,
         optional,
         read: "readSfixed32",
         repeated,
@@ -246,6 +262,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_SFIXED64: {
       return {
         defaultValue: "0n",
+        map: false,
         optional,
         read: "readSfixed64",
         repeated,
@@ -256,6 +273,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_SINT32: {
       return {
         defaultValue: "0",
+        map: false,
         optional,
         read: "readSint32",
         repeated,
@@ -266,6 +284,7 @@ export function getDescriptor(
     case FieldDescriptorProto.Type.TYPE_SINT64: {
       return {
         defaultValue: "0n",
+        map: false,
         optional,
         read: "readSint64",
         repeated,
@@ -443,23 +462,13 @@ interface EnumOpts {
   comments?: Comments;
 }
 
-interface BaseField extends Descriptor {
+interface Field extends Descriptor {
   comments?: Comments;
   index: number;
+  jsonName: string | undefined;
   name: string;
   protoName: string;
-  jsonName: string | undefined;
 }
-
-interface MapField extends BaseField {
-  map: MessageOpts;
-}
-
-interface EnumField extends BaseField {
-  enum: EnumOpts;
-}
-
-type Field = BaseField | MapField | EnumField;
 
 interface MessageOpts {
   name: string;

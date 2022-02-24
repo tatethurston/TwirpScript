@@ -1,6 +1,4 @@
-import { execSync } from "child_process";
-import { join, dirname, relative } from "path";
-import { readdirSync, statSync } from "fs";
+import { dirname, relative } from "path";
 import type { CodeGeneratorRequest } from "google-protobuf/google/protobuf/compiler/plugin_pb";
 import type {
   DescriptorProto,
@@ -9,8 +7,6 @@ import type {
 } from "google-protobuf/google/protobuf/descriptor_pb";
 import { FieldDescriptorProto } from "google-protobuf/google/protobuf/descriptor_pb";
 import { BinaryReader, BinaryWriter } from "google-protobuf";
-
-export const isWindows = process.platform === "win32";
 
 export function lowerCase(str: string): string {
   return str[0].toLowerCase() + str.slice(1);
@@ -44,16 +40,6 @@ const MessageLabel = {
   Nested: 3,
   Enum: 4,
 };
-
-export function commandIsInPath(cmd: string): boolean {
-  try {
-    const check = isWindows ? "where" : "which";
-    execSync(`${check} ${cmd}`);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 type ReaderMethod = keyof BinaryReader | "map";
 type WriterMethod = keyof BinaryWriter | "map";
@@ -335,16 +321,15 @@ function applyNamespace(
 /**
  * [namespacedIdentifier, file, package, publicImport]
  */
-export type IdentifierTable = [string, string, string, string | undefined][];
+export type IdentifierTable = {
+  namespacedIdentifier: string;
+  file: string;
+  package: string;
+  publicImport: string | undefined;
+}[];
 
 /**
  * Example
- *
- * '.google.protobuf.Timestamp', 'google/protobuf/timestamp.proto',
- * '.foo.Tate', 'foo.proto',
- * '.Person', 'bob.proto',
- * '.Person.PhoneType', 'bob.proto',
- * '.AddressBook', 'bob.proto'
  * '.protobuf_unittest_import.PublicImportMessage', 'google/protobuf/unittest_import_public.proto', 'protobuf_unittest_import', 'protobuf_unittest_import_public'
  */
 export function buildIdentifierTable(
@@ -360,12 +345,12 @@ export function buildIdentifierTable(
 
     const _package = fileDescriptorProto.getPackage() ?? "";
     function addEntry(namespacing: string, name: string): void {
-      table.push([
-        applyNamespace(namespacing, name),
-        protoFilePath as string,
-        _package,
-        undefined,
-      ]);
+      table.push({
+        namespacedIdentifier: applyNamespace(namespacing, name),
+        file: protoFilePath as string,
+        package: _package,
+        publicImport: undefined,
+      });
     }
 
     function walk(namespacing: string, descriptorProto: DescriptorProto): void {
@@ -423,11 +408,11 @@ export function buildIdentifierTable(
     }
 
     const forwardedImports = table
-      .filter(([, filepath]) => publicImports.includes(filepath))
+      .filter(({ file }) => publicImports.includes(file))
       .map((row) => {
-        const newRow: IdentifierTable[0] = [...row];
-        newRow[1] = protoFilePath;
-        newRow[3] = row[1];
+        const newRow: IdentifierTable[0] = { ...row };
+        newRow.file = protoFilePath;
+        newRow.publicImport = row.file;
         return newRow;
       });
 
@@ -458,13 +443,23 @@ interface EnumOpts {
   comments?: Comments;
 }
 
-interface Field extends Descriptor {
+interface BaseField extends Descriptor {
   comments?: Comments;
   index: number;
   name: string;
   protoName: string;
   jsonName: string | undefined;
 }
+
+interface MapField extends BaseField {
+  map: MessageOpts;
+}
+
+interface EnumField extends BaseField {
+  enum: EnumOpts;
+}
+
+type Field = BaseField | MapField | EnumField;
 
 interface MessageOpts {
   name: string;
@@ -513,7 +508,7 @@ function getIdentifierEntryFromTable(
     fileDescriptorProto.getDependencyList()
   );
 
-  const dep = identifiers.find(([namespacedIdentifier, file]) => {
+  const dep = identifiers.find(({ namespacedIdentifier, file }) => {
     return (
       namespacedIdentifier === identifier && dependencyFiles.includes(file)
     );
@@ -540,7 +535,7 @@ function getImportForIdentifier(
     fileDescriptorProto
   );
   const sourceFile = fileDescriptorProto.getName() ?? "";
-  const dependencyImportPath = dep[3] || dep[1];
+  const dependencyImportPath = dep.publicImport ?? dep.file;
 
   const importPath = isTypescript
     ? stripTSExtension(
@@ -568,7 +563,7 @@ function identifierIsDefinedInFile(
 ): boolean {
   return (
     identifierTable.find(
-      ([namespacedIdentifier, file]) =>
+      ({ namespacedIdentifier, file }) =>
         identifier === namespacedIdentifier &&
         file === fileDescriptorProto.getName()
     ) !== undefined
@@ -585,7 +580,7 @@ function removePackagePrefix(
     identifiers,
     fileDescriptorProto
   );
-  const packagePrefix = "." + dep[2];
+  const packagePrefix = "." + dep.package;
 
   let name = identifier;
   if (name.startsWith(packagePrefix)) {
@@ -681,9 +676,10 @@ export function processTypes(
           if (!descriptor) {
             return;
           }
+          const _type = value.getType();
           if (
-            value.getType() === FieldDescriptorProto.Type.TYPE_MESSAGE ||
-            value.getType() === FieldDescriptorProto.Type.TYPE_ENUM
+            _type === FieldDescriptorProto.Type.TYPE_MESSAGE ||
+            _type === FieldDescriptorProto.Type.TYPE_ENUM
           ) {
             processIdentifier(value.getTypeName() ?? "");
           }
@@ -893,19 +889,4 @@ export function processTypes(
   });
 
   return typeFile;
-}
-
-export function findFiles(entry: string, ext: string): string[] {
-  return readdirSync(entry)
-    .flatMap((file) => {
-      const filepath = join(entry, file);
-      if (
-        statSync(filepath).isDirectory() &&
-        !filepath.includes("node_modules")
-      ) {
-        return findFiles(filepath, ext);
-      }
-      return filepath;
-    })
-    .filter((file) => file.endsWith(ext));
 }

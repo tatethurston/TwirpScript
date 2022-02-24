@@ -3,23 +3,19 @@
 import { spawnSync } from "child_process";
 import { existsSync, readFileSync, mkdirSync } from "fs";
 import { join, relative, resolve } from "path";
-import { findFiles, commandIsInPath, isWindows } from "../utils";
-import { createHash } from "crypto";
+import {
+  checksum,
+  commandIsInPath,
+  findFiles,
+  isWindows,
+  pluralize,
+} from "./utils";
 
 const logger: Pick<Console, "info" | "warn" | "error"> = {
   info: (str: string) => console.info("[TwirpScript] " + str),
   warn: (str: string) => console.warn("[TwirpScript] " + str),
   error: (str: string) => console.error("[TwirpScript] " + str),
 };
-
-function checksum(file: string): string {
-  const hash = createHash("md5");
-  return hash.update(readFileSync(file, "utf8"), "utf8").digest("hex");
-}
-
-function pluralize(str: string, count: number): string {
-  return count === 1 ? str : str + "s";
-}
 
 function onCliError(error: string): void {
   logger.error("Protobuf Compiler Error: \n");

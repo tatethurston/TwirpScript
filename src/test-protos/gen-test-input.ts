@@ -5,7 +5,7 @@ import {
   CodeGeneratorRequest,
   CodeGeneratorResponse,
 } from "google-protobuf/google/protobuf/compiler/plugin_pb";
-import { deserializeConfig } from "../deserializeConfig";
+import { deserializeConfig } from "../cli/utils";
 
 const input = readFileSync(process.stdin.fd);
 const response = new CodeGeneratorResponse();

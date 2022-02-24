@@ -9,7 +9,7 @@ import {
   getProtobufJSFileName,
 } from "./utils";
 import { format } from "prettier";
-import { deserializeConfig } from "./deserializeConfig";
+import { deserializeConfig } from "./cli/utils";
 
 export function compile(input: Uint8Array): CodeGeneratorResponse {
   const request = CodeGeneratorRequest.deserializeBinary(input);

@@ -118,7 +118,7 @@ export interface ClientCompatMessage {
   request: Uint8Array;
 }
 
-export namespace ClientCompatMessage {
+declare namespace ClientCompatMessage {
   export type CompatServiceMethod =
     typeof ClientCompatMessage.CompatServiceMethod[keyof typeof ClientCompatMessage.CompatServiceMethod];
 }

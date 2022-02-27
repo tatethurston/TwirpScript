@@ -38130,7 +38130,7 @@ export interface TestAllTypes {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-export namespace TestAllTypes {
+declare namespace TestAllTypes {
   export type NestedEnum =
     typeof TestAllTypes.NestedEnum[keyof typeof TestAllTypes.NestedEnum];
 
@@ -38193,7 +38193,7 @@ export interface TestGroup {
   optionalForeignEnum: ForeignEnum;
 }
 
-export namespace TestGroup {
+declare namespace TestGroup {
   export interface OptionalGroup {
     a: number;
   }
@@ -38203,7 +38203,7 @@ export interface TestGroupExtension {}
 
 export interface TestNestedExtension {}
 
-export namespace TestNestedExtension {
+declare namespace TestNestedExtension {
   export interface OptionalGroup_extension {
     a: number;
   }
@@ -38297,12 +38297,12 @@ export interface TestEmptyMessageWithExtensions {}
  */
 export interface TestPickleNestedMessage {}
 
-export namespace TestPickleNestedMessage {
+declare namespace TestPickleNestedMessage {
   export interface NestedMessage {
     bb: number;
   }
 
-  export namespace NestedMessage {
+  declare namespace NestedMessage {
     export interface NestedNestedMessage {
       cc: number;
     }
@@ -38335,7 +38335,7 @@ export interface TestMutualRecursionA {
   bb: TestMutualRecursionB;
 }
 
-export namespace TestMutualRecursionA {
+declare namespace TestMutualRecursionA {
   export interface SubMessage {
     b: TestMutualRecursionB;
   }
@@ -38355,10 +38355,10 @@ export interface TestIsInitialized {
   subMessage: TestIsInitialized.SubMessage;
 }
 
-export namespace TestIsInitialized {
+declare namespace TestIsInitialized {
   export interface SubMessage {}
 
-  export namespace SubMessage {
+  declare namespace SubMessage {
     export interface SubGroup {
       i: number;
     }
@@ -38375,7 +38375,7 @@ export interface TestDupFieldNumber {
   a: number;
 }
 
-export namespace TestDupFieldNumber {
+declare namespace TestDupFieldNumber {
   export interface Foo {
     a: number;
   }
@@ -38403,7 +38403,7 @@ export interface TestNestedMessageHasBits {
   optionalNestedMessage: TestNestedMessageHasBits.NestedMessage;
 }
 
-export namespace TestNestedMessageHasBits {
+declare namespace TestNestedMessageHasBits {
   export interface NestedMessage {
     nestedmessageRepeatedInt32: number[];
     nestedmessageRepeatedForeignmessage: ForeignMessage[];
@@ -38440,7 +38440,7 @@ export interface TestFieldOrderings {
   optionalNestedMessage: TestFieldOrderings.NestedMessage;
 }
 
-export namespace TestFieldOrderings {
+declare namespace TestFieldOrderings {
   export interface NestedMessage {
     oo: bigint;
     /**
@@ -38460,7 +38460,7 @@ export interface TestExtensionOrderings2 {
   myString: string;
 }
 
-export namespace TestExtensionOrderings2 {
+declare namespace TestExtensionOrderings2 {
   export interface TestExtensionOrderings3 {
     myString: string;
   }
@@ -38575,7 +38575,7 @@ export interface TestOneof {
   fooMessage?: TestAllTypes | null | undefined;
 }
 
-export namespace TestOneof {
+declare namespace TestOneof {
   export interface FooGroup {
     a: number;
     b: string;
@@ -38588,7 +38588,7 @@ export interface TestOneofBackwardsCompatible {
   fooMessage: TestAllTypes;
 }
 
-export namespace TestOneofBackwardsCompatible {
+declare namespace TestOneofBackwardsCompatible {
   export interface FooGroup {
     a: number;
     b: string;
@@ -38618,7 +38618,7 @@ export interface TestOneof2 {
   bazString: string;
 }
 
-export namespace TestOneof2 {
+declare namespace TestOneof2 {
   export type NestedEnum =
     typeof TestOneof2.NestedEnum[keyof typeof TestOneof2.NestedEnum];
 
@@ -38639,7 +38639,7 @@ export interface TestRequiredOneof {
   fooMessage?: TestRequiredOneof.NestedMessage | null | undefined;
 }
 
-export namespace TestRequiredOneof {
+declare namespace TestRequiredOneof {
   export interface NestedMessage {
     requiredDouble: number;
   }
@@ -38702,7 +38702,7 @@ export interface TestDynamicExtensions {
   packedExtension: number[];
 }
 
-export namespace TestDynamicExtensions {
+declare namespace TestDynamicExtensions {
   export type DynamicEnumType =
     typeof TestDynamicExtensions.DynamicEnumType[keyof typeof TestDynamicExtensions.DynamicEnumType];
 
@@ -38744,7 +38744,7 @@ export interface TestParsingMerge {
   repeatedAllTypes: TestAllTypes[];
 }
 
-export namespace TestParsingMerge {
+declare namespace TestParsingMerge {
   /**
    * RepeatedFieldsGenerator defines matching field types as TestParsingMerge,
    * except that all fields are repeated. In the tests, we will serialize the
@@ -38760,7 +38760,7 @@ export namespace TestParsingMerge {
     ext2: TestAllTypes[];
   }
 
-  export namespace RepeatedFieldsGenerator {
+  declare namespace RepeatedFieldsGenerator {
     export interface Group1 {
       field1: TestAllTypes;
     }
@@ -38827,7 +38827,7 @@ export interface TestHugeFieldNumbers {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-export namespace TestHugeFieldNumbers {
+declare namespace TestHugeFieldNumbers {
   export interface OptionalGroup {
     groupA: number;
   }
@@ -56267,7 +56267,7 @@ export interface TestAllTypes {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-export namespace TestAllTypes {
+declare namespace TestAllTypes {
   export type NestedEnum =
     typeof TestAllTypes.NestedEnum[keyof typeof TestAllTypes.NestedEnum];
 
@@ -56358,7 +56358,7 @@ export interface TestOneof2 {
   fooEnum?: TestOneof2.NestedEnum | null | undefined;
 }
 
-export namespace TestOneof2 {
+declare namespace TestOneof2 {
   export type NestedEnum =
     typeof TestOneof2.NestedEnum[keyof typeof TestOneof2.NestedEnum];
 }
@@ -59377,7 +59377,7 @@ export interface TestAllTypes {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-export namespace TestAllTypes {
+declare namespace TestAllTypes {
   export type NestedEnum =
     typeof TestAllTypes.NestedEnum[keyof typeof TestAllTypes.NestedEnum];
 
@@ -59440,7 +59440,7 @@ export interface TestGroup {
   optionalForeignEnum: ForeignEnum;
 }
 
-export namespace TestGroup {
+declare namespace TestGroup {
   export interface OptionalGroup {
     a: number;
   }
@@ -59450,7 +59450,7 @@ export interface TestGroupExtension {}
 
 export interface TestNestedExtension {}
 
-export namespace TestNestedExtension {
+declare namespace TestNestedExtension {
   export interface OptionalGroup_extension {
     a: number;
   }
@@ -59544,12 +59544,12 @@ export interface TestEmptyMessageWithExtensions {}
  */
 export interface TestPickleNestedMessage {}
 
-export namespace TestPickleNestedMessage {
+declare namespace TestPickleNestedMessage {
   export interface NestedMessage {
     bb: number;
   }
 
-  export namespace NestedMessage {
+  declare namespace NestedMessage {
     export interface NestedNestedMessage {
       cc: number;
     }
@@ -59582,7 +59582,7 @@ export interface TestMutualRecursionA {
   bb: TestMutualRecursionB;
 }
 
-export namespace TestMutualRecursionA {
+declare namespace TestMutualRecursionA {
   export interface SubMessage {
     b: TestMutualRecursionB;
   }
@@ -59602,10 +59602,10 @@ export interface TestIsInitialized {
   subMessage: TestIsInitialized.SubMessage;
 }
 
-export namespace TestIsInitialized {
+declare namespace TestIsInitialized {
   export interface SubMessage {}
 
-  export namespace SubMessage {
+  declare namespace SubMessage {
     export interface SubGroup {
       i: number;
     }
@@ -59622,7 +59622,7 @@ export interface TestDupFieldNumber {
   a: number;
 }
 
-export namespace TestDupFieldNumber {
+declare namespace TestDupFieldNumber {
   export interface Foo {
     a: number;
   }
@@ -59650,7 +59650,7 @@ export interface TestNestedMessageHasBits {
   optionalNestedMessage: TestNestedMessageHasBits.NestedMessage;
 }
 
-export namespace TestNestedMessageHasBits {
+declare namespace TestNestedMessageHasBits {
   export interface NestedMessage {
     nestedmessageRepeatedInt32: number[];
     nestedmessageRepeatedForeignmessage: ForeignMessage[];
@@ -59687,7 +59687,7 @@ export interface TestFieldOrderings {
   optionalNestedMessage: TestFieldOrderings.NestedMessage;
 }
 
-export namespace TestFieldOrderings {
+declare namespace TestFieldOrderings {
   export interface NestedMessage {
     oo: bigint;
     /**
@@ -59707,7 +59707,7 @@ export interface TestExtensionOrderings2 {
   myString: string;
 }
 
-export namespace TestExtensionOrderings2 {
+declare namespace TestExtensionOrderings2 {
   export interface TestExtensionOrderings3 {
     myString: string;
   }
@@ -59822,7 +59822,7 @@ export interface TestOneof {
   fooMessage?: TestAllTypes | null | undefined;
 }
 
-export namespace TestOneof {
+declare namespace TestOneof {
   export interface FooGroup {
     a: number;
     b: string;
@@ -59835,7 +59835,7 @@ export interface TestOneofBackwardsCompatible {
   fooMessage: TestAllTypes;
 }
 
-export namespace TestOneofBackwardsCompatible {
+declare namespace TestOneofBackwardsCompatible {
   export interface FooGroup {
     a: number;
     b: string;
@@ -59865,7 +59865,7 @@ export interface TestOneof2 {
   bazString: string;
 }
 
-export namespace TestOneof2 {
+declare namespace TestOneof2 {
   export type NestedEnum =
     typeof TestOneof2.NestedEnum[keyof typeof TestOneof2.NestedEnum];
 
@@ -59886,7 +59886,7 @@ export interface TestRequiredOneof {
   fooMessage?: TestRequiredOneof.NestedMessage | null | undefined;
 }
 
-export namespace TestRequiredOneof {
+declare namespace TestRequiredOneof {
   export interface NestedMessage {
     requiredDouble: number;
   }
@@ -59949,7 +59949,7 @@ export interface TestDynamicExtensions {
   packedExtension: number[];
 }
 
-export namespace TestDynamicExtensions {
+declare namespace TestDynamicExtensions {
   export type DynamicEnumType =
     typeof TestDynamicExtensions.DynamicEnumType[keyof typeof TestDynamicExtensions.DynamicEnumType];
 
@@ -59991,7 +59991,7 @@ export interface TestParsingMerge {
   repeatedAllTypes: TestAllTypes[];
 }
 
-export namespace TestParsingMerge {
+declare namespace TestParsingMerge {
   /**
    * RepeatedFieldsGenerator defines matching field types as TestParsingMerge,
    * except that all fields are repeated. In the tests, we will serialize the
@@ -60007,7 +60007,7 @@ export namespace TestParsingMerge {
     ext2: TestAllTypes[];
   }
 
-  export namespace RepeatedFieldsGenerator {
+  declare namespace RepeatedFieldsGenerator {
     export interface Group1 {
       field1: TestAllTypes;
     }
@@ -60074,7 +60074,7 @@ export interface TestHugeFieldNumbers {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-export namespace TestHugeFieldNumbers {
+declare namespace TestHugeFieldNumbers {
   export interface OptionalGroup {
     groupA: number;
   }
@@ -77528,7 +77528,7 @@ export interface TestAllTypes {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-export namespace TestAllTypes {
+declare namespace TestAllTypes {
   export type NestedEnum =
     typeof TestAllTypes.NestedEnum[keyof typeof TestAllTypes.NestedEnum];
 
@@ -77619,7 +77619,7 @@ export interface TestOneof2 {
   fooEnum?: TestOneof2.NestedEnum | null | undefined;
 }
 
-export namespace TestOneof2 {
+declare namespace TestOneof2 {
   export type NestedEnum =
     typeof TestOneof2.NestedEnum[keyof typeof TestOneof2.NestedEnum];
 }

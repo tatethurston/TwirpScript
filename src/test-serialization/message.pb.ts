@@ -14,11 +14,19 @@ export interface Foo {
   fieldOne?: number | null | undefined;
   fieldTwo: Record<string, Bar | undefined>;
   fieldThree: Bar[];
-  fieldFour: Bar;
+  fieldFour: Foo.FooBar;
   fieldFive: number[];
   fieldSix: Baz;
   fieldSeven: Baz[];
   fieldEight: bigint;
+}
+
+declare namespace Foo {
+  export interface FooBar {
+    fieldOne: string;
+    fieldTwo: Record<string, bigint | undefined>;
+    fieldThree: number[];
+  }
 }
 
 export interface Bar {
@@ -69,7 +77,7 @@ export const Foo = {
     return {
       fieldTwo: {},
       fieldThree: [],
-      fieldFour: Bar.initialize(),
+      fieldFour: Foo.FooBar.initialize(),
       fieldFive: [],
       fieldSix: 0,
       fieldSeven: [],
@@ -101,7 +109,7 @@ export const Foo = {
       writer.writeRepeatedMessage(3, msg.fieldThree as any, Bar._writeMessage);
     }
     if (msg.fieldFour) {
-      writer.writeMessage(4, msg.fieldFour, Bar._writeMessage);
+      writer.writeMessage(4, msg.fieldFour, Foo.FooBar._writeMessage);
     }
     if (msg.fieldFive?.length) {
       writer.writeRepeatedInt32(5, msg.fieldFive);
@@ -139,7 +147,7 @@ export const Foo = {
       json.fieldThree = msg.fieldThree.map(Bar._writeMessageJSON);
     }
     if (msg.fieldFour) {
-      const fieldFour = Bar._writeMessageJSON(msg.fieldFour);
+      const fieldFour = Foo.FooBar._writeMessageJSON(msg.fieldFour);
       if (Object.keys(fieldFour).length > 0) {
         json.fieldFour = fieldFour;
       }
@@ -200,7 +208,7 @@ export const Foo = {
           break;
         }
         case 4: {
-          reader.readMessage(msg.fieldFour, Bar._readMessage);
+          reader.readMessage(msg.fieldFour, Foo.FooBar._readMessage);
           break;
         }
         case 5: {
@@ -252,8 +260,8 @@ export const Foo = {
     }
     const fieldFour = json.fieldFour ?? json.field_four;
     if (fieldFour) {
-      const m = Bar.initialize();
-      Bar._readMessageJSON(m, fieldFour);
+      const m = Foo.FooBar.initialize();
+      Foo.FooBar._readMessageJSON(m, fieldFour);
       msg.fieldFour = m;
     }
     const fieldFive = json.fieldFive ?? json.field_five;
@@ -273,6 +281,175 @@ export const Foo = {
       msg.fieldEight = BigInt(fieldEight);
     }
     return msg;
+  },
+
+  FooBar: {
+    /**
+     * Serializes a Foo.FooBar to protobuf.
+     */
+    encode: function (fooBar: Partial<Foo.FooBar>): Uint8Array {
+      return Foo.FooBar._writeMessage(
+        fooBar,
+        new BinaryWriter()
+      ).getResultBuffer();
+    },
+
+    /**
+     * Deserializes a Foo.FooBar from protobuf.
+     */
+    decode: function (bytes: ByteSource): Foo.FooBar {
+      return Foo.FooBar._readMessage(
+        Foo.FooBar.initialize(),
+        new BinaryReader(bytes)
+      );
+    },
+
+    /**
+     * Serializes a Foo.FooBar to JSON.
+     */
+    encodeJSON: function (fooBar: Partial<Foo.FooBar>): string {
+      return JSON.stringify(Foo.FooBar._writeMessageJSON(fooBar));
+    },
+
+    /**
+     * Deserializes a Foo.FooBar from JSON.
+     */
+    decodeJSON: function (json: string): Foo.FooBar {
+      return Foo.FooBar._readMessageJSON(
+        Foo.FooBar.initialize(),
+        JSON.parse(json)
+      );
+    },
+
+    /**
+     * Initializes a Foo.FooBar with all fields set to their default value.
+     */
+    initialize: function (): Foo.FooBar {
+      return {
+        fieldOne: "",
+        fieldTwo: {},
+        fieldThree: [],
+      };
+    },
+
+    /**
+     * @private
+     */
+    _writeMessage: function (
+      msg: Partial<Foo.FooBar>,
+      writer: BinaryWriter
+    ): BinaryWriter {
+      if (msg.fieldOne) {
+        writer.writeString(1, msg.fieldOne);
+      }
+      if (msg.fieldTwo) {
+        for (const [key, value] of Object.entries(msg.fieldTwo)) {
+          if (value) {
+            writer.writeMessage(2, {}, (_, mapWriter) => {
+              mapWriter.writeString(1, key as any);
+              mapWriter.writeInt64String(2, value.toString());
+            });
+          }
+        }
+      }
+      if (msg.fieldThree?.length) {
+        writer.writeRepeatedInt32(3, msg.fieldThree);
+      }
+      return writer;
+    },
+
+    /**
+     * @private
+     */
+    _writeMessageJSON: function (
+      msg: Partial<Foo.FooBar>
+    ): Record<string, unknown> {
+      const json: Record<string, unknown> = {};
+      if (msg.fieldOne) {
+        json.fieldOne = msg.fieldOne;
+      }
+      if (msg.fieldTwo) {
+        const map: Record<string, unknown> = {};
+        for (const [key, value] of Object.entries(msg.fieldTwo)) {
+          if (value) {
+            map[key] = value.toString();
+            json.fieldTwo = map;
+          }
+        }
+      }
+      if (msg.fieldThree?.length) {
+        json.fieldThree = msg.fieldThree;
+      }
+      return json;
+    },
+
+    /**
+     * @private
+     */
+    _readMessage: function (msg: Foo.FooBar, reader: BinaryReader): Foo.FooBar {
+      while (reader.nextField()) {
+        const field = reader.getFieldNumber();
+        switch (field) {
+          case 1: {
+            msg.fieldOne = reader.readString();
+            break;
+          }
+          case 2: {
+            reader.readMessage(undefined, () => {
+              let key: string | undefined;
+              let value = 0n;
+              while (reader.nextField()) {
+                const field = reader.getFieldNumber();
+                switch (field) {
+                  case 1: {
+                    key = reader.readString();
+                    break;
+                  }
+                  case 2: {
+                    value = BigInt(reader.readInt64String());
+                    break;
+                  }
+                }
+              }
+              if (key) {
+                msg.fieldTwo[key] = value;
+              }
+            });
+            break;
+          }
+          case 3: {
+            msg.fieldThree.push(reader.readInt32());
+            break;
+          }
+          default: {
+            reader.skipField();
+            break;
+          }
+        }
+      }
+      return msg;
+    },
+
+    /**
+     * @private
+     */
+    _readMessageJSON: function (msg: Foo.FooBar, json: any): Foo.FooBar {
+      const fieldOne = json.fieldOne ?? json.field_one;
+      if (fieldOne) {
+        msg.fieldOne = fieldOne;
+      }
+      const fieldTwo = json.fieldTwo ?? json.field_two;
+      if (fieldTwo) {
+        for (const [key, value] of Object.entries<bigint>(fieldTwo)) {
+          msg.fieldTwo[key] = BigInt(value);
+        }
+      }
+      const fieldThree = json.fieldThree ?? json.field_three;
+      if (fieldThree) {
+        msg.fieldThree = fieldThree;
+      }
+      return msg;
+    },
   },
 };
 

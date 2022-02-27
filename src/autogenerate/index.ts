@@ -58,7 +58,7 @@ function writeTypes(types: ProtoTypes[]): string {
         node.children.filter((x) => !(x.type === "message" && x.content.isMap))
           .length > 0
       ) {
-        result += `export namespace ${name} { \n`;
+        result += `declare namespace ${name} { \n`;
         result += writeTypes(node.children) + "\n\n";
         result += `}\n\n`;
       }

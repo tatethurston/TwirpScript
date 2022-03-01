@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.0.48
+
+This version has the following bug fixes:
+
+- Fix nested message definitions. Previously this would cause `"ReferenceError: Cannot access before initialization" error`.
+- Fix repeated int64 generation. The generated code would not compile for repeated bigint cases
+- Fix bigint json serialization for `map`s
+
+Code generation for `map` types are no longer inlined. This is an internal refactor that should not impact consumption.
+
 ## v0.0.47
 
 - Add json serialization options. See the README's [configuration section](https://github.com/tatethurston/TwirpScript#configuration-) for more context.

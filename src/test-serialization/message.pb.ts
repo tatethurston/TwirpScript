@@ -238,48 +238,48 @@ export const Foo = {
    * @private
    */
   _readMessageJSON: function (msg: Foo, json: any): Foo {
-    const fieldOne = json.fieldOne ?? json.field_one;
-    if (fieldOne) {
-      msg.fieldOne = fieldOne;
+    const _fieldOne = json.fieldOne ?? json.field_one;
+    if (_fieldOne) {
+      msg.fieldOne = _fieldOne;
     }
-    const fieldTwo = json.fieldTwo ?? json.field_two;
-    if (fieldTwo) {
+    const _fieldTwo = json.fieldTwo ?? json.field_two;
+    if (_fieldTwo) {
       msg.fieldTwo = Object.fromEntries(
-        Object.entries<any>(fieldTwo)
+        Object.entries<any>(_fieldTwo)
           .map(([key, value]) => ({ key: key, value: value }))
           .map(Foo.FieldTwo._readMessageJSON)
           .map(({ key, value }) => [key, value])
       );
     }
-    const fieldThree = json.fieldThree ?? json.field_three;
-    if (fieldThree) {
-      for (const item of fieldThree) {
+    const _fieldThree = json.fieldThree ?? json.field_three;
+    if (_fieldThree) {
+      for (const item of _fieldThree) {
         const m = Bar.initialize();
         Bar._readMessageJSON(m, item);
         msg.fieldThree.push(m);
       }
     }
-    const fieldFour = json.fieldFour ?? json.field_four;
-    if (fieldFour) {
+    const _fieldFour = json.fieldFour ?? json.field_four;
+    if (_fieldFour) {
       const m = Foo.FooBar.initialize();
-      Foo.FooBar._readMessageJSON(m, fieldFour);
+      Foo.FooBar._readMessageJSON(m, _fieldFour);
       msg.fieldFour = m;
     }
-    const fieldFive = json.fieldFive ?? json.field_five;
-    if (fieldFive) {
-      msg.fieldFive = fieldFive.map(BigInt);
+    const _fieldFive = json.fieldFive ?? json.field_five;
+    if (_fieldFive) {
+      msg.fieldFive = _fieldFive.map(BigInt);
     }
-    const fieldSix = json.fieldSix ?? json.field_six;
-    if (fieldSix) {
-      msg.fieldSix = fieldSix;
+    const _fieldSix = json.fieldSix ?? json.field_six;
+    if (_fieldSix) {
+      msg.fieldSix = _fieldSix;
     }
-    const fieldSeven = json["luckySeven"] ?? json.field_seven;
-    if (fieldSeven) {
-      msg.fieldSeven = fieldSeven;
+    const _fieldSeven = json["luckySeven"] ?? json.field_seven;
+    if (_fieldSeven) {
+      msg.fieldSeven = _fieldSeven;
     }
-    const fieldEight = json.fieldEight ?? json.field_eight;
-    if (fieldEight) {
-      msg.fieldEight = BigInt(fieldEight);
+    const _fieldEight = json.fieldEight ?? json.field_eight;
+    if (_fieldEight) {
+      msg.fieldEight = BigInt(_fieldEight);
     }
     return msg;
   },
@@ -420,22 +420,22 @@ export const Foo = {
      * @private
      */
     _readMessageJSON: function (msg: Foo.FooBar, json: any): Foo.FooBar {
-      const fieldOne = json.fieldOne ?? json.field_one;
-      if (fieldOne) {
-        msg.fieldOne = fieldOne;
+      const _fieldOne = json.fieldOne ?? json.field_one;
+      if (_fieldOne) {
+        msg.fieldOne = _fieldOne;
       }
-      const fieldTwo = json.fieldTwo ?? json.field_two;
-      if (fieldTwo) {
+      const _fieldTwo = json.fieldTwo ?? json.field_two;
+      if (_fieldTwo) {
         msg.fieldTwo = Object.fromEntries(
-          Object.entries<any>(fieldTwo)
+          Object.entries<any>(_fieldTwo)
             .map(([key, value]) => ({ key: key, value: value }))
             .map(Foo.FooBar.FieldTwo._readMessageJSON)
             .map(({ key, value }) => [key, value])
         );
       }
-      const fieldThree = json.fieldThree ?? json.field_three;
-      if (fieldThree) {
-        msg.fieldThree = fieldThree;
+      const _fieldThree = json.fieldThree ?? json.field_three;
+      if (_fieldThree) {
+        msg.fieldThree = _fieldThree;
       }
       return msg;
     },
@@ -507,13 +507,13 @@ export const Foo = {
         msg: MapMessage<Foo.FooBar.FieldTwo>,
         json: any
       ): MapMessage<Foo.FooBar.FieldTwo> {
-        const key = json.key ?? json.key;
-        if (key) {
-          msg.key = key;
+        const _key = json.key;
+        if (_key) {
+          msg.key = _key;
         }
-        const value = json.value ?? json.value;
-        if (value) {
-          msg.value = BigInt(value);
+        const _value = json.value;
+        if (_value) {
+          msg.value = BigInt(_value);
         }
         return msg;
       },
@@ -590,14 +590,14 @@ export const Foo = {
       msg: MapMessage<Foo.FieldTwo>,
       json: any
     ): MapMessage<Foo.FieldTwo> {
-      const key = json.key ?? json.key;
-      if (key) {
-        msg.key = key;
+      const _key = json.key;
+      if (_key) {
+        msg.key = _key;
       }
-      const value = json.value ?? json.value;
-      if (value) {
+      const _value = json.value;
+      if (_value) {
         const m = Bar.initialize();
-        Bar._readMessageJSON(m, value);
+        Bar._readMessageJSON(m, _value);
         msg.value = m;
       }
       return msg;
@@ -730,22 +730,22 @@ export const Bar = {
    * @private
    */
   _readMessageJSON: function (msg: Bar, json: any): Bar {
-    const fieldOne = json.fieldOne ?? json.field_one;
-    if (fieldOne) {
-      msg.fieldOne = fieldOne;
+    const _fieldOne = json.fieldOne ?? json.field_one;
+    if (_fieldOne) {
+      msg.fieldOne = _fieldOne;
     }
-    const fieldTwo = json.fieldTwo ?? json.field_two;
-    if (fieldTwo) {
+    const _fieldTwo = json.fieldTwo ?? json.field_two;
+    if (_fieldTwo) {
       msg.fieldTwo = Object.fromEntries(
-        Object.entries<any>(fieldTwo)
+        Object.entries<any>(_fieldTwo)
           .map(([key, value]) => ({ key: key, value: value }))
           .map(Bar.FieldTwo._readMessageJSON)
           .map(({ key, value }) => [key, value])
       );
     }
-    const fieldThree = json.fieldThree ?? json.field_three;
-    if (fieldThree) {
-      msg.fieldThree = fieldThree;
+    const _fieldThree = json.fieldThree ?? json.field_three;
+    if (_fieldThree) {
+      msg.fieldThree = _fieldThree;
     }
     return msg;
   },
@@ -817,13 +817,13 @@ export const Bar = {
       msg: MapMessage<Bar.FieldTwo>,
       json: any
     ): MapMessage<Bar.FieldTwo> {
-      const key = json.key ?? json.key;
-      if (key) {
-        msg.key = key;
+      const _key = json.key;
+      if (_key) {
+        msg.key = _key;
       }
-      const value = json.value ?? json.value;
-      if (value) {
-        msg.value = BigInt(value);
+      const _value = json.value;
+      if (_value) {
+        msg.value = BigInt(_value);
       }
       return msg;
     },

@@ -207,13 +207,13 @@ export const CurrentUser = {
    * @private
    */
   _readMessageJSON: function (msg: CurrentUser, json: any): CurrentUser {
-    const username = json.username ?? json.username;
-    if (username) {
-      msg.username = username;
+    const _username = json.username;
+    if (_username) {
+      msg.username = _username;
     }
-    const token = json.token ?? json.token;
-    if (token) {
-      msg.token = token;
+    const _token = json.token;
+    if (_token) {
+      msg.token = _token;
     }
     return msg;
   },
@@ -327,13 +327,13 @@ export const Credentials = {
    * @private
    */
   _readMessageJSON: function (msg: Credentials, json: any): Credentials {
-    const username = json.username ?? json.username;
-    if (username) {
-      msg.username = username;
+    const _username = json.username;
+    if (_username) {
+      msg.username = _username;
     }
-    const password = json.password ?? json.password;
-    if (password) {
-      msg.password = password;
+    const _password = json.password;
+    if (_password) {
+      msg.password = _password;
     }
     return msg;
   },

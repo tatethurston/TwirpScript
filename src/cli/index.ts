@@ -17,12 +17,14 @@ const logger: Pick<Console, "info" | "warn" | "error"> = {
   error: (str: string) => console.error("[TwirpScript] " + str),
 };
 
-function onCliError(error: string): void {
+function onCliError(error: string, statusCode: number): void {
   logger.error("Protobuf Compiler Error: \n");
   console.error(error);
-  console.error();
-  console.error("No .pb.ts files were created or updated.");
-  process.exit(1);
+  if (statusCode !== 0) {
+    console.error();
+    console.error("No .pb.ts files were created or updated.");
+  }
+  process.exit(statusCode);
 }
 
 export type UserConfig = Partial<Config>;
@@ -291,7 +293,7 @@ protoc \
   );
 
   if (protoc.stderr) {
-    onCliError(protoc.stderr);
+    onCliError(protoc.stderr, protoc.status ?? 1);
   }
 
   const protosAfterCompile = findFiles(destination, protoExt).map((file) => [
@@ -333,5 +335,5 @@ protoc \
     } ${pluralize("file", protos.length)} found.`
   );
 } catch (error) {
-  onCliError(error as string);
+  onCliError(error as string, 1);
 }

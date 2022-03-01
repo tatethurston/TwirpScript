@@ -145,7 +145,7 @@ export function getDescriptor(
       );
 
       return {
-        defaultValue: "0",
+        defaultValue: `${name}FromInt(0)`,
         map: false,
         optional,
         read: "readEnum",

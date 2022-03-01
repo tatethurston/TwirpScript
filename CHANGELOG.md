@@ -1,5 +1,11 @@
 # Changelog
 
+## Pending
+
+- Convert enum internal structure to enum value as specified in `proto`. Eg: "FOO_BAR" instead of 0. This improves the developer experience when printing messages.
+
+JSON serialization now also uses the enum value instead of an integer value, as described by the [protobuf JSON specification](https://developers.google.com/protocol-buffers/docs/proto3#json).
+
 ## v0.0.48
 
 This version has the following bug fixes:

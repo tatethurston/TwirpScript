@@ -10,7 +10,7 @@ message Foo {
   map<string, Bar> field_two = 2;
   repeated Bar field_three = 3;
   FooBar field_four = 4;
-  repeated int32 field_five = 5;
+  repeated int64 field_five = 5;
   Baz field_six = 6;
   repeated Baz field_seven = 7 [json_name="luckySeven"];
   int64 field_eight = 8;

@@ -8,8 +8,7 @@ import { BinaryReader, BinaryWriter } from "../../src";
 //                 Types                  //
 //========================================//
 
-export type Baz = typeof Baz[keyof typeof Baz];
-
+export type Baz = "FOO" | "BAR";
 export interface Foo {
   fieldOne?: number | null | undefined;
   fieldTwo: Foo.FieldTwo;
@@ -49,7 +48,37 @@ declare namespace Bar {
 //        Protobuf Encode / Decode        //
 //========================================//
 
-export const Baz = { FOO: 0, BAR: 1 } as const;
+export const Baz = { FOO: "FOO", BAR: "BAR" } as const;
+
+const BazFromInt = function (i: number): Baz {
+  switch (i) {
+    case 0: {
+      return "FOO";
+    }
+    case 1: {
+      return "BAR";
+    }
+    // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
+    default: {
+      return i as unknown as Baz;
+    }
+  }
+};
+
+const BazToInt = function (i: Baz): number {
+  switch (i) {
+    case "FOO": {
+      return 0;
+    }
+    case "BAR": {
+      return 1;
+    }
+    // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
+    default: {
+      return i as unknown as number;
+    }
+  }
+};
 
 export const Foo = {
   /**
@@ -89,7 +118,7 @@ export const Foo = {
       fieldThree: [],
       fieldFour: Foo.FooBar.initialize(),
       fieldFive: [],
-      fieldSix: 0,
+      fieldSix: BazFromInt(0),
       fieldSeven: [],
       fieldEight: 0n,
     };
@@ -127,11 +156,11 @@ export const Foo = {
         msg.fieldFive.map((x) => x.toString())
       );
     }
-    if (msg.fieldSix) {
-      writer.writeEnum(6, msg.fieldSix);
+    if (msg.fieldSix && BazToInt(msg.fieldSix)) {
+      writer.writeEnum(6, BazToInt(msg.fieldSix));
     }
     if (msg.fieldSeven?.length) {
-      writer.writeRepeatedEnum(7, msg.fieldSeven);
+      writer.writeRepeatedEnum(7, msg.fieldSeven.map(BazToInt));
     }
     if (msg.fieldEight) {
       writer.writeInt64String(8, msg.fieldEight.toString());
@@ -170,7 +199,7 @@ export const Foo = {
     if (msg.fieldFive?.length) {
       json.fieldFive = msg.fieldFive.map((x) => x.toString());
     }
-    if (msg.fieldSix) {
+    if (msg.fieldSix && BazToInt(msg.fieldSix)) {
       json.fieldSix = msg.fieldSix;
     }
     if (msg.fieldSeven?.length) {
@@ -214,11 +243,11 @@ export const Foo = {
           break;
         }
         case 6: {
-          msg.fieldSix = reader.readEnum() as Baz;
+          msg.fieldSix = BazFromInt(reader.readEnum());
           break;
         }
         case 7: {
-          msg.fieldSeven.push(reader.readEnum() as Baz);
+          msg.fieldSeven.push(BazFromInt(reader.readEnum()));
           break;
         }
         case 8: {

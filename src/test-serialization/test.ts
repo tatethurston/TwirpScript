@@ -61,7 +61,7 @@ describe("Serialization/Deserialization", () => {
               "fieldTwo": Object {},
             },
             "fieldSeven": Array [],
-            "fieldSix": 0,
+            "fieldSix": "FOO",
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -80,7 +80,7 @@ describe("Serialization/Deserialization", () => {
             },
             "fieldOne": 3,
             "fieldSeven": Array [],
-            "fieldSix": 0,
+            "fieldSix": "FOO",
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -98,7 +98,7 @@ describe("Serialization/Deserialization", () => {
               "fieldTwo": Object {},
             },
             "fieldSeven": Array [],
-            "fieldSix": 0,
+            "fieldSix": "FOO",
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -127,10 +127,10 @@ describe("Serialization/Deserialization", () => {
             },
             "fieldOne": 3,
             "fieldSeven": Array [
-              1,
-              0,
+              "BAR",
+              "FOO",
             ],
-            "fieldSix": 1,
+            "fieldSix": "BAR",
             "fieldThree": Array [
               Object {
                 "fieldOne": "foo",
@@ -320,7 +320,7 @@ describe("Serialization/Deserialization", () => {
               "fieldTwo": Object {},
             },
             "fieldSeven": Array [],
-            "fieldSix": 0,
+            "fieldSix": "FOO",
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -340,7 +340,7 @@ describe("Serialization/Deserialization", () => {
             },
             "fieldOne": 3,
             "fieldSeven": Array [],
-            "fieldSix": 0,
+            "fieldSix": "FOO",
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -359,7 +359,7 @@ describe("Serialization/Deserialization", () => {
               "fieldTwo": Object {},
             },
             "fieldSeven": Array [],
-            "fieldSix": 0,
+            "fieldSix": "FOO",
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -389,10 +389,10 @@ describe("Serialization/Deserialization", () => {
             },
             "fieldOne": 3,
             "fieldSeven": Array [
-              1,
-              0,
+              "BAR",
+              "FOO",
             ],
-            "fieldSix": 1,
+            "fieldSix": "BAR",
             "fieldThree": Array [
               Object {
                 "fieldOne": "foo",
@@ -437,7 +437,7 @@ describe("Serialization/Deserialization", () => {
             },
             "fieldOne": 3,
             "fieldSeven": Array [],
-            "fieldSix": 0,
+            "fieldSix": "FOO",
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -462,7 +462,7 @@ describe("Serialization/Deserialization", () => {
 
       it("full serialization", () => {
         expect(Foo.encodeJSON(fullMessage)).toMatchInlineSnapshot(
-          `"{\\"fieldOne\\":3,\\"fieldTwo\\":{\\"foo\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}},\\"fieldThree\\":[{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}],\\"fieldFour\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]},\\"fieldFive\\":[\\"1\\",\\"2\\"],\\"fieldSix\\":1,\\"luckySeven\\":[1,0],\\"fieldEight\\":\\"223372036854775807\\"}"`
+          `"{\\"fieldOne\\":3,\\"fieldTwo\\":{\\"foo\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}},\\"fieldThree\\":[{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}],\\"fieldFour\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]},\\"fieldFive\\":[\\"1\\",\\"2\\"],\\"fieldSix\\":\\"BAR\\",\\"luckySeven\\":[\\"BAR\\",\\"FOO\\"],\\"fieldEight\\":\\"223372036854775807\\"}"`
         );
       });
     });

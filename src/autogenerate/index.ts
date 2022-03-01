@@ -20,7 +20,9 @@ function writeTypes(types: ProtoTypes[], isTopLevel: boolean): string {
       result += printComments(node.content.comments?.leading);
     }
     if (node.type === "enum") {
-      result += `export type ${name} = typeof ${node.content.fullyQualifiedName}[keyof typeof ${node.content.fullyQualifiedName}];\n\n`;
+      result += `export type ${name} = ${node.content.values
+        .map((x) => `| '${x.name}'`)
+        .join("\n")}\n`;
     } else if (node.content.isMap) {
       hasMaps = true;
       result += `export type ${name} = Record<
@@ -217,6 +219,8 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                 res += `if (msg.${field.name}?.length) {`;
               } else if (field.optional) {
                 res += `if (msg.${field.name} != undefined) {`;
+              } else if (field.read === "readEnum") {
+                res += `if (msg.${field.name} && ${field.tsType}ToInt(msg.${field.name})) {`;
               } else {
                 res += `if (msg.${field.name}) {`;
               }
@@ -233,13 +237,21 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                     : ""
                 }, ${field.tsType}._writeMessage);`;
               } else {
-                res += `writer.${field.write}(${field.index}, msg.${field.name}`;
+                res += `writer.${field.write}(${field.index}, `;
                 if (field.tsType === "bigint") {
                   if (field.repeated) {
-                    res += ".map(x => x.toString())";
+                    res += `msg.${field.name}.map(x => x.toString())`;
                   } else {
-                    res += ".toString()";
+                    res += `msg.${field.name}.toString()`;
                   }
+                } else if (field.read === "readEnum") {
+                  if (field.repeated) {
+                    res += `msg.${field.name}.map(${field.tsType}ToInt)`;
+                  } else {
+                    res += `${field.tsType}ToInt(msg.${field.name})`;
+                  }
+                } else {
+                  res += `msg.${field.name}`;
                 }
                 res += ");";
               }
@@ -283,6 +295,8 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                   res += `if (msg.${field.name}?.length) {`;
                 } else if (field.optional) {
                   res += `if (msg.${field.name} != undefined) {`;
+                } else if (field.read === "readEnum") {
+                  res += `if (msg.${field.name} && ${field.tsType}ToInt(msg.${field.name})) {`;
                 } else {
                   res += `if (msg.${field.name}) {`;
                 }
@@ -378,13 +392,9 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                     }
                   } else if (field.read === "readEnum") {
                     if (field.repeated) {
-                      res += `msg.${field.name}.push(reader.${
-                        field.read
-                      }() ${printIfTypescript(`as ${field.tsType}`)});`;
+                      res += `msg.${field.name}.push(${field.tsType}FromInt(reader.${field.read}()));`;
                     } else {
-                      res += `msg.${field.name} = reader.${
-                        field.read
-                      }() ${printIfTypescript(`as ${field.tsType}`)};`;
+                      res += `msg.${field.name} = ${field.tsType}FromInt(reader.${field.read}());`;
                     }
                   } else if (field.tsType === "bigint") {
                     if (field.repeated) {
@@ -488,15 +498,61 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
       }
 
       case "enum": {
-        node.content.values.forEach(({ name, value, comments }) => {
+        // constant map
+        node.content.values.forEach(({ name, comments }) => {
           if (comments?.leading) {
             result += printComments(comments?.leading);
           }
-          result += `${name}: ${value},\n`;
+          result += `${name}: '${name}',\n`;
         });
         result += `} ${printIfTypescript("as const")}${
           isTopLevel ? ";" : ","
         }\n\n`;
+
+        // to enum
+        result += isTopLevel
+          ? `const ${node.content.name}FromInt = `
+          : `${node.content.name}FromInt: `;
+        result += `function(i${printIfTypescript(
+          ": number"
+        )})${printIfTypescript(`: ${node.content.fullyQualifiedName}`)} {
+          switch (i) {
+        `;
+        node.content.values.forEach(({ name, value }) => {
+          result += `case ${value}: { return '${name}'; }\n`;
+        });
+
+        result += `// unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
+        default: { return i${printIfTypescript(
+          ` as unknown as ${node.content.fullyQualifiedName}`
+        )}; }\n }\n }`;
+        if (!isTopLevel) {
+          result += ",";
+        }
+        result += "\n\n";
+
+        // from enum
+        result += isTopLevel
+          ? `const ${node.content.name}ToInt = `
+          : `${node.content.name}ToInt: `;
+        result += `function(i${printIfTypescript(
+          `: ${node.content.fullyQualifiedName}`
+        )})${printIfTypescript(`: number`)} {
+          switch (i) {
+        `;
+        node.content.values.forEach(({ name, value }) => {
+          result += `case '${name}': { return ${value}; }\n`;
+        });
+
+        result += `// unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
+        default: { return i${printIfTypescript(
+          ` as unknown as number`
+        )}; }\n }\n }`;
+        if (!isTopLevel) {
+          result += ",";
+        }
+        result += "\n\n";
+
         break;
       }
       default: {

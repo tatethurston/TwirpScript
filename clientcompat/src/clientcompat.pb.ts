@@ -119,8 +119,7 @@ export interface ClientCompatMessage {
 }
 
 declare namespace ClientCompatMessage {
-  export type CompatServiceMethod =
-    typeof ClientCompatMessage.CompatServiceMethod[keyof typeof ClientCompatMessage.CompatServiceMethod];
+  export type CompatServiceMethod = "NOOP" | "METHOD";
 }
 
 //========================================//
@@ -250,9 +249,9 @@ export const Req = {
    * @private
    */
   _readMessageJSON: function (msg: Req, json: any): Req {
-    const v = json.v ?? json.v;
-    if (v) {
-      msg.v = v;
+    const _v = json.v;
+    if (_v) {
+      msg.v = _v;
     }
     return msg;
   },
@@ -344,9 +343,9 @@ export const Resp = {
    * @private
    */
   _readMessageJSON: function (msg: Resp, json: any): Resp {
-    const v = json.v ?? json.v;
-    if (v) {
-      msg.v = v;
+    const _v = json.v;
+    if (_v) {
+      msg.v = _v;
     }
     return msg;
   },
@@ -402,7 +401,7 @@ export const ClientCompatMessage = {
   initialize: function (): ClientCompatMessage {
     return {
       serviceAddress: "",
-      method: 0,
+      method: ClientCompatMessage.CompatServiceMethodFromInt(0),
       request: new Uint8Array(),
     };
   },
@@ -418,7 +417,10 @@ export const ClientCompatMessage = {
       writer.writeString(1, msg.serviceAddress);
     }
     if (msg.method) {
-      writer.writeEnum(2, msg.method);
+      writer.writeEnum(
+        2,
+        ClientCompatMessage.CompatServiceMethodToInt(msg.method)
+      );
     }
     if (msg.request) {
       writer.writeBytes(3, msg.request);
@@ -460,8 +462,9 @@ export const ClientCompatMessage = {
           break;
         }
         case 2: {
-          msg.method =
-            reader.readEnum() as ClientCompatMessage.CompatServiceMethod;
+          msg.method = ClientCompatMessage.CompatServiceMethodFromInt(
+            reader.readEnum()
+          );
           break;
         }
         case 3: {
@@ -484,20 +487,54 @@ export const ClientCompatMessage = {
     msg: ClientCompatMessage,
     json: any
   ): ClientCompatMessage {
-    const serviceAddress = json.serviceAddress ?? json.service_address;
-    if (serviceAddress) {
-      msg.serviceAddress = serviceAddress;
+    const _serviceAddress = json.serviceAddress ?? json.service_address;
+    if (_serviceAddress) {
+      msg.serviceAddress = _serviceAddress;
     }
-    const method = json.method ?? json.method;
-    if (method) {
-      msg.method = method;
+    const _method = json.method;
+    if (_method) {
+      msg.method = _method;
     }
-    const request = json.request ?? json.request;
-    if (request) {
-      msg.request = request;
+    const _request = json.request;
+    if (_request) {
+      msg.request = _request;
     }
     return msg;
   },
 
-  CompatServiceMethod: { NOOP: 0, METHOD: 1 } as const,
+  CompatServiceMethod: { NOOP: "NOOP", METHOD: "METHOD" } as const,
+
+  CompatServiceMethodFromInt: function (
+    i: number
+  ): ClientCompatMessage.CompatServiceMethod {
+    switch (i) {
+      case 0: {
+        return "NOOP";
+      }
+      case 1: {
+        return "METHOD";
+      }
+      // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
+      default: {
+        return i as unknown as ClientCompatMessage.CompatServiceMethod;
+      }
+    }
+  },
+
+  CompatServiceMethodToInt: function (
+    i: ClientCompatMessage.CompatServiceMethod
+  ): number {
+    switch (i) {
+      case "NOOP": {
+        return 0;
+      }
+      case "METHOD": {
+        return 1;
+      }
+      // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
+      default: {
+        return i as unknown as number;
+      }
+    }
+  },
 };

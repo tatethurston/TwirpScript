@@ -1,0 +1,12 @@
+{
+  "name": "buf",
+  "scripts": {
+    "build": "buf generate"
+  },
+  "dependencies": {
+    "twirpscript": "*"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}

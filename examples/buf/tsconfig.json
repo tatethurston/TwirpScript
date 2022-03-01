@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "noEmitOnError": false,
+    "noUnusedLocals": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "strict": true,
+    "target": "ES2019"
+  },
+  "include": ["src", "out"]
+}

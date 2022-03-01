@@ -233,9 +233,15 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                     : ""
                 }, ${field.tsType}._writeMessage);`;
               } else {
-                res += `writer.${field.write}(${field.index}, msg.${
-                  field.name
-                }${printIf(field.tsType === "bigint", ".toString()")});`;
+                res += `writer.${field.write}(${field.index}, msg.${field.name}`;
+                if (field.tsType === "bigint") {
+                  if (field.repeated) {
+                    res += ".map(x => x.toString())";
+                  } else {
+                    res += ".toString()";
+                  }
+                }
+                res += ");";
               }
 
               res += "}";
@@ -382,7 +388,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                     }
                   } else if (field.tsType === "bigint") {
                     if (field.repeated) {
-                      res += `msg.${field.name} = reader.${field.read}().map(BigInt);`;
+                      res += `msg.${field.name}.push(BigInt(reader.${field.read}()));`;
                     } else {
                       res += `msg.${field.name} = BigInt(reader.${field.read}());`;
                     }

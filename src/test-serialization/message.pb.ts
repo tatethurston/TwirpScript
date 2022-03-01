@@ -15,7 +15,7 @@ export interface Foo {
   fieldTwo: Foo.FieldTwo;
   fieldThree: Bar[];
   fieldFour: Foo.FooBar;
-  fieldFive: number[];
+  fieldFive: bigint[];
   fieldSix: Baz;
   fieldSeven: Baz[];
   fieldEight: bigint;
@@ -122,7 +122,10 @@ export const Foo = {
       writer.writeMessage(4, msg.fieldFour, Foo.FooBar._writeMessage);
     }
     if (msg.fieldFive?.length) {
-      writer.writeRepeatedInt32(5, msg.fieldFive);
+      writer.writeRepeatedInt64String(
+        5,
+        msg.fieldFive.map((x) => x.toString())
+      );
     }
     if (msg.fieldSix) {
       writer.writeEnum(6, msg.fieldSix);
@@ -165,7 +168,7 @@ export const Foo = {
       }
     }
     if (msg.fieldFive?.length) {
-      json.fieldFive = msg.fieldFive;
+      json.fieldFive = msg.fieldFive.map((x) => x.toString());
     }
     if (msg.fieldSix) {
       json.fieldSix = msg.fieldSix;
@@ -207,7 +210,7 @@ export const Foo = {
           break;
         }
         case 5: {
-          msg.fieldFive.push(reader.readInt32());
+          msg.fieldFive.push(BigInt(reader.readInt64String()));
           break;
         }
         case 6: {
@@ -264,7 +267,7 @@ export const Foo = {
     }
     const fieldFive = json.fieldFive ?? json.field_five;
     if (fieldFive) {
-      msg.fieldFive = fieldFive;
+      msg.fieldFive = fieldFive.map(BigInt);
     }
     const fieldSix = json.fieldSix ?? json.field_six;
     if (fieldSix) {

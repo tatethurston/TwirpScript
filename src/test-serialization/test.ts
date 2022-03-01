@@ -37,7 +37,7 @@ const fullMessage: Foo = {
     fieldThree: [1, 2, 3],
   },
 
-  fieldFive: [1, 2],
+  fieldFive: [1n, 2n],
   fieldSix: Baz.BAR,
   fieldSeven: [Baz.BAR, Baz.FOO],
   fieldEight: 223372036854775807n,
@@ -110,8 +110,8 @@ describe("Serialization/Deserialization", () => {
           Object {
             "fieldEight": 223372036854775807n,
             "fieldFive": Array [
-              1,
-              2,
+              1n,
+              2n,
             ],
             "fieldFour": Object {
               "fieldOne": "foo",
@@ -372,8 +372,8 @@ describe("Serialization/Deserialization", () => {
           Object {
             "fieldEight": 223372036854775807n,
             "fieldFive": Array [
-              1,
-              2,
+              1n,
+              2n,
             ],
             "fieldFour": Object {
               "fieldOne": "foo",
@@ -462,7 +462,7 @@ describe("Serialization/Deserialization", () => {
 
       it("full serialization", () => {
         expect(Foo.encodeJSON(fullMessage)).toMatchInlineSnapshot(
-          `"{\\"fieldOne\\":3,\\"fieldTwo\\":{\\"foo\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}},\\"fieldThree\\":[{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}],\\"fieldFour\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]},\\"fieldFive\\":[1,2],\\"fieldSix\\":1,\\"luckySeven\\":[1,0],\\"fieldEight\\":\\"223372036854775807\\"}"`
+          `"{\\"fieldOne\\":3,\\"fieldTwo\\":{\\"foo\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}},\\"fieldThree\\":[{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}],\\"fieldFour\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]},\\"fieldFive\\":[\\"1\\",\\"2\\"],\\"fieldSix\\":1,\\"luckySeven\\":[1,0],\\"fieldEight\\":\\"223372036854775807\\"}"`
         );
       });
     });

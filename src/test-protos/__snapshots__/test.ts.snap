@@ -717,31 +717,46 @@ export const TestAllTypes = {
       writer.writeRepeatedInt32(31, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(32, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        32,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(33, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(34, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        34,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(35, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(36, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        36,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(37, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(38, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        38,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(39, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(40, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        40,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(41, msg.repeatedFloat);
@@ -1271,7 +1286,7 @@ export const TestAllTypes = {
           break;
         }
         case 32: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 33: {
@@ -1279,7 +1294,7 @@ export const TestAllTypes = {
           break;
         }
         case 34: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 35: {
@@ -1287,7 +1302,7 @@ export const TestAllTypes = {
           break;
         }
         case 36: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 37: {
@@ -1295,7 +1310,7 @@ export const TestAllTypes = {
           break;
         }
         case 38: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 39: {
@@ -1303,7 +1318,7 @@ export const TestAllTypes = {
           break;
         }
         case 40: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 41: {
@@ -10270,31 +10285,46 @@ export const TestPackedTypes = {
       writer.writeRepeatedInt32(90, msg.packedInt32);
     }
     if (msg.packedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.packedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.packedInt64.map((x) => x.toString())
+      );
     }
     if (msg.packedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.packedUint32);
     }
     if (msg.packedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.packedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.packedUint64.map((x) => x.toString())
+      );
     }
     if (msg.packedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.packedSint32);
     }
     if (msg.packedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.packedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.packedSint64.map((x) => x.toString())
+      );
     }
     if (msg.packedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.packedFixed32);
     }
     if (msg.packedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.packedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.packedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.packedSfixed32);
     }
     if (msg.packedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.packedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.packedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.packedFloat);
@@ -10373,7 +10403,7 @@ export const TestPackedTypes = {
           break;
         }
         case 91: {
-          msg.packedInt64 = reader.readInt64String().map(BigInt);
+          msg.packedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -10381,7 +10411,7 @@ export const TestPackedTypes = {
           break;
         }
         case 93: {
-          msg.packedUint64 = reader.readUint64String().map(BigInt);
+          msg.packedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -10389,7 +10419,7 @@ export const TestPackedTypes = {
           break;
         }
         case 95: {
-          msg.packedSint64 = reader.readSint64().map(BigInt);
+          msg.packedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -10397,7 +10427,7 @@ export const TestPackedTypes = {
           break;
         }
         case 97: {
-          msg.packedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.packedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -10405,7 +10435,7 @@ export const TestPackedTypes = {
           break;
         }
         case 99: {
-          msg.packedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.packedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -10567,31 +10597,46 @@ export const TestUnpackedTypes = {
       writer.writeRepeatedInt32(90, msg.unpackedInt32);
     }
     if (msg.unpackedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.unpackedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.unpackedInt64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.unpackedUint32);
     }
     if (msg.unpackedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.unpackedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.unpackedUint64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.unpackedSint32);
     }
     if (msg.unpackedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.unpackedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.unpackedSint64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.unpackedFixed32);
     }
     if (msg.unpackedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.unpackedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.unpackedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.unpackedSfixed32);
     }
     if (msg.unpackedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.unpackedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.unpackedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.unpackedFloat);
@@ -10670,7 +10715,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 91: {
-          msg.unpackedInt64 = reader.readInt64String().map(BigInt);
+          msg.unpackedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -10678,7 +10723,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 93: {
-          msg.unpackedUint64 = reader.readUint64String().map(BigInt);
+          msg.unpackedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -10686,7 +10731,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 95: {
-          msg.unpackedSint64 = reader.readSint64().map(BigInt);
+          msg.unpackedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -10694,7 +10739,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 97: {
-          msg.unpackedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.unpackedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -10702,7 +10747,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 99: {
-          msg.unpackedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.unpackedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -11265,16 +11310,25 @@ export const TestRepeatedScalarDifferentTagSizes = {
       writer.writeRepeatedInt32(13, msg.repeatedInt32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(2046, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        2046,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(2047, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        2047,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(262142, msg.repeatedFloat);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(262143, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        262143,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     return writer;
   },
@@ -11321,11 +11375,11 @@ export const TestRepeatedScalarDifferentTagSizes = {
           break;
         }
         case 2046: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 2047: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 262142: {
@@ -11333,7 +11387,7 @@ export const TestRepeatedScalarDifferentTagSizes = {
           break;
         }
         case 262143: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         default: {
@@ -19117,31 +19171,46 @@ export const TestAllTypes = {
       writer.writeRepeatedInt32(31, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(32, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        32,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(33, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(34, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        34,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(35, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(36, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        36,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(37, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(38, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        38,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(39, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(40, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        40,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(41, msg.repeatedFloat);
@@ -19553,7 +19622,7 @@ export const TestAllTypes = {
           break;
         }
         case 32: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 33: {
@@ -19561,7 +19630,7 @@ export const TestAllTypes = {
           break;
         }
         case 34: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 35: {
@@ -19569,7 +19638,7 @@ export const TestAllTypes = {
           break;
         }
         case 36: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 37: {
@@ -19577,7 +19646,7 @@ export const TestAllTypes = {
           break;
         }
         case 38: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 39: {
@@ -19585,7 +19654,7 @@ export const TestAllTypes = {
           break;
         }
         case 40: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 41: {
@@ -20111,31 +20180,46 @@ export const TestPackedTypes = {
       writer.writeRepeatedInt32(90, msg.packedInt32);
     }
     if (msg.packedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.packedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.packedInt64.map((x) => x.toString())
+      );
     }
     if (msg.packedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.packedUint32);
     }
     if (msg.packedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.packedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.packedUint64.map((x) => x.toString())
+      );
     }
     if (msg.packedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.packedSint32);
     }
     if (msg.packedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.packedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.packedSint64.map((x) => x.toString())
+      );
     }
     if (msg.packedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.packedFixed32);
     }
     if (msg.packedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.packedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.packedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.packedSfixed32);
     }
     if (msg.packedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.packedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.packedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.packedFloat);
@@ -20214,7 +20298,7 @@ export const TestPackedTypes = {
           break;
         }
         case 91: {
-          msg.packedInt64 = reader.readInt64String().map(BigInt);
+          msg.packedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -20222,7 +20306,7 @@ export const TestPackedTypes = {
           break;
         }
         case 93: {
-          msg.packedUint64 = reader.readUint64String().map(BigInt);
+          msg.packedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -20230,7 +20314,7 @@ export const TestPackedTypes = {
           break;
         }
         case 95: {
-          msg.packedSint64 = reader.readSint64().map(BigInt);
+          msg.packedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -20238,7 +20322,7 @@ export const TestPackedTypes = {
           break;
         }
         case 97: {
-          msg.packedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.packedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -20246,7 +20330,7 @@ export const TestPackedTypes = {
           break;
         }
         case 99: {
-          msg.packedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.packedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -20408,31 +20492,46 @@ export const TestUnpackedTypes = {
       writer.writeRepeatedInt32(1, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(2, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        2,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(3, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(4, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        4,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(5, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(6, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        6,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(7, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(8, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        8,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(9, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(10, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        10,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(11, msg.repeatedFloat);
@@ -20511,7 +20610,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 2: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 3: {
@@ -20519,7 +20618,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 4: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 5: {
@@ -20527,7 +20626,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 6: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 7: {
@@ -20535,7 +20634,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 8: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 9: {
@@ -20543,7 +20642,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 10: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 11: {
@@ -21939,31 +22038,46 @@ export const TestAllTypes = {
       writer.writeRepeatedInt32(31, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(32, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        32,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(33, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(34, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        34,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(35, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(36, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        36,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(37, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(38, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        38,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(39, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(40, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        40,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(41, msg.repeatedFloat);
@@ -22493,7 +22607,7 @@ export const TestAllTypes = {
           break;
         }
         case 32: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 33: {
@@ -22501,7 +22615,7 @@ export const TestAllTypes = {
           break;
         }
         case 34: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 35: {
@@ -22509,7 +22623,7 @@ export const TestAllTypes = {
           break;
         }
         case 36: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 37: {
@@ -22517,7 +22631,7 @@ export const TestAllTypes = {
           break;
         }
         case 38: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 39: {
@@ -22525,7 +22639,7 @@ export const TestAllTypes = {
           break;
         }
         case 40: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 41: {
@@ -31492,31 +31606,46 @@ export const TestPackedTypes = {
       writer.writeRepeatedInt32(90, msg.packedInt32);
     }
     if (msg.packedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.packedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.packedInt64.map((x) => x.toString())
+      );
     }
     if (msg.packedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.packedUint32);
     }
     if (msg.packedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.packedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.packedUint64.map((x) => x.toString())
+      );
     }
     if (msg.packedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.packedSint32);
     }
     if (msg.packedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.packedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.packedSint64.map((x) => x.toString())
+      );
     }
     if (msg.packedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.packedFixed32);
     }
     if (msg.packedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.packedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.packedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.packedSfixed32);
     }
     if (msg.packedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.packedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.packedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.packedFloat);
@@ -31595,7 +31724,7 @@ export const TestPackedTypes = {
           break;
         }
         case 91: {
-          msg.packedInt64 = reader.readInt64String().map(BigInt);
+          msg.packedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -31603,7 +31732,7 @@ export const TestPackedTypes = {
           break;
         }
         case 93: {
-          msg.packedUint64 = reader.readUint64String().map(BigInt);
+          msg.packedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -31611,7 +31740,7 @@ export const TestPackedTypes = {
           break;
         }
         case 95: {
-          msg.packedSint64 = reader.readSint64().map(BigInt);
+          msg.packedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -31619,7 +31748,7 @@ export const TestPackedTypes = {
           break;
         }
         case 97: {
-          msg.packedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.packedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -31627,7 +31756,7 @@ export const TestPackedTypes = {
           break;
         }
         case 99: {
-          msg.packedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.packedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -31789,31 +31918,46 @@ export const TestUnpackedTypes = {
       writer.writeRepeatedInt32(90, msg.unpackedInt32);
     }
     if (msg.unpackedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.unpackedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.unpackedInt64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.unpackedUint32);
     }
     if (msg.unpackedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.unpackedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.unpackedUint64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.unpackedSint32);
     }
     if (msg.unpackedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.unpackedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.unpackedSint64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.unpackedFixed32);
     }
     if (msg.unpackedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.unpackedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.unpackedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.unpackedSfixed32);
     }
     if (msg.unpackedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.unpackedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.unpackedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.unpackedFloat);
@@ -31892,7 +32036,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 91: {
-          msg.unpackedInt64 = reader.readInt64String().map(BigInt);
+          msg.unpackedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -31900,7 +32044,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 93: {
-          msg.unpackedUint64 = reader.readUint64String().map(BigInt);
+          msg.unpackedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -31908,7 +32052,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 95: {
-          msg.unpackedSint64 = reader.readSint64().map(BigInt);
+          msg.unpackedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -31916,7 +32060,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 97: {
-          msg.unpackedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.unpackedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -31924,7 +32068,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 99: {
-          msg.unpackedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.unpackedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -32487,16 +32631,25 @@ export const TestRepeatedScalarDifferentTagSizes = {
       writer.writeRepeatedInt32(13, msg.repeatedInt32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(2046, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        2046,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(2047, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        2047,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(262142, msg.repeatedFloat);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(262143, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        262143,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     return writer;
   },
@@ -32543,11 +32696,11 @@ export const TestRepeatedScalarDifferentTagSizes = {
           break;
         }
         case 2046: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 2047: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 262142: {
@@ -32555,7 +32708,7 @@ export const TestRepeatedScalarDifferentTagSizes = {
           break;
         }
         case 262143: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         default: {
@@ -40353,31 +40506,46 @@ export const TestAllTypes = {
       writer.writeRepeatedInt32(31, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(32, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        32,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(33, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(34, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        34,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(35, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(36, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        36,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(37, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(38, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        38,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(39, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(40, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        40,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(41, msg.repeatedFloat);
@@ -40789,7 +40957,7 @@ export const TestAllTypes = {
           break;
         }
         case 32: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 33: {
@@ -40797,7 +40965,7 @@ export const TestAllTypes = {
           break;
         }
         case 34: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 35: {
@@ -40805,7 +40973,7 @@ export const TestAllTypes = {
           break;
         }
         case 36: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 37: {
@@ -40813,7 +40981,7 @@ export const TestAllTypes = {
           break;
         }
         case 38: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 39: {
@@ -40821,7 +40989,7 @@ export const TestAllTypes = {
           break;
         }
         case 40: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 41: {
@@ -41347,31 +41515,46 @@ export const TestPackedTypes = {
       writer.writeRepeatedInt32(90, msg.packedInt32);
     }
     if (msg.packedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.packedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.packedInt64.map((x) => x.toString())
+      );
     }
     if (msg.packedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.packedUint32);
     }
     if (msg.packedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.packedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.packedUint64.map((x) => x.toString())
+      );
     }
     if (msg.packedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.packedSint32);
     }
     if (msg.packedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.packedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.packedSint64.map((x) => x.toString())
+      );
     }
     if (msg.packedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.packedFixed32);
     }
     if (msg.packedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.packedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.packedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.packedSfixed32);
     }
     if (msg.packedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.packedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.packedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.packedFloat);
@@ -41450,7 +41633,7 @@ export const TestPackedTypes = {
           break;
         }
         case 91: {
-          msg.packedInt64 = reader.readInt64String().map(BigInt);
+          msg.packedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -41458,7 +41641,7 @@ export const TestPackedTypes = {
           break;
         }
         case 93: {
-          msg.packedUint64 = reader.readUint64String().map(BigInt);
+          msg.packedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -41466,7 +41649,7 @@ export const TestPackedTypes = {
           break;
         }
         case 95: {
-          msg.packedSint64 = reader.readSint64().map(BigInt);
+          msg.packedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -41474,7 +41657,7 @@ export const TestPackedTypes = {
           break;
         }
         case 97: {
-          msg.packedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.packedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -41482,7 +41665,7 @@ export const TestPackedTypes = {
           break;
         }
         case 99: {
-          msg.packedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.packedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -41644,31 +41827,46 @@ export const TestUnpackedTypes = {
       writer.writeRepeatedInt32(1, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(2, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        2,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(3, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(4, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        4,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(5, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(6, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        6,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(7, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(8, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        8,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(9, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(10, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        10,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(11, msg.repeatedFloat);
@@ -41747,7 +41945,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 2: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 3: {
@@ -41755,7 +41953,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 4: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 5: {
@@ -41763,7 +41961,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 6: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 7: {
@@ -41771,7 +41969,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 8: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 9: {
@@ -41779,7 +41977,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 10: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 11: {
@@ -44118,31 +44316,46 @@ export const TestAllTypes = {
       writer.writeRepeatedInt32(31, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(32, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        32,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(33, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(34, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        34,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(35, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(36, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        36,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(37, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(38, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        38,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(39, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(40, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        40,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(41, msg.repeatedFloat);
@@ -44677,7 +44890,7 @@ export const TestAllTypes = {
           break;
         }
         case 32: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 33: {
@@ -44685,7 +44898,7 @@ export const TestAllTypes = {
           break;
         }
         case 34: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 35: {
@@ -44693,7 +44906,7 @@ export const TestAllTypes = {
           break;
         }
         case 36: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 37: {
@@ -44701,7 +44914,7 @@ export const TestAllTypes = {
           break;
         }
         case 38: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 39: {
@@ -44709,7 +44922,7 @@ export const TestAllTypes = {
           break;
         }
         case 40: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 41: {
@@ -54465,31 +54678,46 @@ export const TestPackedTypes = {
       writer.writeRepeatedInt32(90, msg.packedInt32);
     }
     if (msg.packedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.packedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.packedInt64.map((x) => x.toString())
+      );
     }
     if (msg.packedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.packedUint32);
     }
     if (msg.packedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.packedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.packedUint64.map((x) => x.toString())
+      );
     }
     if (msg.packedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.packedSint32);
     }
     if (msg.packedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.packedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.packedSint64.map((x) => x.toString())
+      );
     }
     if (msg.packedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.packedFixed32);
     }
     if (msg.packedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.packedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.packedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.packedSfixed32);
     }
     if (msg.packedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.packedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.packedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.packedFloat);
@@ -54573,7 +54801,7 @@ export const TestPackedTypes = {
           break;
         }
         case 91: {
-          msg.packedInt64 = reader.readInt64String().map(BigInt);
+          msg.packedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -54581,7 +54809,7 @@ export const TestPackedTypes = {
           break;
         }
         case 93: {
-          msg.packedUint64 = reader.readUint64String().map(BigInt);
+          msg.packedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -54589,7 +54817,7 @@ export const TestPackedTypes = {
           break;
         }
         case 95: {
-          msg.packedSint64 = reader.readSint64().map(BigInt);
+          msg.packedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -54597,7 +54825,7 @@ export const TestPackedTypes = {
           break;
         }
         case 97: {
-          msg.packedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.packedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -54605,7 +54833,7 @@ export const TestPackedTypes = {
           break;
         }
         case 99: {
-          msg.packedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.packedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -54773,31 +55001,46 @@ export const TestUnpackedTypes = {
       writer.writeRepeatedInt32(90, msg.unpackedInt32);
     }
     if (msg.unpackedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.unpackedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.unpackedInt64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.unpackedUint32);
     }
     if (msg.unpackedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.unpackedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.unpackedUint64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.unpackedSint32);
     }
     if (msg.unpackedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.unpackedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.unpackedSint64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.unpackedFixed32);
     }
     if (msg.unpackedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.unpackedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.unpackedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.unpackedSfixed32);
     }
     if (msg.unpackedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.unpackedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.unpackedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.unpackedFloat);
@@ -54881,7 +55124,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 91: {
-          msg.unpackedInt64 = reader.readInt64String().map(BigInt);
+          msg.unpackedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -54889,7 +55132,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 93: {
-          msg.unpackedUint64 = reader.readUint64String().map(BigInt);
+          msg.unpackedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -54897,7 +55140,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 95: {
-          msg.unpackedSint64 = reader.readSint64().map(BigInt);
+          msg.unpackedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -54905,7 +55148,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 97: {
-          msg.unpackedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.unpackedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -54913,7 +55156,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 99: {
-          msg.unpackedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.unpackedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -55533,16 +55776,25 @@ export const TestRepeatedScalarDifferentTagSizes = {
       writer.writeRepeatedInt32(13, msg.repeatedInt32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(2046, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        2046,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(2047, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        2047,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(262142, msg.repeatedFloat);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(262143, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        262143,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     return writer;
   },
@@ -55594,11 +55846,11 @@ export const TestRepeatedScalarDifferentTagSizes = {
           break;
         }
         case 2046: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 2047: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 262142: {
@@ -55606,7 +55858,7 @@ export const TestRepeatedScalarDifferentTagSizes = {
           break;
         }
         case 262143: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         default: {
@@ -64539,31 +64791,46 @@ export const TestAllTypes = {
       writer.writeRepeatedInt32(31, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(32, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        32,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(33, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(34, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        34,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(35, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(36, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        36,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(37, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(38, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        38,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(39, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(40, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        40,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(41, msg.repeatedFloat);
@@ -64980,7 +65247,7 @@ export const TestAllTypes = {
           break;
         }
         case 32: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 33: {
@@ -64988,7 +65255,7 @@ export const TestAllTypes = {
           break;
         }
         case 34: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 35: {
@@ -64996,7 +65263,7 @@ export const TestAllTypes = {
           break;
         }
         case 36: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 37: {
@@ -65004,7 +65271,7 @@ export const TestAllTypes = {
           break;
         }
         case 38: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 39: {
@@ -65012,7 +65279,7 @@ export const TestAllTypes = {
           break;
         }
         case 40: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 41: {
@@ -65558,31 +65825,46 @@ export const TestPackedTypes = {
       writer.writeRepeatedInt32(90, msg.packedInt32);
     }
     if (msg.packedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.packedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.packedInt64.map((x) => x.toString())
+      );
     }
     if (msg.packedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.packedUint32);
     }
     if (msg.packedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.packedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.packedUint64.map((x) => x.toString())
+      );
     }
     if (msg.packedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.packedSint32);
     }
     if (msg.packedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.packedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.packedSint64.map((x) => x.toString())
+      );
     }
     if (msg.packedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.packedFixed32);
     }
     if (msg.packedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.packedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.packedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.packedSfixed32);
     }
     if (msg.packedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.packedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.packedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.packedFloat);
@@ -65666,7 +65948,7 @@ export const TestPackedTypes = {
           break;
         }
         case 91: {
-          msg.packedInt64 = reader.readInt64String().map(BigInt);
+          msg.packedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -65674,7 +65956,7 @@ export const TestPackedTypes = {
           break;
         }
         case 93: {
-          msg.packedUint64 = reader.readUint64String().map(BigInt);
+          msg.packedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -65682,7 +65964,7 @@ export const TestPackedTypes = {
           break;
         }
         case 95: {
-          msg.packedSint64 = reader.readSint64().map(BigInt);
+          msg.packedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -65690,7 +65972,7 @@ export const TestPackedTypes = {
           break;
         }
         case 97: {
-          msg.packedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.packedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -65698,7 +65980,7 @@ export const TestPackedTypes = {
           break;
         }
         case 99: {
-          msg.packedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.packedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -65866,31 +66148,46 @@ export const TestUnpackedTypes = {
       writer.writeRepeatedInt32(1, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(2, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        2,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(3, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(4, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        4,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(5, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(6, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        6,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(7, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(8, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        8,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(9, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(10, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        10,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(11, msg.repeatedFloat);
@@ -65974,7 +66271,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 2: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 3: {
@@ -65982,7 +66279,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 4: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 5: {
@@ -65990,7 +66287,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 6: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 7: {
@@ -65998,7 +66295,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 8: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 9: {
@@ -66006,7 +66303,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 10: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 11: {
@@ -68407,31 +68704,46 @@ export const TestAllTypes = {
       writer.writeRepeatedInt32(31, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(32, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        32,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(33, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(34, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        34,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(35, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(36, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        36,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(37, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(38, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        38,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(39, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(40, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        40,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(41, msg.repeatedFloat);
@@ -68966,7 +69278,7 @@ export const TestAllTypes = {
           break;
         }
         case 32: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 33: {
@@ -68974,7 +69286,7 @@ export const TestAllTypes = {
           break;
         }
         case 34: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 35: {
@@ -68982,7 +69294,7 @@ export const TestAllTypes = {
           break;
         }
         case 36: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 37: {
@@ -68990,7 +69302,7 @@ export const TestAllTypes = {
           break;
         }
         case 38: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 39: {
@@ -68998,7 +69310,7 @@ export const TestAllTypes = {
           break;
         }
         case 40: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 41: {
@@ -78754,31 +79066,46 @@ export const TestPackedTypes = {
       writer.writeRepeatedInt32(90, msg.packedInt32);
     }
     if (msg.packedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.packedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.packedInt64.map((x) => x.toString())
+      );
     }
     if (msg.packedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.packedUint32);
     }
     if (msg.packedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.packedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.packedUint64.map((x) => x.toString())
+      );
     }
     if (msg.packedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.packedSint32);
     }
     if (msg.packedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.packedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.packedSint64.map((x) => x.toString())
+      );
     }
     if (msg.packedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.packedFixed32);
     }
     if (msg.packedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.packedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.packedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.packedSfixed32);
     }
     if (msg.packedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.packedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.packedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.packedFloat);
@@ -78862,7 +79189,7 @@ export const TestPackedTypes = {
           break;
         }
         case 91: {
-          msg.packedInt64 = reader.readInt64String().map(BigInt);
+          msg.packedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -78870,7 +79197,7 @@ export const TestPackedTypes = {
           break;
         }
         case 93: {
-          msg.packedUint64 = reader.readUint64String().map(BigInt);
+          msg.packedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -78878,7 +79205,7 @@ export const TestPackedTypes = {
           break;
         }
         case 95: {
-          msg.packedSint64 = reader.readSint64().map(BigInt);
+          msg.packedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -78886,7 +79213,7 @@ export const TestPackedTypes = {
           break;
         }
         case 97: {
-          msg.packedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.packedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -78894,7 +79221,7 @@ export const TestPackedTypes = {
           break;
         }
         case 99: {
-          msg.packedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.packedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -79062,31 +79389,46 @@ export const TestUnpackedTypes = {
       writer.writeRepeatedInt32(90, msg.unpackedInt32);
     }
     if (msg.unpackedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.unpackedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.unpackedInt64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.unpackedUint32);
     }
     if (msg.unpackedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.unpackedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.unpackedUint64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.unpackedSint32);
     }
     if (msg.unpackedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.unpackedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.unpackedSint64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.unpackedFixed32);
     }
     if (msg.unpackedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.unpackedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.unpackedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.unpackedSfixed32);
     }
     if (msg.unpackedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.unpackedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.unpackedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.unpackedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.unpackedFloat);
@@ -79170,7 +79512,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 91: {
-          msg.unpackedInt64 = reader.readInt64String().map(BigInt);
+          msg.unpackedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -79178,7 +79520,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 93: {
-          msg.unpackedUint64 = reader.readUint64String().map(BigInt);
+          msg.unpackedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -79186,7 +79528,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 95: {
-          msg.unpackedSint64 = reader.readSint64().map(BigInt);
+          msg.unpackedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -79194,7 +79536,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 97: {
-          msg.unpackedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.unpackedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -79202,7 +79544,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 99: {
-          msg.unpackedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.unpackedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -79822,16 +80164,25 @@ export const TestRepeatedScalarDifferentTagSizes = {
       writer.writeRepeatedInt32(13, msg.repeatedInt32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(2046, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        2046,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(2047, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        2047,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(262142, msg.repeatedFloat);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(262143, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        262143,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     return writer;
   },
@@ -79883,11 +80234,11 @@ export const TestRepeatedScalarDifferentTagSizes = {
           break;
         }
         case 2046: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 2047: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 262142: {
@@ -79895,7 +80246,7 @@ export const TestRepeatedScalarDifferentTagSizes = {
           break;
         }
         case 262143: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         default: {
@@ -88842,31 +89193,46 @@ export const TestAllTypes = {
       writer.writeRepeatedInt32(31, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(32, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        32,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(33, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(34, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        34,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(35, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(36, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        36,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(37, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(38, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        38,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(39, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(40, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        40,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(41, msg.repeatedFloat);
@@ -89283,7 +89649,7 @@ export const TestAllTypes = {
           break;
         }
         case 32: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 33: {
@@ -89291,7 +89657,7 @@ export const TestAllTypes = {
           break;
         }
         case 34: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 35: {
@@ -89299,7 +89665,7 @@ export const TestAllTypes = {
           break;
         }
         case 36: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 37: {
@@ -89307,7 +89673,7 @@ export const TestAllTypes = {
           break;
         }
         case 38: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 39: {
@@ -89315,7 +89681,7 @@ export const TestAllTypes = {
           break;
         }
         case 40: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 41: {
@@ -89861,31 +90227,46 @@ export const TestPackedTypes = {
       writer.writeRepeatedInt32(90, msg.packedInt32);
     }
     if (msg.packedInt64?.length) {
-      writer.writeRepeatedInt64String(91, msg.packedInt64.toString());
+      writer.writeRepeatedInt64String(
+        91,
+        msg.packedInt64.map((x) => x.toString())
+      );
     }
     if (msg.packedUint32?.length) {
       writer.writeRepeatedUint32(92, msg.packedUint32);
     }
     if (msg.packedUint64?.length) {
-      writer.writeRepeatedUint64String(93, msg.packedUint64.toString());
+      writer.writeRepeatedUint64String(
+        93,
+        msg.packedUint64.map((x) => x.toString())
+      );
     }
     if (msg.packedSint32?.length) {
       writer.writeRepeatedSint32(94, msg.packedSint32);
     }
     if (msg.packedSint64?.length) {
-      writer.writeRepeatedSint64String(95, msg.packedSint64.toString());
+      writer.writeRepeatedSint64String(
+        95,
+        msg.packedSint64.map((x) => x.toString())
+      );
     }
     if (msg.packedFixed32?.length) {
       writer.writeRepeatedFixed32(96, msg.packedFixed32);
     }
     if (msg.packedFixed64?.length) {
-      writer.writeRepeatedFixed64String(97, msg.packedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        97,
+        msg.packedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedSfixed32?.length) {
       writer.writeRepeatedSfixed32(98, msg.packedSfixed32);
     }
     if (msg.packedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(99, msg.packedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        99,
+        msg.packedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.packedFloat?.length) {
       writer.writeRepeatedFloat(100, msg.packedFloat);
@@ -89969,7 +90350,7 @@ export const TestPackedTypes = {
           break;
         }
         case 91: {
-          msg.packedInt64 = reader.readInt64String().map(BigInt);
+          msg.packedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 92: {
@@ -89977,7 +90358,7 @@ export const TestPackedTypes = {
           break;
         }
         case 93: {
-          msg.packedUint64 = reader.readUint64String().map(BigInt);
+          msg.packedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 94: {
@@ -89985,7 +90366,7 @@ export const TestPackedTypes = {
           break;
         }
         case 95: {
-          msg.packedSint64 = reader.readSint64().map(BigInt);
+          msg.packedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 96: {
@@ -89993,7 +90374,7 @@ export const TestPackedTypes = {
           break;
         }
         case 97: {
-          msg.packedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.packedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 98: {
@@ -90001,7 +90382,7 @@ export const TestPackedTypes = {
           break;
         }
         case 99: {
-          msg.packedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.packedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 100: {
@@ -90169,31 +90550,46 @@ export const TestUnpackedTypes = {
       writer.writeRepeatedInt32(1, msg.repeatedInt32);
     }
     if (msg.repeatedInt64?.length) {
-      writer.writeRepeatedInt64String(2, msg.repeatedInt64.toString());
+      writer.writeRepeatedInt64String(
+        2,
+        msg.repeatedInt64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedUint32?.length) {
       writer.writeRepeatedUint32(3, msg.repeatedUint32);
     }
     if (msg.repeatedUint64?.length) {
-      writer.writeRepeatedUint64String(4, msg.repeatedUint64.toString());
+      writer.writeRepeatedUint64String(
+        4,
+        msg.repeatedUint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSint32?.length) {
       writer.writeRepeatedSint32(5, msg.repeatedSint32);
     }
     if (msg.repeatedSint64?.length) {
-      writer.writeRepeatedSint64String(6, msg.repeatedSint64.toString());
+      writer.writeRepeatedSint64String(
+        6,
+        msg.repeatedSint64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFixed32?.length) {
       writer.writeRepeatedFixed32(7, msg.repeatedFixed32);
     }
     if (msg.repeatedFixed64?.length) {
-      writer.writeRepeatedFixed64String(8, msg.repeatedFixed64.toString());
+      writer.writeRepeatedFixed64String(
+        8,
+        msg.repeatedFixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedSfixed32?.length) {
       writer.writeRepeatedSfixed32(9, msg.repeatedSfixed32);
     }
     if (msg.repeatedSfixed64?.length) {
-      writer.writeRepeatedSfixed64(10, msg.repeatedSfixed64.toString());
+      writer.writeRepeatedSfixed64(
+        10,
+        msg.repeatedSfixed64.map((x) => x.toString())
+      );
     }
     if (msg.repeatedFloat?.length) {
       writer.writeRepeatedFloat(11, msg.repeatedFloat);
@@ -90277,7 +90673,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 2: {
-          msg.repeatedInt64 = reader.readInt64String().map(BigInt);
+          msg.repeatedInt64.push(BigInt(reader.readInt64String()));
           break;
         }
         case 3: {
@@ -90285,7 +90681,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 4: {
-          msg.repeatedUint64 = reader.readUint64String().map(BigInt);
+          msg.repeatedUint64.push(BigInt(reader.readUint64String()));
           break;
         }
         case 5: {
@@ -90293,7 +90689,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 6: {
-          msg.repeatedSint64 = reader.readSint64().map(BigInt);
+          msg.repeatedSint64.push(BigInt(reader.readSint64()));
           break;
         }
         case 7: {
@@ -90301,7 +90697,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 8: {
-          msg.repeatedFixed64 = reader.readFixed64String().map(BigInt);
+          msg.repeatedFixed64.push(BigInt(reader.readFixed64String()));
           break;
         }
         case 9: {
@@ -90309,7 +90705,7 @@ export const TestUnpackedTypes = {
           break;
         }
         case 10: {
-          msg.repeatedSfixed64 = reader.readSfixed64().map(BigInt);
+          msg.repeatedSfixed64.push(BigInt(reader.readSfixed64()));
           break;
         }
         case 11: {

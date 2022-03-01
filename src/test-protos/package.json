@@ -1,0 +1,6 @@
+{
+  "name": "test-protos",
+  "dependencies": {
+    "twirpscript": "*"
+  }
+}

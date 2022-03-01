@@ -433,18 +433,25 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
           ${node.content.fields
             .map((field) => {
               let res = "";
-              const name = field.name;
-              let getField =
-                field.jsonName !== field.name
-                  ? `json["${field.jsonName}"] ?? json.${field.protoName}`
-                  : `json.${field.name} ?? json.${field.protoName}`;
+              const name = `_${field.name}`;
+              let getField;
+              if (
+                field.name === field.jsonName &&
+                field.name === field.protoName
+              ) {
+                getField = `json.${field.name}`;
+              } else if (field.jsonName !== field.name) {
+                getField = `json["${field.jsonName}"] ?? json.${field.protoName}`;
+              } else {
+                getField = `json.${field.name} ?? json.${field.protoName}`;
+              }
 
               res += `const ${name} = ${getField};`;
               res += `if (${name}) {`;
               if (field.read === "readMessage") {
                 if (field.map) {
                   res += `msg.${field.name} = ${fromMapMessage(
-                    `${toMapMessage(field.name)}.map(${
+                    `${toMapMessage(name)}.map(${
                       field.tsType
                     }._readMessageJSON)`
                   )};`;
@@ -452,21 +459,21 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                   res += `for (const item of ${name}) {`;
                   res += `const m = ${field.tsType}.initialize();`;
                   res += `${field.tsType}._readMessageJSON(m, item);`;
-                  res += `msg.${name}.push(m);`;
+                  res += `msg.${field.name}.push(m);`;
                   res += `}`;
                 } else {
                   res += `const m = ${field.tsType}.initialize();`;
                   res += `${field.tsType}._readMessageJSON(m, ${name});`;
-                  res += `msg.${name} = m;`;
+                  res += `msg.${field.name} = m;`;
                 }
               } else if (field.tsType === "bigint") {
                 if (field.repeated) {
-                  res += `msg.${name} = ${name}.map(BigInt);`;
+                  res += `msg.${field.name} = ${name}.map(BigInt);`;
                 } else {
-                  res += `msg.${name} = BigInt(${name});`;
+                  res += `msg.${field.name} = BigInt(${name});`;
                 }
               } else {
-                res += `msg.${name} = ${name};`;
+                res += `msg.${field.name} = ${name};`;
               }
               res += "}";
               return res;
@@ -505,7 +512,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
  * Escapes '*''/' which otherwise would terminate the block comment.
  */
 function escapeComment(comment: string): string {
-  return comment.replace("*/", "*" + "\\" + "/");
+  return comment.replace(/\*\//g, "*" + "\\" + "/");
 }
 
 function printComments(comment: string): string {

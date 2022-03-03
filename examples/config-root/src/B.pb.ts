@@ -107,10 +107,10 @@ export const Bar = {
    * @private
    */
   _readMessageJSON: function (msg: Bar, json: any): Bar {
-    const foo = json.foo ?? json.foo;
-    if (foo) {
+    const _foo = json.foo;
+    if (_foo) {
       const m = Foo.initialize();
-      Foo._readMessageJSON(m, foo);
+      Foo._readMessageJSON(m, _foo);
       msg.foo = m;
     }
     return msg;

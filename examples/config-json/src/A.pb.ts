@@ -110,13 +110,13 @@ export const Foo = {
    * @private
    */
   _readMessageJSON: function (msg: Foo, json: any): Foo {
-    const baz = json.baz ?? json.baz;
-    if (baz) {
-      msg.baz = baz;
+    const _baz = json.baz;
+    if (_baz) {
+      msg.baz = _baz;
     }
-    const fooBars = json.fooBars ?? json.foo_bars;
-    if (fooBars) {
-      msg.fooBars = fooBars;
+    const _fooBars = json.fooBars ?? json.foo_bars;
+    if (_fooBars) {
+      msg.fooBars = _fooBars;
     }
     return msg;
   },

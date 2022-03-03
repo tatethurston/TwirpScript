@@ -141,9 +141,9 @@ export const Size = {
    * @private
    */
   _readMessageJSON: function (msg, json) {
-    const inches = json.inches ?? json.inches;
-    if (inches) {
-      msg.inches = inches;
+    const _inches = json.inches;
+    if (_inches) {
+      msg.inches = _inches;
     }
     return msg;
   },
@@ -254,17 +254,17 @@ export const Hat = {
    * @private
    */
   _readMessageJSON: function (msg, json) {
-    const inches = json.inches ?? json.inches;
-    if (inches) {
-      msg.inches = inches;
+    const _inches = json.inches;
+    if (_inches) {
+      msg.inches = _inches;
     }
-    const color = json.color ?? json.color;
-    if (color) {
-      msg.color = color;
+    const _color = json.color;
+    if (_color) {
+      msg.color = _color;
     }
-    const name = json.name ?? json.name;
-    if (name) {
-      msg.name = name;
+    const _name = json.name;
+    if (_name) {
+      msg.name = _name;
     }
     return msg;
   },

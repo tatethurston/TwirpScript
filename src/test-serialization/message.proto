@@ -14,6 +14,8 @@ message Foo {
   Baz field_six = 6;
   repeated Baz field_seven = 7 [json_name="luckySeven"];
   int64 field_eight = 8;
+  bytes field_nine = 9;
+  repeated bytes field_ten = 10;
 }
 
 message Bar {

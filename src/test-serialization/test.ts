@@ -41,6 +41,8 @@ const fullMessage: Foo = {
   fieldSix: Baz.BAR,
   fieldSeven: [Baz.BAR, Baz.FOO],
   fieldEight: 223372036854775807n,
+  fieldNine: new Uint8Array([8, 7]),
+  fieldTen: [new Uint8Array([4])],
 };
 
 const partialMessage: Partial<Foo> = {
@@ -60,8 +62,10 @@ describe("Serialization/Deserialization", () => {
               "fieldThree": Array [],
               "fieldTwo": Object {},
             },
+            "fieldNine": Uint8Array [],
             "fieldSeven": Array [],
             "fieldSix": "FOO",
+            "fieldTen": Array [],
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -78,9 +82,11 @@ describe("Serialization/Deserialization", () => {
               "fieldThree": Array [],
               "fieldTwo": Object {},
             },
+            "fieldNine": Uint8Array [],
             "fieldOne": 3,
             "fieldSeven": Array [],
             "fieldSix": "FOO",
+            "fieldTen": Array [],
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -97,8 +103,10 @@ describe("Serialization/Deserialization", () => {
               "fieldThree": Array [],
               "fieldTwo": Object {},
             },
+            "fieldNine": Uint8Array [],
             "fieldSeven": Array [],
             "fieldSix": "FOO",
+            "fieldTen": Array [],
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -125,12 +133,21 @@ describe("Serialization/Deserialization", () => {
                 "foo": 3n,
               },
             },
+            "fieldNine": Uint8Array [
+              8,
+              7,
+            ],
             "fieldOne": 3,
             "fieldSeven": Array [
               "BAR",
               "FOO",
             ],
             "fieldSix": "BAR",
+            "fieldTen": Array [
+              Uint8Array [
+                4,
+              ],
+            ],
             "fieldThree": Array [
               Object {
                 "fieldOne": "foo",
@@ -171,6 +188,8 @@ describe("Serialization/Deserialization", () => {
         expect(Foo.encode(Foo.initialize())).toMatchInlineSnapshot(`
           Uint8Array [
             34,
+            0,
+            74,
             0,
           ]
         `);
@@ -301,6 +320,13 @@ describe("Serialization/Deserialization", () => {
             228,
             140,
             3,
+            74,
+            2,
+            8,
+            7,
+            82,
+            1,
+            4,
           ]
         `);
       });
@@ -319,8 +345,10 @@ describe("Serialization/Deserialization", () => {
               "fieldThree": Array [],
               "fieldTwo": Object {},
             },
+            "fieldNine": Uint8Array [],
             "fieldSeven": Array [],
             "fieldSix": "FOO",
+            "fieldTen": Array [],
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -338,9 +366,11 @@ describe("Serialization/Deserialization", () => {
               "fieldThree": Array [],
               "fieldTwo": Object {},
             },
+            "fieldNine": Uint8Array [],
             "fieldOne": 3,
             "fieldSeven": Array [],
             "fieldSix": "FOO",
+            "fieldTen": Array [],
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -358,8 +388,10 @@ describe("Serialization/Deserialization", () => {
               "fieldThree": Array [],
               "fieldTwo": Object {},
             },
+            "fieldNine": Object {},
             "fieldSeven": Array [],
             "fieldSix": "FOO",
+            "fieldTen": Array [],
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -387,12 +419,21 @@ describe("Serialization/Deserialization", () => {
                 "foo": "3",
               },
             },
+            "fieldNine": Object {
+              "0": 8,
+              "1": 7,
+            },
             "fieldOne": 3,
             "fieldSeven": Array [
               "BAR",
               "FOO",
             ],
             "fieldSix": "BAR",
+            "fieldTen": Array [
+              Object {
+                "0": 4,
+              },
+            ],
             "fieldThree": Array [
               Object {
                 "fieldOne": "foo",
@@ -435,9 +476,11 @@ describe("Serialization/Deserialization", () => {
               "fieldThree": Array [],
               "fieldTwo": Object {},
             },
+            "fieldNine": Uint8Array [],
             "fieldOne": 3,
             "fieldSeven": Array [],
             "fieldSix": "FOO",
+            "fieldTen": Array [],
             "fieldThree": Array [],
             "fieldTwo": Object {},
           }
@@ -457,12 +500,14 @@ describe("Serialization/Deserialization", () => {
       });
 
       it("default message serialization", () => {
-        expect(Foo.encodeJSON(Foo.initialize())).toMatchInlineSnapshot(`"{}"`);
+        expect(Foo.encodeJSON(Foo.initialize())).toMatchInlineSnapshot(
+          `"{\\"fieldNine\\":{}}"`
+        );
       });
 
       it("full serialization", () => {
         expect(Foo.encodeJSON(fullMessage)).toMatchInlineSnapshot(
-          `"{\\"fieldOne\\":3,\\"fieldTwo\\":{\\"foo\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}},\\"fieldThree\\":[{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}],\\"fieldFour\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]},\\"fieldFive\\":[\\"1\\",\\"2\\"],\\"fieldSix\\":\\"BAR\\",\\"luckySeven\\":[\\"BAR\\",\\"FOO\\"],\\"fieldEight\\":\\"223372036854775807\\"}"`
+          `"{\\"fieldOne\\":3,\\"fieldTwo\\":{\\"foo\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}},\\"fieldThree\\":[{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}],\\"fieldFour\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]},\\"fieldFive\\":[\\"1\\",\\"2\\"],\\"fieldSix\\":\\"BAR\\",\\"luckySeven\\":[\\"BAR\\",\\"FOO\\"],\\"fieldEight\\":\\"223372036854775807\\",\\"fieldNine\\":{\\"0\\":8,\\"1\\":7},\\"fieldTen\\":[{\\"0\\":4}]}"`
         );
       });
     });

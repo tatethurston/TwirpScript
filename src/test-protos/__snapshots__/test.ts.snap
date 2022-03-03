@@ -59783,10 +59783,12 @@ import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
 //========================================//
 
 export type ImportEnum = \\"IMPORT_FOO\\" | \\"IMPORT_BAR\\" | \\"IMPORT_BAZ\\";
+
 /**
  * To use an enum in a map, it must has the first value as 0.
  */
 export type ImportEnumForMap = \\"UNKNOWN\\" | \\"FOO\\" | \\"BAR\\";
+
 export interface ImportMessage {
   d: number;
 }
@@ -60117,10 +60119,12 @@ export function createTestService<Context>(service: TestService<Context>) {
 //========================================//
 
 export type ForeignEnum = \\"FOREIGN_FOO\\" | \\"FOREIGN_BAR\\" | \\"FOREIGN_BAZ\\";
+
 /**
  * Test an enum that has multiple values with the same number.
  */
 export type TestEnumWithDupValue = \\"FOO1\\" | \\"BAR1\\" | \\"BAZ\\" | \\"FOO2\\" | \\"BAR2\\";
+
 /**
  * Test an enum with large, unordered values.
  */
@@ -60132,6 +60136,7 @@ export type TestSparseEnum =
   | \\"SPARSE_E\\"
   | \\"SPARSE_F\\"
   | \\"SPARSE_G\\";
+
 export type VeryLargeEnum =
   | \\"ENUM_LABEL_DEFAULT\\"
   | \\"ENUM_LABEL_1\\"
@@ -60234,6 +60239,7 @@ export type VeryLargeEnum =
   | \\"ENUM_LABEL_98\\"
   | \\"ENUM_LABEL_99\\"
   | \\"ENUM_LABEL_100\\";
+
 /**
  * This proto includes every type of field in both singular and repeated
  * forms.
@@ -60328,6 +60334,7 @@ export interface TestAllTypes {
 
 declare namespace TestAllTypes {
   export type NestedEnum = \\"FOO\\" | \\"BAR\\" | \\"BAZ\\" | \\"NEG\\";
+
   export interface NestedMessage {
     /**
      * The field name \\"b\\" fails to compile in proto1 because it conflicts with
@@ -60814,6 +60821,7 @@ export interface TestOneof2 {
 
 declare namespace TestOneof2 {
   export type NestedEnum = \\"FOO\\" | \\"BAR\\" | \\"BAZ\\";
+
   export interface FooGroup {
     a: number;
     b: string;
@@ -60896,6 +60904,7 @@ export interface TestDynamicExtensions {
 
 declare namespace TestDynamicExtensions {
   export type DynamicEnumType = \\"DYNAMIC_FOO\\" | \\"DYNAMIC_BAR\\" | \\"DYNAMIC_BAZ\\";
+
   export interface DynamicMessageType {
     dynamicField: number;
   }
@@ -76066,6 +76075,7 @@ import { ForeignMessage, TestAllTypes, TestRequired } from \\"./unittest.pb\\";
 //========================================//
 
 export type MapEnum = \\"MAP_ENUM_FOO\\" | \\"MAP_ENUM_BAR\\" | \\"MAP_ENUM_BAZ\\";
+
 /**
  * Tests maps.
  */
@@ -82577,6 +82587,7 @@ import { Any } from \\"./any.pb\\";
  * The syntax in which a protocol buffer element is defined.
  */
 export type Syntax = \\"SYNTAX_PROTO2\\" | \\"SYNTAX_PROTO3\\";
+
 /**
  * A protocol buffer message type.
  */
@@ -82679,6 +82690,7 @@ declare namespace Field {
     | \\"TYPE_SFIXED64\\"
     | \\"TYPE_SINT32\\"
     | \\"TYPE_SINT64\\";
+
   /**
    * Whether a field is optional, required, or repeated.
    */
@@ -85319,6 +85331,7 @@ import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
  *  The JSON representation for \`NullValue\` is JSON \`null\`.
  */
 export type NullValue = \\"NULL_VALUE\\";
+
 /**
  * \`Struct\` represents a structured data value, consisting of fields
  * which map to dynamically typed values. In some languages, \`Struct\`
@@ -91281,6 +91294,7 @@ export type ForeignEnum =
   | \\"FOREIGN_FOO\\"
   | \\"FOREIGN_BAR\\"
   | \\"FOREIGN_BAZ\\";
+
 /**
  * This proto includes every type of field in both singular and repeated
  * forms.
@@ -91351,6 +91365,7 @@ export interface TestAllTypes {
 
 declare namespace TestAllTypes {
   export type NestedEnum = \\"ZERO\\" | \\"FOO\\" | \\"BAR\\" | \\"BAZ\\" | \\"NEG\\";
+
   export interface NestedMessage {
     /**
      * The field name \\"b\\" fails to compile in proto1 because it conflicts with
@@ -94174,10 +94189,12 @@ import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
 //========================================//
 
 export type ImportEnum = \\"IMPORT_FOO\\" | \\"IMPORT_BAR\\" | \\"IMPORT_BAZ\\";
+
 /**
  * To use an enum in a map, it must has the first value as 0.
  */
 export type ImportEnumForMap = \\"UNKNOWN\\" | \\"FOO\\" | \\"BAR\\";
+
 export interface ImportMessage {
   d: number;
 }
@@ -94515,10 +94532,12 @@ export function createTestService<Context>(service: TestService<Context>) {
 //========================================//
 
 export type ForeignEnum = \\"FOREIGN_FOO\\" | \\"FOREIGN_BAR\\" | \\"FOREIGN_BAZ\\";
+
 /**
  * Test an enum that has multiple values with the same number.
  */
 export type TestEnumWithDupValue = \\"FOO1\\" | \\"BAR1\\" | \\"BAZ\\" | \\"FOO2\\" | \\"BAR2\\";
+
 /**
  * Test an enum with large, unordered values.
  */
@@ -94530,6 +94549,7 @@ export type TestSparseEnum =
   | \\"SPARSE_E\\"
   | \\"SPARSE_F\\"
   | \\"SPARSE_G\\";
+
 export type VeryLargeEnum =
   | \\"ENUM_LABEL_DEFAULT\\"
   | \\"ENUM_LABEL_1\\"
@@ -94632,6 +94652,7 @@ export type VeryLargeEnum =
   | \\"ENUM_LABEL_98\\"
   | \\"ENUM_LABEL_99\\"
   | \\"ENUM_LABEL_100\\";
+
 /**
  * This proto includes every type of field in both singular and repeated
  * forms.
@@ -94726,6 +94747,7 @@ export interface TestAllTypes {
 
 declare namespace TestAllTypes {
   export type NestedEnum = \\"FOO\\" | \\"BAR\\" | \\"BAZ\\" | \\"NEG\\";
+
   export interface NestedMessage {
     /**
      * The field name \\"b\\" fails to compile in proto1 because it conflicts with
@@ -95212,6 +95234,7 @@ export interface TestOneof2 {
 
 declare namespace TestOneof2 {
   export type NestedEnum = \\"FOO\\" | \\"BAR\\" | \\"BAZ\\";
+
   export interface FooGroup {
     a: number;
     b: string;
@@ -95294,6 +95317,7 @@ export interface TestDynamicExtensions {
 
 declare namespace TestDynamicExtensions {
   export type DynamicEnumType = \\"DYNAMIC_FOO\\" | \\"DYNAMIC_BAR\\" | \\"DYNAMIC_BAZ\\";
+
   export interface DynamicMessageType {
     dynamicField: number;
   }
@@ -110471,6 +110495,7 @@ import { ForeignMessage, TestAllTypes, TestRequired } from \\"./unittest.pb\\";
 //========================================//
 
 export type MapEnum = \\"MAP_ENUM_FOO\\" | \\"MAP_ENUM_BAR\\" | \\"MAP_ENUM_BAZ\\";
+
 /**
  * Tests maps.
  */
@@ -117003,6 +117028,7 @@ import { Any } from \\"./any.pb\\";
  * The syntax in which a protocol buffer element is defined.
  */
 export type Syntax = \\"SYNTAX_PROTO2\\" | \\"SYNTAX_PROTO3\\";
+
 /**
  * A protocol buffer message type.
  */
@@ -117105,6 +117131,7 @@ declare namespace Field {
     | \\"TYPE_SFIXED64\\"
     | \\"TYPE_SINT32\\"
     | \\"TYPE_SINT64\\";
+
   /**
    * Whether a field is optional, required, or repeated.
    */
@@ -119780,6 +119807,7 @@ import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
  *  The JSON representation for \`NullValue\` is JSON \`null\`.
  */
 export type NullValue = \\"NULL_VALUE\\";
+
 /**
  * \`Struct\` represents a structured data value, consisting of fields
  * which map to dynamically typed values. In some languages, \`Struct\`
@@ -125770,6 +125798,7 @@ export type ForeignEnum =
   | \\"FOREIGN_FOO\\"
   | \\"FOREIGN_BAR\\"
   | \\"FOREIGN_BAZ\\";
+
 /**
  * This proto includes every type of field in both singular and repeated
  * forms.
@@ -125840,6 +125869,7 @@ export interface TestAllTypes {
 
 declare namespace TestAllTypes {
   export type NestedEnum = \\"ZERO\\" | \\"FOO\\" | \\"BAR\\" | \\"BAZ\\" | \\"NEG\\";
+
   export interface NestedMessage {
     /**
      * The field name \\"b\\" fails to compile in proto1 because it conflicts with

@@ -130,7 +130,7 @@ export const Empty = {
   /**
    * Serializes a Empty to protobuf.
    */
-  encode: function (_empty?: Partial<Empty>): Uint8Array {
+  encode: function (_msg?: Partial<Empty>): Uint8Array {
     return new Uint8Array();
   },
 
@@ -144,7 +144,7 @@ export const Empty = {
   /**
    * Serializes a Empty to JSON.
    */
-  encodeJSON: function (_empty?: Partial<Empty>): string {
+  encodeJSON: function (_msg?: Partial<Empty>): string {
     return "{}";
   },
 
@@ -167,8 +167,8 @@ export const Req = {
   /**
    * Serializes a Req to protobuf.
    */
-  encode: function (req: Partial<Req>): Uint8Array {
-    return Req._writeMessage(req, new BinaryWriter()).getResultBuffer();
+  encode: function (msg: Partial<Req>): Uint8Array {
+    return Req._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -181,8 +181,8 @@ export const Req = {
   /**
    * Serializes a Req to JSON.
    */
-  encodeJSON: function (req: Partial<Req>): string {
-    return JSON.stringify(Req._writeMessageJSON(req));
+  encodeJSON: function (msg: Partial<Req>): string {
+    return JSON.stringify(Req._writeMessageJSON(msg));
   },
 
   /**
@@ -261,8 +261,8 @@ export const Resp = {
   /**
    * Serializes a Resp to protobuf.
    */
-  encode: function (resp: Partial<Resp>): Uint8Array {
-    return Resp._writeMessage(resp, new BinaryWriter()).getResultBuffer();
+  encode: function (msg: Partial<Resp>): Uint8Array {
+    return Resp._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -275,8 +275,8 @@ export const Resp = {
   /**
    * Serializes a Resp to JSON.
    */
-  encodeJSON: function (resp: Partial<Resp>): string {
-    return JSON.stringify(Resp._writeMessageJSON(resp));
+  encodeJSON: function (msg: Partial<Resp>): string {
+    return JSON.stringify(Resp._writeMessageJSON(msg));
   },
 
   /**
@@ -355,11 +355,9 @@ export const ClientCompatMessage = {
   /**
    * Serializes a ClientCompatMessage to protobuf.
    */
-  encode: function (
-    clientCompatMessage: Partial<ClientCompatMessage>
-  ): Uint8Array {
+  encode: function (msg: Partial<ClientCompatMessage>): Uint8Array {
     return ClientCompatMessage._writeMessage(
-      clientCompatMessage,
+      msg,
       new BinaryWriter()
     ).getResultBuffer();
   },
@@ -377,12 +375,8 @@ export const ClientCompatMessage = {
   /**
    * Serializes a ClientCompatMessage to JSON.
    */
-  encodeJSON: function (
-    clientCompatMessage: Partial<ClientCompatMessage>
-  ): string {
-    return JSON.stringify(
-      ClientCompatMessage._writeMessageJSON(clientCompatMessage)
-    );
+  encodeJSON: function (msg: Partial<ClientCompatMessage>): string {
+    return JSON.stringify(ClientCompatMessage._writeMessageJSON(msg));
   },
 
   /**

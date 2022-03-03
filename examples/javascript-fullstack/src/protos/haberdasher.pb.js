@@ -62,8 +62,8 @@ export const Size = {
   /**
    * Serializes a Size to protobuf.
    */
-  encode: function (size) {
-    return Size._writeMessage(size, new BinaryWriter()).getResultBuffer();
+  encode: function (msg) {
+    return Size._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -76,8 +76,8 @@ export const Size = {
   /**
    * Serializes a Size to JSON.
    */
-  encodeJSON: function (size) {
-    return JSON.stringify(Size._writeMessageJSON(size));
+  encodeJSON: function (msg) {
+    return JSON.stringify(Size._writeMessageJSON(msg));
   },
 
   /**
@@ -153,8 +153,8 @@ export const Hat = {
   /**
    * Serializes a Hat to protobuf.
    */
-  encode: function (hat) {
-    return Hat._writeMessage(hat, new BinaryWriter()).getResultBuffer();
+  encode: function (msg) {
+    return Hat._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -167,8 +167,8 @@ export const Hat = {
   /**
    * Serializes a Hat to JSON.
    */
-  encodeJSON: function (hat) {
-    return JSON.stringify(Hat._writeMessageJSON(hat));
+  encodeJSON: function (msg) {
+    return JSON.stringify(Hat._writeMessageJSON(msg));
   },
 
   /**

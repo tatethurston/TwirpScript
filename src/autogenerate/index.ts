@@ -86,21 +86,17 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
          */
           `;
           if (isEmpty) {
-            result += `encode: function(_${lowerCase(
-              node.content.name
-            )}${printIfTypescript(
+            result += `encode: function(_msg${printIfTypescript(
               `?: Partial<${node.content.fullyQualifiedName}>`
             )})${printIfTypescript(`: Uint8Array`)} {
             return new Uint8Array();`;
           } else {
-            result += `encode: function(${lowerCase(
-              node.content.name
-            )}${printIfTypescript(
+            result += `encode: function(msg${printIfTypescript(
               `: Partial<${node.content.fullyQualifiedName}>`
             )})${printIfTypescript(`: Uint8Array`)} {
-          return ${node.content.fullyQualifiedName}._writeMessage(${lowerCase(
-              node.content.name
-            )}, new BinaryWriter()).getResultBuffer();`;
+          return ${
+            node.content.fullyQualifiedName
+          }._writeMessage(msg, new BinaryWriter()).getResultBuffer();`;
           }
           result += "},\n\n";
 
@@ -132,21 +128,17 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
          */
         `;
           if (isEmpty) {
-            result += `encodeJSON: function(_${lowerCase(
-              node.content.name
-            )}${printIfTypescript(
+            result += `encodeJSON: function(_msg${printIfTypescript(
               `?: Partial<${node.content.fullyQualifiedName}>`
             )})${printIfTypescript(`: string`)} {
             return "{}";`;
           } else {
-            result += `encodeJSON: function(${lowerCase(
-              node.content.name
-            )}${printIfTypescript(
+            result += `encodeJSON: function(msg${printIfTypescript(
               `: Partial<${node.content.fullyQualifiedName}>`
             )})${printIfTypescript(`: string`)} {
-          return JSON.stringify(${
-            node.content.fullyQualifiedName
-          }._writeMessageJSON(${lowerCase(node.content.name)}));`;
+            return JSON.stringify(${
+              node.content.fullyQualifiedName
+            }._writeMessageJSON(msg));`;
           }
           result += "},\n\n";
 
@@ -203,7 +195,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
         /**
          * @private
          */
-        _writeMessage: function(msg ${printIfTypescript(
+        _writeMessage: function(msg${printIfTypescript(
           `: ${
             node.content.isMap
               ? `MapMessage<${node.content.fullyQualifiedName}>`
@@ -268,7 +260,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
         /**
          * @private
          */
-        _writeMessageJSON: function(msg ${printIfTypescript(
+        _writeMessageJSON: function(msg${printIfTypescript(
           `: ${
             node.content.isMap
               ? `MapMessage<${node.content.fullyQualifiedName}>`

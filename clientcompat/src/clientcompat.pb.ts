@@ -416,7 +416,10 @@ export const ClientCompatMessage = {
     if (msg.serviceAddress) {
       writer.writeString(1, msg.serviceAddress);
     }
-    if (msg.method) {
+    if (
+      msg.method &&
+      ClientCompatMessage.CompatServiceMethodToInt(msg.method)
+    ) {
       writer.writeEnum(
         2,
         ClientCompatMessage.CompatServiceMethodToInt(msg.method)
@@ -438,7 +441,10 @@ export const ClientCompatMessage = {
     if (msg.serviceAddress) {
       json.serviceAddress = msg.serviceAddress;
     }
-    if (msg.method) {
+    if (
+      msg.method &&
+      ClientCompatMessage.CompatServiceMethodToInt(msg.method)
+    ) {
       json.method = msg.method;
     }
     if (msg.request) {

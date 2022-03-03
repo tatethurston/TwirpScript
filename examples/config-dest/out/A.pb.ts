@@ -102,9 +102,9 @@ export const Foo = {
    * @private
    */
   _readMessageJSON: function (msg: Foo, json: any): Foo {
-    const name = json.name ?? json.name;
-    if (name) {
-      msg.name = name;
+    const _name = json.name;
+    if (_name) {
+      msg.name = _name;
     }
     return msg;
   },

@@ -112,8 +112,8 @@ export const Size = {
   /**
    * Serializes a Size to protobuf.
    */
-  encode: function (size: Partial<Size>): Uint8Array {
-    return Size._writeMessage(size, new BinaryWriter()).getResultBuffer();
+  encode: function (msg: Partial<Size>): Uint8Array {
+    return Size._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -126,8 +126,8 @@ export const Size = {
   /**
    * Serializes a Size to JSON.
    */
-  encodeJSON: function (size: Partial<Size>): string {
-    return JSON.stringify(Size._writeMessageJSON(size));
+  encodeJSON: function (msg: Partial<Size>): string {
+    return JSON.stringify(Size._writeMessageJSON(msg));
   },
 
   /**
@@ -206,8 +206,8 @@ export const Hat = {
   /**
    * Serializes a Hat to protobuf.
    */
-  encode: function (hat: Partial<Hat>): Uint8Array {
-    return Hat._writeMessage(hat, new BinaryWriter()).getResultBuffer();
+  encode: function (msg: Partial<Hat>): Uint8Array {
+    return Hat._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -220,8 +220,8 @@ export const Hat = {
   /**
    * Serializes a Hat to JSON.
    */
-  encodeJSON: function (hat: Partial<Hat>): string {
-    return JSON.stringify(Hat._writeMessageJSON(hat));
+  encodeJSON: function (msg: Partial<Hat>): string {
+    return JSON.stringify(Hat._writeMessageJSON(msg));
   },
 
   /**

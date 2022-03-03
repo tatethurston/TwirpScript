@@ -103,11 +103,8 @@ export const CurrentUser = {
   /**
    * Serializes a CurrentUser to protobuf.
    */
-  encode: function (currentUser: Partial<CurrentUser>): Uint8Array {
-    return CurrentUser._writeMessage(
-      currentUser,
-      new BinaryWriter()
-    ).getResultBuffer();
+  encode: function (msg: Partial<CurrentUser>): Uint8Array {
+    return CurrentUser._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -123,8 +120,8 @@ export const CurrentUser = {
   /**
    * Serializes a CurrentUser to JSON.
    */
-  encodeJSON: function (currentUser: Partial<CurrentUser>): string {
-    return JSON.stringify(CurrentUser._writeMessageJSON(currentUser));
+  encodeJSON: function (msg: Partial<CurrentUser>): string {
+    return JSON.stringify(CurrentUser._writeMessageJSON(msg));
   },
 
   /**
@@ -223,11 +220,8 @@ export const Credentials = {
   /**
    * Serializes a Credentials to protobuf.
    */
-  encode: function (credentials: Partial<Credentials>): Uint8Array {
-    return Credentials._writeMessage(
-      credentials,
-      new BinaryWriter()
-    ).getResultBuffer();
+  encode: function (msg: Partial<Credentials>): Uint8Array {
+    return Credentials._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -243,8 +237,8 @@ export const Credentials = {
   /**
    * Serializes a Credentials to JSON.
    */
-  encodeJSON: function (credentials: Partial<Credentials>): string {
-    return JSON.stringify(Credentials._writeMessageJSON(credentials));
+  encodeJSON: function (msg: Partial<Credentials>): string {
+    return JSON.stringify(Credentials._writeMessageJSON(msg));
   },
 
   /**

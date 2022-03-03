@@ -84,8 +84,8 @@ export const Foo = {
   /**
    * Serializes a Foo to protobuf.
    */
-  encode: function (foo: Partial<Foo>): Uint8Array {
-    return Foo._writeMessage(foo, new BinaryWriter()).getResultBuffer();
+  encode: function (msg: Partial<Foo>): Uint8Array {
+    return Foo._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -98,8 +98,8 @@ export const Foo = {
   /**
    * Serializes a Foo to JSON.
    */
-  encodeJSON: function (foo: Partial<Foo>): string {
-    return JSON.stringify(Foo._writeMessageJSON(foo));
+  encodeJSON: function (msg: Partial<Foo>): string {
+    return JSON.stringify(Foo._writeMessageJSON(msg));
   },
 
   /**
@@ -317,9 +317,9 @@ export const Foo = {
     /**
      * Serializes a Foo.FooBar to protobuf.
      */
-    encode: function (fooBar: Partial<Foo.FooBar>): Uint8Array {
+    encode: function (msg: Partial<Foo.FooBar>): Uint8Array {
       return Foo.FooBar._writeMessage(
-        fooBar,
+        msg,
         new BinaryWriter()
       ).getResultBuffer();
     },
@@ -337,8 +337,8 @@ export const Foo = {
     /**
      * Serializes a Foo.FooBar to JSON.
      */
-    encodeJSON: function (fooBar: Partial<Foo.FooBar>): string {
-      return JSON.stringify(Foo.FooBar._writeMessageJSON(fooBar));
+    encodeJSON: function (msg: Partial<Foo.FooBar>): string {
+      return JSON.stringify(Foo.FooBar._writeMessageJSON(msg));
     },
 
     /**
@@ -638,8 +638,8 @@ export const Bar = {
   /**
    * Serializes a Bar to protobuf.
    */
-  encode: function (bar: Partial<Bar>): Uint8Array {
-    return Bar._writeMessage(bar, new BinaryWriter()).getResultBuffer();
+  encode: function (msg: Partial<Bar>): Uint8Array {
+    return Bar._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -652,8 +652,8 @@ export const Bar = {
   /**
    * Serializes a Bar to JSON.
    */
-  encodeJSON: function (bar: Partial<Bar>): string {
-    return JSON.stringify(Bar._writeMessageJSON(bar));
+  encodeJSON: function (msg: Partial<Bar>): string {
+    return JSON.stringify(Bar._writeMessageJSON(msg));
   },
 
   /**

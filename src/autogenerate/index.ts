@@ -22,7 +22,7 @@ function writeTypes(types: ProtoTypes[], isTopLevel: boolean): string {
     if (node.type === "enum") {
       result += `export type ${name} = ${node.content.values
         .map((x) => `| '${x.name}'`)
-        .join("\n")}\n`;
+        .join("\n")}\n\n`;
     } else if (node.content.isMap) {
       hasMaps = true;
       result += `export type ${name} = Record<

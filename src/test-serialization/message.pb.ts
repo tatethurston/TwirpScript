@@ -18,6 +18,8 @@ export interface Foo {
   fieldSix: Baz;
   fieldSeven: Baz[];
   fieldEight: bigint;
+  fieldNine: Uint8Array;
+  fieldTen: Uint8Array[];
 }
 
 declare namespace Foo {
@@ -121,6 +123,8 @@ export const Foo = {
       fieldSix: BazFromInt(0),
       fieldSeven: [],
       fieldEight: 0n,
+      fieldNine: new Uint8Array(),
+      fieldTen: [],
     };
   },
 
@@ -165,6 +169,12 @@ export const Foo = {
     if (msg.fieldEight) {
       writer.writeInt64String(8, msg.fieldEight.toString());
     }
+    if (msg.fieldNine) {
+      writer.writeBytes(9, msg.fieldNine);
+    }
+    if (msg.fieldTen?.length) {
+      writer.writeRepeatedBytes(10, msg.fieldTen);
+    }
     return writer;
   },
 
@@ -207,6 +217,12 @@ export const Foo = {
     }
     if (msg.fieldEight) {
       json.fieldEight = msg.fieldEight.toString();
+    }
+    if (msg.fieldNine) {
+      json.fieldNine = msg.fieldNine;
+    }
+    if (msg.fieldTen?.length) {
+      json.fieldTen = msg.fieldTen;
     }
     return json;
   },
@@ -252,6 +268,14 @@ export const Foo = {
         }
         case 8: {
           msg.fieldEight = BigInt(reader.readInt64String());
+          break;
+        }
+        case 9: {
+          msg.fieldNine = reader.readBytes();
+          break;
+        }
+        case 10: {
+          msg.fieldTen.push(reader.readBytes());
           break;
         }
         default: {
@@ -309,6 +333,14 @@ export const Foo = {
     const _fieldEight = json.fieldEight ?? json.field_eight;
     if (_fieldEight) {
       msg.fieldEight = BigInt(_fieldEight);
+    }
+    const _fieldNine = json.fieldNine ?? json.field_nine;
+    if (_fieldNine) {
+      msg.fieldNine = _fieldNine;
+    }
+    const _fieldTen = json.fieldTen ?? json.field_ten;
+    if (_fieldTen) {
+      msg.fieldTen = _fieldTen;
     }
     return msg;
   },

@@ -189,8 +189,6 @@ describe("Serialization/Deserialization", () => {
           Uint8Array [
             34,
             0,
-            74,
-            0,
           ]
         `);
       });
@@ -388,7 +386,7 @@ describe("Serialization/Deserialization", () => {
               "fieldThree": Array [],
               "fieldTwo": Object {},
             },
-            "fieldNine": Object {},
+            "fieldNine": Uint8Array [],
             "fieldSeven": Array [],
             "fieldSix": "FOO",
             "fieldTen": Array [],
@@ -419,10 +417,10 @@ describe("Serialization/Deserialization", () => {
                 "foo": "3",
               },
             },
-            "fieldNine": Object {
-              "0": 8,
-              "1": 7,
-            },
+            "fieldNine": Uint8Array [
+              8,
+              7,
+            ],
             "fieldOne": 3,
             "fieldSeven": Array [
               "BAR",
@@ -430,9 +428,9 @@ describe("Serialization/Deserialization", () => {
             ],
             "fieldSix": "BAR",
             "fieldTen": Array [
-              Object {
-                "0": 4,
-              },
+              Uint8Array [
+                4,
+              ],
             ],
             "fieldThree": Array [
               Object {
@@ -500,14 +498,12 @@ describe("Serialization/Deserialization", () => {
       });
 
       it("default message serialization", () => {
-        expect(Foo.encodeJSON(Foo.initialize())).toMatchInlineSnapshot(
-          `"{\\"fieldNine\\":{}}"`
-        );
+        expect(Foo.encodeJSON(Foo.initialize())).toMatchInlineSnapshot(`"{}"`);
       });
 
       it("full serialization", () => {
         expect(Foo.encodeJSON(fullMessage)).toMatchInlineSnapshot(
-          `"{\\"fieldOne\\":3,\\"fieldTwo\\":{\\"foo\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}},\\"fieldThree\\":[{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}],\\"fieldFour\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]},\\"fieldFive\\":[\\"1\\",\\"2\\"],\\"fieldSix\\":\\"BAR\\",\\"luckySeven\\":[\\"BAR\\",\\"FOO\\"],\\"fieldEight\\":\\"223372036854775807\\",\\"fieldNine\\":{\\"0\\":8,\\"1\\":7},\\"fieldTen\\":[{\\"0\\":4}]}"`
+          `"{\\"fieldOne\\":3,\\"fieldTwo\\":{\\"foo\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}},\\"fieldThree\\":[{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}],\\"fieldFour\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]},\\"fieldFive\\":[\\"1\\",\\"2\\"],\\"fieldSix\\":\\"BAR\\",\\"luckySeven\\":[\\"BAR\\",\\"FOO\\"],\\"fieldEight\\":\\"223372036854775807\\",\\"fieldNine\\":\\"CAc=\\",\\"fieldTen\\":[\\"BA==\\"]}"`
         );
       });
     });

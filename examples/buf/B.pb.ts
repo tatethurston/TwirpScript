@@ -22,8 +22,8 @@ export const Bar = {
   /**
    * Serializes a Bar to protobuf.
    */
-  encode: function (bar: Partial<Bar>): Uint8Array {
-    return Bar._writeMessage(bar, new BinaryWriter()).getResultBuffer();
+  encode: function (msg: Partial<Bar>): Uint8Array {
+    return Bar._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
@@ -36,8 +36,8 @@ export const Bar = {
   /**
    * Serializes a Bar to JSON.
    */
-  encodeJSON: function (bar: Partial<Bar>): string {
-    return JSON.stringify(Bar._writeMessageJSON(bar));
+  encodeJSON: function (msg: Partial<Bar>): string {
+    return JSON.stringify(Bar._writeMessageJSON(msg));
   },
 
   /**
@@ -107,10 +107,10 @@ export const Bar = {
    * @private
    */
   _readMessageJSON: function (msg: Bar, json: any): Bar {
-    const foo = json.foo ?? json.foo;
-    if (foo) {
+    const _foo = json.foo;
+    if (_foo) {
       const m = Foo.initialize();
-      Foo._readMessageJSON(m, foo);
+      Foo._readMessageJSON(m, _foo);
       msg.foo = m;
     }
     return msg;

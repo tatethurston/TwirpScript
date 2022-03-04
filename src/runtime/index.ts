@@ -11,8 +11,10 @@ export {
   RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION,
   MIN_SUPPORTED_VERSION_0_0_48,
 } from "./compatCheck";
-export { BinaryReader, BinaryWriter } from "google-protobuf";
-export type MapMessage<Message extends Record<any, any>> = {
-  key: keyof Message;
-  value: Message[keyof Message];
-};
+export type { MapMessage } from "./protobuf";
+export {
+  BinaryReader,
+  BinaryWriter,
+  encodeBase64Bytes,
+  decodeBase64Bytes,
+} from "./protobuf";

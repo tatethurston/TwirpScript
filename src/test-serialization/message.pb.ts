@@ -2,13 +2,19 @@
 // Source: message.proto
 
 import type { ByteSource, MapMessage } from "../../src";
-import { BinaryReader, BinaryWriter } from "../../src";
+import {
+  BinaryReader,
+  BinaryWriter,
+  encodeBase64Bytes,
+  decodeBase64Bytes,
+} from "../../src";
 
 //========================================//
 //                 Types                  //
 //========================================//
 
 export type Baz = "FOO" | "BAR";
+
 export interface Foo {
   fieldOne?: number | null | undefined;
   fieldTwo: Foo.FieldTwo;
@@ -169,7 +175,7 @@ export const Foo = {
     if (msg.fieldEight) {
       writer.writeInt64String(8, msg.fieldEight.toString());
     }
-    if (msg.fieldNine) {
+    if (msg.fieldNine?.length) {
       writer.writeBytes(9, msg.fieldNine);
     }
     if (msg.fieldTen?.length) {
@@ -218,11 +224,11 @@ export const Foo = {
     if (msg.fieldEight) {
       json.fieldEight = msg.fieldEight.toString();
     }
-    if (msg.fieldNine) {
-      json.fieldNine = msg.fieldNine;
+    if (msg.fieldNine?.length) {
+      json.fieldNine = encodeBase64Bytes(msg.fieldNine);
     }
     if (msg.fieldTen?.length) {
-      json.fieldTen = msg.fieldTen;
+      json.fieldTen = msg.fieldTen.map(encodeBase64Bytes);
     }
     return json;
   },
@@ -336,11 +342,11 @@ export const Foo = {
     }
     const _fieldNine = json.fieldNine ?? json.field_nine;
     if (_fieldNine) {
-      msg.fieldNine = _fieldNine;
+      msg.fieldNine = decodeBase64Bytes(_fieldNine);
     }
     const _fieldTen = json.fieldTen ?? json.field_ten;
     if (_fieldTen) {
-      msg.fieldTen = _fieldTen;
+      msg.fieldTen = _fieldTen.map(decodeBase64Bytes);
     }
     return msg;
   },

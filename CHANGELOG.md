@@ -1,10 +1,24 @@
 # Changelog
 
-## Pending
+## v0.0.49
 
-- Convert enum internal structure to enum value as specified in `proto`. Eg: "FOO_BAR" instead of 0. This improves the developer experience when printing messages.
+- Enums are now represented by the enum value specified in `proto` instead of an integer. Eg: "FOO_BAR" instead of 0. This improves the developer experience when printing messages. This is a breaking change, but users using protobuf serialization should be unimpacted unless their code directly references enums via their integer value instead of the generated constants.
 
-JSON serialization now also uses the enum value instead of an integer value, as described by the [protobuf JSON specification](https://developers.google.com/protocol-buffers/docs/proto3#json).
+Eg:
+
+```typescript
+// this code will now need to migrate to the string value instead of an integer
+`if (foo.someEnum === 0)`;
+```
+
+```typescript
+// this code will continue to work without change
+`if (foo.someEnum === SomeEnum.Field)`.
+```
+
+JSON serialization now also uses the enum value instead of an integer value, as described by the [protobuf JSON specification](https://developers.google.com/protocol-buffers/docs/proto3#json). This is a breaking change for JSON clients.
+
+- Bytes are now Base64 encoded when JSON serializing as described by the protobuf JSON specification above. This is a breaking change for JSON clients.
 
 ## v0.0.48
 

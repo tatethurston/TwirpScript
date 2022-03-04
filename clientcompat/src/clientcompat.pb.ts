@@ -5,6 +5,8 @@ import type { ByteSource, ClientConfiguration } from "twirpscript";
 import {
   BinaryReader,
   BinaryWriter,
+  encodeBase64Bytes,
+  decodeBase64Bytes,
   JSONrequest,
   PBrequest,
 } from "twirpscript";
@@ -419,7 +421,7 @@ export const ClientCompatMessage = {
         ClientCompatMessage.CompatServiceMethodToInt(msg.method)
       );
     }
-    if (msg.request) {
+    if (msg.request?.length) {
       writer.writeBytes(3, msg.request);
     }
     return writer;
@@ -441,8 +443,8 @@ export const ClientCompatMessage = {
     ) {
       json.method = msg.method;
     }
-    if (msg.request) {
-      json.request = msg.request;
+    if (msg.request?.length) {
+      json.request = encodeBase64Bytes(msg.request);
     }
     return json;
   },
@@ -497,7 +499,7 @@ export const ClientCompatMessage = {
     }
     const _request = json.request;
     if (_request) {
-      msg.request = _request;
+      msg.request = decodeBase64Bytes(_request);
     }
     return msg;
   },

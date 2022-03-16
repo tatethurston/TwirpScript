@@ -36,6 +36,11 @@ export function deserializeConfig(config: string): UserConfig {
         .includes("emitFieldsWithDefaultValues"),
       useProtoFieldName: params.getAll("json").includes("useProtoFieldName"),
     },
+    typescript: {
+      emitDeclarationOnly: params
+        .getAll("typescript")
+        .includes("emitDeclarationOnly"),
+    },
   };
 }
 

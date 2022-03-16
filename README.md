@@ -722,6 +722,15 @@ TypeScript projects will generally want to set this value to match their `rootDi
 </td>
   <td>{ emitFieldsWithDefaultValues?: boolean, useProtoFieldName?: boolean }</td>
 </tr>
+<tr>
+  <td>TypeScript</td>
+<td>
+  TypeScript options.
+  
+  `emitDeclarationOnly` - Only emit TypeScript type definitions.
+</td>
+  <td>{ emitDeclarationOnly?: boolean }</td>
+</tr>
 </tbody>
 </table>
 

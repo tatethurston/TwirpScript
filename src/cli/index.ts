@@ -171,6 +171,15 @@ type Config = {
      */
     useProtoFieldName?: boolean;
   };
+  /**
+   * TypeScript options.
+   */
+  typescript: {
+    /**
+     * Only emit TypeScript type definitions.
+     */
+    emitDeclarationOnly?: boolean;
+  };
 };
 
 const projectRoot = process.cwd();
@@ -184,6 +193,7 @@ function getConfig(): Config {
       ? "typescript"
       : "javascript",
     json: {},
+    typescript: {},
   };
 
   const configFilePath = join(projectRoot, ".twirp.json");
@@ -285,6 +295,11 @@ protoc \
   ${
     config.json.useProtoFieldName
       ? "--twirpscript_opt=json=useProtoFieldName"
+      : ""
+  } \
+  ${
+    config.typescript.emitDeclarationOnly
+      ? "--twirpscript_opt=typescript=emitDeclarationOnly"
       : ""
   } \
   ${protos.join(" ")}

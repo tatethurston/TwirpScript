@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.50
+
+- Add `typescript.emitDeclarationOnly` only option. This will only emit TypeScript type definitions and not any runtime.
+
 ## v0.0.49
 
 - Enums are now represented by the enum value specified in `proto` instead of an integer. Eg: "FOO_BAR" instead of 0. This improves the developer experience when printing messages. This is a breaking change, but users using protobuf serialization should be unimpacted unless their code directly references enums via their integer value instead of the generated constants.

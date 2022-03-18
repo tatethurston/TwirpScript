@@ -723,7 +723,7 @@ TypeScript projects will generally want to set this value to match their `rootDi
   <td>{ emitFieldsWithDefaultValues?: boolean, useProtoFieldName?: boolean }</td>
 </tr>
 <tr>
-  <td>TypeScript</td>
+  <td>typecript</td>
 <td>
   TypeScript options.
   

@@ -714,9 +714,12 @@ TypeScript projects will generally want to set this value to match their `rootDi
 <td>
   JSON serializer options.
   
+  
   `emitFieldsWithDefaultValues` - Fields with default values are omitted by default in proto3 JSON. Setting this to true will serialize fields with their default values.
     
+  
   `useProtoFieldName` - Field names are converted to lowerCamelCase by default in proto3 JSON. Setting this to true will use the proto field name as the JSON key when serializing JSON. Either way, Proto3 JSON parsers are required to accept both the converted lowerCamelCase name and the proto field name.
+  
   
   See https://developers.google.com/protocol-buffers/docs/proto3#json for more context.
 </td>
@@ -726,6 +729,7 @@ TypeScript projects will generally want to set this value to match their `rootDi
   <td>typecript</td>
 <td>
   TypeScript options.
+  
   
   `emitDeclarationOnly` - Only emit TypeScript type definitions.
 </td>

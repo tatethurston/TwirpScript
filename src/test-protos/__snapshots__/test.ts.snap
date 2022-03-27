@@ -3413,6 +3413,34 @@ export const TestDeprecatedMessage = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const ForeignMessage = {
@@ -3565,6 +3593,34 @@ export const TestReservedFields = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestAllExtensions = {
@@ -3601,6 +3657,34 @@ export const TestAllExtensions = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -4040,6 +4124,34 @@ export const TestGroupExtension = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestNestedExtension = {
@@ -4076,6 +4188,34 @@ export const TestNestedExtension = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 
   OptionalGroup_extension: {
@@ -5360,6 +5500,34 @@ export const TestEmptyMessage = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestEmptyMessageWithExtensions = {
@@ -5397,6 +5565,34 @@ export const TestEmptyMessageWithExtensions = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestPickleNestedMessage = {
@@ -5433,6 +5629,34 @@ export const TestPickleNestedMessage = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 
   NestedMessage: {
@@ -5676,6 +5900,34 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -6529,6 +6781,34 @@ export const TestIsInitialized = {
      */
     initialize: function () {
       return {};
+    },
+
+    /**
+     * @private
+     */
+    _writeMessage: function (_msg, writer) {
+      return writer;
+    },
+
+    /**
+     * @private
+     */
+    _writeMessageJSON: function (_msg) {
+      return {};
+    },
+
+    /**
+     * @private
+     */
+    _readMessage: function (_msg, _reader) {
+      return _msg;
+    },
+
+    /**
+     * @private
+     */
+    _readMessageJSON: function (msg, _json) {
+      return msg;
     },
 
     SubGroup: {
@@ -11807,6 +12087,34 @@ export const TestPackedExtensions = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestUnpackedExtensions = {
@@ -11843,6 +12151,34 @@ export const TestUnpackedExtensions = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -13344,6 +13680,34 @@ export const FooRequest = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const FooResponse = {
@@ -13380,6 +13744,34 @@ export const FooResponse = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -13418,6 +13810,34 @@ export const FooClientMessage = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const FooServerMessage = {
@@ -13454,6 +13874,34 @@ export const FooServerMessage = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -13492,6 +13940,34 @@ export const BarRequest = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const BarResponse = {
@@ -13528,6 +14004,34 @@ export const BarResponse = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -22060,6 +22564,8 @@ export const Duration = {
         "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
 // Source: google/protobuf/empty.proto
 
+import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
+
 //========================================//
 //        Protobuf Encode / Decode        //
 //========================================//
@@ -22098,6 +22604,34 @@ export const Empty = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 ",
@@ -29580,6 +30114,34 @@ export const TestEmptyMessage = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestMessageWithDummy = {
@@ -33303,6 +33865,34 @@ export const TestDeprecatedMessage = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const ForeignMessage = {
@@ -33455,6 +34045,34 @@ export const TestReservedFields = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestAllExtensions = {
@@ -33491,6 +34109,34 @@ export const TestAllExtensions = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -33930,6 +34576,34 @@ export const TestGroupExtension = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestNestedExtension = {
@@ -33966,6 +34640,34 @@ export const TestNestedExtension = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 
   OptionalGroup_extension: {
@@ -35250,6 +35952,34 @@ export const TestEmptyMessage = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestEmptyMessageWithExtensions = {
@@ -35287,6 +36017,34 @@ export const TestEmptyMessageWithExtensions = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestPickleNestedMessage = {
@@ -35323,6 +36081,34 @@ export const TestPickleNestedMessage = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 
   NestedMessage: {
@@ -35566,6 +36352,34 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -36419,6 +37233,34 @@ export const TestIsInitialized = {
      */
     initialize: function () {
       return {};
+    },
+
+    /**
+     * @private
+     */
+    _writeMessage: function (_msg, writer) {
+      return writer;
+    },
+
+    /**
+     * @private
+     */
+    _writeMessageJSON: function (_msg) {
+      return {};
+    },
+
+    /**
+     * @private
+     */
+    _readMessage: function (_msg, _reader) {
+      return _msg;
+    },
+
+    /**
+     * @private
+     */
+    _readMessageJSON: function (msg, _json) {
+      return msg;
     },
 
     SubGroup: {
@@ -41697,6 +42539,34 @@ export const TestPackedExtensions = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestUnpackedExtensions = {
@@ -41733,6 +42603,34 @@ export const TestUnpackedExtensions = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -43234,6 +44132,34 @@ export const FooRequest = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const FooResponse = {
@@ -43270,6 +44196,34 @@ export const FooResponse = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -43308,6 +44262,34 @@ export const FooClientMessage = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const FooServerMessage = {
@@ -43344,6 +44326,34 @@ export const FooServerMessage = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -43382,6 +44392,34 @@ export const BarRequest = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const BarResponse = {
@@ -43418,6 +44456,34 @@ export const BarResponse = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 
@@ -51999,6 +53065,8 @@ export const Duration = {
           "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
 // Source: google/protobuf/empty.proto
 
+import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
+
 //========================================//
 //        Protobuf Encode / Decode        //
 //========================================//
@@ -52037,6 +53105,34 @@ export const Empty = {
    */
   initialize: function () {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
   },
 };
 ",
@@ -59561,6 +60657,34 @@ export const TestEmptyMessage = {
   initialize: function () {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (_msg, writer) {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg) {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg, _reader) {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg, _json) {
+    return msg;
+  },
 };
 
 export const TestMessageWithDummy = {
@@ -64371,6 +65495,45 @@ export const TestDeprecatedMessage = {
   initialize: function (): TestDeprecatedMessage {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestDeprecatedMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestDeprecatedMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestDeprecatedMessage,
+    _reader: BinaryReader
+  ): TestDeprecatedMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestDeprecatedMessage,
+    _json: any
+  ): TestDeprecatedMessage {
+    return msg;
+  },
 };
 
 export const ForeignMessage = {
@@ -64531,6 +65694,45 @@ export const TestReservedFields = {
   initialize: function (): TestReservedFields {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestReservedFields>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestReservedFields>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestReservedFields,
+    _reader: BinaryReader
+  ): TestReservedFields {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestReservedFields,
+    _json: any
+  ): TestReservedFields {
+    return msg;
+  },
 };
 
 export const TestAllExtensions = {
@@ -64567,6 +65769,45 @@ export const TestAllExtensions = {
    */
   initialize: function (): TestAllExtensions {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestAllExtensions>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestAllExtensions>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestAllExtensions,
+    _reader: BinaryReader
+  ): TestAllExtensions {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestAllExtensions,
+    _json: any
+  ): TestAllExtensions {
+    return msg;
   },
 };
 
@@ -65044,6 +66285,45 @@ export const TestGroupExtension = {
   initialize: function (): TestGroupExtension {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestGroupExtension>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestGroupExtension>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestGroupExtension,
+    _reader: BinaryReader
+  ): TestGroupExtension {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestGroupExtension,
+    _json: any
+  ): TestGroupExtension {
+    return msg;
+  },
 };
 
 export const TestNestedExtension = {
@@ -65080,6 +66360,45 @@ export const TestNestedExtension = {
    */
   initialize: function (): TestNestedExtension {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestNestedExtension>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestNestedExtension>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestNestedExtension,
+    _reader: BinaryReader
+  ): TestNestedExtension {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestNestedExtension,
+    _json: any
+  ): TestNestedExtension {
+    return msg;
   },
 
   OptionalGroup_extension: {
@@ -66435,6 +67754,45 @@ export const TestEmptyMessage = {
   initialize: function (): TestEmptyMessage {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestEmptyMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestEmptyMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestEmptyMessage,
+    _reader: BinaryReader
+  ): TestEmptyMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestEmptyMessage,
+    _json: any
+  ): TestEmptyMessage {
+    return msg;
+  },
 };
 
 export const TestEmptyMessageWithExtensions = {
@@ -66476,6 +67834,45 @@ export const TestEmptyMessageWithExtensions = {
   initialize: function (): TestEmptyMessageWithExtensions {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestEmptyMessageWithExtensions>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestEmptyMessageWithExtensions>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestEmptyMessageWithExtensions,
+    _reader: BinaryReader
+  ): TestEmptyMessageWithExtensions {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestEmptyMessageWithExtensions,
+    _json: any
+  ): TestEmptyMessageWithExtensions {
+    return msg;
+  },
 };
 
 export const TestPickleNestedMessage = {
@@ -66512,6 +67909,45 @@ export const TestPickleNestedMessage = {
    */
   initialize: function (): TestPickleNestedMessage {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestPickleNestedMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestPickleNestedMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestPickleNestedMessage,
+    _reader: BinaryReader
+  ): TestPickleNestedMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestPickleNestedMessage,
+    _json: any
+  ): TestPickleNestedMessage {
+    return msg;
   },
 
   NestedMessage: {
@@ -66792,6 +68228,45 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function (): TestMultipleExtensionRanges {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestMultipleExtensionRanges>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestMultipleExtensionRanges>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestMultipleExtensionRanges,
+    _reader: BinaryReader
+  ): TestMultipleExtensionRanges {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestMultipleExtensionRanges,
+    _json: any
+  ): TestMultipleExtensionRanges {
+    return msg;
   },
 };
 
@@ -67730,6 +69205,45 @@ export const TestIsInitialized = {
      */
     initialize: function (): TestIsInitialized.SubMessage {
       return {};
+    },
+
+    /**
+     * @private
+     */
+    _writeMessage: function (
+      _msg: Partial<TestIsInitialized.SubMessage>,
+      writer: BinaryWriter
+    ): BinaryWriter {
+      return writer;
+    },
+
+    /**
+     * @private
+     */
+    _writeMessageJSON: function (
+      _msg: Partial<TestIsInitialized.SubMessage>
+    ): Record<string, unknown> {
+      return {};
+    },
+
+    /**
+     * @private
+     */
+    _readMessage: function (
+      _msg: TestIsInitialized.SubMessage,
+      _reader: BinaryReader
+    ): TestIsInitialized.SubMessage {
+      return _msg;
+    },
+
+    /**
+     * @private
+     */
+    _readMessageJSON: function (
+      msg: TestIsInitialized.SubMessage,
+      _json: any
+    ): TestIsInitialized.SubMessage {
+      return msg;
     },
 
     SubGroup: {
@@ -73388,6 +74902,45 @@ export const TestPackedExtensions = {
   initialize: function (): TestPackedExtensions {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestPackedExtensions>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestPackedExtensions>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestPackedExtensions,
+    _reader: BinaryReader
+  ): TestPackedExtensions {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestPackedExtensions,
+    _json: any
+  ): TestPackedExtensions {
+    return msg;
+  },
 };
 
 export const TestUnpackedExtensions = {
@@ -73424,6 +74977,45 @@ export const TestUnpackedExtensions = {
    */
   initialize: function (): TestUnpackedExtensions {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestUnpackedExtensions>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestUnpackedExtensions>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestUnpackedExtensions,
+    _reader: BinaryReader
+  ): TestUnpackedExtensions {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestUnpackedExtensions,
+    _json: any
+  ): TestUnpackedExtensions {
+    return msg;
   },
 };
 
@@ -75099,6 +76691,39 @@ export const FooRequest = {
   initialize: function (): FooRequest {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<FooRequest>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<FooRequest>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg: FooRequest, _reader: BinaryReader): FooRequest {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: FooRequest, _json: any): FooRequest {
+    return msg;
+  },
 };
 
 export const FooResponse = {
@@ -75135,6 +76760,42 @@ export const FooResponse = {
    */
   initialize: function (): FooResponse {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<FooResponse>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<FooResponse>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: FooResponse,
+    _reader: BinaryReader
+  ): FooResponse {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: FooResponse, _json: any): FooResponse {
+    return msg;
   },
 };
 
@@ -75173,6 +76834,45 @@ export const FooClientMessage = {
   initialize: function (): FooClientMessage {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<FooClientMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<FooClientMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: FooClientMessage,
+    _reader: BinaryReader
+  ): FooClientMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: FooClientMessage,
+    _json: any
+  ): FooClientMessage {
+    return msg;
+  },
 };
 
 export const FooServerMessage = {
@@ -75209,6 +76909,45 @@ export const FooServerMessage = {
    */
   initialize: function (): FooServerMessage {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<FooServerMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<FooServerMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: FooServerMessage,
+    _reader: BinaryReader
+  ): FooServerMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: FooServerMessage,
+    _json: any
+  ): FooServerMessage {
+    return msg;
   },
 };
 
@@ -75247,6 +76986,39 @@ export const BarRequest = {
   initialize: function (): BarRequest {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<BarRequest>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<BarRequest>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg: BarRequest, _reader: BinaryReader): BarRequest {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: BarRequest, _json: any): BarRequest {
+    return msg;
+  },
 };
 
 export const BarResponse = {
@@ -75283,6 +77055,42 @@ export const BarResponse = {
    */
   initialize: function (): BarResponse {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<BarResponse>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<BarResponse>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: BarResponse,
+    _reader: BinaryReader
+  ): BarResponse {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: BarResponse, _json: any): BarResponse {
+    return msg;
   },
 };
 
@@ -85285,6 +87093,9 @@ export const Duration = {
         "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
 // Source: google/protobuf/empty.proto
 
+import type { ByteSource } from \\"twirpscript\\";
+import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
+
 //========================================//
 //                 Types                  //
 //========================================//
@@ -85340,6 +87151,37 @@ export const Empty = {
    */
   initialize: function (): Empty {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<Empty>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg: Partial<Empty>): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg: Empty, _reader: BinaryReader): Empty {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: Empty, _json: any): Empty {
+    return msg;
   },
 };
 ",
@@ -94080,6 +95922,45 @@ export const TestEmptyMessage = {
   initialize: function (): TestEmptyMessage {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestEmptyMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestEmptyMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestEmptyMessage,
+    _reader: BinaryReader
+  ): TestEmptyMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestEmptyMessage,
+    _json: any
+  ): TestEmptyMessage {
+    return msg;
+  },
 };
 
 export const TestMessageWithDummy = {
@@ -98908,6 +100789,45 @@ export const TestDeprecatedMessage = {
   initialize: function (): TestDeprecatedMessage {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestDeprecatedMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestDeprecatedMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestDeprecatedMessage,
+    _reader: BinaryReader
+  ): TestDeprecatedMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestDeprecatedMessage,
+    _json: any
+  ): TestDeprecatedMessage {
+    return msg;
+  },
 };
 
 export const ForeignMessage = {
@@ -99068,6 +100988,45 @@ export const TestReservedFields = {
   initialize: function (): TestReservedFields {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestReservedFields>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestReservedFields>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestReservedFields,
+    _reader: BinaryReader
+  ): TestReservedFields {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestReservedFields,
+    _json: any
+  ): TestReservedFields {
+    return msg;
+  },
 };
 
 export const TestAllExtensions = {
@@ -99104,6 +101063,45 @@ export const TestAllExtensions = {
    */
   initialize: function (): TestAllExtensions {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestAllExtensions>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestAllExtensions>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestAllExtensions,
+    _reader: BinaryReader
+  ): TestAllExtensions {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestAllExtensions,
+    _json: any
+  ): TestAllExtensions {
+    return msg;
   },
 };
 
@@ -99581,6 +101579,45 @@ export const TestGroupExtension = {
   initialize: function (): TestGroupExtension {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestGroupExtension>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestGroupExtension>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestGroupExtension,
+    _reader: BinaryReader
+  ): TestGroupExtension {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestGroupExtension,
+    _json: any
+  ): TestGroupExtension {
+    return msg;
+  },
 };
 
 export const TestNestedExtension = {
@@ -99617,6 +101654,45 @@ export const TestNestedExtension = {
    */
   initialize: function (): TestNestedExtension {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestNestedExtension>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestNestedExtension>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestNestedExtension,
+    _reader: BinaryReader
+  ): TestNestedExtension {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestNestedExtension,
+    _json: any
+  ): TestNestedExtension {
+    return msg;
   },
 
   OptionalGroup_extension: {
@@ -100972,6 +103048,45 @@ export const TestEmptyMessage = {
   initialize: function (): TestEmptyMessage {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestEmptyMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestEmptyMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestEmptyMessage,
+    _reader: BinaryReader
+  ): TestEmptyMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestEmptyMessage,
+    _json: any
+  ): TestEmptyMessage {
+    return msg;
+  },
 };
 
 export const TestEmptyMessageWithExtensions = {
@@ -101013,6 +103128,45 @@ export const TestEmptyMessageWithExtensions = {
   initialize: function (): TestEmptyMessageWithExtensions {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestEmptyMessageWithExtensions>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestEmptyMessageWithExtensions>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestEmptyMessageWithExtensions,
+    _reader: BinaryReader
+  ): TestEmptyMessageWithExtensions {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestEmptyMessageWithExtensions,
+    _json: any
+  ): TestEmptyMessageWithExtensions {
+    return msg;
+  },
 };
 
 export const TestPickleNestedMessage = {
@@ -101049,6 +103203,45 @@ export const TestPickleNestedMessage = {
    */
   initialize: function (): TestPickleNestedMessage {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestPickleNestedMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestPickleNestedMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestPickleNestedMessage,
+    _reader: BinaryReader
+  ): TestPickleNestedMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestPickleNestedMessage,
+    _json: any
+  ): TestPickleNestedMessage {
+    return msg;
   },
 
   NestedMessage: {
@@ -101329,6 +103522,45 @@ export const TestMultipleExtensionRanges = {
    */
   initialize: function (): TestMultipleExtensionRanges {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestMultipleExtensionRanges>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestMultipleExtensionRanges>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestMultipleExtensionRanges,
+    _reader: BinaryReader
+  ): TestMultipleExtensionRanges {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestMultipleExtensionRanges,
+    _json: any
+  ): TestMultipleExtensionRanges {
+    return msg;
   },
 };
 
@@ -102267,6 +104499,45 @@ export const TestIsInitialized = {
      */
     initialize: function (): TestIsInitialized.SubMessage {
       return {};
+    },
+
+    /**
+     * @private
+     */
+    _writeMessage: function (
+      _msg: Partial<TestIsInitialized.SubMessage>,
+      writer: BinaryWriter
+    ): BinaryWriter {
+      return writer;
+    },
+
+    /**
+     * @private
+     */
+    _writeMessageJSON: function (
+      _msg: Partial<TestIsInitialized.SubMessage>
+    ): Record<string, unknown> {
+      return {};
+    },
+
+    /**
+     * @private
+     */
+    _readMessage: function (
+      _msg: TestIsInitialized.SubMessage,
+      _reader: BinaryReader
+    ): TestIsInitialized.SubMessage {
+      return _msg;
+    },
+
+    /**
+     * @private
+     */
+    _readMessageJSON: function (
+      msg: TestIsInitialized.SubMessage,
+      _json: any
+    ): TestIsInitialized.SubMessage {
+      return msg;
     },
 
     SubGroup: {
@@ -107925,6 +110196,45 @@ export const TestPackedExtensions = {
   initialize: function (): TestPackedExtensions {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestPackedExtensions>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestPackedExtensions>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestPackedExtensions,
+    _reader: BinaryReader
+  ): TestPackedExtensions {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestPackedExtensions,
+    _json: any
+  ): TestPackedExtensions {
+    return msg;
+  },
 };
 
 export const TestUnpackedExtensions = {
@@ -107961,6 +110271,45 @@ export const TestUnpackedExtensions = {
    */
   initialize: function (): TestUnpackedExtensions {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestUnpackedExtensions>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestUnpackedExtensions>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestUnpackedExtensions,
+    _reader: BinaryReader
+  ): TestUnpackedExtensions {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestUnpackedExtensions,
+    _json: any
+  ): TestUnpackedExtensions {
+    return msg;
   },
 };
 
@@ -109636,6 +111985,39 @@ export const FooRequest = {
   initialize: function (): FooRequest {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<FooRequest>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<FooRequest>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg: FooRequest, _reader: BinaryReader): FooRequest {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: FooRequest, _json: any): FooRequest {
+    return msg;
+  },
 };
 
 export const FooResponse = {
@@ -109672,6 +112054,42 @@ export const FooResponse = {
    */
   initialize: function (): FooResponse {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<FooResponse>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<FooResponse>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: FooResponse,
+    _reader: BinaryReader
+  ): FooResponse {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: FooResponse, _json: any): FooResponse {
+    return msg;
   },
 };
 
@@ -109710,6 +112128,45 @@ export const FooClientMessage = {
   initialize: function (): FooClientMessage {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<FooClientMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<FooClientMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: FooClientMessage,
+    _reader: BinaryReader
+  ): FooClientMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: FooClientMessage,
+    _json: any
+  ): FooClientMessage {
+    return msg;
+  },
 };
 
 export const FooServerMessage = {
@@ -109746,6 +112203,45 @@ export const FooServerMessage = {
    */
   initialize: function (): FooServerMessage {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<FooServerMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<FooServerMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: FooServerMessage,
+    _reader: BinaryReader
+  ): FooServerMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: FooServerMessage,
+    _json: any
+  ): FooServerMessage {
+    return msg;
   },
 };
 
@@ -109784,6 +112280,39 @@ export const BarRequest = {
   initialize: function (): BarRequest {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<BarRequest>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<BarRequest>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg: BarRequest, _reader: BinaryReader): BarRequest {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: BarRequest, _json: any): BarRequest {
+    return msg;
+  },
 };
 
 export const BarResponse = {
@@ -109820,6 +112349,42 @@ export const BarResponse = {
    */
   initialize: function (): BarResponse {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<BarResponse>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<BarResponse>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: BarResponse,
+    _reader: BinaryReader
+  ): BarResponse {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: BarResponse, _json: any): BarResponse {
+    return msg;
   },
 };
 
@@ -119871,6 +122436,9 @@ export const Duration = {
           "// THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
 // Source: google/protobuf/empty.proto
 
+import type { ByteSource } from \\"twirpscript\\";
+import { BinaryReader, BinaryWriter } from \\"twirpscript\\";
+
 //========================================//
 //                 Types                  //
 //========================================//
@@ -119926,6 +122494,37 @@ export const Empty = {
    */
   initialize: function (): Empty {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<Empty>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg: Partial<Empty>): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg: Empty, _reader: BinaryReader): Empty {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: Empty, _json: any): Empty {
+    return msg;
   },
 };
 ",
@@ -128707,6 +131306,45 @@ export const TestEmptyMessage = {
    */
   initialize: function (): TestEmptyMessage {
     return {};
+  },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<TestEmptyMessage>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (
+    _msg: Partial<TestEmptyMessage>
+  ): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (
+    _msg: TestEmptyMessage,
+    _reader: BinaryReader
+  ): TestEmptyMessage {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (
+    msg: TestEmptyMessage,
+    _json: any
+  ): TestEmptyMessage {
+    return msg;
   },
 };
 

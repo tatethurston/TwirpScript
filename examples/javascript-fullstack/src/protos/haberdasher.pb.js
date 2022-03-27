@@ -60,35 +60,35 @@ export function createHaberdasher(service) {
 
 export const Size = {
   /**
-   * Serializes a Size to protobuf.
+   * Serializes Size to protobuf.
    */
   encode: function (msg) {
     return Size._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
-   * Deserializes a Size from protobuf.
+   * Deserializes Size from protobuf.
    */
   decode: function (bytes) {
     return Size._readMessage(Size.initialize(), new BinaryReader(bytes));
   },
 
   /**
-   * Serializes a Size to JSON.
+   * Serializes Size to JSON.
    */
   encodeJSON: function (msg) {
     return JSON.stringify(Size._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a Size from JSON.
+   * Deserializes Size from JSON.
    */
   decodeJSON: function (json) {
     return Size._readMessageJSON(Size.initialize(), JSON.parse(json));
   },
 
   /**
-   * Initializes a Size with all fields set to their default value.
+   * Initializes Size with all fields set to their default value.
    */
   initialize: function () {
     return {
@@ -151,35 +151,35 @@ export const Size = {
 
 export const Hat = {
   /**
-   * Serializes a Hat to protobuf.
+   * Serializes Hat to protobuf.
    */
   encode: function (msg) {
     return Hat._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
-   * Deserializes a Hat from protobuf.
+   * Deserializes Hat from protobuf.
    */
   decode: function (bytes) {
     return Hat._readMessage(Hat.initialize(), new BinaryReader(bytes));
   },
 
   /**
-   * Serializes a Hat to JSON.
+   * Serializes Hat to JSON.
    */
   encodeJSON: function (msg) {
     return JSON.stringify(Hat._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a Hat from JSON.
+   * Deserializes Hat from JSON.
    */
   decodeJSON: function (json) {
     return Hat._readMessageJSON(Hat.initialize(), JSON.parse(json));
   },
 
   /**
-   * Initializes a Hat with all fields set to their default value.
+   * Initializes Hat with all fields set to their default value.
    */
   initialize: function () {
     return {

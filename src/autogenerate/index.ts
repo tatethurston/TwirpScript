@@ -87,7 +87,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
           // encode (protobuf)
           result += `\
           /**
-           * Serializes a ${node.content.fullyQualifiedName} to protobuf.
+           * Serializes ${node.content.fullyQualifiedName} to protobuf.
            */
             `;
           if (isEmpty) {
@@ -108,7 +108,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
           // decode (protobuf)
           result += `\
           /**
-           * Deserializes a ${node.content.fullyQualifiedName} from protobuf.
+           * Deserializes ${node.content.fullyQualifiedName} from protobuf.
            */
           `;
           if (isEmpty) {
@@ -129,7 +129,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
           // encode (json)
           result += `\
           /**
-           * Serializes a ${node.content.fullyQualifiedName} to JSON.
+           * Serializes ${node.content.fullyQualifiedName} to JSON.
            */
           `;
           if (isEmpty) {
@@ -150,7 +150,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
           // decode (json)
           result += `\
       /**
-       * Deserializes a ${node.content.fullyQualifiedName} from JSON.
+       * Deserializes ${node.content.fullyQualifiedName} from JSON.
        */
       `;
           if (isEmpty) {
@@ -171,7 +171,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
           // initialize
           result += `\
           /**
-           * Initializes a ${
+           * Initializes ${
              node.content.fullyQualifiedName
            } with all fields set to their default value.
            */

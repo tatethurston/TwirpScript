@@ -97,35 +97,35 @@ export const Baz = {
 
 export const Foo = {
   /**
-   * Serializes a Foo to protobuf.
+   * Serializes Foo to protobuf.
    */
   encode: function (msg: Partial<Foo>): Uint8Array {
     return Foo._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
-   * Deserializes a Foo from protobuf.
+   * Deserializes Foo from protobuf.
    */
   decode: function (bytes: ByteSource): Foo {
     return Foo._readMessage(Foo.initialize(), new BinaryReader(bytes));
   },
 
   /**
-   * Serializes a Foo to JSON.
+   * Serializes Foo to JSON.
    */
   encodeJSON: function (msg: Partial<Foo>): string {
     return JSON.stringify(Foo._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a Foo from JSON.
+   * Deserializes Foo from JSON.
    */
   decodeJSON: function (json: string): Foo {
     return Foo._readMessageJSON(Foo.initialize(), JSON.parse(json));
   },
 
   /**
-   * Initializes a Foo with all fields set to their default value.
+   * Initializes Foo with all fields set to their default value.
    */
   initialize: function (): Foo {
     return {
@@ -360,7 +360,7 @@ export const Foo = {
 
   FooBar: {
     /**
-     * Serializes a Foo.FooBar to protobuf.
+     * Serializes Foo.FooBar to protobuf.
      */
     encode: function (msg: Partial<Foo.FooBar>): Uint8Array {
       return Foo.FooBar._writeMessage(
@@ -370,7 +370,7 @@ export const Foo = {
     },
 
     /**
-     * Deserializes a Foo.FooBar from protobuf.
+     * Deserializes Foo.FooBar from protobuf.
      */
     decode: function (bytes: ByteSource): Foo.FooBar {
       return Foo.FooBar._readMessage(
@@ -380,14 +380,14 @@ export const Foo = {
     },
 
     /**
-     * Serializes a Foo.FooBar to JSON.
+     * Serializes Foo.FooBar to JSON.
      */
     encodeJSON: function (msg: Partial<Foo.FooBar>): string {
       return JSON.stringify(Foo.FooBar._writeMessageJSON(msg));
     },
 
     /**
-     * Deserializes a Foo.FooBar from JSON.
+     * Deserializes Foo.FooBar from JSON.
      */
     decodeJSON: function (json: string): Foo.FooBar {
       return Foo.FooBar._readMessageJSON(
@@ -397,7 +397,7 @@ export const Foo = {
     },
 
     /**
-     * Initializes a Foo.FooBar with all fields set to their default value.
+     * Initializes Foo.FooBar with all fields set to their default value.
      */
     initialize: function (): Foo.FooBar {
       return {
@@ -681,35 +681,35 @@ export const Foo = {
 
 export const Bar = {
   /**
-   * Serializes a Bar to protobuf.
+   * Serializes Bar to protobuf.
    */
   encode: function (msg: Partial<Bar>): Uint8Array {
     return Bar._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
-   * Deserializes a Bar from protobuf.
+   * Deserializes Bar from protobuf.
    */
   decode: function (bytes: ByteSource): Bar {
     return Bar._readMessage(Bar.initialize(), new BinaryReader(bytes));
   },
 
   /**
-   * Serializes a Bar to JSON.
+   * Serializes Bar to JSON.
    */
   encodeJSON: function (msg: Partial<Bar>): string {
     return JSON.stringify(Bar._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a Bar from JSON.
+   * Deserializes Bar from JSON.
    */
   decodeJSON: function (json: string): Bar {
     return Bar._readMessageJSON(Bar.initialize(), JSON.parse(json));
   },
 
   /**
-   * Initializes a Bar with all fields set to their default value.
+   * Initializes Bar with all fields set to their default value.
    */
   initialize: function (): Bar {
     return {

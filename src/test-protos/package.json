@@ -1,6 +1,12 @@
 {
   "name": "test-protos",
+  "scripts": {
+    "clean": "find . -name '*.pb.ts' | xargs rm"
+  },
   "dependencies": {
     "twirpscript": "*"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3"
   }
 }

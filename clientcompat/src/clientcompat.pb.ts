@@ -397,7 +397,7 @@ export const ClientCompatMessage = {
   initialize: function (): ClientCompatMessage {
     return {
       serviceAddress: "",
-      method: ClientCompatMessage.CompatServiceMethodFromInt(0),
+      method: ClientCompatMessage.CompatServiceMethod._fromInt(0),
       request: new Uint8Array(),
     };
   },
@@ -414,11 +414,11 @@ export const ClientCompatMessage = {
     }
     if (
       msg.method &&
-      ClientCompatMessage.CompatServiceMethodToInt(msg.method)
+      ClientCompatMessage.CompatServiceMethod._toInt(msg.method)
     ) {
       writer.writeEnum(
         2,
-        ClientCompatMessage.CompatServiceMethodToInt(msg.method)
+        ClientCompatMessage.CompatServiceMethod._toInt(msg.method)
       );
     }
     if (msg.request?.length) {
@@ -439,7 +439,7 @@ export const ClientCompatMessage = {
     }
     if (
       msg.method &&
-      ClientCompatMessage.CompatServiceMethodToInt(msg.method)
+      ClientCompatMessage.CompatServiceMethod._toInt(msg.method)
     ) {
       json.method = msg.method;
     }
@@ -464,7 +464,7 @@ export const ClientCompatMessage = {
           break;
         }
         case 2: {
-          msg.method = ClientCompatMessage.CompatServiceMethodFromInt(
+          msg.method = ClientCompatMessage.CompatServiceMethod._fromInt(
             reader.readEnum()
           );
           break;
@@ -504,39 +504,42 @@ export const ClientCompatMessage = {
     return msg;
   },
 
-  CompatServiceMethod: { NOOP: "NOOP", METHOD: "METHOD" } as const,
-
-  CompatServiceMethodFromInt: function (
-    i: number
-  ): ClientCompatMessage.CompatServiceMethod {
-    switch (i) {
-      case 0: {
-        return "NOOP";
+  CompatServiceMethod: {
+    NOOP: "NOOP",
+    METHOD: "METHOD",
+    /**
+     * @private
+     */
+    _fromInt: function (i: number): ClientCompatMessage.CompatServiceMethod {
+      switch (i) {
+        case 0: {
+          return "NOOP";
+        }
+        case 1: {
+          return "METHOD";
+        }
+        // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
+        default: {
+          return i as unknown as ClientCompatMessage.CompatServiceMethod;
+        }
       }
-      case 1: {
-        return "METHOD";
+    },
+    /**
+     * @private
+     */
+    _toInt: function (i: ClientCompatMessage.CompatServiceMethod): number {
+      switch (i) {
+        case "NOOP": {
+          return 0;
+        }
+        case "METHOD": {
+          return 1;
+        }
+        // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
+        default: {
+          return i as unknown as number;
+        }
       }
-      // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
-      default: {
-        return i as unknown as ClientCompatMessage.CompatServiceMethod;
-      }
-    }
-  },
-
-  CompatServiceMethodToInt: function (
-    i: ClientCompatMessage.CompatServiceMethod
-  ): number {
-    switch (i) {
-      case "NOOP": {
-        return 0;
-      }
-      case "METHOD": {
-        return 1;
-      }
-      // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
-      default: {
-        return i as unknown as number;
-      }
-    }
-  },
+    },
+  } as const,
 };

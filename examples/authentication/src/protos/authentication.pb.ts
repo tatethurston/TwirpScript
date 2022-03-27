@@ -101,14 +101,14 @@ export interface Credentials {
 
 export const CurrentUser = {
   /**
-   * Serializes a CurrentUser to protobuf.
+   * Serializes CurrentUser to protobuf.
    */
   encode: function (msg: Partial<CurrentUser>): Uint8Array {
     return CurrentUser._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
-   * Deserializes a CurrentUser from protobuf.
+   * Deserializes CurrentUser from protobuf.
    */
   decode: function (bytes: ByteSource): CurrentUser {
     return CurrentUser._readMessage(
@@ -118,14 +118,14 @@ export const CurrentUser = {
   },
 
   /**
-   * Serializes a CurrentUser to JSON.
+   * Serializes CurrentUser to JSON.
    */
   encodeJSON: function (msg: Partial<CurrentUser>): string {
     return JSON.stringify(CurrentUser._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a CurrentUser from JSON.
+   * Deserializes CurrentUser from JSON.
    */
   decodeJSON: function (json: string): CurrentUser {
     return CurrentUser._readMessageJSON(
@@ -135,7 +135,7 @@ export const CurrentUser = {
   },
 
   /**
-   * Initializes a CurrentUser with all fields set to their default value.
+   * Initializes CurrentUser with all fields set to their default value.
    */
   initialize: function (): CurrentUser {
     return {
@@ -218,14 +218,14 @@ export const CurrentUser = {
 
 export const Credentials = {
   /**
-   * Serializes a Credentials to protobuf.
+   * Serializes Credentials to protobuf.
    */
   encode: function (msg: Partial<Credentials>): Uint8Array {
     return Credentials._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
-   * Deserializes a Credentials from protobuf.
+   * Deserializes Credentials from protobuf.
    */
   decode: function (bytes: ByteSource): Credentials {
     return Credentials._readMessage(
@@ -235,14 +235,14 @@ export const Credentials = {
   },
 
   /**
-   * Serializes a Credentials to JSON.
+   * Serializes Credentials to JSON.
    */
   encodeJSON: function (msg: Partial<Credentials>): string {
     return JSON.stringify(Credentials._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a Credentials from JSON.
+   * Deserializes Credentials from JSON.
    */
   decodeJSON: function (json: string): Credentials {
     return Credentials._readMessageJSON(
@@ -252,7 +252,7 @@ export const Credentials = {
   },
 
   /**
-   * Initializes a Credentials with all fields set to their default value.
+   * Initializes Credentials with all fields set to their default value.
    */
   initialize: function (): Credentials {
     return {

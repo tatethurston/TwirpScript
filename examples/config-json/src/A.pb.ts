@@ -19,35 +19,35 @@ export interface Foo {
 
 export const Foo = {
   /**
-   * Serializes a Foo to protobuf.
+   * Serializes Foo to protobuf.
    */
   encode: function (msg: Partial<Foo>): Uint8Array {
     return Foo._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
-   * Deserializes a Foo from protobuf.
+   * Deserializes Foo from protobuf.
    */
   decode: function (bytes: ByteSource): Foo {
     return Foo._readMessage(Foo.initialize(), new BinaryReader(bytes));
   },
 
   /**
-   * Serializes a Foo to JSON.
+   * Serializes Foo to JSON.
    */
   encodeJSON: function (msg: Partial<Foo>): string {
     return JSON.stringify(Foo._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a Foo from JSON.
+   * Deserializes Foo from JSON.
    */
   decodeJSON: function (json: string): Foo {
     return Foo._readMessageJSON(Foo.initialize(), JSON.parse(json));
   },
 
   /**
-   * Initializes a Foo with all fields set to their default value.
+   * Initializes Foo with all fields set to their default value.
    */
   initialize: function (): Foo {
     return {

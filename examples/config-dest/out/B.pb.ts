@@ -20,35 +20,35 @@ export interface Bar {
 
 export const Bar = {
   /**
-   * Serializes a Bar to protobuf.
+   * Serializes Bar to protobuf.
    */
   encode: function (msg: Partial<Bar>): Uint8Array {
     return Bar._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
-   * Deserializes a Bar from protobuf.
+   * Deserializes Bar from protobuf.
    */
   decode: function (bytes: ByteSource): Bar {
     return Bar._readMessage(Bar.initialize(), new BinaryReader(bytes));
   },
 
   /**
-   * Serializes a Bar to JSON.
+   * Serializes Bar to JSON.
    */
   encodeJSON: function (msg: Partial<Bar>): string {
     return JSON.stringify(Bar._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a Bar from JSON.
+   * Deserializes Bar from JSON.
    */
   decodeJSON: function (json: string): Bar {
     return Bar._readMessageJSON(Bar.initialize(), JSON.parse(json));
   },
 
   /**
-   * Initializes a Bar with all fields set to their default value.
+   * Initializes Bar with all fields set to their default value.
    */
   initialize: function (): Bar {
     return {

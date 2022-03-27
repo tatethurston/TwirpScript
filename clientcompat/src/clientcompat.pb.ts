@@ -130,35 +130,35 @@ declare namespace ClientCompatMessage {
 
 export const Empty = {
   /**
-   * Serializes a Empty to protobuf.
+   * Serializes Empty to protobuf.
    */
   encode: function (_msg?: Partial<Empty>): Uint8Array {
     return new Uint8Array();
   },
 
   /**
-   * Deserializes a Empty from protobuf.
+   * Deserializes Empty from protobuf.
    */
   decode: function (_bytes?: ByteSource): Empty {
     return {};
   },
 
   /**
-   * Serializes a Empty to JSON.
+   * Serializes Empty to JSON.
    */
   encodeJSON: function (_msg?: Partial<Empty>): string {
     return "{}";
   },
 
   /**
-   * Deserializes a Empty from JSON.
+   * Deserializes Empty from JSON.
    */
   decodeJSON: function (_json?: string): Empty {
     return {};
   },
 
   /**
-   * Initializes a Empty with all fields set to their default value.
+   * Initializes Empty with all fields set to their default value.
    */
   initialize: function (): Empty {
     return {};
@@ -198,35 +198,35 @@ export const Empty = {
 
 export const Req = {
   /**
-   * Serializes a Req to protobuf.
+   * Serializes Req to protobuf.
    */
   encode: function (msg: Partial<Req>): Uint8Array {
     return Req._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
-   * Deserializes a Req from protobuf.
+   * Deserializes Req from protobuf.
    */
   decode: function (bytes: ByteSource): Req {
     return Req._readMessage(Req.initialize(), new BinaryReader(bytes));
   },
 
   /**
-   * Serializes a Req to JSON.
+   * Serializes Req to JSON.
    */
   encodeJSON: function (msg: Partial<Req>): string {
     return JSON.stringify(Req._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a Req from JSON.
+   * Deserializes Req from JSON.
    */
   decodeJSON: function (json: string): Req {
     return Req._readMessageJSON(Req.initialize(), JSON.parse(json));
   },
 
   /**
-   * Initializes a Req with all fields set to their default value.
+   * Initializes Req with all fields set to their default value.
    */
   initialize: function (): Req {
     return {
@@ -292,35 +292,35 @@ export const Req = {
 
 export const Resp = {
   /**
-   * Serializes a Resp to protobuf.
+   * Serializes Resp to protobuf.
    */
   encode: function (msg: Partial<Resp>): Uint8Array {
     return Resp._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
   /**
-   * Deserializes a Resp from protobuf.
+   * Deserializes Resp from protobuf.
    */
   decode: function (bytes: ByteSource): Resp {
     return Resp._readMessage(Resp.initialize(), new BinaryReader(bytes));
   },
 
   /**
-   * Serializes a Resp to JSON.
+   * Serializes Resp to JSON.
    */
   encodeJSON: function (msg: Partial<Resp>): string {
     return JSON.stringify(Resp._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a Resp from JSON.
+   * Deserializes Resp from JSON.
    */
   decodeJSON: function (json: string): Resp {
     return Resp._readMessageJSON(Resp.initialize(), JSON.parse(json));
   },
 
   /**
-   * Initializes a Resp with all fields set to their default value.
+   * Initializes Resp with all fields set to their default value.
    */
   initialize: function (): Resp {
     return {
@@ -386,7 +386,7 @@ export const Resp = {
 
 export const ClientCompatMessage = {
   /**
-   * Serializes a ClientCompatMessage to protobuf.
+   * Serializes ClientCompatMessage to protobuf.
    */
   encode: function (msg: Partial<ClientCompatMessage>): Uint8Array {
     return ClientCompatMessage._writeMessage(
@@ -396,7 +396,7 @@ export const ClientCompatMessage = {
   },
 
   /**
-   * Deserializes a ClientCompatMessage from protobuf.
+   * Deserializes ClientCompatMessage from protobuf.
    */
   decode: function (bytes: ByteSource): ClientCompatMessage {
     return ClientCompatMessage._readMessage(
@@ -406,14 +406,14 @@ export const ClientCompatMessage = {
   },
 
   /**
-   * Serializes a ClientCompatMessage to JSON.
+   * Serializes ClientCompatMessage to JSON.
    */
   encodeJSON: function (msg: Partial<ClientCompatMessage>): string {
     return JSON.stringify(ClientCompatMessage._writeMessageJSON(msg));
   },
 
   /**
-   * Deserializes a ClientCompatMessage from JSON.
+   * Deserializes ClientCompatMessage from JSON.
    */
   decodeJSON: function (json: string): ClientCompatMessage {
     return ClientCompatMessage._readMessageJSON(
@@ -423,7 +423,7 @@ export const ClientCompatMessage = {
   },
 
   /**
-   * Initializes a ClientCompatMessage with all fields set to their default value.
+   * Initializes ClientCompatMessage with all fields set to their default value.
    */
   initialize: function (): ClientCompatMessage {
     return {

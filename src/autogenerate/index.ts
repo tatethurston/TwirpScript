@@ -217,7 +217,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
               } else if (field.optional) {
                 res += `if (msg.${field.name} != undefined) {`;
               } else if (field.read === "readEnum") {
-                res += `if (msg.${field.name} && ${field.tsType}ToInt(msg.${field.name})) {`;
+                res += `if (msg.${field.name} && ${field.tsType}._toInt(msg.${field.name})) {`;
               } else {
                 res += `if (msg.${field.name}) {`;
               }
@@ -243,9 +243,9 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                   }
                 } else if (field.read === "readEnum") {
                   if (field.repeated) {
-                    res += `msg.${field.name}.map(${field.tsType}ToInt)`;
+                    res += `msg.${field.name}.map(${field.tsType}._toInt)`;
                   } else {
-                    res += `${field.tsType}ToInt(msg.${field.name})`;
+                    res += `${field.tsType}._toInt(msg.${field.name})`;
                   }
                 } else {
                   res += `msg.${field.name}`;
@@ -293,7 +293,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                 } else if (field.optional) {
                   res += `if (msg.${field.name} != undefined) {`;
                 } else if (field.read === "readEnum") {
-                  res += `if (msg.${field.name} && ${field.tsType}ToInt(msg.${field.name})) {`;
+                  res += `if (msg.${field.name} && ${field.tsType}._toInt(msg.${field.name})) {`;
                 } else {
                   res += `if (msg.${field.name}) {`;
                 }
@@ -396,9 +396,9 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                     }
                   } else if (field.read === "readEnum") {
                     if (field.repeated) {
-                      res += `msg.${field.name}.push(${field.tsType}FromInt(reader.${field.read}()));`;
+                      res += `msg.${field.name}.push(${field.tsType}._fromInt(reader.${field.read}()));`;
                     } else {
-                      res += `msg.${field.name} = ${field.tsType}FromInt(reader.${field.read}());`;
+                      res += `msg.${field.name} = ${field.tsType}._fromInt(reader.${field.read}());`;
                     }
                   } else if (field.tsType === "bigint") {
                     if (field.repeated) {
@@ -515,14 +515,12 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
           }
           result += `${name}: '${name}',\n`;
         });
-        result += `} ${printIfTypescript("as const")}${
-          isTopLevel ? ";" : ","
-        }\n\n`;
-
         // to enum
-        result += isTopLevel
-          ? `const ${node.content.name}FromInt = `
-          : `${node.content.name}FromInt: `;
+        result += `\
+        /**
+         * @private
+         */
+        _fromInt: `;
         result += `function(i${printIfTypescript(
           ": number"
         )})${printIfTypescript(`: ${node.content.fullyQualifiedName}`)} {
@@ -535,16 +533,14 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
         result += `// unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
         default: { return i${printIfTypescript(
           ` as unknown as ${node.content.fullyQualifiedName}`
-        )}; }\n }\n }`;
-        if (!isTopLevel) {
-          result += ",";
-        }
-        result += "\n\n";
+        )}; }\n }\n },\n`;
 
         // from enum
-        result += isTopLevel
-          ? `const ${node.content.name}ToInt = `
-          : `${node.content.name}ToInt: `;
+        result += `\
+        /**
+         * @private
+         */
+        _toInt: `;
         result += `function(i${printIfTypescript(
           `: ${node.content.fullyQualifiedName}`
         )})${printIfTypescript(`: number`)} {
@@ -557,11 +553,11 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
         result += `// unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
         default: { return i${printIfTypescript(
           ` as unknown as number`
-        )}; }\n }\n }`;
-        if (!isTopLevel) {
-          result += ",";
-        }
-        result += "\n\n";
+        )}; }\n }\n },\n`;
+
+        result += `} ${printIfTypescript("as const")}${
+          isTopLevel ? ";" : ","
+        }\n\n`;
 
         break;
       }

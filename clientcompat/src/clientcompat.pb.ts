@@ -163,6 +163,37 @@ export const Empty = {
   initialize: function (): Empty {
     return {};
   },
+
+  /**
+   * @private
+   */
+  _writeMessage: function (
+    _msg: Partial<Empty>,
+    writer: BinaryWriter
+  ): BinaryWriter {
+    return writer;
+  },
+
+  /**
+   * @private
+   */
+  _writeMessageJSON: function (_msg: Partial<Empty>): Record<string, unknown> {
+    return {};
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (_msg: Empty, _reader: BinaryReader): Empty {
+    return _msg;
+  },
+
+  /**
+   * @private
+   */
+  _readMessageJSON: function (msg: Empty, _json: any): Empty {
+    return msg;
+  },
 };
 
 export const Req = {

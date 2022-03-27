@@ -9,8 +9,12 @@ import {
 import { RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION } from "../runtime";
 import { UserConfig } from "../cli";
 
-let hasMaps = false;
-let hasBytes = false;
+const DEFAULT_IMPORT_TRACKER = {
+  hasMaps: false,
+  hasBytes: false,
+};
+
+let IMPORT_TRACKER: typeof DEFAULT_IMPORT_TRACKER;
 
 function writeTypes(types: ProtoTypes[], isTopLevel: boolean): string {
   let result = "";
@@ -25,7 +29,7 @@ function writeTypes(types: ProtoTypes[], isTopLevel: boolean): string {
         .map((x) => `| '${x.name}'`)
         .join("\n")}\n\n`;
     } else if (node.content.isMap) {
-      hasMaps = true;
+      IMPORT_TRACKER.hasMaps = true;
       result += `export type ${name} = Record<
               ${node.content.fields[0].tsType},
               ${node.content.fields[1].tsType} | undefined>;\n\n`;
@@ -319,7 +323,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                   res += `${setField} = msg.${field.name}.toString();`;
                 }
               } else if (field.read === "readBytes") {
-                hasBytes = true;
+                IMPORT_TRACKER.hasBytes = true;
                 if (field.repeated) {
                   res += `${setField} = msg.${field.name}.map(encodeBase64Bytes);`;
                 } else {
@@ -483,7 +487,6 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                   res += `msg.${field.name} = BigInt(${name});`;
                 }
               } else if (field.read === "readBytes") {
-                hasBytes = true;
                 if (field.repeated) {
                   res += `msg.${field.name} = ${name}.map(decodeBase64Bytes);`;
                 } else {
@@ -744,6 +747,8 @@ export function generate(
     typescript: options.typescript as any,
   };
 
+  IMPORT_TRACKER = { ...DEFAULT_IMPORT_TRACKER };
+
   const { imports, services, types, packageName } = processTypes(
     fileDescriptorProto,
     identifierTable,
@@ -774,18 +779,19 @@ export function generate(
 
 
 ${printIf(
-  config.isTS && (hasServices || hasMaps || !!serializers),
+  config.isTS &&
+    (hasServices || IMPORT_TRACKER.hasMaps || hasNonEmptySerializer),
   `import type {
-    ${printIf(!!serializers, "ByteSource,\n")}
-    ${printIf(hasMaps, "MapMessage,\n")}
+    ${printIf(hasNonEmptySerializer, "ByteSource,\n")}
+    ${printIf(IMPORT_TRACKER.hasMaps, "MapMessage,\n")}
     ${printIf(hasServices, "ClientConfiguration")}} from 'twirpscript';`
 )}
 ${printIf(
   hasServices || hasNonEmptySerializer,
   `import {
   ${printIf(hasNonEmptySerializer, "BinaryReader,\nBinaryWriter,\n")}
-  ${printIf(hasBytes, "encodeBase64Bytes,\n")}
-  ${printIf(hasBytes, "decodeBase64Bytes,\n")}
+  ${printIf(IMPORT_TRACKER.hasBytes, "encodeBase64Bytes,\n")}
+  ${printIf(IMPORT_TRACKER.hasBytes, "decodeBase64Bytes,\n")}
   ${printIf(hasServices, "JSONrequest,\nPBrequest")}} from 'twirpscript';`
 )}
   ${printIf(

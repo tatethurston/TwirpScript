@@ -10,7 +10,6 @@ import { RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION } from "../runtime";
 import { UserConfig } from "../cli";
 
 const DEFAULT_IMPORT_TRACKER = {
-  hasMaps: false,
   hasBytes: false,
 };
 
@@ -28,25 +27,29 @@ function writeTypes(types: ProtoTypes[], isTopLevel: boolean): string {
       result += `export type ${name} = ${node.content.values
         .map((x) => `| '${x.name}'`)
         .join("\n")}\n\n`;
-    } else if (node.content.isMap) {
-      IMPORT_TRACKER.hasMaps = true;
-      result += `export type ${name} = Record<
-              ${node.content.fields[0].tsType},
-              ${node.content.fields[1].tsType} | undefined>;\n\n`;
     } else {
-      result += `export interface ${name} {\n`;
+      result += `${printIf(
+        !node.content.isMap,
+        "export "
+      )}interface ${name} {\n`;
       node.content.fields.forEach(
-        ({ name: fieldName, tsType, repeated, optional, comments }) => {
+        ({ name: fieldName, tsType, repeated, optional, comments, map }) => {
           if (comments?.leading) {
             result += printComments(comments?.leading);
           }
 
-          result += `${fieldName}${printIf(optional, "?")}: ${tsType}`;
-          if (optional) {
-            result += "| null | undefined";
-          } else if (repeated) {
-            result += "[]";
+          result += `${fieldName}${printIf(optional, "?")}:`;
+          if (map) {
+            result += `Record<string, ${tsType}['value'] | undefined>`;
+          } else {
+            result += tsType;
+            if (optional) {
+              result += "| null | undefined";
+            } else if (repeated) {
+              result += "[]";
+            }
           }
+
           result += ";\n";
         }
       );
@@ -64,9 +67,9 @@ function writeTypes(types: ProtoTypes[], isTopLevel: boolean): string {
 }
 
 const toMapMessage = (name: string) =>
-  `Object.entries${printIfTypescript(
-    "<any>"
-  )}(${name}).map(([key, value]) => ({ key: key, value: value }))`;
+  `Object.entries(${name}).map(([key, value]) => ({ key: key ${printIfTypescript(
+    "as any"
+  )}, value: value ${printIfTypescript("as any")} }))`;
 
 const fromMapMessage = (x: string) =>
   `Object.fromEntries(${x}.map(({ key, value }) => [key, value]))`;
@@ -194,17 +197,13 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
           result += "},\n\n";
         }
 
-        // decode (protobuf, internal)
+        // encode (protobuf, internal)
         result += `\
         /**
          * @private
          */
         _writeMessage: function(${printIf(isEmpty, "_")}msg${printIfTypescript(
-          `: ${
-            node.content.isMap
-              ? `MapMessage<${node.content.fullyQualifiedName}>`
-              : `Partial<${node.content.fullyQualifiedName}>`
-          }`
+          `: ${`Partial<${node.content.fullyQualifiedName}>`}`
         )}, writer${printIfTypescript(`: BinaryWriter`)})${printIfTypescript(
           `: BinaryWriter`
         )} {
@@ -236,9 +235,13 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                 res += `writer.${field.write}(${field.index}, `;
                 if (field.tsType === "bigint") {
                   if (field.repeated) {
-                    res += `msg.${field.name}.map(x => x.toString())`;
+                    res += `msg.${
+                      field.name
+                    }.map(x => x.toString() ${printIfTypescript("as any")})`;
                   } else {
-                    res += `msg.${field.name}.toString()`;
+                    res += `msg.${field.name}.toString() ${printIfTypescript(
+                      "as any"
+                    )}`;
                   }
                 } else if (field.read === "readEnum") {
                   if (field.repeated) {
@@ -267,21 +270,13 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
         `;
         if (isEmpty) {
           result += `_writeMessageJSON: function(_msg${printIfTypescript(
-            `: ${
-              node.content.isMap
-                ? `MapMessage<${node.content.fullyQualifiedName}>`
-                : `Partial<${node.content.fullyQualifiedName}>`
-            }`
+            `: ${`Partial<${node.content.fullyQualifiedName}>`}`
           )})${printIfTypescript(`: Record<string, unknown>`)} {
           return {};
         `;
         } else {
           result += `_writeMessageJSON: function(msg${printIfTypescript(
-            `: ${
-              node.content.isMap
-                ? `MapMessage<${node.content.fullyQualifiedName}>`
-                : `Partial<${node.content.fullyQualifiedName}>`
-            }`
+            `: ${`Partial<${node.content.fullyQualifiedName}>`}`
           )})${printIfTypescript(`: Record<string, unknown>`)} {
           const json${printIfTypescript(": Record<string, unknown>")} = {};
           ${node.content.fields
@@ -363,32 +358,16 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
         `;
         if (isEmpty) {
           result += `_readMessage: function(_msg${printIfTypescript(
-            `: ${
-              node.content.isMap
-                ? `MapMessage<${node.content.fullyQualifiedName}>`
-                : `${node.content.fullyQualifiedName}`
-            }`
+            `: ${`${node.content.fullyQualifiedName}`}`
           )}, _reader${printIfTypescript(`: BinaryReader`)})${printIfTypescript(
-            `: ${
-              node.content.isMap
-                ? `MapMessage<${node.content.fullyQualifiedName}>`
-                : `${node.content.fullyQualifiedName}`
-            }`
+            `: ${`${node.content.fullyQualifiedName}`}`
           )}{
             return _msg;`;
         } else {
           result += `_readMessage: function(msg${printIfTypescript(
-            `: ${
-              node.content.isMap
-                ? `MapMessage<${node.content.fullyQualifiedName}>`
-                : `${node.content.fullyQualifiedName}`
-            }`
+            `: ${`${node.content.fullyQualifiedName}`}`
           )}, reader${printIfTypescript(`: BinaryReader`)})${printIfTypescript(
-            `: ${
-              node.content.isMap
-                ? `MapMessage<${node.content.fullyQualifiedName}>`
-                : `${node.content.fullyQualifiedName}`
-            }`
+            `: ${`${node.content.fullyQualifiedName}`}`
           )}{
             while (reader.nextField()) {
               const field = reader.getFieldNumber();
@@ -400,15 +379,14 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                     if (field.read === "readMessage") {
                       if (field.map) {
                         res += `
-                        const ${field.name} = {}${printIfTypescript(
-                          ` as MapMessage<${field.tsType}>`
+                        const map = {}${printIfTypescript(
+                          ` as ${field.tsType}`
                         )};
-                        reader.readMessage(${field.name}, ${
-                          field.tsType
-                        }._readMessage);
-                        msg.${field.name}[${field.name}.key] = ${
-                          field.name
-                        }.value;
+                        reader.readMessage(map, ${field.tsType}._readMessage);
+                        msg.${field.name}[map.key${printIf(
+                          field.tsType !== "string",
+                          ".toString()"
+                        )}] = map.value;
                       `;
                       } else if (field.repeated) {
                         res += `const m = ${field.tsType}.initialize();`;
@@ -462,20 +440,10 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
          * @private
          */
         _readMessageJSON: function(msg${printIfTypescript(
-          `: ${
-            node.content.isMap
-              ? `MapMessage<${node.content.fullyQualifiedName}>`
-              : `${node.content.fullyQualifiedName}`
-          }`
+          `: ${`${node.content.fullyQualifiedName}`}`
         )}, ${printIf(isEmpty, "_")}json${printIfTypescript(
           `: any`
-        )})${printIfTypescript(
-          `: ${
-            node.content.isMap
-              ? `MapMessage<${node.content.fullyQualifiedName}>`
-              : `${node.content.fullyQualifiedName}`
-          }`
-        )}{
+        )})${printIfTypescript(`: ${`${node.content.fullyQualifiedName}`}`)}{
           ${node.content.fields
             .map((field) => {
               let res = "";
@@ -806,10 +774,9 @@ export function generate(
 
 
 ${printIf(
-  config.isTS && (hasServices || IMPORT_TRACKER.hasMaps || hasSerializer),
+  config.isTS && (hasServices || hasSerializer),
   `import type {
     ${printIf(hasSerializer, "ByteSource,\n")}
-    ${printIf(IMPORT_TRACKER.hasMaps, "MapMessage,\n")}
     ${printIf(hasServices, "ClientConfiguration")}} from 'twirpscript';`
 )}
 ${printIf(

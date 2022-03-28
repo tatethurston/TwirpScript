@@ -11,7 +11,6 @@ export {
   RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION,
   MIN_SUPPORTED_VERSION_0_0_49,
 } from "./compatCheck";
-export type { MapMessage } from "./protobuf";
 export {
   BinaryReader,
   BinaryWriter,

@@ -1,10 +1,5 @@
 export { BinaryReader, BinaryWriter } from "google-protobuf";
 
-export type MapMessage<Message extends Record<any, any>> = {
-  key: keyof Message;
-  value: Message[keyof Message];
-};
-
 export function encodeBase64Bytes(bytes: Uint8Array): string {
   return btoa(
     bytes.reduce((acc, current) => acc + String.fromCharCode(current), "")

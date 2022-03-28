@@ -2,7 +2,7 @@
 
 ## v0.0.51
 
-- Map keys are now typed as strings: `Record<string, $SomeType>`. Previously other types were accepted, which would cause type checking to fail when the key was `boolean`, `bigint`, or `number`. This is also more correct because JavaScript always encodes object keys as strings. See [#151](https://github.com/tatethurston/TwirpScript/issues/151) for more background.
+- When using protobuf `map` fields, map keys are now typed as strings: `Record<string, $SomeType>`. Previously other types were accepted, which would cause type checking to fail when the key was `boolean`, `bigint`, or `number`. This is also more correct because JavaScript always encodes object keys as strings. Generated type definitions for `map` types are no longer exported. See [#151](https://github.com/tatethurston/TwirpScript/issues/151) for more background.
 - Empty messages now generate the full serialization interface implemented by other messages. This resolves an issue where messages with fields whose value was an empty message would fail code generation.
 - Enum serializers now have two private serialization helpers. This resolves an issue where Enums imported into other protobuf files failed code generation. See [#150](https://github.com/tatethurston/TwirpScript/issues/150) for more background.
 

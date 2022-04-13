@@ -1,5 +1,28 @@
 # Changelog
 
+## v0.0.52
+
+- Fixes a regression where nested types were not consumable:
+  ```sh
+  [tsserver 2702] [E] 'Foo' only refers to a type, but is being used as a namespace here.
+  ```
+- Removes `dist` from public import paths. This impacts users of `twirpscript/dist/node` and direct invocations of the compiler, like `buf` users. The following changes are necessary to migrate:
+  ```diff
+  -import { nodeHttpTransport } from "twirpscript/dist/node";
+  +import { nodeHttpTransport } from "twirpscript/node";
+  ```
+  ```diff
+  version: v1
+  plugins:
+    - name: protoc-gen-twirpscript
+      -path: ./node_modules/twirpscript/dist/compiler.js
+      +path: ./node_modules/twirpscript/compiler.js
+      out: .
+      opt:
+        - language=typescript
+      strategy: all
+  ```
+
 ## v0.0.51
 
 - When using protobuf `map` fields, map keys are now typed as strings: `Record<string, $SomeType>`. Previously other types were accepted, which would cause type checking to fail when the key was `boolean`, `bigint`, or `number`. This is also more correct because JavaScript always encodes object keys as strings. Generated type definitions for `map` types are no longer exported. See [#151](https://github.com/tatethurston/TwirpScript/issues/151) for more background.

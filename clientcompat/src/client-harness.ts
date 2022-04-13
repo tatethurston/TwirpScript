@@ -8,7 +8,7 @@ import {
   Resp,
 } from "./clientcompat.pb";
 import { client, TwirpError } from "twirpscript";
-import { nodeHttpTransport } from "twirpscript/dist/node";
+import { nodeHttpTransport } from "twirpscript/node";
 
 client.rpcTransport = nodeHttpTransport;
 
@@ -20,7 +20,7 @@ const message = ClientCompatMessage.decode(input);
     case ClientCompatMessage.CompatServiceMethod.NOOP: {
       try {
         const res = await NoopMethod(Empty.decode(message.request), {
-          baseURL: message.service_address,
+          baseURL: message.serviceAddress,
         });
         writeFileSync(process.stdout.fd, Empty.encode(res));
       } catch (e) {
@@ -31,7 +31,7 @@ const message = ClientCompatMessage.decode(input);
     case ClientCompatMessage.CompatServiceMethod.METHOD: {
       try {
         const res = await Method(Req.decode(message.request), {
-          baseURL: message.service_address,
+          baseURL: message.serviceAddress,
         });
         writeFileSync(process.stdout.fd, Resp.encode(res));
       } catch (e) {

@@ -4,7 +4,7 @@
   "scripts": {
     "start": "yarn build && open dist/index.html && node src/server/index.js",
     "build": "yarn twirpscript && yarn webpack",
-    "test": "yarn jest"
+    "test": "yarn jest src/*"
   },
   "dependencies": {
     "react": "^17.0.2",

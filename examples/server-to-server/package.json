@@ -3,7 +3,7 @@
   "scripts": {
     "start": "yarn build && node dist/server/index.js",
     "build": "yarn twirpscript && yarn tsc",
-    "test": "yarn jest"
+    "test": "yarn jest src/*"
   },
   "dependencies": {
     "twirpscript": "*"

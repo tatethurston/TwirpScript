@@ -3,7 +3,7 @@
   "scripts": {
     "start": "yarn build && open dist/index.html && node dist/server/index.js",
     "build": "yarn twirpscript && yarn tsc && yarn webpack",
-    "test": "yarn jest"
+    "test": "yarn jest src/*"
   },
   "dependencies": {
     "react": "^17.0.2",

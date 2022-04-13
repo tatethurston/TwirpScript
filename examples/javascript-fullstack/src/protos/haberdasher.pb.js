@@ -36,8 +36,12 @@ export async function MakeHat(size, config) {
  * MakeHat produces a hat of mysterious, randomly-selected color!
  */
 export async function MakeHatJSON(size, config) {
-  const response = await JSONrequest("/Haberdasher/MakeHat", size, config);
-  return response;
+  const response = await JSONrequest(
+    "/Haberdasher/MakeHat",
+    Size.encodeJSON(size),
+    config
+  );
+  return Hat.decodeJSON(response);
 }
 
 export function createHaberdasher(service) {

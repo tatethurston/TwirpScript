@@ -423,19 +423,19 @@ export async function Bar(barRequest, config) {
 export async function FooJSON(fooRequest, config) {
   const response = await JSONrequest(
     \\"/protobuf_unittest.TestService/Foo\\",
-    fooRequest,
+    FooRequest.encodeJSON(fooRequest),
     config
   );
-  return response;
+  return FooResponse.decodeJSON(response);
 }
 
 export async function BarJSON(barRequest, config) {
   const response = await JSONrequest(
     \\"/protobuf_unittest.TestService/Bar\\",
-    barRequest,
+    BarRequest.encodeJSON(barRequest),
     config
   );
-  return response;
+  return BarResponse.decodeJSON(response);
 }
 
 export function createTestService(service) {
@@ -30295,8 +30295,12 @@ export async function Bar(empty, config) {
 //========================================//
 
 export async function BarJSON(empty, config) {
-  const response = await JSONrequest(\\"/Foo/Bar\\", empty, config);
-  return response;
+  const response = await JSONrequest(
+    \\"/Foo/Bar\\",
+    Empty.encodeJSON(empty),
+    config
+  );
+  return Empty.decodeJSON(response);
 }
 
 export function createFoo(service) {
@@ -30737,19 +30741,19 @@ export async function Bar(barRequest, config) {
 export async function FooJSON(fooRequest, config) {
   const response = await JSONrequest(
     \\"/protobuf_unittest.TestService/Foo\\",
-    fooRequest,
+    FooRequest.encodeJSON(fooRequest),
     config
   );
-  return response;
+  return FooResponse.decodeJSON(response);
 }
 
 export async function BarJSON(barRequest, config) {
   const response = await JSONrequest(
     \\"/protobuf_unittest.TestService/Bar\\",
-    barRequest,
+    BarRequest.encodeJSON(barRequest),
     config
   );
-  return response;
+  return BarResponse.decodeJSON(response);
 }
 
 export function createTestService(service) {
@@ -60707,8 +60711,12 @@ export async function Bar(empty, config) {
 //========================================//
 
 export async function BarJSON(empty, config) {
-  const response = await JSONrequest(\\"/Foo/Bar\\", empty, config);
-  return response;
+  const response = await JSONrequest(
+    \\"/Foo/Bar\\",
+    Empty.encodeJSON(empty),
+    config
+  );
+  return Empty.decodeJSON(response);
 }
 
 export function createFoo(service) {
@@ -61207,24 +61215,24 @@ export async function FooJSON(
   fooRequest: FooRequest,
   config?: ClientConfiguration
 ): Promise<FooResponse> {
-  const response = await JSONrequest<FooResponse>(
+  const response = await JSONrequest(
     \\"/protobuf_unittest.TestService/Foo\\",
-    fooRequest,
+    FooRequest.encodeJSON(fooRequest),
     config
   );
-  return response;
+  return FooResponse.decodeJSON(response);
 }
 
 export async function BarJSON(
   barRequest: BarRequest,
   config?: ClientConfiguration
 ): Promise<BarResponse> {
-  const response = await JSONrequest<BarResponse>(
+  const response = await JSONrequest(
     \\"/protobuf_unittest.TestService/Bar\\",
-    barRequest,
+    BarRequest.encodeJSON(barRequest),
     config
   );
-  return response;
+  return BarResponse.decodeJSON(response);
 }
 
 //========================================//
@@ -96121,8 +96129,12 @@ export async function BarJSON(
   empty: Empty,
   config?: ClientConfiguration
 ): Promise<Empty> {
-  const response = await JSONrequest<Empty>(\\"/Foo/Bar\\", empty, config);
-  return response;
+  const response = await JSONrequest(
+    \\"/Foo/Bar\\",
+    Empty.encodeJSON(empty),
+    config
+  );
+  return Empty.decodeJSON(response);
 }
 
 //========================================//
@@ -96623,24 +96635,24 @@ export async function FooJSON(
   fooRequest: FooRequest,
   config?: ClientConfiguration
 ): Promise<FooResponse> {
-  const response = await JSONrequest<FooResponse>(
+  const response = await JSONrequest(
     \\"/protobuf_unittest.TestService/Foo\\",
-    fooRequest,
+    FooRequest.encodeJSON(fooRequest),
     config
   );
-  return response;
+  return FooResponse.decodeJSON(response);
 }
 
 export async function BarJSON(
   barRequest: BarRequest,
   config?: ClientConfiguration
 ): Promise<BarResponse> {
-  const response = await JSONrequest<BarResponse>(
+  const response = await JSONrequest(
     \\"/protobuf_unittest.TestService/Bar\\",
-    barRequest,
+    BarRequest.encodeJSON(barRequest),
     config
   );
-  return response;
+  return BarResponse.decodeJSON(response);
 }
 
 //========================================//
@@ -131635,8 +131647,12 @@ export async function BarJSON(
   empty: Empty,
   config?: ClientConfiguration
 ): Promise<Empty> {
-  const response = await JSONrequest<Empty>(\\"/Foo/Bar\\", empty, config);
-  return response;
+  const response = await JSONrequest(
+    \\"/Foo/Bar\\",
+    Empty.encodeJSON(empty),
+    config
+  );
+  return Empty.decodeJSON(response);
 }
 
 //========================================//

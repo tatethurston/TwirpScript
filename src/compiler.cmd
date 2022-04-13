@@ -1,2 +1,2 @@
 @echo off
-node .\node_modules\twirpscript\dist\compiler.js %*
+node .\node_modules\twirpscript\compiler.js %*

@@ -40,7 +40,7 @@ const App: FC = () => {
         setUsername(undefined);
         setPassword(undefined);
       } catch (e) {
-        setError(e);
+        setError(e as TwirpError);
       }
     }
   }
@@ -58,7 +58,7 @@ const App: FC = () => {
         setHats((hats) => [...hats, hat]);
         setSize(undefined);
       } catch (e) {
-        setError(e);
+        setError(e as TwirpError);
       }
     }
   }

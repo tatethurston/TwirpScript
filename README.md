@@ -162,7 +162,7 @@ console.log(hat);
 
 ```ts
 import { client } from "twirpscript";
-import { nodeHttpTransport } from "twirpscript/dist/node";
+import { nodeHttpTransport } from "twirpscript/node";
 import { MakeHat } from "../protos/haberdasher.pb";
 
 client.baseURL = "http://localhost:8080";
@@ -806,7 +806,7 @@ TwirpScript can be used with [Buf](https://docs.buf.build/introduction). This wi
 version: v1
 plugins:
   - name: protoc-gen-twirpscript
-    path: ./node_modules/twirpscript/dist/compiler.js
+    path: ./node_modules/twirpscript/compiler.js
     out: .
     opt:
       - language=typescript

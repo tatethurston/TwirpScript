@@ -1,43 +1,35 @@
 {
-  "name": "twirpscript",
-  "version": "0.0.51",
-  "description": "A protobuf RPC framework for JavaScript and TypeScript",
+  "name": "twirpscript-development",
+  "description": "Protobuf RPC framework for JavaScript and TypeScript",
   "license": "MIT",
   "author": "Tate Thurston <tatethurston@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/tatethurston/twirpscript"
   },
-  "main": "dist",
-  "module": "dist/module",
-  "bin": {
-    "twirpscript": "dist/cli/index.js"
-  },
-  "files": [
-    "dist/**/*"
-  ],
   "scripts": {
-    "build": "yarn clean && yarn build:commonjs && yarn build:module && chmod +x dist/compiler.js dist/cli/index.js dist/test-protos/gen-test-input.js && cp src/compiler.cmd dist/compiler.cmd",
     "build:commonjs": "yarn tsc",
     "build:module": "yarn tsc --module esnext --outDir dist/module",
     "build:watch": "yarn build:commonjs --watch",
     "check:all": "yarn examples:check && yarn test && yarn clientcompat",
     "clean": "rm -rf dist",
     "clientcompat": "(cd clientcompat && yarn build && yarn test)",
-    "clientcompat:setup": "yarn build && npm link",
     "examples:buf": "(cd examples/buf && buf generate)",
     "examples:check": "for example in $(ls examples | grep -v buf); do (cd examples/\"$example\" && yarn twirpscript && yarn tsc --noEmit) || exit 1; done",
-    "examples:setup": "for example in examples/*; do (cd \"$example\" && npm link twirpscript && yarn); done",
-    "lint": "yarn typecheck && prettier --check . && prettier-package-json --list-different '{,example/,}package.json'",
-    "lint:fix": "prettier --write . && prettier-package-json --write '{,example/}package.json'",
+    "examples:setup": "for example in examples/*; do (cd $example && npm link twirpscript); done",
+    "lint": "yarn typecheck && prettier --check . && prettier-package-json --list-different '{,public.,example/}package.json'",
+    "lint:fix": "prettier --write . && prettier-package-json --write '{,public.,example/}package.json'",
     "lint:package:fix": "prettier-package-json --write ./package.json",
-    "regen": "(cd src/test-serialization && yarn twirpscript) && yarn test -u && yarn examples:check && yarn examples:buf && (cd clientcompat && yarn twirpscript)",
+    "package:build": "yarn install && yarn clean && yarn build:commonjs && yarn build:module && chmod +x dist/compiler.js dist/cli/index.js dist/test-protos/gen-test-input.js && cp src/compiler.cmd dist/compiler.cmd && yarn package:prune && yarn package:copy:files",
+    "package:copy:files": "cp ./LICENSE ./README.md dist/ && cp ./public.package.json dist/package.json",
+    "package:prune": "find dist -name test.* | xargs rm -f",
+    "regen": "yarn test-serialization && yarn test -u && yarn examples:check && yarn examples:buf && yarn clientcompat",
     "test": "yarn jest src/*",
+    "test-serialization": "(cd src/test-serialization && yarn twirpscript)",
     "test:ci": "yarn test --coverage",
     "typecheck": "yarn tsc --noEmit"
   },
   "sideEffects": false,
-  "types": "dist",
   "dependencies": {
     "@types/google-protobuf": "^3.15.3",
     "google-protobuf": "^3.19.3",
@@ -63,13 +55,6 @@
     "webpack": "^5.67.0",
     "webpack-cli": "^4.9.2"
   },
-  "keywords": [
-    "protobuf",
-    "protocol buffers",
-    "rpc",
-    "twirp",
-    "typescript"
-  ],
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint:fix --staged"

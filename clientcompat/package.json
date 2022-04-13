@@ -1,7 +1,7 @@
 {
   "name": "clientcompat",
   "scripts": {
-    "build": "yarn && npm link twirpscript && yarn twirpscript && yarn tsc",
+    "build": "yarn twirpscript && yarn tsc",
     "test": "jest src"
   },
   "dependencies": {

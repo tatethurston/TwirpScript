@@ -1,5 +1,5 @@
 import { client } from "twirpscript";
-import { nodeHttpTransport } from "twirpscript/dist/node";
+import { nodeHttpTransport } from "twirpscript/node";
 import { MakeHat, MakeHatJSON } from "./protos/haberdasher.pb";
 
 client.baseURL = "http://localhost:8080";

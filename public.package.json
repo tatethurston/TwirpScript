@@ -1,0 +1,30 @@
+{
+  "name": "twirpscript",
+  "version": "0.0.52",
+  "description": "Protobuf RPC framework for JavaScript and TypeScript",
+  "license": "MIT",
+  "author": "Tate <tatethurston@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tatethurston/twirpscript"
+  },
+  "main": "index.js",
+  "module": "module",
+  "bin": {
+    "twirpscript": "cli/index.js"
+  },
+  "sideEffects": false,
+  "types": "index.d.ts",
+  "dependencies": {
+    "@types/google-protobuf": "^3.15.3",
+    "google-protobuf": "^3.19.3",
+    "prettier": "^2.6.0"
+  },
+  "keywords": [
+    "protobuf",
+    "protocol buffers",
+    "rpc",
+    "twirp",
+    "typescript"
+  ]
+}

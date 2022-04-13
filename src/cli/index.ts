@@ -282,7 +282,6 @@ protoc \
     projectRoot,
     "node_modules",
     "twirpscript",
-    "dist",
     `compiler.${isWindows ? "cmd" : "js"}`
   )} \
   --twirpscript_out=${destination} \

@@ -56,7 +56,10 @@ function writeTypes(types: ProtoTypes[], isTopLevel: boolean): string {
       result += "}\n\n";
 
       if (node.children.length > 0) {
-        result += `${printIf(isTopLevel, "declare")} namespace ${name} { \n`;
+        result += `${printIf(
+          isTopLevel,
+          "export declare"
+        )} namespace ${name} { \n`;
         result += writeTypes(node.children, false) + "\n\n";
         result += `}\n\n`;
       }

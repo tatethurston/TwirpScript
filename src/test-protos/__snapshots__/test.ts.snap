@@ -61480,7 +61480,7 @@ export interface TestAllTypes {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-declare namespace TestAllTypes {
+export declare namespace TestAllTypes {
   export type NestedEnum = \\"FOO\\" | \\"BAR\\" | \\"BAZ\\" | \\"NEG\\";
 
   export interface NestedMessage {
@@ -61542,7 +61542,7 @@ export interface TestGroup {
   optionalForeignEnum: ForeignEnum;
 }
 
-declare namespace TestGroup {
+export declare namespace TestGroup {
   export interface OptionalGroup {
     a: number;
   }
@@ -61552,7 +61552,7 @@ export interface TestGroupExtension {}
 
 export interface TestNestedExtension {}
 
-declare namespace TestNestedExtension {
+export declare namespace TestNestedExtension {
   export interface OptionalGroup_extension {
     a: number;
   }
@@ -61646,7 +61646,7 @@ export interface TestEmptyMessageWithExtensions {}
  */
 export interface TestPickleNestedMessage {}
 
-declare namespace TestPickleNestedMessage {
+export declare namespace TestPickleNestedMessage {
   export interface NestedMessage {
     bb: number;
   }
@@ -61684,7 +61684,7 @@ export interface TestMutualRecursionA {
   bb: TestMutualRecursionB;
 }
 
-declare namespace TestMutualRecursionA {
+export declare namespace TestMutualRecursionA {
   export interface SubMessage {
     b: TestMutualRecursionB;
   }
@@ -61704,7 +61704,7 @@ export interface TestIsInitialized {
   subMessage: TestIsInitialized.SubMessage;
 }
 
-declare namespace TestIsInitialized {
+export declare namespace TestIsInitialized {
   export interface SubMessage {}
 
   namespace SubMessage {
@@ -61724,7 +61724,7 @@ export interface TestDupFieldNumber {
   a: number;
 }
 
-declare namespace TestDupFieldNumber {
+export declare namespace TestDupFieldNumber {
   export interface Foo {
     a: number;
   }
@@ -61752,7 +61752,7 @@ export interface TestNestedMessageHasBits {
   optionalNestedMessage: TestNestedMessageHasBits.NestedMessage;
 }
 
-declare namespace TestNestedMessageHasBits {
+export declare namespace TestNestedMessageHasBits {
   export interface NestedMessage {
     nestedmessageRepeatedInt32: number[];
     nestedmessageRepeatedForeignmessage: ForeignMessage[];
@@ -61789,7 +61789,7 @@ export interface TestFieldOrderings {
   optionalNestedMessage: TestFieldOrderings.NestedMessage;
 }
 
-declare namespace TestFieldOrderings {
+export declare namespace TestFieldOrderings {
   export interface NestedMessage {
     oo: bigint;
     /**
@@ -61809,7 +61809,7 @@ export interface TestExtensionOrderings2 {
   myString: string;
 }
 
-declare namespace TestExtensionOrderings2 {
+export declare namespace TestExtensionOrderings2 {
   export interface TestExtensionOrderings3 {
     myString: string;
   }
@@ -61924,7 +61924,7 @@ export interface TestOneof {
   fooMessage?: TestAllTypes | null | undefined;
 }
 
-declare namespace TestOneof {
+export declare namespace TestOneof {
   export interface FooGroup {
     a: number;
     b: string;
@@ -61937,7 +61937,7 @@ export interface TestOneofBackwardsCompatible {
   fooMessage: TestAllTypes;
 }
 
-declare namespace TestOneofBackwardsCompatible {
+export declare namespace TestOneofBackwardsCompatible {
   export interface FooGroup {
     a: number;
     b: string;
@@ -61967,7 +61967,7 @@ export interface TestOneof2 {
   bazString: string;
 }
 
-declare namespace TestOneof2 {
+export declare namespace TestOneof2 {
   export type NestedEnum = \\"FOO\\" | \\"BAR\\" | \\"BAZ\\";
 
   export interface FooGroup {
@@ -61987,7 +61987,7 @@ export interface TestRequiredOneof {
   fooMessage?: TestRequiredOneof.NestedMessage | null | undefined;
 }
 
-declare namespace TestRequiredOneof {
+export declare namespace TestRequiredOneof {
   export interface NestedMessage {
     requiredDouble: number;
   }
@@ -62050,7 +62050,7 @@ export interface TestDynamicExtensions {
   packedExtension: number[];
 }
 
-declare namespace TestDynamicExtensions {
+export declare namespace TestDynamicExtensions {
   export type DynamicEnumType = \\"DYNAMIC_FOO\\" | \\"DYNAMIC_BAR\\" | \\"DYNAMIC_BAZ\\";
 
   export interface DynamicMessageType {
@@ -62091,7 +62091,7 @@ export interface TestParsingMerge {
   repeatedAllTypes: TestAllTypes[];
 }
 
-declare namespace TestParsingMerge {
+export declare namespace TestParsingMerge {
   /**
    * RepeatedFieldsGenerator defines matching field types as TestParsingMerge,
    * except that all fields are repeated. In the tests, we will serialize the
@@ -62177,7 +62177,7 @@ export interface TestHugeFieldNumbers {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-declare namespace TestHugeFieldNumbers {
+export declare namespace TestHugeFieldNumbers {
   export interface OptionalGroup {
     groupA: number;
   }
@@ -78022,7 +78022,7 @@ export interface TestMap {
   >;
 }
 
-declare namespace TestMap {
+export declare namespace TestMap {
   interface MapInt32Int32 {
     key: number;
     value: number;
@@ -78130,7 +78130,7 @@ export interface TestMessageMap {
   >;
 }
 
-declare namespace TestMessageMap {
+export declare namespace TestMessageMap {
   interface MapInt32Message {
     key: number;
     value: TestAllTypes;
@@ -78145,7 +78145,7 @@ export interface TestSameTypeMap {
   map2: Record<string, TestSameTypeMap.Map2[\\"value\\"] | undefined>;
 }
 
-declare namespace TestSameTypeMap {
+export declare namespace TestSameTypeMap {
   interface Map1 {
     key: number;
     value: number;
@@ -78167,7 +78167,7 @@ export interface TestRequiredMessageMap {
   >;
 }
 
-declare namespace TestRequiredMessageMap {
+export declare namespace TestRequiredMessageMap {
   interface MapField {
     key: number;
     value: TestRequired;
@@ -78239,7 +78239,7 @@ export interface TestArenaMap {
   >;
 }
 
-declare namespace TestArenaMap {
+export declare namespace TestArenaMap {
   interface MapInt32Int32 {
     key: number;
     value: number;
@@ -78336,7 +78336,7 @@ export interface MessageContainingMapCalledEntry {
   >;
 }
 
-declare namespace MessageContainingMapCalledEntry {
+export declare namespace MessageContainingMapCalledEntry {
   interface Entry {
     key: number;
     value: number;
@@ -78347,7 +78347,7 @@ export interface TestRecursiveMapMessage {
   a: Record<string, TestRecursiveMapMessage.A[\\"value\\"] | undefined>;
 }
 
-declare namespace TestRecursiveMapMessage {
+export declare namespace TestRecursiveMapMessage {
   interface A {
     key: string;
     value: TestRecursiveMapMessage;
@@ -84655,7 +84655,7 @@ export interface Field {
   defaultValue: string;
 }
 
-declare namespace Field {
+export declare namespace Field {
   /**
    * Basic field types.
    */
@@ -87382,7 +87382,7 @@ export interface Struct {
   fields: Record<string, Struct.Fields[\\"value\\"] | undefined>;
 }
 
-declare namespace Struct {
+export declare namespace Struct {
   interface Fields {
     key: string;
     value: Value;
@@ -89443,7 +89443,7 @@ export interface MapWellKnownTypes {
   bytesField: Record<string, MapWellKnownTypes.BytesField[\\"value\\"] | undefined>;
 }
 
-declare namespace MapWellKnownTypes {
+export declare namespace MapWellKnownTypes {
   interface AnyField {
     key: number;
     value: Any;
@@ -93447,7 +93447,7 @@ export interface TestAllTypes {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-declare namespace TestAllTypes {
+export declare namespace TestAllTypes {
   export type NestedEnum = \\"ZERO\\" | \\"FOO\\" | \\"BAR\\" | \\"BAZ\\" | \\"NEG\\";
 
   export interface NestedMessage {
@@ -93537,7 +93537,7 @@ export interface TestOneof2 {
   fooEnum?: TestOneof2.NestedEnum | null | undefined;
 }
 
-declare namespace TestOneof2 {
+export declare namespace TestOneof2 {
   export type NestedEnum = \\"UNKNOWN\\" | \\"FOO\\" | \\"BAR\\" | \\"BAZ\\";
 }
 
@@ -96896,7 +96896,7 @@ export interface TestAllTypes {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-declare namespace TestAllTypes {
+export declare namespace TestAllTypes {
   export type NestedEnum = \\"FOO\\" | \\"BAR\\" | \\"BAZ\\" | \\"NEG\\";
 
   export interface NestedMessage {
@@ -96958,7 +96958,7 @@ export interface TestGroup {
   optionalForeignEnum: ForeignEnum;
 }
 
-declare namespace TestGroup {
+export declare namespace TestGroup {
   export interface OptionalGroup {
     a: number;
   }
@@ -96968,7 +96968,7 @@ export interface TestGroupExtension {}
 
 export interface TestNestedExtension {}
 
-declare namespace TestNestedExtension {
+export declare namespace TestNestedExtension {
   export interface OptionalGroup_extension {
     a: number;
   }
@@ -97062,7 +97062,7 @@ export interface TestEmptyMessageWithExtensions {}
  */
 export interface TestPickleNestedMessage {}
 
-declare namespace TestPickleNestedMessage {
+export declare namespace TestPickleNestedMessage {
   export interface NestedMessage {
     bb: number;
   }
@@ -97100,7 +97100,7 @@ export interface TestMutualRecursionA {
   bb: TestMutualRecursionB;
 }
 
-declare namespace TestMutualRecursionA {
+export declare namespace TestMutualRecursionA {
   export interface SubMessage {
     b: TestMutualRecursionB;
   }
@@ -97120,7 +97120,7 @@ export interface TestIsInitialized {
   subMessage: TestIsInitialized.SubMessage;
 }
 
-declare namespace TestIsInitialized {
+export declare namespace TestIsInitialized {
   export interface SubMessage {}
 
   namespace SubMessage {
@@ -97140,7 +97140,7 @@ export interface TestDupFieldNumber {
   a: number;
 }
 
-declare namespace TestDupFieldNumber {
+export declare namespace TestDupFieldNumber {
   export interface Foo {
     a: number;
   }
@@ -97168,7 +97168,7 @@ export interface TestNestedMessageHasBits {
   optionalNestedMessage: TestNestedMessageHasBits.NestedMessage;
 }
 
-declare namespace TestNestedMessageHasBits {
+export declare namespace TestNestedMessageHasBits {
   export interface NestedMessage {
     nestedmessageRepeatedInt32: number[];
     nestedmessageRepeatedForeignmessage: ForeignMessage[];
@@ -97205,7 +97205,7 @@ export interface TestFieldOrderings {
   optionalNestedMessage: TestFieldOrderings.NestedMessage;
 }
 
-declare namespace TestFieldOrderings {
+export declare namespace TestFieldOrderings {
   export interface NestedMessage {
     oo: bigint;
     /**
@@ -97225,7 +97225,7 @@ export interface TestExtensionOrderings2 {
   myString: string;
 }
 
-declare namespace TestExtensionOrderings2 {
+export declare namespace TestExtensionOrderings2 {
   export interface TestExtensionOrderings3 {
     myString: string;
   }
@@ -97340,7 +97340,7 @@ export interface TestOneof {
   fooMessage?: TestAllTypes | null | undefined;
 }
 
-declare namespace TestOneof {
+export declare namespace TestOneof {
   export interface FooGroup {
     a: number;
     b: string;
@@ -97353,7 +97353,7 @@ export interface TestOneofBackwardsCompatible {
   fooMessage: TestAllTypes;
 }
 
-declare namespace TestOneofBackwardsCompatible {
+export declare namespace TestOneofBackwardsCompatible {
   export interface FooGroup {
     a: number;
     b: string;
@@ -97383,7 +97383,7 @@ export interface TestOneof2 {
   bazString: string;
 }
 
-declare namespace TestOneof2 {
+export declare namespace TestOneof2 {
   export type NestedEnum = \\"FOO\\" | \\"BAR\\" | \\"BAZ\\";
 
   export interface FooGroup {
@@ -97403,7 +97403,7 @@ export interface TestRequiredOneof {
   fooMessage?: TestRequiredOneof.NestedMessage | null | undefined;
 }
 
-declare namespace TestRequiredOneof {
+export declare namespace TestRequiredOneof {
   export interface NestedMessage {
     requiredDouble: number;
   }
@@ -97466,7 +97466,7 @@ export interface TestDynamicExtensions {
   packedExtension: number[];
 }
 
-declare namespace TestDynamicExtensions {
+export declare namespace TestDynamicExtensions {
   export type DynamicEnumType = \\"DYNAMIC_FOO\\" | \\"DYNAMIC_BAR\\" | \\"DYNAMIC_BAZ\\";
 
   export interface DynamicMessageType {
@@ -97507,7 +97507,7 @@ export interface TestParsingMerge {
   repeatedAllTypes: TestAllTypes[];
 }
 
-declare namespace TestParsingMerge {
+export declare namespace TestParsingMerge {
   /**
    * RepeatedFieldsGenerator defines matching field types as TestParsingMerge,
    * except that all fields are repeated. In the tests, we will serialize the
@@ -97593,7 +97593,7 @@ export interface TestHugeFieldNumbers {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-declare namespace TestHugeFieldNumbers {
+export declare namespace TestHugeFieldNumbers {
   export interface OptionalGroup {
     groupA: number;
   }
@@ -113445,7 +113445,7 @@ export interface TestMap {
   >;
 }
 
-declare namespace TestMap {
+export declare namespace TestMap {
   interface MapInt32Int32 {
     key: number;
     value: number;
@@ -113553,7 +113553,7 @@ export interface TestMessageMap {
   >;
 }
 
-declare namespace TestMessageMap {
+export declare namespace TestMessageMap {
   interface MapInt32Message {
     key: number;
     value: TestAllTypes;
@@ -113568,7 +113568,7 @@ export interface TestSameTypeMap {
   map2: Record<string, TestSameTypeMap.Map2[\\"value\\"] | undefined>;
 }
 
-declare namespace TestSameTypeMap {
+export declare namespace TestSameTypeMap {
   interface Map1 {
     key: number;
     value: number;
@@ -113590,7 +113590,7 @@ export interface TestRequiredMessageMap {
   >;
 }
 
-declare namespace TestRequiredMessageMap {
+export declare namespace TestRequiredMessageMap {
   interface MapField {
     key: number;
     value: TestRequired;
@@ -113662,7 +113662,7 @@ export interface TestArenaMap {
   >;
 }
 
-declare namespace TestArenaMap {
+export declare namespace TestArenaMap {
   interface MapInt32Int32 {
     key: number;
     value: number;
@@ -113759,7 +113759,7 @@ export interface MessageContainingMapCalledEntry {
   >;
 }
 
-declare namespace MessageContainingMapCalledEntry {
+export declare namespace MessageContainingMapCalledEntry {
   interface Entry {
     key: number;
     value: number;
@@ -113770,7 +113770,7 @@ export interface TestRecursiveMapMessage {
   a: Record<string, TestRecursiveMapMessage.A[\\"value\\"] | undefined>;
 }
 
-declare namespace TestRecursiveMapMessage {
+export declare namespace TestRecursiveMapMessage {
   interface A {
     key: string;
     value: TestRecursiveMapMessage;
@@ -120099,7 +120099,7 @@ export interface Field {
   defaultValue: string;
 }
 
-declare namespace Field {
+export declare namespace Field {
   /**
    * Basic field types.
    */
@@ -122861,7 +122861,7 @@ export interface Struct {
   fields: Record<string, Struct.Fields[\\"value\\"] | undefined>;
 }
 
-declare namespace Struct {
+export declare namespace Struct {
   interface Fields {
     key: string;
     value: Value;
@@ -124943,7 +124943,7 @@ export interface MapWellKnownTypes {
   bytesField: Record<string, MapWellKnownTypes.BytesField[\\"value\\"] | undefined>;
 }
 
-declare namespace MapWellKnownTypes {
+export declare namespace MapWellKnownTypes {
   interface AnyField {
     key: number;
     value: Any;
@@ -128954,7 +128954,7 @@ export interface TestAllTypes {
   oneofBytes?: Uint8Array | null | undefined;
 }
 
-declare namespace TestAllTypes {
+export declare namespace TestAllTypes {
   export type NestedEnum = \\"ZERO\\" | \\"FOO\\" | \\"BAR\\" | \\"BAZ\\" | \\"NEG\\";
 
   export interface NestedMessage {
@@ -129044,7 +129044,7 @@ export interface TestOneof2 {
   fooEnum?: TestOneof2.NestedEnum | null | undefined;
 }
 
-declare namespace TestOneof2 {
+export declare namespace TestOneof2 {
   export type NestedEnum = \\"UNKNOWN\\" | \\"FOO\\" | \\"BAR\\" | \\"BAZ\\";
 }
 

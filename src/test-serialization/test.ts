@@ -1,6 +1,16 @@
 import { describe, it } from "@jest/globals";
 import { Baz, Foo } from "./message.pb";
 
+const nestedMessage: Foo.FooBar = {
+  fieldOne: "foo",
+  fieldTwo: {
+    foo: 3n,
+    bar: 4n,
+  },
+
+  fieldThree: [1, 2, 3],
+};
+
 const fullMessage: Foo = {
   fieldOne: 3,
   fieldTwo: {
@@ -27,15 +37,7 @@ const fullMessage: Foo = {
     },
   ],
 
-  fieldFour: {
-    fieldOne: "foo",
-    fieldTwo: {
-      foo: 3n,
-      bar: 4n,
-    },
-
-    fieldThree: [1, 2, 3],
-  },
+  fieldFour: nestedMessage,
 
   fieldFive: [1n, 2n],
   fieldSix: Baz.BAR,

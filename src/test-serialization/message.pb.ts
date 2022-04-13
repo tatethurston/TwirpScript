@@ -28,7 +28,7 @@ export interface Foo {
   fieldTen: Uint8Array[];
 }
 
-declare namespace Foo {
+export declare namespace Foo {
   export interface FooBar {
     fieldOne: string;
     fieldTwo: Record<string, Foo.FooBar.FieldTwo["value"] | undefined>;
@@ -54,7 +54,7 @@ export interface Bar {
   fieldThree: number[];
 }
 
-declare namespace Bar {
+export declare namespace Bar {
   interface FieldTwo {
     key: string;
     value: bigint;

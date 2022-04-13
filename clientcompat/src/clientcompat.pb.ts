@@ -120,7 +120,7 @@ export interface ClientCompatMessage {
   request: Uint8Array;
 }
 
-declare namespace ClientCompatMessage {
+export declare namespace ClientCompatMessage {
   export type CompatServiceMethod = "NOOP" | "METHOD";
 }
 

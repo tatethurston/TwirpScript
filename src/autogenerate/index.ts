@@ -658,10 +658,10 @@ export async function ${method.name}JSON(${input}${printIfTypescript(
       )}, config${printIfTypescript(
         `?: ClientConfiguration`
       )})${printIfTypescript(`: Promise<${method.output}>`)} {
-  const response = await JSONrequest${printIfTypescript(
-    `<${method.output}>`
-  )}('${path}', ${input}, config);
-  return response;
+  const response = await JSONrequest('${path}', ${
+        method.input
+      }.encodeJSON(${input}), config);
+  return ${method.output}.decodeJSON(response);
 }
 
 `;

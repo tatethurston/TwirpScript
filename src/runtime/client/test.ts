@@ -18,7 +18,7 @@ function mockRpcResponse(mock: Partial<RpcTransportResponse>): void {
 
 describe("JSONrequest", () => {
   it("stringifies the request body", async () => {
-    await JSONrequest("/foo", { foo: "bar" });
+    await JSONrequest("/foo", JSON.stringify({ foo: "bar" }));
 
     expect(mockRpcTransport).toHaveBeenCalledWith(
       "/twirp/foo",

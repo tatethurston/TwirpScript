@@ -43,8 +43,12 @@ export async function MakeHatJSON(
   size: Size,
   config?: ClientConfiguration
 ): Promise<Hat> {
-  const response = await JSONrequest<Hat>("/Haberdasher/MakeHat", size, config);
-  return response;
+  const response = await JSONrequest(
+    "/Haberdasher/MakeHat",
+    Size.encodeJSON(size),
+    config
+  );
+  return Hat.decodeJSON(response);
 }
 
 //========================================//

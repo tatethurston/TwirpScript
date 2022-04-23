@@ -43,12 +43,12 @@ export async function LoginJSON(
   credentials: Credentials,
   config?: ClientConfiguration
 ): Promise<CurrentUser> {
-  const response = await JSONrequest<CurrentUser>(
+  const response = await JSONrequest(
     "/Authentication/Login",
-    credentials,
+    Credentials.encodeJSON(credentials),
     config
   );
-  return response;
+  return CurrentUser.decodeJSON(response);
 }
 
 //========================================//

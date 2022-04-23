@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.53
+
+- client JSON request methods now use `encodeJSON` and `decodeJSON` helpers.
+
 ## v0.0.52
 
 - Fixes a regression where nested types were not consumable:
@@ -175,7 +179,7 @@ Changes:
 
 **Full Changelog**: https://github.com/tatethurston/TwirpScript/compare/v0.0.34...v0.0.35
 
-## v0.034
+## v0.0.34
 
 This release includes breaking changes:
 

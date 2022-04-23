@@ -223,12 +223,12 @@ async function makeRequest<T>(
   );
 }
 
-export function JSONrequest<T = unknown>(
+export function JSONrequest(
   path: string,
-  body?: unknown,
+  body?: string,
   config?: ClientConfiguration
-): Promise<T> {
-  return makeRequest<T>("application/json", path, JSON.stringify(body), config);
+): Promise<string> {
+  return makeRequest("application/json", path, body, config);
 }
 
 export function PBrequest(

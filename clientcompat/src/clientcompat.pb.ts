@@ -51,24 +51,24 @@ export async function MethodJSON(
   req: Req,
   config?: ClientConfiguration
 ): Promise<Resp> {
-  const response = await JSONrequest<Resp>(
+  const response = await JSONrequest(
     "/twirp.clientcompat.CompatService/Method",
-    req,
+    Req.encodeJSON(req),
     config
   );
-  return response;
+  return Resp.decodeJSON(response);
 }
 
 export async function NoopMethodJSON(
   empty: Empty,
   config?: ClientConfiguration
 ): Promise<Empty> {
-  const response = await JSONrequest<Empty>(
+  const response = await JSONrequest(
     "/twirp.clientcompat.CompatService/NoopMethod",
-    empty,
+    Empty.encodeJSON(empty),
     config
   );
-  return response;
+  return Empty.decodeJSON(response);
 }
 
 //========================================//

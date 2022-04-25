@@ -26,6 +26,9 @@ export interface Foo {
   fieldEight: bigint;
   fieldNine: Uint8Array;
   fieldTen: Uint8Array[];
+  fieldEleven?: Bar | null | undefined;
+  fieldTwelve?: Bar | null | undefined;
+  fieldThirteen?: Bar | null | undefined;
 }
 
 export declare namespace Foo {
@@ -138,6 +141,7 @@ export const Foo = {
    */
   initialize: function (): Foo {
     return {
+      fieldOne: undefined,
       fieldTwo: {},
       fieldThree: [],
       fieldFour: Foo.FooBar.initialize(),
@@ -147,6 +151,9 @@ export const Foo = {
       fieldEight: 0n,
       fieldNine: new Uint8Array(),
       fieldTen: [],
+      fieldEleven: undefined,
+      fieldTwelve: undefined,
+      fieldThirteen: undefined,
     };
   },
 
@@ -197,6 +204,15 @@ export const Foo = {
     if (msg.fieldTen?.length) {
       writer.writeRepeatedBytes(10, msg.fieldTen);
     }
+    if (msg.fieldEleven != undefined) {
+      writer.writeMessage(11, msg.fieldEleven, Bar._writeMessage);
+    }
+    if (msg.fieldTwelve != undefined) {
+      writer.writeMessage(12, msg.fieldTwelve, Bar._writeMessage);
+    }
+    if (msg.fieldThirteen != undefined) {
+      writer.writeMessage(13, msg.fieldThirteen, Bar._writeMessage);
+    }
     return writer;
   },
 
@@ -245,6 +261,18 @@ export const Foo = {
     }
     if (msg.fieldTen?.length) {
       json.fieldTen = msg.fieldTen.map(encodeBase64Bytes);
+    }
+    if (msg.fieldEleven != undefined) {
+      const fieldEleven = Bar._writeMessageJSON(msg.fieldEleven);
+      json.fieldEleven = fieldEleven;
+    }
+    if (msg.fieldTwelve != undefined) {
+      const fieldTwelve = Bar._writeMessageJSON(msg.fieldTwelve);
+      json.fieldTwelve = fieldTwelve;
+    }
+    if (msg.fieldThirteen != undefined) {
+      const fieldThirteen = Bar._writeMessageJSON(msg.fieldThirteen);
+      json.fieldThirteen = fieldThirteen;
     }
     return json;
   },
@@ -298,6 +326,21 @@ export const Foo = {
         }
         case 10: {
           msg.fieldTen.push(reader.readBytes());
+          break;
+        }
+        case 11: {
+          msg.fieldEleven = Bar.initialize();
+          reader.readMessage(msg.fieldEleven, Bar._readMessage);
+          break;
+        }
+        case 12: {
+          msg.fieldTwelve = Bar.initialize();
+          reader.readMessage(msg.fieldTwelve, Bar._readMessage);
+          break;
+        }
+        case 13: {
+          msg.fieldThirteen = Bar.initialize();
+          reader.readMessage(msg.fieldThirteen, Bar._readMessage);
           break;
         }
         default: {
@@ -363,6 +406,24 @@ export const Foo = {
     const _fieldTen = json.fieldTen ?? json.field_ten;
     if (_fieldTen) {
       msg.fieldTen = _fieldTen.map(decodeBase64Bytes);
+    }
+    const _fieldEleven = json.fieldEleven ?? json.field_eleven;
+    if (_fieldEleven) {
+      const m = Bar.initialize();
+      Bar._readMessageJSON(m, _fieldEleven);
+      msg.fieldEleven = m;
+    }
+    const _fieldTwelve = json.fieldTwelve ?? json.field_twelve;
+    if (_fieldTwelve) {
+      const m = Bar.initialize();
+      Bar._readMessageJSON(m, _fieldTwelve);
+      msg.fieldTwelve = m;
+    }
+    const _fieldThirteen = json.fieldThirteen ?? json.field_thirteen;
+    if (_fieldThirteen) {
+      const m = Bar.initialize();
+      Bar._readMessageJSON(m, _fieldThirteen);
+      msg.fieldThirteen = m;
     }
     return msg;
   },
@@ -654,7 +715,8 @@ export const Foo = {
             break;
           }
           case 2: {
-            reader.readMessage(Bar.initialize(), Bar._readMessage);
+            msg.value = Bar.initialize();
+            reader.readMessage(msg.value, Bar._readMessage);
             break;
           }
           default: {

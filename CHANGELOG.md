@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.54
+
+- Fixes a regression introduced in v0.0.53 that caused JSON.parse to be invoked twice for JSON clients.
+- Optional message deserialization had a bug impacting optional fields that are a message type. The default message value was always being supplied to the client, preventing clients from determining whether the field was set. This has been fixed. Now if a server omits or supplies an optional message field with a null value the client will read the field as undefined.
+
 ## v0.0.53
 
 - client JSON request methods now use `encodeJSON` and `decodeJSON` helpers.

@@ -17,7 +17,7 @@
   "types": "index.d.ts",
   "dependencies": {
     "@types/google-protobuf": "^3.15.3",
-    "google-protobuf": "^3.19.3",
+    "google-protobuf": "^3.20.1",
     "prettier": "^2.6.0"
   },
   "keywords": [

@@ -187,11 +187,14 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
             return {
               ${node.content.fields
                 .map((field) => {
+                  if (field.optional) {
+                    return `${field.name}: undefined,`;
+                  }
                   if (field.repeated) {
                     return `${field.name}: [],`;
                   } else if (field.read === "readMessage" && !field.map) {
                     return `${field.name}: ${field.tsType}.initialize(),`;
-                  } else if (!field.optional) {
+                  } else {
                     return `${field.name}: ${field.defaultValue},`;
                   }
                 })
@@ -200,7 +203,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
           result += "},\n\n";
         }
 
-        // encode (protobuf, internal)
+        // private: encode (protobuf)
         result += `\
         /**
          * @private
@@ -265,7 +268,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
             return writer;`;
         result += "},\n\n";
 
-        // encode (json, internal)
+        // private: encode (json)
         result += `\
         /**
          * @private
@@ -321,9 +324,13 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                   } else {
                     res += `const ${field.name} = ${field.tsType}._writeMessageJSON(msg.${field.name});`;
                   }
-                  res += `if (Object.keys(${field.name}).length > 0) {`;
-                  res += `${setField} = ${field.name};`;
-                  res += `}`;
+                  if (field.optional) {
+                    res += `${setField} = ${field.name};`;
+                  } else {
+                    res += `if (Object.keys(${field.name}).length > 0) {`;
+                    res += `${setField} = ${field.name};`;
+                    res += `}`;
+                  }
                 }
               } else if (field.tsType === "bigint") {
                 if (field.repeated) {
@@ -353,7 +360,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
         }
         result += "},\n\n";
 
-        // decode (protobuf, internal)
+        // private: decode (protobuf)
         result += `\
         /**
          * @private
@@ -396,13 +403,10 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                         res += `reader.readMessage(m, ${field.tsType}._readMessage);`;
                         res += `msg.${field.name}.push(m);`;
                       } else {
-                        res += `
-                        reader.readMessage(${
-                          node.content.isMap
-                            ? `${field.tsType}.initialize()`
-                            : `msg.${field.name}`
-                        }, ${field.tsType}._readMessage);
-                      `;
+                        if (field.optional || node.content.isMap) {
+                          res += `msg.${field.name} = ${field.tsType}.initialize();`;
+                        }
+                        res += `reader.readMessage(msg.${field.name}, ${field.tsType}._readMessage);`;
                       }
                     } else if (field.read === "readEnum") {
                       if (field.repeated) {
@@ -437,7 +441,7 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
         }
         result += "},\n\n";
 
-        // decode (json, internal)
+        // private: decode (json)
         result += `\
         /**
          * @private

@@ -1486,7 +1486,10 @@ export const TestAllTypes = {
       defaultImportEnum: ImportEnum._fromInt(0),
       defaultStringPiece: \\"\\",
       defaultCord: \\"\\",
-      oneofNestedMessage: TestAllTypes.NestedMessage.initialize(),
+      oneofUint32: undefined,
+      oneofNestedMessage: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -2055,9 +2058,7 @@ export const TestAllTypes = {
       const oneofNestedMessage = TestAllTypes.NestedMessage._writeMessageJSON(
         msg.oneofNestedMessage
       );
-      if (Object.keys(oneofNestedMessage).length > 0) {
-        json.oneofNestedMessage = oneofNestedMessage;
-      }
+      json.oneofNestedMessage = oneofNestedMessage;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -2385,6 +2386,7 @@ export const TestAllTypes = {
           break;
         }
         case 112: {
+          msg.oneofNestedMessage = TestAllTypes.NestedMessage.initialize();
           reader.readMessage(
             msg.oneofNestedMessage,
             TestAllTypes.NestedMessage._readMessage
@@ -3307,6 +3309,7 @@ export const TestDeprecatedFields = {
   initialize: function () {
     return {
       deprecatedInt32: 0,
+      deprecatedInt32InOneof: undefined,
     };
   },
 
@@ -10052,7 +10055,9 @@ export const TestOneof = {
    */
   initialize: function () {
     return {
-      fooMessage: TestAllTypes.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooMessage: undefined,
     };
   },
 
@@ -10085,9 +10090,7 @@ export const TestOneof = {
     }
     if (msg.fooMessage != undefined) {
       const fooMessage = TestAllTypes._writeMessageJSON(msg.fooMessage);
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     return json;
   },
@@ -10108,6 +10111,7 @@ export const TestOneof = {
           break;
         }
         case 3: {
+          msg.fooMessage = TestAllTypes.initialize();
           reader.readMessage(msg.fooMessage, TestAllTypes._readMessage);
           break;
         }
@@ -10549,8 +10553,24 @@ export const TestOneof2 = {
    */
   initialize: function () {
     return {
-      fooMessage: TestOneof2.NestedMessage.initialize(),
-      fooLazyMessage: TestOneof2.NestedMessage.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooCord: undefined,
+      fooStringPiece: undefined,
+      fooBytes: undefined,
+      fooEnum: undefined,
+      fooMessage: undefined,
+      fooLazyMessage: undefined,
+      barInt: undefined,
+      barString: undefined,
+      barCord: undefined,
+      barStringPiece: undefined,
+      barBytes: undefined,
+      barEnum: undefined,
+      barStringWithEmptyDefault: undefined,
+      barCordWithEmptyDefault: undefined,
+      barStringPieceWithEmptyDefault: undefined,
+      barBytesWithEmptyDefault: undefined,
       bazInt: 0,
       bazString: \\"\\",
     };
@@ -10658,17 +10678,13 @@ export const TestOneof2 = {
       const fooMessage = TestOneof2.NestedMessage._writeMessageJSON(
         msg.fooMessage
       );
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     if (msg.fooLazyMessage != undefined) {
       const fooLazyMessage = TestOneof2.NestedMessage._writeMessageJSON(
         msg.fooLazyMessage
       );
-      if (Object.keys(fooLazyMessage).length > 0) {
-        json.fooLazyMessage = fooLazyMessage;
-      }
+      json.fooLazyMessage = fooLazyMessage;
     }
     if (msg.barInt != undefined) {
       json.barInt = msg.barInt;
@@ -10743,6 +10759,7 @@ export const TestOneof2 = {
           break;
         }
         case 7: {
+          msg.fooMessage = TestOneof2.NestedMessage.initialize();
           reader.readMessage(
             msg.fooMessage,
             TestOneof2.NestedMessage._readMessage
@@ -10750,6 +10767,7 @@ export const TestOneof2 = {
           break;
         }
         case 11: {
+          msg.fooLazyMessage = TestOneof2.NestedMessage.initialize();
           reader.readMessage(
             msg.fooLazyMessage,
             TestOneof2.NestedMessage._readMessage
@@ -11231,7 +11249,9 @@ export const TestRequiredOneof = {
    */
   initialize: function () {
     return {
-      fooMessage: TestRequiredOneof.NestedMessage.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooMessage: undefined,
     };
   },
 
@@ -11270,9 +11290,7 @@ export const TestRequiredOneof = {
       const fooMessage = TestRequiredOneof.NestedMessage._writeMessageJSON(
         msg.fooMessage
       );
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     return json;
   },
@@ -11293,6 +11311,7 @@ export const TestRequiredOneof = {
           break;
         }
         case 3: {
+          msg.fooMessage = TestRequiredOneof.NestedMessage.initialize();
           reader.readMessage(
             msg.fooMessage,
             TestRequiredOneof.NestedMessage._readMessage
@@ -14277,7 +14296,10 @@ export const TestHugeFieldNumbers = {
       optionalBytes: new Uint8Array(),
       optionalMessage: ForeignMessage.initialize(),
       stringStringMap: {},
-      oneofTestAllTypes: TestAllTypes.initialize(),
+      oneofUint32: undefined,
+      oneofTestAllTypes: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -14394,9 +14416,7 @@ export const TestHugeFieldNumbers = {
       const oneofTestAllTypes = TestAllTypes._writeMessageJSON(
         msg.oneofTestAllTypes
       );
-      if (Object.keys(oneofTestAllTypes).length > 0) {
-        json.oneofTestAllTypes = oneofTestAllTypes;
-      }
+      json.oneofTestAllTypes = oneofTestAllTypes;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -14460,6 +14480,7 @@ export const TestHugeFieldNumbers = {
           break;
         }
         case 536870012: {
+          msg.oneofTestAllTypes = TestAllTypes.initialize();
           reader.readMessage(msg.oneofTestAllTypes, TestAllTypes._readMessage);
           break;
         }
@@ -17078,10 +17099,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -17154,10 +17173,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -17230,10 +17247,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            );
+            msg.value = TestAllTypes.initialize();
+            reader.readMessage(msg.value, TestAllTypes._readMessage);
             break;
           }
           default: {
@@ -17533,10 +17548,8 @@ export const TestMessageMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            );
+            msg.value = TestAllTypes.initialize();
+            reader.readMessage(msg.value, TestAllTypes._readMessage);
             break;
           }
           default: {
@@ -18026,10 +18039,8 @@ export const TestRequiredMessageMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            );
+            msg.value = TestRequired.initialize();
+            reader.readMessage(msg.value, TestRequired._readMessage);
             break;
           }
           default: {
@@ -19918,10 +19929,8 @@ export const TestArenaMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -20315,10 +20324,8 @@ export const TestRecursiveMapMessage = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestRecursiveMapMessage.initialize(),
-              TestRecursiveMapMessage._readMessage
-            );
+            msg.value = TestRecursiveMapMessage.initialize();
+            reader.readMessage(msg.value, TestRecursiveMapMessage._readMessage);
             break;
           }
           default: {
@@ -22871,7 +22878,8 @@ export const Struct = {
             break;
           }
           case 2: {
-            reader.readMessage(Value.initialize(), Value._readMessage);
+            msg.value = Value.initialize();
+            reader.readMessage(msg.value, Value._readMessage);
             break;
           }
           default: {
@@ -22936,8 +22944,12 @@ export const Value = {
    */
   initialize: function () {
     return {
-      structValue: Struct.initialize(),
-      listValue: ListValue.initialize(),
+      nullValue: undefined,
+      numberValue: undefined,
+      stringValue: undefined,
+      boolValue: undefined,
+      structValue: undefined,
+      listValue: undefined,
     };
   },
 
@@ -22985,15 +22997,11 @@ export const Value = {
     }
     if (msg.structValue != undefined) {
       const structValue = Struct._writeMessageJSON(msg.structValue);
-      if (Object.keys(structValue).length > 0) {
-        json.structValue = structValue;
-      }
+      json.structValue = structValue;
     }
     if (msg.listValue != undefined) {
       const listValue = ListValue._writeMessageJSON(msg.listValue);
-      if (Object.keys(listValue).length > 0) {
-        json.listValue = listValue;
-      }
+      json.listValue = listValue;
     }
     return json;
   },
@@ -23022,10 +23030,12 @@ export const Value = {
           break;
         }
         case 5: {
+          msg.structValue = Struct.initialize();
           reader.readMessage(msg.structValue, Struct._readMessage);
           break;
         }
         case 6: {
+          msg.listValue = ListValue.initialize();
           reader.readMessage(msg.listValue, ListValue._readMessage);
           break;
         }
@@ -25266,24 +25276,24 @@ export const OneofWellKnownTypes = {
    */
   initialize: function () {
     return {
-      anyField: Any.initialize(),
-      apiField: Api.initialize(),
-      durationField: Duration.initialize(),
-      emptyField: Empty.initialize(),
-      fieldMaskField: FieldMask.initialize(),
-      sourceContextField: SourceContext.initialize(),
-      structField: Struct.initialize(),
-      timestampField: Timestamp.initialize(),
-      typeField: Type.initialize(),
-      doubleField: DoubleValue.initialize(),
-      floatField: FloatValue.initialize(),
-      int64Field: Int64Value.initialize(),
-      uint64Field: UInt64Value.initialize(),
-      int32Field: Int32Value.initialize(),
-      uint32Field: UInt32Value.initialize(),
-      boolField: BoolValue.initialize(),
-      stringField: StringValue.initialize(),
-      bytesField: BytesValue.initialize(),
+      anyField: undefined,
+      apiField: undefined,
+      durationField: undefined,
+      emptyField: undefined,
+      fieldMaskField: undefined,
+      sourceContextField: undefined,
+      structField: undefined,
+      timestampField: undefined,
+      typeField: undefined,
+      doubleField: undefined,
+      floatField: undefined,
+      int64Field: undefined,
+      uint64Field: undefined,
+      int32Field: undefined,
+      uint32Field: undefined,
+      boolField: undefined,
+      stringField: undefined,
+      bytesField: undefined,
     };
   },
 
@@ -25359,113 +25369,77 @@ export const OneofWellKnownTypes = {
     const json = {};
     if (msg.anyField != undefined) {
       const anyField = Any._writeMessageJSON(msg.anyField);
-      if (Object.keys(anyField).length > 0) {
-        json.anyField = anyField;
-      }
+      json.anyField = anyField;
     }
     if (msg.apiField != undefined) {
       const apiField = Api._writeMessageJSON(msg.apiField);
-      if (Object.keys(apiField).length > 0) {
-        json.apiField = apiField;
-      }
+      json.apiField = apiField;
     }
     if (msg.durationField != undefined) {
       const durationField = Duration._writeMessageJSON(msg.durationField);
-      if (Object.keys(durationField).length > 0) {
-        json.durationField = durationField;
-      }
+      json.durationField = durationField;
     }
     if (msg.emptyField != undefined) {
       const emptyField = Empty._writeMessageJSON(msg.emptyField);
-      if (Object.keys(emptyField).length > 0) {
-        json.emptyField = emptyField;
-      }
+      json.emptyField = emptyField;
     }
     if (msg.fieldMaskField != undefined) {
       const fieldMaskField = FieldMask._writeMessageJSON(msg.fieldMaskField);
-      if (Object.keys(fieldMaskField).length > 0) {
-        json.fieldMaskField = fieldMaskField;
-      }
+      json.fieldMaskField = fieldMaskField;
     }
     if (msg.sourceContextField != undefined) {
       const sourceContextField = SourceContext._writeMessageJSON(
         msg.sourceContextField
       );
-      if (Object.keys(sourceContextField).length > 0) {
-        json.sourceContextField = sourceContextField;
-      }
+      json.sourceContextField = sourceContextField;
     }
     if (msg.structField != undefined) {
       const structField = Struct._writeMessageJSON(msg.structField);
-      if (Object.keys(structField).length > 0) {
-        json.structField = structField;
-      }
+      json.structField = structField;
     }
     if (msg.timestampField != undefined) {
       const timestampField = Timestamp._writeMessageJSON(msg.timestampField);
-      if (Object.keys(timestampField).length > 0) {
-        json.timestampField = timestampField;
-      }
+      json.timestampField = timestampField;
     }
     if (msg.typeField != undefined) {
       const typeField = Type._writeMessageJSON(msg.typeField);
-      if (Object.keys(typeField).length > 0) {
-        json.typeField = typeField;
-      }
+      json.typeField = typeField;
     }
     if (msg.doubleField != undefined) {
       const doubleField = DoubleValue._writeMessageJSON(msg.doubleField);
-      if (Object.keys(doubleField).length > 0) {
-        json.doubleField = doubleField;
-      }
+      json.doubleField = doubleField;
     }
     if (msg.floatField != undefined) {
       const floatField = FloatValue._writeMessageJSON(msg.floatField);
-      if (Object.keys(floatField).length > 0) {
-        json.floatField = floatField;
-      }
+      json.floatField = floatField;
     }
     if (msg.int64Field != undefined) {
       const int64Field = Int64Value._writeMessageJSON(msg.int64Field);
-      if (Object.keys(int64Field).length > 0) {
-        json.int64Field = int64Field;
-      }
+      json.int64Field = int64Field;
     }
     if (msg.uint64Field != undefined) {
       const uint64Field = UInt64Value._writeMessageJSON(msg.uint64Field);
-      if (Object.keys(uint64Field).length > 0) {
-        json.uint64Field = uint64Field;
-      }
+      json.uint64Field = uint64Field;
     }
     if (msg.int32Field != undefined) {
       const int32Field = Int32Value._writeMessageJSON(msg.int32Field);
-      if (Object.keys(int32Field).length > 0) {
-        json.int32Field = int32Field;
-      }
+      json.int32Field = int32Field;
     }
     if (msg.uint32Field != undefined) {
       const uint32Field = UInt32Value._writeMessageJSON(msg.uint32Field);
-      if (Object.keys(uint32Field).length > 0) {
-        json.uint32Field = uint32Field;
-      }
+      json.uint32Field = uint32Field;
     }
     if (msg.boolField != undefined) {
       const boolField = BoolValue._writeMessageJSON(msg.boolField);
-      if (Object.keys(boolField).length > 0) {
-        json.boolField = boolField;
-      }
+      json.boolField = boolField;
     }
     if (msg.stringField != undefined) {
       const stringField = StringValue._writeMessageJSON(msg.stringField);
-      if (Object.keys(stringField).length > 0) {
-        json.stringField = stringField;
-      }
+      json.stringField = stringField;
     }
     if (msg.bytesField != undefined) {
       const bytesField = BytesValue._writeMessageJSON(msg.bytesField);
-      if (Object.keys(bytesField).length > 0) {
-        json.bytesField = bytesField;
-      }
+      json.bytesField = bytesField;
     }
     return json;
   },
@@ -25478,26 +25452,32 @@ export const OneofWellKnownTypes = {
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
+          msg.anyField = Any.initialize();
           reader.readMessage(msg.anyField, Any._readMessage);
           break;
         }
         case 2: {
+          msg.apiField = Api.initialize();
           reader.readMessage(msg.apiField, Api._readMessage);
           break;
         }
         case 3: {
+          msg.durationField = Duration.initialize();
           reader.readMessage(msg.durationField, Duration._readMessage);
           break;
         }
         case 4: {
+          msg.emptyField = Empty.initialize();
           reader.readMessage(msg.emptyField, Empty._readMessage);
           break;
         }
         case 5: {
+          msg.fieldMaskField = FieldMask.initialize();
           reader.readMessage(msg.fieldMaskField, FieldMask._readMessage);
           break;
         }
         case 6: {
+          msg.sourceContextField = SourceContext.initialize();
           reader.readMessage(
             msg.sourceContextField,
             SourceContext._readMessage
@@ -25505,50 +25485,62 @@ export const OneofWellKnownTypes = {
           break;
         }
         case 7: {
+          msg.structField = Struct.initialize();
           reader.readMessage(msg.structField, Struct._readMessage);
           break;
         }
         case 8: {
+          msg.timestampField = Timestamp.initialize();
           reader.readMessage(msg.timestampField, Timestamp._readMessage);
           break;
         }
         case 9: {
+          msg.typeField = Type.initialize();
           reader.readMessage(msg.typeField, Type._readMessage);
           break;
         }
         case 10: {
+          msg.doubleField = DoubleValue.initialize();
           reader.readMessage(msg.doubleField, DoubleValue._readMessage);
           break;
         }
         case 11: {
+          msg.floatField = FloatValue.initialize();
           reader.readMessage(msg.floatField, FloatValue._readMessage);
           break;
         }
         case 12: {
+          msg.int64Field = Int64Value.initialize();
           reader.readMessage(msg.int64Field, Int64Value._readMessage);
           break;
         }
         case 13: {
+          msg.uint64Field = UInt64Value.initialize();
           reader.readMessage(msg.uint64Field, UInt64Value._readMessage);
           break;
         }
         case 14: {
+          msg.int32Field = Int32Value.initialize();
           reader.readMessage(msg.int32Field, Int32Value._readMessage);
           break;
         }
         case 15: {
+          msg.uint32Field = UInt32Value.initialize();
           reader.readMessage(msg.uint32Field, UInt32Value._readMessage);
           break;
         }
         case 16: {
+          msg.boolField = BoolValue.initialize();
           reader.readMessage(msg.boolField, BoolValue._readMessage);
           break;
         }
         case 17: {
+          msg.stringField = StringValue.initialize();
           reader.readMessage(msg.stringField, StringValue._readMessage);
           break;
         }
         case 18: {
+          msg.bytesField = BytesValue.initialize();
           reader.readMessage(msg.bytesField, BytesValue._readMessage);
           break;
         }
@@ -26481,7 +26473,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Any.initialize(), Any._readMessage);
+            msg.value = Any.initialize();
+            reader.readMessage(msg.value, Any._readMessage);
             break;
           }
           default: {
@@ -26554,7 +26547,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Api.initialize(), Api._readMessage);
+            msg.value = Api.initialize();
+            reader.readMessage(msg.value, Api._readMessage);
             break;
           }
           default: {
@@ -26627,7 +26621,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Duration.initialize(), Duration._readMessage);
+            msg.value = Duration.initialize();
+            reader.readMessage(msg.value, Duration._readMessage);
             break;
           }
           default: {
@@ -26700,7 +26695,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Empty.initialize(), Empty._readMessage);
+            msg.value = Empty.initialize();
+            reader.readMessage(msg.value, Empty._readMessage);
             break;
           }
           default: {
@@ -26773,7 +26769,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(FieldMask.initialize(), FieldMask._readMessage);
+            msg.value = FieldMask.initialize();
+            reader.readMessage(msg.value, FieldMask._readMessage);
             break;
           }
           default: {
@@ -26846,10 +26843,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              SourceContext.initialize(),
-              SourceContext._readMessage
-            );
+            msg.value = SourceContext.initialize();
+            reader.readMessage(msg.value, SourceContext._readMessage);
             break;
           }
           default: {
@@ -26922,7 +26917,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Struct.initialize(), Struct._readMessage);
+            msg.value = Struct.initialize();
+            reader.readMessage(msg.value, Struct._readMessage);
             break;
           }
           default: {
@@ -26995,7 +26991,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Timestamp.initialize(), Timestamp._readMessage);
+            msg.value = Timestamp.initialize();
+            reader.readMessage(msg.value, Timestamp._readMessage);
             break;
           }
           default: {
@@ -27068,7 +27065,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Type.initialize(), Type._readMessage);
+            msg.value = Type.initialize();
+            reader.readMessage(msg.value, Type._readMessage);
             break;
           }
           default: {
@@ -27141,10 +27139,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              DoubleValue.initialize(),
-              DoubleValue._readMessage
-            );
+            msg.value = DoubleValue.initialize();
+            reader.readMessage(msg.value, DoubleValue._readMessage);
             break;
           }
           default: {
@@ -27217,10 +27213,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              FloatValue.initialize(),
-              FloatValue._readMessage
-            );
+            msg.value = FloatValue.initialize();
+            reader.readMessage(msg.value, FloatValue._readMessage);
             break;
           }
           default: {
@@ -27293,10 +27287,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              Int64Value.initialize(),
-              Int64Value._readMessage
-            );
+            msg.value = Int64Value.initialize();
+            reader.readMessage(msg.value, Int64Value._readMessage);
             break;
           }
           default: {
@@ -27369,10 +27361,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              UInt64Value.initialize(),
-              UInt64Value._readMessage
-            );
+            msg.value = UInt64Value.initialize();
+            reader.readMessage(msg.value, UInt64Value._readMessage);
             break;
           }
           default: {
@@ -27445,10 +27435,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              Int32Value.initialize(),
-              Int32Value._readMessage
-            );
+            msg.value = Int32Value.initialize();
+            reader.readMessage(msg.value, Int32Value._readMessage);
             break;
           }
           default: {
@@ -27521,10 +27509,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              UInt32Value.initialize(),
-              UInt32Value._readMessage
-            );
+            msg.value = UInt32Value.initialize();
+            reader.readMessage(msg.value, UInt32Value._readMessage);
             break;
           }
           default: {
@@ -27597,7 +27583,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(BoolValue.initialize(), BoolValue._readMessage);
+            msg.value = BoolValue.initialize();
+            reader.readMessage(msg.value, BoolValue._readMessage);
             break;
           }
           default: {
@@ -27670,10 +27657,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              StringValue.initialize(),
-              StringValue._readMessage
-            );
+            msg.value = StringValue.initialize();
+            reader.readMessage(msg.value, StringValue._readMessage);
             break;
           }
           default: {
@@ -27746,10 +27731,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              BytesValue.initialize(),
-              BytesValue._readMessage
-            );
+            msg.value = BytesValue.initialize();
+            reader.readMessage(msg.value, BytesValue._readMessage);
             break;
           }
           default: {
@@ -27957,7 +27940,10 @@ export const TestAllTypes = {
       repeatedStringPiece: [],
       repeatedCord: [],
       repeatedLazyMessage: [],
-      oneofNestedMessage: TestAllTypes.NestedMessage.initialize(),
+      oneofUint32: undefined,
+      oneofNestedMessage: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -28397,9 +28383,7 @@ export const TestAllTypes = {
       const oneofNestedMessage = TestAllTypes.NestedMessage._writeMessageJSON(
         msg.oneofNestedMessage
       );
-      if (Object.keys(oneofNestedMessage).length > 0) {
-        json.oneofNestedMessage = oneofNestedMessage;
-      }
+      json.oneofNestedMessage = oneofNestedMessage;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -28644,6 +28628,7 @@ export const TestAllTypes = {
           break;
         }
         case 112: {
+          msg.oneofNestedMessage = TestAllTypes.NestedMessage.initialize();
           reader.readMessage(
             msg.oneofNestedMessage,
             TestAllTypes.NestedMessage._readMessage
@@ -30145,7 +30130,9 @@ export const TestOneof2 = {
    * Initializes TestOneof2 with all fields set to their default value.
    */
   initialize: function () {
-    return {};
+    return {
+      fooEnum: undefined,
+    };
   },
 
   /**
@@ -31804,7 +31791,10 @@ export const TestAllTypes = {
       defaultImportEnum: ImportEnum._fromInt(0),
       defaultStringPiece: \\"\\",
       defaultCord: \\"\\",
-      oneofNestedMessage: TestAllTypes.NestedMessage.initialize(),
+      oneofUint32: undefined,
+      oneofNestedMessage: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -32373,9 +32363,7 @@ export const TestAllTypes = {
       const oneofNestedMessage = TestAllTypes.NestedMessage._writeMessageJSON(
         msg.oneofNestedMessage
       );
-      if (Object.keys(oneofNestedMessage).length > 0) {
-        json.oneofNestedMessage = oneofNestedMessage;
-      }
+      json.oneofNestedMessage = oneofNestedMessage;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -32703,6 +32691,7 @@ export const TestAllTypes = {
           break;
         }
         case 112: {
+          msg.oneofNestedMessage = TestAllTypes.NestedMessage.initialize();
           reader.readMessage(
             msg.oneofNestedMessage,
             TestAllTypes.NestedMessage._readMessage
@@ -33625,6 +33614,7 @@ export const TestDeprecatedFields = {
   initialize: function () {
     return {
       deprecatedInt32: 0,
+      deprecatedInt32InOneof: undefined,
     };
   },
 
@@ -40370,7 +40360,9 @@ export const TestOneof = {
    */
   initialize: function () {
     return {
-      fooMessage: TestAllTypes.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooMessage: undefined,
     };
   },
 
@@ -40403,9 +40395,7 @@ export const TestOneof = {
     }
     if (msg.fooMessage != undefined) {
       const fooMessage = TestAllTypes._writeMessageJSON(msg.fooMessage);
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     return json;
   },
@@ -40426,6 +40416,7 @@ export const TestOneof = {
           break;
         }
         case 3: {
+          msg.fooMessage = TestAllTypes.initialize();
           reader.readMessage(msg.fooMessage, TestAllTypes._readMessage);
           break;
         }
@@ -40867,8 +40858,24 @@ export const TestOneof2 = {
    */
   initialize: function () {
     return {
-      fooMessage: TestOneof2.NestedMessage.initialize(),
-      fooLazyMessage: TestOneof2.NestedMessage.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooCord: undefined,
+      fooStringPiece: undefined,
+      fooBytes: undefined,
+      fooEnum: undefined,
+      fooMessage: undefined,
+      fooLazyMessage: undefined,
+      barInt: undefined,
+      barString: undefined,
+      barCord: undefined,
+      barStringPiece: undefined,
+      barBytes: undefined,
+      barEnum: undefined,
+      barStringWithEmptyDefault: undefined,
+      barCordWithEmptyDefault: undefined,
+      barStringPieceWithEmptyDefault: undefined,
+      barBytesWithEmptyDefault: undefined,
       bazInt: 0,
       bazString: \\"\\",
     };
@@ -40976,17 +40983,13 @@ export const TestOneof2 = {
       const fooMessage = TestOneof2.NestedMessage._writeMessageJSON(
         msg.fooMessage
       );
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     if (msg.fooLazyMessage != undefined) {
       const fooLazyMessage = TestOneof2.NestedMessage._writeMessageJSON(
         msg.fooLazyMessage
       );
-      if (Object.keys(fooLazyMessage).length > 0) {
-        json.fooLazyMessage = fooLazyMessage;
-      }
+      json.fooLazyMessage = fooLazyMessage;
     }
     if (msg.barInt != undefined) {
       json.barInt = msg.barInt;
@@ -41061,6 +41064,7 @@ export const TestOneof2 = {
           break;
         }
         case 7: {
+          msg.fooMessage = TestOneof2.NestedMessage.initialize();
           reader.readMessage(
             msg.fooMessage,
             TestOneof2.NestedMessage._readMessage
@@ -41068,6 +41072,7 @@ export const TestOneof2 = {
           break;
         }
         case 11: {
+          msg.fooLazyMessage = TestOneof2.NestedMessage.initialize();
           reader.readMessage(
             msg.fooLazyMessage,
             TestOneof2.NestedMessage._readMessage
@@ -41549,7 +41554,9 @@ export const TestRequiredOneof = {
    */
   initialize: function () {
     return {
-      fooMessage: TestRequiredOneof.NestedMessage.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooMessage: undefined,
     };
   },
 
@@ -41588,9 +41595,7 @@ export const TestRequiredOneof = {
       const fooMessage = TestRequiredOneof.NestedMessage._writeMessageJSON(
         msg.fooMessage
       );
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     return json;
   },
@@ -41611,6 +41616,7 @@ export const TestRequiredOneof = {
           break;
         }
         case 3: {
+          msg.fooMessage = TestRequiredOneof.NestedMessage.initialize();
           reader.readMessage(
             msg.fooMessage,
             TestRequiredOneof.NestedMessage._readMessage
@@ -44595,7 +44601,10 @@ export const TestHugeFieldNumbers = {
       optionalBytes: new Uint8Array(),
       optionalMessage: ForeignMessage.initialize(),
       stringStringMap: {},
-      oneofTestAllTypes: TestAllTypes.initialize(),
+      oneofUint32: undefined,
+      oneofTestAllTypes: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -44712,9 +44721,7 @@ export const TestHugeFieldNumbers = {
       const oneofTestAllTypes = TestAllTypes._writeMessageJSON(
         msg.oneofTestAllTypes
       );
-      if (Object.keys(oneofTestAllTypes).length > 0) {
-        json.oneofTestAllTypes = oneofTestAllTypes;
-      }
+      json.oneofTestAllTypes = oneofTestAllTypes;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -44778,6 +44785,7 @@ export const TestHugeFieldNumbers = {
           break;
         }
         case 536870012: {
+          msg.oneofTestAllTypes = TestAllTypes.initialize();
           reader.readMessage(msg.oneofTestAllTypes, TestAllTypes._readMessage);
           break;
         }
@@ -47403,10 +47411,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -47479,10 +47485,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -47555,10 +47559,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            );
+            msg.value = TestAllTypes.initialize();
+            reader.readMessage(msg.value, TestAllTypes._readMessage);
             break;
           }
           default: {
@@ -47858,10 +47860,8 @@ export const TestMessageMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            );
+            msg.value = TestAllTypes.initialize();
+            reader.readMessage(msg.value, TestAllTypes._readMessage);
             break;
           }
           default: {
@@ -48351,10 +48351,8 @@ export const TestRequiredMessageMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            );
+            msg.value = TestRequired.initialize();
+            reader.readMessage(msg.value, TestRequired._readMessage);
             break;
           }
           default: {
@@ -50243,10 +50241,8 @@ export const TestArenaMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -50640,10 +50636,8 @@ export const TestRecursiveMapMessage = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestRecursiveMapMessage.initialize(),
-              TestRecursiveMapMessage._readMessage
-            );
+            msg.value = TestRecursiveMapMessage.initialize();
+            reader.readMessage(msg.value, TestRecursiveMapMessage._readMessage);
             break;
           }
           default: {
@@ -53252,7 +53246,8 @@ export const Struct = {
             break;
           }
           case 2: {
-            reader.readMessage(Value.initialize(), Value._readMessage);
+            msg.value = Value.initialize();
+            reader.readMessage(msg.value, Value._readMessage);
             break;
           }
           default: {
@@ -53317,8 +53312,12 @@ export const Value = {
    */
   initialize: function () {
     return {
-      structValue: Struct.initialize(),
-      listValue: ListValue.initialize(),
+      nullValue: undefined,
+      numberValue: undefined,
+      stringValue: undefined,
+      boolValue: undefined,
+      structValue: undefined,
+      listValue: undefined,
     };
   },
 
@@ -53366,15 +53365,11 @@ export const Value = {
     }
     if (msg.structValue != undefined) {
       const structValue = Struct._writeMessageJSON(msg.structValue);
-      if (Object.keys(structValue).length > 0) {
-        json.structValue = structValue;
-      }
+      json.structValue = structValue;
     }
     if (msg.listValue != undefined) {
       const listValue = ListValue._writeMessageJSON(msg.listValue);
-      if (Object.keys(listValue).length > 0) {
-        json.listValue = listValue;
-      }
+      json.listValue = listValue;
     }
     return json;
   },
@@ -53403,10 +53398,12 @@ export const Value = {
           break;
         }
         case 5: {
+          msg.structValue = Struct.initialize();
           reader.readMessage(msg.structValue, Struct._readMessage);
           break;
         }
         case 6: {
+          msg.listValue = ListValue.initialize();
           reader.readMessage(msg.listValue, ListValue._readMessage);
           break;
         }
@@ -55668,24 +55665,24 @@ export const OneofWellKnownTypes = {
    */
   initialize: function () {
     return {
-      anyField: Any.initialize(),
-      apiField: Api.initialize(),
-      durationField: Duration.initialize(),
-      emptyField: Empty.initialize(),
-      fieldMaskField: FieldMask.initialize(),
-      sourceContextField: SourceContext.initialize(),
-      structField: Struct.initialize(),
-      timestampField: Timestamp.initialize(),
-      typeField: Type.initialize(),
-      doubleField: DoubleValue.initialize(),
-      floatField: FloatValue.initialize(),
-      int64Field: Int64Value.initialize(),
-      uint64Field: UInt64Value.initialize(),
-      int32Field: Int32Value.initialize(),
-      uint32Field: UInt32Value.initialize(),
-      boolField: BoolValue.initialize(),
-      stringField: StringValue.initialize(),
-      bytesField: BytesValue.initialize(),
+      anyField: undefined,
+      apiField: undefined,
+      durationField: undefined,
+      emptyField: undefined,
+      fieldMaskField: undefined,
+      sourceContextField: undefined,
+      structField: undefined,
+      timestampField: undefined,
+      typeField: undefined,
+      doubleField: undefined,
+      floatField: undefined,
+      int64Field: undefined,
+      uint64Field: undefined,
+      int32Field: undefined,
+      uint32Field: undefined,
+      boolField: undefined,
+      stringField: undefined,
+      bytesField: undefined,
     };
   },
 
@@ -55761,113 +55758,77 @@ export const OneofWellKnownTypes = {
     const json = {};
     if (msg.anyField != undefined) {
       const anyField = Any._writeMessageJSON(msg.anyField);
-      if (Object.keys(anyField).length > 0) {
-        json.anyField = anyField;
-      }
+      json.anyField = anyField;
     }
     if (msg.apiField != undefined) {
       const apiField = Api._writeMessageJSON(msg.apiField);
-      if (Object.keys(apiField).length > 0) {
-        json.apiField = apiField;
-      }
+      json.apiField = apiField;
     }
     if (msg.durationField != undefined) {
       const durationField = Duration._writeMessageJSON(msg.durationField);
-      if (Object.keys(durationField).length > 0) {
-        json.durationField = durationField;
-      }
+      json.durationField = durationField;
     }
     if (msg.emptyField != undefined) {
       const emptyField = Empty._writeMessageJSON(msg.emptyField);
-      if (Object.keys(emptyField).length > 0) {
-        json.emptyField = emptyField;
-      }
+      json.emptyField = emptyField;
     }
     if (msg.fieldMaskField != undefined) {
       const fieldMaskField = FieldMask._writeMessageJSON(msg.fieldMaskField);
-      if (Object.keys(fieldMaskField).length > 0) {
-        json.fieldMaskField = fieldMaskField;
-      }
+      json.fieldMaskField = fieldMaskField;
     }
     if (msg.sourceContextField != undefined) {
       const sourceContextField = SourceContext._writeMessageJSON(
         msg.sourceContextField
       );
-      if (Object.keys(sourceContextField).length > 0) {
-        json.sourceContextField = sourceContextField;
-      }
+      json.sourceContextField = sourceContextField;
     }
     if (msg.structField != undefined) {
       const structField = Struct._writeMessageJSON(msg.structField);
-      if (Object.keys(structField).length > 0) {
-        json.structField = structField;
-      }
+      json.structField = structField;
     }
     if (msg.timestampField != undefined) {
       const timestampField = Timestamp._writeMessageJSON(msg.timestampField);
-      if (Object.keys(timestampField).length > 0) {
-        json.timestampField = timestampField;
-      }
+      json.timestampField = timestampField;
     }
     if (msg.typeField != undefined) {
       const typeField = Type._writeMessageJSON(msg.typeField);
-      if (Object.keys(typeField).length > 0) {
-        json.typeField = typeField;
-      }
+      json.typeField = typeField;
     }
     if (msg.doubleField != undefined) {
       const doubleField = DoubleValue._writeMessageJSON(msg.doubleField);
-      if (Object.keys(doubleField).length > 0) {
-        json.doubleField = doubleField;
-      }
+      json.doubleField = doubleField;
     }
     if (msg.floatField != undefined) {
       const floatField = FloatValue._writeMessageJSON(msg.floatField);
-      if (Object.keys(floatField).length > 0) {
-        json.floatField = floatField;
-      }
+      json.floatField = floatField;
     }
     if (msg.int64Field != undefined) {
       const int64Field = Int64Value._writeMessageJSON(msg.int64Field);
-      if (Object.keys(int64Field).length > 0) {
-        json.int64Field = int64Field;
-      }
+      json.int64Field = int64Field;
     }
     if (msg.uint64Field != undefined) {
       const uint64Field = UInt64Value._writeMessageJSON(msg.uint64Field);
-      if (Object.keys(uint64Field).length > 0) {
-        json.uint64Field = uint64Field;
-      }
+      json.uint64Field = uint64Field;
     }
     if (msg.int32Field != undefined) {
       const int32Field = Int32Value._writeMessageJSON(msg.int32Field);
-      if (Object.keys(int32Field).length > 0) {
-        json.int32Field = int32Field;
-      }
+      json.int32Field = int32Field;
     }
     if (msg.uint32Field != undefined) {
       const uint32Field = UInt32Value._writeMessageJSON(msg.uint32Field);
-      if (Object.keys(uint32Field).length > 0) {
-        json.uint32Field = uint32Field;
-      }
+      json.uint32Field = uint32Field;
     }
     if (msg.boolField != undefined) {
       const boolField = BoolValue._writeMessageJSON(msg.boolField);
-      if (Object.keys(boolField).length > 0) {
-        json.boolField = boolField;
-      }
+      json.boolField = boolField;
     }
     if (msg.stringField != undefined) {
       const stringField = StringValue._writeMessageJSON(msg.stringField);
-      if (Object.keys(stringField).length > 0) {
-        json.stringField = stringField;
-      }
+      json.stringField = stringField;
     }
     if (msg.bytesField != undefined) {
       const bytesField = BytesValue._writeMessageJSON(msg.bytesField);
-      if (Object.keys(bytesField).length > 0) {
-        json.bytesField = bytesField;
-      }
+      json.bytesField = bytesField;
     }
     return json;
   },
@@ -55880,26 +55841,32 @@ export const OneofWellKnownTypes = {
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
+          msg.anyField = Any.initialize();
           reader.readMessage(msg.anyField, Any._readMessage);
           break;
         }
         case 2: {
+          msg.apiField = Api.initialize();
           reader.readMessage(msg.apiField, Api._readMessage);
           break;
         }
         case 3: {
+          msg.durationField = Duration.initialize();
           reader.readMessage(msg.durationField, Duration._readMessage);
           break;
         }
         case 4: {
+          msg.emptyField = Empty.initialize();
           reader.readMessage(msg.emptyField, Empty._readMessage);
           break;
         }
         case 5: {
+          msg.fieldMaskField = FieldMask.initialize();
           reader.readMessage(msg.fieldMaskField, FieldMask._readMessage);
           break;
         }
         case 6: {
+          msg.sourceContextField = SourceContext.initialize();
           reader.readMessage(
             msg.sourceContextField,
             SourceContext._readMessage
@@ -55907,50 +55874,62 @@ export const OneofWellKnownTypes = {
           break;
         }
         case 7: {
+          msg.structField = Struct.initialize();
           reader.readMessage(msg.structField, Struct._readMessage);
           break;
         }
         case 8: {
+          msg.timestampField = Timestamp.initialize();
           reader.readMessage(msg.timestampField, Timestamp._readMessage);
           break;
         }
         case 9: {
+          msg.typeField = Type.initialize();
           reader.readMessage(msg.typeField, Type._readMessage);
           break;
         }
         case 10: {
+          msg.doubleField = DoubleValue.initialize();
           reader.readMessage(msg.doubleField, DoubleValue._readMessage);
           break;
         }
         case 11: {
+          msg.floatField = FloatValue.initialize();
           reader.readMessage(msg.floatField, FloatValue._readMessage);
           break;
         }
         case 12: {
+          msg.int64Field = Int64Value.initialize();
           reader.readMessage(msg.int64Field, Int64Value._readMessage);
           break;
         }
         case 13: {
+          msg.uint64Field = UInt64Value.initialize();
           reader.readMessage(msg.uint64Field, UInt64Value._readMessage);
           break;
         }
         case 14: {
+          msg.int32Field = Int32Value.initialize();
           reader.readMessage(msg.int32Field, Int32Value._readMessage);
           break;
         }
         case 15: {
+          msg.uint32Field = UInt32Value.initialize();
           reader.readMessage(msg.uint32Field, UInt32Value._readMessage);
           break;
         }
         case 16: {
+          msg.boolField = BoolValue.initialize();
           reader.readMessage(msg.boolField, BoolValue._readMessage);
           break;
         }
         case 17: {
+          msg.stringField = StringValue.initialize();
           reader.readMessage(msg.stringField, StringValue._readMessage);
           break;
         }
         case 18: {
+          msg.bytesField = BytesValue.initialize();
           reader.readMessage(msg.bytesField, BytesValue._readMessage);
           break;
         }
@@ -56883,7 +56862,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Any.initialize(), Any._readMessage);
+            msg.value = Any.initialize();
+            reader.readMessage(msg.value, Any._readMessage);
             break;
           }
           default: {
@@ -56956,7 +56936,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Api.initialize(), Api._readMessage);
+            msg.value = Api.initialize();
+            reader.readMessage(msg.value, Api._readMessage);
             break;
           }
           default: {
@@ -57029,7 +57010,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Duration.initialize(), Duration._readMessage);
+            msg.value = Duration.initialize();
+            reader.readMessage(msg.value, Duration._readMessage);
             break;
           }
           default: {
@@ -57102,7 +57084,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Empty.initialize(), Empty._readMessage);
+            msg.value = Empty.initialize();
+            reader.readMessage(msg.value, Empty._readMessage);
             break;
           }
           default: {
@@ -57175,7 +57158,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(FieldMask.initialize(), FieldMask._readMessage);
+            msg.value = FieldMask.initialize();
+            reader.readMessage(msg.value, FieldMask._readMessage);
             break;
           }
           default: {
@@ -57248,10 +57232,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              SourceContext.initialize(),
-              SourceContext._readMessage
-            );
+            msg.value = SourceContext.initialize();
+            reader.readMessage(msg.value, SourceContext._readMessage);
             break;
           }
           default: {
@@ -57324,7 +57306,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Struct.initialize(), Struct._readMessage);
+            msg.value = Struct.initialize();
+            reader.readMessage(msg.value, Struct._readMessage);
             break;
           }
           default: {
@@ -57397,7 +57380,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Timestamp.initialize(), Timestamp._readMessage);
+            msg.value = Timestamp.initialize();
+            reader.readMessage(msg.value, Timestamp._readMessage);
             break;
           }
           default: {
@@ -57470,7 +57454,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Type.initialize(), Type._readMessage);
+            msg.value = Type.initialize();
+            reader.readMessage(msg.value, Type._readMessage);
             break;
           }
           default: {
@@ -57543,10 +57528,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              DoubleValue.initialize(),
-              DoubleValue._readMessage
-            );
+            msg.value = DoubleValue.initialize();
+            reader.readMessage(msg.value, DoubleValue._readMessage);
             break;
           }
           default: {
@@ -57619,10 +57602,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              FloatValue.initialize(),
-              FloatValue._readMessage
-            );
+            msg.value = FloatValue.initialize();
+            reader.readMessage(msg.value, FloatValue._readMessage);
             break;
           }
           default: {
@@ -57695,10 +57676,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              Int64Value.initialize(),
-              Int64Value._readMessage
-            );
+            msg.value = Int64Value.initialize();
+            reader.readMessage(msg.value, Int64Value._readMessage);
             break;
           }
           default: {
@@ -57771,10 +57750,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              UInt64Value.initialize(),
-              UInt64Value._readMessage
-            );
+            msg.value = UInt64Value.initialize();
+            reader.readMessage(msg.value, UInt64Value._readMessage);
             break;
           }
           default: {
@@ -57847,10 +57824,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              Int32Value.initialize(),
-              Int32Value._readMessage
-            );
+            msg.value = Int32Value.initialize();
+            reader.readMessage(msg.value, Int32Value._readMessage);
             break;
           }
           default: {
@@ -57923,10 +57898,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              UInt32Value.initialize(),
-              UInt32Value._readMessage
-            );
+            msg.value = UInt32Value.initialize();
+            reader.readMessage(msg.value, UInt32Value._readMessage);
             break;
           }
           default: {
@@ -57999,7 +57972,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(BoolValue.initialize(), BoolValue._readMessage);
+            msg.value = BoolValue.initialize();
+            reader.readMessage(msg.value, BoolValue._readMessage);
             break;
           }
           default: {
@@ -58072,10 +58046,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              StringValue.initialize(),
-              StringValue._readMessage
-            );
+            msg.value = StringValue.initialize();
+            reader.readMessage(msg.value, StringValue._readMessage);
             break;
           }
           default: {
@@ -58148,10 +58120,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              BytesValue.initialize(),
-              BytesValue._readMessage
-            );
+            msg.value = BytesValue.initialize();
+            reader.readMessage(msg.value, BytesValue._readMessage);
             break;
           }
           default: {
@@ -58366,7 +58336,10 @@ export const TestAllTypes = {
       repeatedStringPiece: [],
       repeatedCord: [],
       repeatedLazyMessage: [],
-      oneofNestedMessage: TestAllTypes.NestedMessage.initialize(),
+      oneofUint32: undefined,
+      oneofNestedMessage: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -58806,9 +58779,7 @@ export const TestAllTypes = {
       const oneofNestedMessage = TestAllTypes.NestedMessage._writeMessageJSON(
         msg.oneofNestedMessage
       );
-      if (Object.keys(oneofNestedMessage).length > 0) {
-        json.oneofNestedMessage = oneofNestedMessage;
-      }
+      json.oneofNestedMessage = oneofNestedMessage;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -59053,6 +59024,7 @@ export const TestAllTypes = {
           break;
         }
         case 112: {
+          msg.oneofNestedMessage = TestAllTypes.NestedMessage.initialize();
           reader.readMessage(
             msg.oneofNestedMessage,
             TestAllTypes.NestedMessage._readMessage
@@ -60554,7 +60526,9 @@ export const TestOneof2 = {
    * Initializes TestOneof2 with all fields set to their default value.
    */
   initialize: function () {
-    return {};
+    return {
+      fooEnum: undefined,
+    };
   },
 
   /**
@@ -63243,7 +63217,10 @@ export const TestAllTypes = {
       defaultImportEnum: ImportEnum._fromInt(0),
       defaultStringPiece: \\"\\",
       defaultCord: \\"\\",
-      oneofNestedMessage: TestAllTypes.NestedMessage.initialize(),
+      oneofUint32: undefined,
+      oneofNestedMessage: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -63817,9 +63794,7 @@ export const TestAllTypes = {
       const oneofNestedMessage = TestAllTypes.NestedMessage._writeMessageJSON(
         msg.oneofNestedMessage
       );
-      if (Object.keys(oneofNestedMessage).length > 0) {
-        json.oneofNestedMessage = oneofNestedMessage;
-      }
+      json.oneofNestedMessage = oneofNestedMessage;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -64150,6 +64125,7 @@ export const TestAllTypes = {
           break;
         }
         case 112: {
+          msg.oneofNestedMessage = TestAllTypes.NestedMessage.initialize();
           reader.readMessage(
             msg.oneofNestedMessage,
             TestAllTypes.NestedMessage._readMessage
@@ -65116,6 +65092,7 @@ export const TestDeprecatedFields = {
   initialize: function (): TestDeprecatedFields {
     return {
       deprecatedInt32: 0,
+      deprecatedInt32InOneof: undefined,
     };
   },
 
@@ -72486,7 +72463,9 @@ export const TestOneof = {
    */
   initialize: function (): TestOneof {
     return {
-      fooMessage: TestAllTypes.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooMessage: undefined,
     };
   },
 
@@ -72524,9 +72503,7 @@ export const TestOneof = {
     }
     if (msg.fooMessage != undefined) {
       const fooMessage = TestAllTypes._writeMessageJSON(msg.fooMessage);
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     return json;
   },
@@ -72547,6 +72524,7 @@ export const TestOneof = {
           break;
         }
         case 3: {
+          msg.fooMessage = TestAllTypes.initialize();
           reader.readMessage(msg.fooMessage, TestAllTypes._readMessage);
           break;
         }
@@ -73027,8 +73005,24 @@ export const TestOneof2 = {
    */
   initialize: function (): TestOneof2 {
     return {
-      fooMessage: TestOneof2.NestedMessage.initialize(),
-      fooLazyMessage: TestOneof2.NestedMessage.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooCord: undefined,
+      fooStringPiece: undefined,
+      fooBytes: undefined,
+      fooEnum: undefined,
+      fooMessage: undefined,
+      fooLazyMessage: undefined,
+      barInt: undefined,
+      barString: undefined,
+      barCord: undefined,
+      barStringPiece: undefined,
+      barBytes: undefined,
+      barEnum: undefined,
+      barStringWithEmptyDefault: undefined,
+      barCordWithEmptyDefault: undefined,
+      barStringPieceWithEmptyDefault: undefined,
+      barBytesWithEmptyDefault: undefined,
       bazInt: 0,
       bazString: \\"\\",
     };
@@ -73141,17 +73135,13 @@ export const TestOneof2 = {
       const fooMessage = TestOneof2.NestedMessage._writeMessageJSON(
         msg.fooMessage
       );
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     if (msg.fooLazyMessage != undefined) {
       const fooLazyMessage = TestOneof2.NestedMessage._writeMessageJSON(
         msg.fooLazyMessage
       );
-      if (Object.keys(fooLazyMessage).length > 0) {
-        json.fooLazyMessage = fooLazyMessage;
-      }
+      json.fooLazyMessage = fooLazyMessage;
     }
     if (msg.barInt != undefined) {
       json.barInt = msg.barInt;
@@ -73226,6 +73216,7 @@ export const TestOneof2 = {
           break;
         }
         case 7: {
+          msg.fooMessage = TestOneof2.NestedMessage.initialize();
           reader.readMessage(
             msg.fooMessage,
             TestOneof2.NestedMessage._readMessage
@@ -73233,6 +73224,7 @@ export const TestOneof2 = {
           break;
         }
         case 11: {
+          msg.fooLazyMessage = TestOneof2.NestedMessage.initialize();
           reader.readMessage(
             msg.fooLazyMessage,
             TestOneof2.NestedMessage._readMessage
@@ -73736,7 +73728,9 @@ export const TestRequiredOneof = {
    */
   initialize: function (): TestRequiredOneof {
     return {
-      fooMessage: TestRequiredOneof.NestedMessage.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooMessage: undefined,
     };
   },
 
@@ -73780,9 +73774,7 @@ export const TestRequiredOneof = {
       const fooMessage = TestRequiredOneof.NestedMessage._writeMessageJSON(
         msg.fooMessage
       );
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     return json;
   },
@@ -73806,6 +73798,7 @@ export const TestRequiredOneof = {
           break;
         }
         case 3: {
+          msg.fooMessage = TestRequiredOneof.NestedMessage.initialize();
           reader.readMessage(
             msg.fooMessage,
             TestRequiredOneof.NestedMessage._readMessage
@@ -77082,7 +77075,10 @@ export const TestHugeFieldNumbers = {
       optionalBytes: new Uint8Array(),
       optionalMessage: ForeignMessage.initialize(),
       stringStringMap: {},
-      oneofTestAllTypes: TestAllTypes.initialize(),
+      oneofUint32: undefined,
+      oneofTestAllTypes: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -77204,9 +77200,7 @@ export const TestHugeFieldNumbers = {
       const oneofTestAllTypes = TestAllTypes._writeMessageJSON(
         msg.oneofTestAllTypes
       );
-      if (Object.keys(oneofTestAllTypes).length > 0) {
-        json.oneofTestAllTypes = oneofTestAllTypes;
-      }
+      json.oneofTestAllTypes = oneofTestAllTypes;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -77273,6 +77267,7 @@ export const TestHugeFieldNumbers = {
           break;
         }
         case 536870012: {
+          msg.oneofTestAllTypes = TestAllTypes.initialize();
           reader.readMessage(msg.oneofTestAllTypes, TestAllTypes._readMessage);
           break;
         }
@@ -80514,10 +80509,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -80601,10 +80594,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -80688,10 +80679,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            );
+            msg.value = TestAllTypes.initialize();
+            reader.readMessage(msg.value, TestAllTypes._readMessage);
             break;
           }
           default: {
@@ -81021,10 +81010,8 @@ export const TestMessageMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            );
+            msg.value = TestAllTypes.initialize();
+            reader.readMessage(msg.value, TestAllTypes._readMessage);
             break;
           }
           default: {
@@ -81569,10 +81556,8 @@ export const TestRequiredMessageMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            );
+            msg.value = TestRequired.initialize();
+            reader.readMessage(msg.value, TestRequired._readMessage);
             break;
           }
           default: {
@@ -83656,10 +83641,8 @@ export const TestArenaMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -84097,10 +84080,8 @@ export const TestRecursiveMapMessage = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestRecursiveMapMessage.initialize(),
-              TestRecursiveMapMessage._readMessage
-            );
+            msg.value = TestRecursiveMapMessage.initialize();
+            reader.readMessage(msg.value, TestRecursiveMapMessage._readMessage);
             break;
           }
           default: {
@@ -87649,7 +87630,8 @@ export const Struct = {
             break;
           }
           case 2: {
-            reader.readMessage(Value.initialize(), Value._readMessage);
+            msg.value = Value.initialize();
+            reader.readMessage(msg.value, Value._readMessage);
             break;
           }
           default: {
@@ -87714,8 +87696,12 @@ export const Value = {
    */
   initialize: function (): Value {
     return {
-      structValue: Struct.initialize(),
-      listValue: ListValue.initialize(),
+      nullValue: undefined,
+      numberValue: undefined,
+      stringValue: undefined,
+      boolValue: undefined,
+      structValue: undefined,
+      listValue: undefined,
     };
   },
 
@@ -87766,15 +87752,11 @@ export const Value = {
     }
     if (msg.structValue != undefined) {
       const structValue = Struct._writeMessageJSON(msg.structValue);
-      if (Object.keys(structValue).length > 0) {
-        json.structValue = structValue;
-      }
+      json.structValue = structValue;
     }
     if (msg.listValue != undefined) {
       const listValue = ListValue._writeMessageJSON(msg.listValue);
-      if (Object.keys(listValue).length > 0) {
-        json.listValue = listValue;
-      }
+      json.listValue = listValue;
     }
     return json;
   },
@@ -87803,10 +87785,12 @@ export const Value = {
           break;
         }
         case 5: {
+          msg.structValue = Struct.initialize();
           reader.readMessage(msg.structValue, Struct._readMessage);
           break;
         }
         case 6: {
+          msg.listValue = ListValue.initialize();
           reader.readMessage(msg.listValue, ListValue._readMessage);
           break;
         }
@@ -90613,24 +90597,24 @@ export const OneofWellKnownTypes = {
    */
   initialize: function (): OneofWellKnownTypes {
     return {
-      anyField: Any.initialize(),
-      apiField: Api.initialize(),
-      durationField: Duration.initialize(),
-      emptyField: Empty.initialize(),
-      fieldMaskField: FieldMask.initialize(),
-      sourceContextField: SourceContext.initialize(),
-      structField: Struct.initialize(),
-      timestampField: Timestamp.initialize(),
-      typeField: Type.initialize(),
-      doubleField: DoubleValue.initialize(),
-      floatField: FloatValue.initialize(),
-      int64Field: Int64Value.initialize(),
-      uint64Field: UInt64Value.initialize(),
-      int32Field: Int32Value.initialize(),
-      uint32Field: UInt32Value.initialize(),
-      boolField: BoolValue.initialize(),
-      stringField: StringValue.initialize(),
-      bytesField: BytesValue.initialize(),
+      anyField: undefined,
+      apiField: undefined,
+      durationField: undefined,
+      emptyField: undefined,
+      fieldMaskField: undefined,
+      sourceContextField: undefined,
+      structField: undefined,
+      timestampField: undefined,
+      typeField: undefined,
+      doubleField: undefined,
+      floatField: undefined,
+      int64Field: undefined,
+      uint64Field: undefined,
+      int32Field: undefined,
+      uint32Field: undefined,
+      boolField: undefined,
+      stringField: undefined,
+      bytesField: undefined,
     };
   },
 
@@ -90711,113 +90695,77 @@ export const OneofWellKnownTypes = {
     const json: Record<string, unknown> = {};
     if (msg.anyField != undefined) {
       const anyField = Any._writeMessageJSON(msg.anyField);
-      if (Object.keys(anyField).length > 0) {
-        json.anyField = anyField;
-      }
+      json.anyField = anyField;
     }
     if (msg.apiField != undefined) {
       const apiField = Api._writeMessageJSON(msg.apiField);
-      if (Object.keys(apiField).length > 0) {
-        json.apiField = apiField;
-      }
+      json.apiField = apiField;
     }
     if (msg.durationField != undefined) {
       const durationField = Duration._writeMessageJSON(msg.durationField);
-      if (Object.keys(durationField).length > 0) {
-        json.durationField = durationField;
-      }
+      json.durationField = durationField;
     }
     if (msg.emptyField != undefined) {
       const emptyField = Empty._writeMessageJSON(msg.emptyField);
-      if (Object.keys(emptyField).length > 0) {
-        json.emptyField = emptyField;
-      }
+      json.emptyField = emptyField;
     }
     if (msg.fieldMaskField != undefined) {
       const fieldMaskField = FieldMask._writeMessageJSON(msg.fieldMaskField);
-      if (Object.keys(fieldMaskField).length > 0) {
-        json.fieldMaskField = fieldMaskField;
-      }
+      json.fieldMaskField = fieldMaskField;
     }
     if (msg.sourceContextField != undefined) {
       const sourceContextField = SourceContext._writeMessageJSON(
         msg.sourceContextField
       );
-      if (Object.keys(sourceContextField).length > 0) {
-        json.sourceContextField = sourceContextField;
-      }
+      json.sourceContextField = sourceContextField;
     }
     if (msg.structField != undefined) {
       const structField = Struct._writeMessageJSON(msg.structField);
-      if (Object.keys(structField).length > 0) {
-        json.structField = structField;
-      }
+      json.structField = structField;
     }
     if (msg.timestampField != undefined) {
       const timestampField = Timestamp._writeMessageJSON(msg.timestampField);
-      if (Object.keys(timestampField).length > 0) {
-        json.timestampField = timestampField;
-      }
+      json.timestampField = timestampField;
     }
     if (msg.typeField != undefined) {
       const typeField = Type._writeMessageJSON(msg.typeField);
-      if (Object.keys(typeField).length > 0) {
-        json.typeField = typeField;
-      }
+      json.typeField = typeField;
     }
     if (msg.doubleField != undefined) {
       const doubleField = DoubleValue._writeMessageJSON(msg.doubleField);
-      if (Object.keys(doubleField).length > 0) {
-        json.doubleField = doubleField;
-      }
+      json.doubleField = doubleField;
     }
     if (msg.floatField != undefined) {
       const floatField = FloatValue._writeMessageJSON(msg.floatField);
-      if (Object.keys(floatField).length > 0) {
-        json.floatField = floatField;
-      }
+      json.floatField = floatField;
     }
     if (msg.int64Field != undefined) {
       const int64Field = Int64Value._writeMessageJSON(msg.int64Field);
-      if (Object.keys(int64Field).length > 0) {
-        json.int64Field = int64Field;
-      }
+      json.int64Field = int64Field;
     }
     if (msg.uint64Field != undefined) {
       const uint64Field = UInt64Value._writeMessageJSON(msg.uint64Field);
-      if (Object.keys(uint64Field).length > 0) {
-        json.uint64Field = uint64Field;
-      }
+      json.uint64Field = uint64Field;
     }
     if (msg.int32Field != undefined) {
       const int32Field = Int32Value._writeMessageJSON(msg.int32Field);
-      if (Object.keys(int32Field).length > 0) {
-        json.int32Field = int32Field;
-      }
+      json.int32Field = int32Field;
     }
     if (msg.uint32Field != undefined) {
       const uint32Field = UInt32Value._writeMessageJSON(msg.uint32Field);
-      if (Object.keys(uint32Field).length > 0) {
-        json.uint32Field = uint32Field;
-      }
+      json.uint32Field = uint32Field;
     }
     if (msg.boolField != undefined) {
       const boolField = BoolValue._writeMessageJSON(msg.boolField);
-      if (Object.keys(boolField).length > 0) {
-        json.boolField = boolField;
-      }
+      json.boolField = boolField;
     }
     if (msg.stringField != undefined) {
       const stringField = StringValue._writeMessageJSON(msg.stringField);
-      if (Object.keys(stringField).length > 0) {
-        json.stringField = stringField;
-      }
+      json.stringField = stringField;
     }
     if (msg.bytesField != undefined) {
       const bytesField = BytesValue._writeMessageJSON(msg.bytesField);
-      if (Object.keys(bytesField).length > 0) {
-        json.bytesField = bytesField;
-      }
+      json.bytesField = bytesField;
     }
     return json;
   },
@@ -90833,26 +90781,32 @@ export const OneofWellKnownTypes = {
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
+          msg.anyField = Any.initialize();
           reader.readMessage(msg.anyField, Any._readMessage);
           break;
         }
         case 2: {
+          msg.apiField = Api.initialize();
           reader.readMessage(msg.apiField, Api._readMessage);
           break;
         }
         case 3: {
+          msg.durationField = Duration.initialize();
           reader.readMessage(msg.durationField, Duration._readMessage);
           break;
         }
         case 4: {
+          msg.emptyField = Empty.initialize();
           reader.readMessage(msg.emptyField, Empty._readMessage);
           break;
         }
         case 5: {
+          msg.fieldMaskField = FieldMask.initialize();
           reader.readMessage(msg.fieldMaskField, FieldMask._readMessage);
           break;
         }
         case 6: {
+          msg.sourceContextField = SourceContext.initialize();
           reader.readMessage(
             msg.sourceContextField,
             SourceContext._readMessage
@@ -90860,50 +90814,62 @@ export const OneofWellKnownTypes = {
           break;
         }
         case 7: {
+          msg.structField = Struct.initialize();
           reader.readMessage(msg.structField, Struct._readMessage);
           break;
         }
         case 8: {
+          msg.timestampField = Timestamp.initialize();
           reader.readMessage(msg.timestampField, Timestamp._readMessage);
           break;
         }
         case 9: {
+          msg.typeField = Type.initialize();
           reader.readMessage(msg.typeField, Type._readMessage);
           break;
         }
         case 10: {
+          msg.doubleField = DoubleValue.initialize();
           reader.readMessage(msg.doubleField, DoubleValue._readMessage);
           break;
         }
         case 11: {
+          msg.floatField = FloatValue.initialize();
           reader.readMessage(msg.floatField, FloatValue._readMessage);
           break;
         }
         case 12: {
+          msg.int64Field = Int64Value.initialize();
           reader.readMessage(msg.int64Field, Int64Value._readMessage);
           break;
         }
         case 13: {
+          msg.uint64Field = UInt64Value.initialize();
           reader.readMessage(msg.uint64Field, UInt64Value._readMessage);
           break;
         }
         case 14: {
+          msg.int32Field = Int32Value.initialize();
           reader.readMessage(msg.int32Field, Int32Value._readMessage);
           break;
         }
         case 15: {
+          msg.uint32Field = UInt32Value.initialize();
           reader.readMessage(msg.uint32Field, UInt32Value._readMessage);
           break;
         }
         case 16: {
+          msg.boolField = BoolValue.initialize();
           reader.readMessage(msg.boolField, BoolValue._readMessage);
           break;
         }
         case 17: {
+          msg.stringField = StringValue.initialize();
           reader.readMessage(msg.stringField, StringValue._readMessage);
           break;
         }
         case 18: {
+          msg.bytesField = BytesValue.initialize();
           reader.readMessage(msg.bytesField, BytesValue._readMessage);
           break;
         }
@@ -91858,7 +91824,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Any.initialize(), Any._readMessage);
+            msg.value = Any.initialize();
+            reader.readMessage(msg.value, Any._readMessage);
             break;
           }
           default: {
@@ -91942,7 +91909,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Api.initialize(), Api._readMessage);
+            msg.value = Api.initialize();
+            reader.readMessage(msg.value, Api._readMessage);
             break;
           }
           default: {
@@ -92026,7 +91994,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Duration.initialize(), Duration._readMessage);
+            msg.value = Duration.initialize();
+            reader.readMessage(msg.value, Duration._readMessage);
             break;
           }
           default: {
@@ -92110,7 +92079,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Empty.initialize(), Empty._readMessage);
+            msg.value = Empty.initialize();
+            reader.readMessage(msg.value, Empty._readMessage);
             break;
           }
           default: {
@@ -92194,7 +92164,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(FieldMask.initialize(), FieldMask._readMessage);
+            msg.value = FieldMask.initialize();
+            reader.readMessage(msg.value, FieldMask._readMessage);
             break;
           }
           default: {
@@ -92278,10 +92249,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              SourceContext.initialize(),
-              SourceContext._readMessage
-            );
+            msg.value = SourceContext.initialize();
+            reader.readMessage(msg.value, SourceContext._readMessage);
             break;
           }
           default: {
@@ -92365,7 +92334,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Struct.initialize(), Struct._readMessage);
+            msg.value = Struct.initialize();
+            reader.readMessage(msg.value, Struct._readMessage);
             break;
           }
           default: {
@@ -92449,7 +92419,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Timestamp.initialize(), Timestamp._readMessage);
+            msg.value = Timestamp.initialize();
+            reader.readMessage(msg.value, Timestamp._readMessage);
             break;
           }
           default: {
@@ -92533,7 +92504,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Type.initialize(), Type._readMessage);
+            msg.value = Type.initialize();
+            reader.readMessage(msg.value, Type._readMessage);
             break;
           }
           default: {
@@ -92617,10 +92589,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              DoubleValue.initialize(),
-              DoubleValue._readMessage
-            );
+            msg.value = DoubleValue.initialize();
+            reader.readMessage(msg.value, DoubleValue._readMessage);
             break;
           }
           default: {
@@ -92704,10 +92674,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              FloatValue.initialize(),
-              FloatValue._readMessage
-            );
+            msg.value = FloatValue.initialize();
+            reader.readMessage(msg.value, FloatValue._readMessage);
             break;
           }
           default: {
@@ -92791,10 +92759,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              Int64Value.initialize(),
-              Int64Value._readMessage
-            );
+            msg.value = Int64Value.initialize();
+            reader.readMessage(msg.value, Int64Value._readMessage);
             break;
           }
           default: {
@@ -92878,10 +92844,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              UInt64Value.initialize(),
-              UInt64Value._readMessage
-            );
+            msg.value = UInt64Value.initialize();
+            reader.readMessage(msg.value, UInt64Value._readMessage);
             break;
           }
           default: {
@@ -92965,10 +92929,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              Int32Value.initialize(),
-              Int32Value._readMessage
-            );
+            msg.value = Int32Value.initialize();
+            reader.readMessage(msg.value, Int32Value._readMessage);
             break;
           }
           default: {
@@ -93052,10 +93014,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              UInt32Value.initialize(),
-              UInt32Value._readMessage
-            );
+            msg.value = UInt32Value.initialize();
+            reader.readMessage(msg.value, UInt32Value._readMessage);
             break;
           }
           default: {
@@ -93139,7 +93099,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(BoolValue.initialize(), BoolValue._readMessage);
+            msg.value = BoolValue.initialize();
+            reader.readMessage(msg.value, BoolValue._readMessage);
             break;
           }
           default: {
@@ -93223,10 +93184,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              StringValue.initialize(),
-              StringValue._readMessage
-            );
+            msg.value = StringValue.initialize();
+            reader.readMessage(msg.value, StringValue._readMessage);
             break;
           }
           default: {
@@ -93310,10 +93269,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              BytesValue.initialize(),
-              BytesValue._readMessage
-            );
+            msg.value = BytesValue.initialize();
+            reader.readMessage(msg.value, BytesValue._readMessage);
             break;
           }
           default: {
@@ -93697,7 +93654,10 @@ export const TestAllTypes = {
       repeatedStringPiece: [],
       repeatedCord: [],
       repeatedLazyMessage: [],
-      oneofNestedMessage: TestAllTypes.NestedMessage.initialize(),
+      oneofUint32: undefined,
+      oneofNestedMessage: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -94142,9 +94102,7 @@ export const TestAllTypes = {
       const oneofNestedMessage = TestAllTypes.NestedMessage._writeMessageJSON(
         msg.oneofNestedMessage
       );
-      if (Object.keys(oneofNestedMessage).length > 0) {
-        json.oneofNestedMessage = oneofNestedMessage;
-      }
+      json.oneofNestedMessage = oneofNestedMessage;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -94392,6 +94350,7 @@ export const TestAllTypes = {
           break;
         }
         case 112: {
+          msg.oneofNestedMessage = TestAllTypes.NestedMessage.initialize();
           reader.readMessage(
             msg.oneofNestedMessage,
             TestAllTypes.NestedMessage._readMessage
@@ -95967,7 +95926,9 @@ export const TestOneof2 = {
    * Initializes TestOneof2 with all fields set to their default value.
    */
   initialize: function (): TestOneof2 {
-    return {};
+    return {
+      fooEnum: undefined,
+    };
   },
 
   /**
@@ -98663,7 +98624,10 @@ export const TestAllTypes = {
       defaultImportEnum: ImportEnum._fromInt(0),
       defaultStringPiece: \\"\\",
       defaultCord: \\"\\",
-      oneofNestedMessage: TestAllTypes.NestedMessage.initialize(),
+      oneofUint32: undefined,
+      oneofNestedMessage: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -99237,9 +99201,7 @@ export const TestAllTypes = {
       const oneofNestedMessage = TestAllTypes.NestedMessage._writeMessageJSON(
         msg.oneofNestedMessage
       );
-      if (Object.keys(oneofNestedMessage).length > 0) {
-        json.oneofNestedMessage = oneofNestedMessage;
-      }
+      json.oneofNestedMessage = oneofNestedMessage;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -99570,6 +99532,7 @@ export const TestAllTypes = {
           break;
         }
         case 112: {
+          msg.oneofNestedMessage = TestAllTypes.NestedMessage.initialize();
           reader.readMessage(
             msg.oneofNestedMessage,
             TestAllTypes.NestedMessage._readMessage
@@ -100536,6 +100499,7 @@ export const TestDeprecatedFields = {
   initialize: function (): TestDeprecatedFields {
     return {
       deprecatedInt32: 0,
+      deprecatedInt32InOneof: undefined,
     };
   },
 
@@ -107906,7 +107870,9 @@ export const TestOneof = {
    */
   initialize: function (): TestOneof {
     return {
-      fooMessage: TestAllTypes.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooMessage: undefined,
     };
   },
 
@@ -107944,9 +107910,7 @@ export const TestOneof = {
     }
     if (msg.fooMessage != undefined) {
       const fooMessage = TestAllTypes._writeMessageJSON(msg.fooMessage);
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     return json;
   },
@@ -107967,6 +107931,7 @@ export const TestOneof = {
           break;
         }
         case 3: {
+          msg.fooMessage = TestAllTypes.initialize();
           reader.readMessage(msg.fooMessage, TestAllTypes._readMessage);
           break;
         }
@@ -108447,8 +108412,24 @@ export const TestOneof2 = {
    */
   initialize: function (): TestOneof2 {
     return {
-      fooMessage: TestOneof2.NestedMessage.initialize(),
-      fooLazyMessage: TestOneof2.NestedMessage.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooCord: undefined,
+      fooStringPiece: undefined,
+      fooBytes: undefined,
+      fooEnum: undefined,
+      fooMessage: undefined,
+      fooLazyMessage: undefined,
+      barInt: undefined,
+      barString: undefined,
+      barCord: undefined,
+      barStringPiece: undefined,
+      barBytes: undefined,
+      barEnum: undefined,
+      barStringWithEmptyDefault: undefined,
+      barCordWithEmptyDefault: undefined,
+      barStringPieceWithEmptyDefault: undefined,
+      barBytesWithEmptyDefault: undefined,
       bazInt: 0,
       bazString: \\"\\",
     };
@@ -108561,17 +108542,13 @@ export const TestOneof2 = {
       const fooMessage = TestOneof2.NestedMessage._writeMessageJSON(
         msg.fooMessage
       );
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     if (msg.fooLazyMessage != undefined) {
       const fooLazyMessage = TestOneof2.NestedMessage._writeMessageJSON(
         msg.fooLazyMessage
       );
-      if (Object.keys(fooLazyMessage).length > 0) {
-        json.fooLazyMessage = fooLazyMessage;
-      }
+      json.fooLazyMessage = fooLazyMessage;
     }
     if (msg.barInt != undefined) {
       json.barInt = msg.barInt;
@@ -108646,6 +108623,7 @@ export const TestOneof2 = {
           break;
         }
         case 7: {
+          msg.fooMessage = TestOneof2.NestedMessage.initialize();
           reader.readMessage(
             msg.fooMessage,
             TestOneof2.NestedMessage._readMessage
@@ -108653,6 +108631,7 @@ export const TestOneof2 = {
           break;
         }
         case 11: {
+          msg.fooLazyMessage = TestOneof2.NestedMessage.initialize();
           reader.readMessage(
             msg.fooLazyMessage,
             TestOneof2.NestedMessage._readMessage
@@ -109156,7 +109135,9 @@ export const TestRequiredOneof = {
    */
   initialize: function (): TestRequiredOneof {
     return {
-      fooMessage: TestRequiredOneof.NestedMessage.initialize(),
+      fooInt: undefined,
+      fooString: undefined,
+      fooMessage: undefined,
     };
   },
 
@@ -109200,9 +109181,7 @@ export const TestRequiredOneof = {
       const fooMessage = TestRequiredOneof.NestedMessage._writeMessageJSON(
         msg.fooMessage
       );
-      if (Object.keys(fooMessage).length > 0) {
-        json.fooMessage = fooMessage;
-      }
+      json.fooMessage = fooMessage;
     }
     return json;
   },
@@ -109226,6 +109205,7 @@ export const TestRequiredOneof = {
           break;
         }
         case 3: {
+          msg.fooMessage = TestRequiredOneof.NestedMessage.initialize();
           reader.readMessage(
             msg.fooMessage,
             TestRequiredOneof.NestedMessage._readMessage
@@ -112502,7 +112482,10 @@ export const TestHugeFieldNumbers = {
       optionalBytes: new Uint8Array(),
       optionalMessage: ForeignMessage.initialize(),
       stringStringMap: {},
-      oneofTestAllTypes: TestAllTypes.initialize(),
+      oneofUint32: undefined,
+      oneofTestAllTypes: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -112624,9 +112607,7 @@ export const TestHugeFieldNumbers = {
       const oneofTestAllTypes = TestAllTypes._writeMessageJSON(
         msg.oneofTestAllTypes
       );
-      if (Object.keys(oneofTestAllTypes).length > 0) {
-        json.oneofTestAllTypes = oneofTestAllTypes;
-      }
+      json.oneofTestAllTypes = oneofTestAllTypes;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -112693,6 +112674,7 @@ export const TestHugeFieldNumbers = {
           break;
         }
         case 536870012: {
+          msg.oneofTestAllTypes = TestAllTypes.initialize();
           reader.readMessage(msg.oneofTestAllTypes, TestAllTypes._readMessage);
           break;
         }
@@ -115941,10 +115923,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -116028,10 +116008,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -116115,10 +116093,8 @@ export const TestMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            );
+            msg.value = TestAllTypes.initialize();
+            reader.readMessage(msg.value, TestAllTypes._readMessage);
             break;
           }
           default: {
@@ -116448,10 +116424,8 @@ export const TestMessageMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestAllTypes.initialize(),
-              TestAllTypes._readMessage
-            );
+            msg.value = TestAllTypes.initialize();
+            reader.readMessage(msg.value, TestAllTypes._readMessage);
             break;
           }
           default: {
@@ -116996,10 +116970,8 @@ export const TestRequiredMessageMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestRequired.initialize(),
-              TestRequired._readMessage
-            );
+            msg.value = TestRequired.initialize();
+            reader.readMessage(msg.value, TestRequired._readMessage);
             break;
           }
           default: {
@@ -119083,10 +119055,8 @@ export const TestArenaMap = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              ForeignMessage.initialize(),
-              ForeignMessage._readMessage
-            );
+            msg.value = ForeignMessage.initialize();
+            reader.readMessage(msg.value, ForeignMessage._readMessage);
             break;
           }
           default: {
@@ -119524,10 +119494,8 @@ export const TestRecursiveMapMessage = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              TestRecursiveMapMessage.initialize(),
-              TestRecursiveMapMessage._readMessage
-            );
+            msg.value = TestRecursiveMapMessage.initialize();
+            reader.readMessage(msg.value, TestRecursiveMapMessage._readMessage);
             break;
           }
           default: {
@@ -123132,7 +123100,8 @@ export const Struct = {
             break;
           }
           case 2: {
-            reader.readMessage(Value.initialize(), Value._readMessage);
+            msg.value = Value.initialize();
+            reader.readMessage(msg.value, Value._readMessage);
             break;
           }
           default: {
@@ -123197,8 +123166,12 @@ export const Value = {
    */
   initialize: function (): Value {
     return {
-      structValue: Struct.initialize(),
-      listValue: ListValue.initialize(),
+      nullValue: undefined,
+      numberValue: undefined,
+      stringValue: undefined,
+      boolValue: undefined,
+      structValue: undefined,
+      listValue: undefined,
     };
   },
 
@@ -123249,15 +123222,11 @@ export const Value = {
     }
     if (msg.structValue != undefined) {
       const structValue = Struct._writeMessageJSON(msg.structValue);
-      if (Object.keys(structValue).length > 0) {
-        json.structValue = structValue;
-      }
+      json.structValue = structValue;
     }
     if (msg.listValue != undefined) {
       const listValue = ListValue._writeMessageJSON(msg.listValue);
-      if (Object.keys(listValue).length > 0) {
-        json.listValue = listValue;
-      }
+      json.listValue = listValue;
     }
     return json;
   },
@@ -123286,10 +123255,12 @@ export const Value = {
           break;
         }
         case 5: {
+          msg.structValue = Struct.initialize();
           reader.readMessage(msg.structValue, Struct._readMessage);
           break;
         }
         case 6: {
+          msg.listValue = ListValue.initialize();
           reader.readMessage(msg.listValue, ListValue._readMessage);
           break;
         }
@@ -126117,24 +126088,24 @@ export const OneofWellKnownTypes = {
    */
   initialize: function (): OneofWellKnownTypes {
     return {
-      anyField: Any.initialize(),
-      apiField: Api.initialize(),
-      durationField: Duration.initialize(),
-      emptyField: Empty.initialize(),
-      fieldMaskField: FieldMask.initialize(),
-      sourceContextField: SourceContext.initialize(),
-      structField: Struct.initialize(),
-      timestampField: Timestamp.initialize(),
-      typeField: Type.initialize(),
-      doubleField: DoubleValue.initialize(),
-      floatField: FloatValue.initialize(),
-      int64Field: Int64Value.initialize(),
-      uint64Field: UInt64Value.initialize(),
-      int32Field: Int32Value.initialize(),
-      uint32Field: UInt32Value.initialize(),
-      boolField: BoolValue.initialize(),
-      stringField: StringValue.initialize(),
-      bytesField: BytesValue.initialize(),
+      anyField: undefined,
+      apiField: undefined,
+      durationField: undefined,
+      emptyField: undefined,
+      fieldMaskField: undefined,
+      sourceContextField: undefined,
+      structField: undefined,
+      timestampField: undefined,
+      typeField: undefined,
+      doubleField: undefined,
+      floatField: undefined,
+      int64Field: undefined,
+      uint64Field: undefined,
+      int32Field: undefined,
+      uint32Field: undefined,
+      boolField: undefined,
+      stringField: undefined,
+      bytesField: undefined,
     };
   },
 
@@ -126215,113 +126186,77 @@ export const OneofWellKnownTypes = {
     const json: Record<string, unknown> = {};
     if (msg.anyField != undefined) {
       const anyField = Any._writeMessageJSON(msg.anyField);
-      if (Object.keys(anyField).length > 0) {
-        json.anyField = anyField;
-      }
+      json.anyField = anyField;
     }
     if (msg.apiField != undefined) {
       const apiField = Api._writeMessageJSON(msg.apiField);
-      if (Object.keys(apiField).length > 0) {
-        json.apiField = apiField;
-      }
+      json.apiField = apiField;
     }
     if (msg.durationField != undefined) {
       const durationField = Duration._writeMessageJSON(msg.durationField);
-      if (Object.keys(durationField).length > 0) {
-        json.durationField = durationField;
-      }
+      json.durationField = durationField;
     }
     if (msg.emptyField != undefined) {
       const emptyField = Empty._writeMessageJSON(msg.emptyField);
-      if (Object.keys(emptyField).length > 0) {
-        json.emptyField = emptyField;
-      }
+      json.emptyField = emptyField;
     }
     if (msg.fieldMaskField != undefined) {
       const fieldMaskField = FieldMask._writeMessageJSON(msg.fieldMaskField);
-      if (Object.keys(fieldMaskField).length > 0) {
-        json.fieldMaskField = fieldMaskField;
-      }
+      json.fieldMaskField = fieldMaskField;
     }
     if (msg.sourceContextField != undefined) {
       const sourceContextField = SourceContext._writeMessageJSON(
         msg.sourceContextField
       );
-      if (Object.keys(sourceContextField).length > 0) {
-        json.sourceContextField = sourceContextField;
-      }
+      json.sourceContextField = sourceContextField;
     }
     if (msg.structField != undefined) {
       const structField = Struct._writeMessageJSON(msg.structField);
-      if (Object.keys(structField).length > 0) {
-        json.structField = structField;
-      }
+      json.structField = structField;
     }
     if (msg.timestampField != undefined) {
       const timestampField = Timestamp._writeMessageJSON(msg.timestampField);
-      if (Object.keys(timestampField).length > 0) {
-        json.timestampField = timestampField;
-      }
+      json.timestampField = timestampField;
     }
     if (msg.typeField != undefined) {
       const typeField = Type._writeMessageJSON(msg.typeField);
-      if (Object.keys(typeField).length > 0) {
-        json.typeField = typeField;
-      }
+      json.typeField = typeField;
     }
     if (msg.doubleField != undefined) {
       const doubleField = DoubleValue._writeMessageJSON(msg.doubleField);
-      if (Object.keys(doubleField).length > 0) {
-        json.doubleField = doubleField;
-      }
+      json.doubleField = doubleField;
     }
     if (msg.floatField != undefined) {
       const floatField = FloatValue._writeMessageJSON(msg.floatField);
-      if (Object.keys(floatField).length > 0) {
-        json.floatField = floatField;
-      }
+      json.floatField = floatField;
     }
     if (msg.int64Field != undefined) {
       const int64Field = Int64Value._writeMessageJSON(msg.int64Field);
-      if (Object.keys(int64Field).length > 0) {
-        json.int64Field = int64Field;
-      }
+      json.int64Field = int64Field;
     }
     if (msg.uint64Field != undefined) {
       const uint64Field = UInt64Value._writeMessageJSON(msg.uint64Field);
-      if (Object.keys(uint64Field).length > 0) {
-        json.uint64Field = uint64Field;
-      }
+      json.uint64Field = uint64Field;
     }
     if (msg.int32Field != undefined) {
       const int32Field = Int32Value._writeMessageJSON(msg.int32Field);
-      if (Object.keys(int32Field).length > 0) {
-        json.int32Field = int32Field;
-      }
+      json.int32Field = int32Field;
     }
     if (msg.uint32Field != undefined) {
       const uint32Field = UInt32Value._writeMessageJSON(msg.uint32Field);
-      if (Object.keys(uint32Field).length > 0) {
-        json.uint32Field = uint32Field;
-      }
+      json.uint32Field = uint32Field;
     }
     if (msg.boolField != undefined) {
       const boolField = BoolValue._writeMessageJSON(msg.boolField);
-      if (Object.keys(boolField).length > 0) {
-        json.boolField = boolField;
-      }
+      json.boolField = boolField;
     }
     if (msg.stringField != undefined) {
       const stringField = StringValue._writeMessageJSON(msg.stringField);
-      if (Object.keys(stringField).length > 0) {
-        json.stringField = stringField;
-      }
+      json.stringField = stringField;
     }
     if (msg.bytesField != undefined) {
       const bytesField = BytesValue._writeMessageJSON(msg.bytesField);
-      if (Object.keys(bytesField).length > 0) {
-        json.bytesField = bytesField;
-      }
+      json.bytesField = bytesField;
     }
     return json;
   },
@@ -126337,26 +126272,32 @@ export const OneofWellKnownTypes = {
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
+          msg.anyField = Any.initialize();
           reader.readMessage(msg.anyField, Any._readMessage);
           break;
         }
         case 2: {
+          msg.apiField = Api.initialize();
           reader.readMessage(msg.apiField, Api._readMessage);
           break;
         }
         case 3: {
+          msg.durationField = Duration.initialize();
           reader.readMessage(msg.durationField, Duration._readMessage);
           break;
         }
         case 4: {
+          msg.emptyField = Empty.initialize();
           reader.readMessage(msg.emptyField, Empty._readMessage);
           break;
         }
         case 5: {
+          msg.fieldMaskField = FieldMask.initialize();
           reader.readMessage(msg.fieldMaskField, FieldMask._readMessage);
           break;
         }
         case 6: {
+          msg.sourceContextField = SourceContext.initialize();
           reader.readMessage(
             msg.sourceContextField,
             SourceContext._readMessage
@@ -126364,50 +126305,62 @@ export const OneofWellKnownTypes = {
           break;
         }
         case 7: {
+          msg.structField = Struct.initialize();
           reader.readMessage(msg.structField, Struct._readMessage);
           break;
         }
         case 8: {
+          msg.timestampField = Timestamp.initialize();
           reader.readMessage(msg.timestampField, Timestamp._readMessage);
           break;
         }
         case 9: {
+          msg.typeField = Type.initialize();
           reader.readMessage(msg.typeField, Type._readMessage);
           break;
         }
         case 10: {
+          msg.doubleField = DoubleValue.initialize();
           reader.readMessage(msg.doubleField, DoubleValue._readMessage);
           break;
         }
         case 11: {
+          msg.floatField = FloatValue.initialize();
           reader.readMessage(msg.floatField, FloatValue._readMessage);
           break;
         }
         case 12: {
+          msg.int64Field = Int64Value.initialize();
           reader.readMessage(msg.int64Field, Int64Value._readMessage);
           break;
         }
         case 13: {
+          msg.uint64Field = UInt64Value.initialize();
           reader.readMessage(msg.uint64Field, UInt64Value._readMessage);
           break;
         }
         case 14: {
+          msg.int32Field = Int32Value.initialize();
           reader.readMessage(msg.int32Field, Int32Value._readMessage);
           break;
         }
         case 15: {
+          msg.uint32Field = UInt32Value.initialize();
           reader.readMessage(msg.uint32Field, UInt32Value._readMessage);
           break;
         }
         case 16: {
+          msg.boolField = BoolValue.initialize();
           reader.readMessage(msg.boolField, BoolValue._readMessage);
           break;
         }
         case 17: {
+          msg.stringField = StringValue.initialize();
           reader.readMessage(msg.stringField, StringValue._readMessage);
           break;
         }
         case 18: {
+          msg.bytesField = BytesValue.initialize();
           reader.readMessage(msg.bytesField, BytesValue._readMessage);
           break;
         }
@@ -127362,7 +127315,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Any.initialize(), Any._readMessage);
+            msg.value = Any.initialize();
+            reader.readMessage(msg.value, Any._readMessage);
             break;
           }
           default: {
@@ -127446,7 +127400,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Api.initialize(), Api._readMessage);
+            msg.value = Api.initialize();
+            reader.readMessage(msg.value, Api._readMessage);
             break;
           }
           default: {
@@ -127530,7 +127485,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Duration.initialize(), Duration._readMessage);
+            msg.value = Duration.initialize();
+            reader.readMessage(msg.value, Duration._readMessage);
             break;
           }
           default: {
@@ -127614,7 +127570,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Empty.initialize(), Empty._readMessage);
+            msg.value = Empty.initialize();
+            reader.readMessage(msg.value, Empty._readMessage);
             break;
           }
           default: {
@@ -127698,7 +127655,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(FieldMask.initialize(), FieldMask._readMessage);
+            msg.value = FieldMask.initialize();
+            reader.readMessage(msg.value, FieldMask._readMessage);
             break;
           }
           default: {
@@ -127782,10 +127740,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              SourceContext.initialize(),
-              SourceContext._readMessage
-            );
+            msg.value = SourceContext.initialize();
+            reader.readMessage(msg.value, SourceContext._readMessage);
             break;
           }
           default: {
@@ -127869,7 +127825,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Struct.initialize(), Struct._readMessage);
+            msg.value = Struct.initialize();
+            reader.readMessage(msg.value, Struct._readMessage);
             break;
           }
           default: {
@@ -127953,7 +127910,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Timestamp.initialize(), Timestamp._readMessage);
+            msg.value = Timestamp.initialize();
+            reader.readMessage(msg.value, Timestamp._readMessage);
             break;
           }
           default: {
@@ -128037,7 +127995,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(Type.initialize(), Type._readMessage);
+            msg.value = Type.initialize();
+            reader.readMessage(msg.value, Type._readMessage);
             break;
           }
           default: {
@@ -128121,10 +128080,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              DoubleValue.initialize(),
-              DoubleValue._readMessage
-            );
+            msg.value = DoubleValue.initialize();
+            reader.readMessage(msg.value, DoubleValue._readMessage);
             break;
           }
           default: {
@@ -128208,10 +128165,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              FloatValue.initialize(),
-              FloatValue._readMessage
-            );
+            msg.value = FloatValue.initialize();
+            reader.readMessage(msg.value, FloatValue._readMessage);
             break;
           }
           default: {
@@ -128295,10 +128250,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              Int64Value.initialize(),
-              Int64Value._readMessage
-            );
+            msg.value = Int64Value.initialize();
+            reader.readMessage(msg.value, Int64Value._readMessage);
             break;
           }
           default: {
@@ -128382,10 +128335,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              UInt64Value.initialize(),
-              UInt64Value._readMessage
-            );
+            msg.value = UInt64Value.initialize();
+            reader.readMessage(msg.value, UInt64Value._readMessage);
             break;
           }
           default: {
@@ -128469,10 +128420,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              Int32Value.initialize(),
-              Int32Value._readMessage
-            );
+            msg.value = Int32Value.initialize();
+            reader.readMessage(msg.value, Int32Value._readMessage);
             break;
           }
           default: {
@@ -128556,10 +128505,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              UInt32Value.initialize(),
-              UInt32Value._readMessage
-            );
+            msg.value = UInt32Value.initialize();
+            reader.readMessage(msg.value, UInt32Value._readMessage);
             break;
           }
           default: {
@@ -128643,7 +128590,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(BoolValue.initialize(), BoolValue._readMessage);
+            msg.value = BoolValue.initialize();
+            reader.readMessage(msg.value, BoolValue._readMessage);
             break;
           }
           default: {
@@ -128727,10 +128675,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              StringValue.initialize(),
-              StringValue._readMessage
-            );
+            msg.value = StringValue.initialize();
+            reader.readMessage(msg.value, StringValue._readMessage);
             break;
           }
           default: {
@@ -128814,10 +128760,8 @@ export const MapWellKnownTypes = {
             break;
           }
           case 2: {
-            reader.readMessage(
-              BytesValue.initialize(),
-              BytesValue._readMessage
-            );
+            msg.value = BytesValue.initialize();
+            reader.readMessage(msg.value, BytesValue._readMessage);
             break;
           }
           default: {
@@ -129208,7 +129152,10 @@ export const TestAllTypes = {
       repeatedStringPiece: [],
       repeatedCord: [],
       repeatedLazyMessage: [],
-      oneofNestedMessage: TestAllTypes.NestedMessage.initialize(),
+      oneofUint32: undefined,
+      oneofNestedMessage: undefined,
+      oneofString: undefined,
+      oneofBytes: undefined,
     };
   },
 
@@ -129653,9 +129600,7 @@ export const TestAllTypes = {
       const oneofNestedMessage = TestAllTypes.NestedMessage._writeMessageJSON(
         msg.oneofNestedMessage
       );
-      if (Object.keys(oneofNestedMessage).length > 0) {
-        json.oneofNestedMessage = oneofNestedMessage;
-      }
+      json.oneofNestedMessage = oneofNestedMessage;
     }
     if (msg.oneofString != undefined) {
       json.oneofString = msg.oneofString;
@@ -129903,6 +129848,7 @@ export const TestAllTypes = {
           break;
         }
         case 112: {
+          msg.oneofNestedMessage = TestAllTypes.NestedMessage.initialize();
           reader.readMessage(
             msg.oneofNestedMessage,
             TestAllTypes.NestedMessage._readMessage
@@ -131478,7 +131424,9 @@ export const TestOneof2 = {
    * Initializes TestOneof2 with all fields set to their default value.
    */
   initialize: function (): TestOneof2 {
-    return {};
+    return {
+      fooEnum: undefined,
+    };
   },
 
   /**

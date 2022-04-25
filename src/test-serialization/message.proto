@@ -16,6 +16,9 @@ message Foo {
   int64 field_eight = 8;
   bytes field_nine = 9;
   repeated bytes field_ten = 10;
+  optional Bar field_eleven = 11;
+  optional Bar field_twelve = 12;
+  optional Bar field_thirteen = 13;
 }
 
 message Bar {

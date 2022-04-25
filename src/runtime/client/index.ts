@@ -181,13 +181,13 @@ function mergeConfig(
   };
 }
 
-async function makeRequest<T>(
+async function makeRequest(
   contentType: "application/json" | "application/protobuf",
   path: string,
   body?: RpcTransportOpts["body"],
   config?: ClientConfiguration
-): Promise<T> {
-  return runMiddleware<T>(
+): Promise<string | Uint8Array> {
+  return runMiddleware(
     mergeConfig(config, path),
     async (c: MiddlewareConfig) => {
       ee.emit("requestPrepared", c);
@@ -209,10 +209,10 @@ async function makeRequest<T>(
       switch (contentType) {
         case "application/protobuf": {
           const buffer = await res.arrayBuffer();
-          return new Uint8Array(buffer) as unknown as T;
+          return new Uint8Array(buffer);
         }
         case "application/json": {
-          return res.json() as Promise<T>;
+          return res.text();
         }
         default: {
           const _exhaust: never = contentType;
@@ -228,7 +228,7 @@ export function JSONrequest(
   body?: string,
   config?: ClientConfiguration
 ): Promise<string> {
-  return makeRequest("application/json", path, body, config);
+  return makeRequest("application/json", path, body, config) as Promise<string>;
 }
 
 export function PBrequest(
@@ -236,5 +236,10 @@ export function PBrequest(
   body?: Uint8Array,
   config?: ClientConfiguration
 ): Promise<Uint8Array> {
-  return makeRequest<Uint8Array>("application/protobuf", path, body, config);
+  return makeRequest(
+    "application/protobuf",
+    path,
+    body,
+    config
+  ) as Promise<Uint8Array>;
 }

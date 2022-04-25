@@ -29,10 +29,10 @@ describe("JSONrequest", () => {
   });
 
   it("returns the response json", async () => {
-    const response = { foo: "bar" };
+    const response = JSON.stringify({ foo: "bar" });
     mockRpcResponse({
       ok: true,
-      json: () => Promise.resolve(response),
+      text: () => Promise.resolve(response),
     });
 
     const res = await JSONrequest("/foo");

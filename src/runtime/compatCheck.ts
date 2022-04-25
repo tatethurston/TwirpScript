@@ -1,5 +1,5 @@
 export const RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION =
-  "MIN_SUPPORTED_VERSION_0_0_49";
+  "MIN_SUPPORTED_VERSION_0_0_54";
 
 /**
  * A backwards compatibility check.
@@ -8,5 +8,5 @@ export const RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION =
  *
  * To resolve, run `yarn twirpscript` to regenerate the file.
  */
-export const MIN_SUPPORTED_VERSION_0_0_49 =
+export const MIN_SUPPORTED_VERSION_0_0_54 =
   RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION;

@@ -82,7 +82,7 @@ export const Baz = {
       case 1: {
         return "BAR";
       }
-      // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
+      // unknown values are preserved as the argument number. This occurs when new enum values are introduced and the generated code is out of date.
       default: {
         return i as unknown as Baz;
       }
@@ -99,7 +99,7 @@ export const Baz = {
       case "BAR": {
         return 1;
       }
-      // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
+      // unknown values are preserved as the argument string. This occurs when new enum values are introduced and the generated code is out of date.
       default: {
         return i as unknown as number;
       }

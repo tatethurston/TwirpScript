@@ -46,12 +46,13 @@ type WriterMethod = keyof BinaryWriter | "map";
 
 interface Descriptor {
   defaultValue: string;
-  read: ReaderMethod;
-  repeated: boolean;
+  map: boolean;
   optional: boolean;
+  read: ReaderMethod;
+  readPacked: ReaderMethod | undefined;
+  repeated: boolean;
   tsType: string;
   write: WriterMethod;
-  map: boolean;
 }
 
 export function getDescriptor(
@@ -76,9 +77,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readDouble",
+        readPacked: "readPackedDouble",
         repeated,
         tsType: "number",
-        write: repeated ? "writeRepeatedDouble" : "writeDouble",
+        write: repeated ? "writePackedDouble" : "writeDouble",
       };
     }
     case FieldDescriptorProto.Type.TYPE_FLOAT: {
@@ -87,9 +89,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readFloat",
+        readPacked: "readPackedFloat",
         repeated,
         tsType: "number",
-        write: repeated ? "writeRepeatedFloat" : "writeFloat",
+        write: repeated ? "writePackedFloat" : "writeFloat",
       };
     }
     case FieldDescriptorProto.Type.TYPE_INT64: {
@@ -98,9 +101,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readInt64String",
+        readPacked: "readPackedInt64String",
         repeated,
         tsType: "bigint",
-        write: repeated ? "writeRepeatedInt64String" : "writeInt64String",
+        write: repeated ? "writePackedInt64String" : "writeInt64String",
       };
     }
     case FieldDescriptorProto.Type.TYPE_UINT64: {
@@ -109,9 +113,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readUint64String",
+        readPacked: "readPackedUint64String",
         repeated,
         tsType: "bigint",
-        write: repeated ? "writeRepeatedUint64String" : "writeUint64String",
+        write: repeated ? "writePackedUint64String" : "writeUint64String",
       };
     }
     case FieldDescriptorProto.Type.TYPE_INT32: {
@@ -120,9 +125,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readInt32",
+        readPacked: "readPackedInt32",
         repeated,
         tsType: "number",
-        write: repeated ? "writeRepeatedInt32" : "writeInt32",
+        write: repeated ? "writePackedInt32" : "writeInt32",
       };
     }
     case FieldDescriptorProto.Type.TYPE_FIXED64: {
@@ -131,9 +137,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readFixed64String",
+        readPacked: "readPackedFixed64String",
         repeated,
         tsType: "bigint",
-        write: repeated ? "writeRepeatedFixed64String" : "writeFixed64String",
+        write: repeated ? "writePackedFixed64String" : "writeFixed64String",
       };
     }
     case FieldDescriptorProto.Type.TYPE_ENUM: {
@@ -149,9 +156,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readEnum",
+        readPacked: "readPackedEnum",
         repeated,
         tsType: name,
-        write: repeated ? "writeRepeatedEnum" : "writeEnum",
+        write: repeated ? "writePackedEnum" : "writeEnum",
       };
     }
     case FieldDescriptorProto.Type.TYPE_FIXED32: {
@@ -160,9 +168,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readFixed32",
+        readPacked: "readPackedFixed32",
         repeated,
         tsType: "number",
-        write: repeated ? "writeRepeatedFixed32" : "writeFixed32",
+        write: repeated ? "writePackedFixed32" : "writeFixed32",
       };
     }
     case FieldDescriptorProto.Type.TYPE_BOOL: {
@@ -171,9 +180,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readBool",
+        readPacked: "readPackedBool",
         repeated,
         tsType: "boolean",
-        write: repeated ? "writeRepeatedBool" : "writeBool",
+        write: repeated ? "writePackedBool" : "writeBool",
       };
     }
     case FieldDescriptorProto.Type.TYPE_GROUP: {
@@ -199,6 +209,7 @@ export function getDescriptor(
           map: true,
           optional,
           read: "readMessage",
+          readPacked: undefined,
           repeated: false,
           tsType: name.slice(0, name.lastIndexOf("Entry")),
           write: "writeRepeatedMessage",
@@ -210,6 +221,7 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readMessage",
+        readPacked: undefined,
         repeated,
         tsType: name,
         write: repeated ? "writeRepeatedMessage" : "writeMessage",
@@ -221,6 +233,7 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readString",
+        readPacked: undefined,
         repeated,
         tsType: "string",
         write: repeated ? "writeRepeatedString" : "writeString",
@@ -232,6 +245,7 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readBytes",
+        readPacked: undefined,
         repeated,
         tsType: "Uint8Array",
         write: repeated ? "writeRepeatedBytes" : "writeBytes",
@@ -243,9 +257,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readUint32",
+        readPacked: "readPackedUint32",
         repeated,
         tsType: "number",
-        write: repeated ? "writeRepeatedUint32" : "writeUint32",
+        write: repeated ? "writePackedUint32" : "writeUint32",
       };
     }
     case FieldDescriptorProto.Type.TYPE_SFIXED32: {
@@ -254,9 +269,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readSfixed32",
+        readPacked: "readPackedSfixed32",
         repeated,
         tsType: "number",
-        write: repeated ? "writeRepeatedSfixed32" : "writeSfixed32",
+        write: repeated ? "writePackedSfixed32" : "writeSfixed32",
       };
     }
     case FieldDescriptorProto.Type.TYPE_SFIXED64: {
@@ -264,10 +280,11 @@ export function getDescriptor(
         defaultValue: "0n",
         map: false,
         optional,
-        read: "readSfixed64",
+        read: "readSfixed64String",
+        readPacked: "readPackedSfixed64String",
         repeated,
         tsType: "bigint",
-        write: repeated ? "writeRepeatedSfixed64" : "writeSfixed64",
+        write: repeated ? "writePackedSfixed64String" : "writeSfixed64String",
       };
     }
     case FieldDescriptorProto.Type.TYPE_SINT32: {
@@ -276,9 +293,10 @@ export function getDescriptor(
         map: false,
         optional,
         read: "readSint32",
+        readPacked: "readPackedSint32",
         repeated,
         tsType: "number",
-        write: repeated ? "writeRepeatedSint32" : "writeSint32",
+        write: repeated ? "writePackedSint32" : "writeSint32",
       };
     }
     case FieldDescriptorProto.Type.TYPE_SINT64: {
@@ -286,10 +304,11 @@ export function getDescriptor(
         defaultValue: "0n",
         map: false,
         optional,
-        read: "readSint64",
+        read: "readSint64String",
+        readPacked: "readPackedSint64String",
         repeated,
         tsType: "bigint",
-        write: repeated ? "writeRepeatedSint64String" : "writeSint64String",
+        write: repeated ? "writePackedSint64String" : "writeSint64String",
       };
     }
     default: {

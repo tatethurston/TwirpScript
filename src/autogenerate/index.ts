@@ -408,23 +408,41 @@ function writeSerializers(types: ProtoTypes[], isTopLevel: boolean): string {
                         }
                         res += `reader.readMessage(msg.${field.name}, ${field.tsType}._readMessage);`;
                       }
-                    } else if (field.read === "readEnum") {
-                      if (field.repeated) {
-                        res += `msg.${field.name}.push(${field.tsType}._fromInt(reader.${field.read}()));`;
-                      } else {
-                        res += `msg.${field.name} = ${field.tsType}._fromInt(reader.${field.read}());`;
-                      }
-                    } else if (field.tsType === "bigint") {
-                      if (field.repeated) {
-                        res += `msg.${field.name}.push(BigInt(reader.${field.read}()));`;
-                      } else {
-                        res += `msg.${field.name} = BigInt(reader.${field.read}());`;
-                      }
                     } else {
+                      let converter;
+                      if (field.read === "readEnum") {
+                        converter = `${field.tsType}._fromInt`;
+                      } else if (field.tsType === "bigint") {
+                        converter = "BigInt";
+                      }
                       if (field.repeated) {
-                        res += `msg.${field.name}.push(reader.${field.read}());`;
+                        if (converter) {
+                          if (field.readPacked) {
+                            res += `if (reader.isDelimited()) {`;
+                            res += `msg.${field.name}.push(...reader.${field.readPacked}().map(${converter}));`;
+                            res += `} else {`;
+                            res += `msg.${field.name}.push(${converter}(reader.${field.read}()));`;
+                            res += `}`;
+                          } else {
+                            res += `msg.${field.name}.push(${converter}(reader.${field.read}()));`;
+                          }
+                        } else {
+                          if (field.readPacked) {
+                            res += `if (reader.isDelimited()) {`;
+                            res += `msg.${field.name}.push(...reader.${field.readPacked}());`;
+                            res += `} else {`;
+                            res += `msg.${field.name}.push(reader.${field.read}());`;
+                            res += `}`;
+                          } else {
+                            res += `msg.${field.name}.push(reader.${field.read}());`;
+                          }
+                        }
                       } else {
-                        res += `msg.${field.name} = reader.${field.read}();`;
+                        if (converter) {
+                          res += `msg.${field.name} = ${converter}(reader.${field.read}());`;
+                        } else {
+                          res += `msg.${field.name} = reader.${field.read}();`;
+                        }
                       }
                     }
                     res += "break;\n}";

@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 import { client, JSONrequest, PBrequest, RpcTransportResponse } from ".";
-import { mockRpcTransportResponse } from "./mocks";
+import { mockRpcTransportResponse } from "./test.mocks";
 
 const mockRpcTransport = jest.fn(() =>
   Promise.resolve(mockRpcTransportResponse)

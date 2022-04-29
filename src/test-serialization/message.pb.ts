@@ -82,7 +82,7 @@ export const Baz = {
       case 1: {
         return "BAR";
       }
-      // unknown values are preserved as the argument number. This occurs when new enum values are introduced and the generated code is out of date.
+      // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
       default: {
         return i as unknown as Baz;
       }
@@ -99,7 +99,7 @@ export const Baz = {
       case "BAR": {
         return 1;
       }
-      // unknown values are preserved as the argument string. This occurs when new enum values are introduced and the generated code is out of date.
+      // unknown values are preserved as numbers. this occurs when new enum values are introduced and the generated code is out of date.
       default: {
         return i as unknown as number;
       }
@@ -184,7 +184,7 @@ export const Foo = {
       writer.writeMessage(4, msg.fieldFour, Foo.FooBar._writeMessage);
     }
     if (msg.fieldFive?.length) {
-      writer.writeRepeatedInt64String(
+      writer.writePackedInt64String(
         5,
         msg.fieldFive.map((x) => x.toString() as any)
       );
@@ -193,7 +193,7 @@ export const Foo = {
       writer.writeEnum(6, Baz._toInt(msg.fieldSix));
     }
     if (msg.fieldSeven?.length) {
-      writer.writeRepeatedEnum(7, msg.fieldSeven.map(Baz._toInt));
+      writer.writePackedEnum(7, msg.fieldSeven.map(Baz._toInt));
     }
     if (msg.fieldEight) {
       writer.writeInt64String(8, msg.fieldEight.toString() as any);
@@ -305,7 +305,11 @@ export const Foo = {
           break;
         }
         case 5: {
-          msg.fieldFive.push(BigInt(reader.readInt64String()));
+          if (reader.isDelimited()) {
+            msg.fieldFive.push(...reader.readPackedInt64String().map(BigInt));
+          } else {
+            msg.fieldFive.push(BigInt(reader.readInt64String()));
+          }
           break;
         }
         case 6: {
@@ -313,7 +317,11 @@ export const Foo = {
           break;
         }
         case 7: {
-          msg.fieldSeven.push(Baz._fromInt(reader.readEnum()));
+          if (reader.isDelimited()) {
+            msg.fieldSeven.push(...reader.readPackedEnum().map(Baz._fromInt));
+          } else {
+            msg.fieldSeven.push(Baz._fromInt(reader.readEnum()));
+          }
           break;
         }
         case 8: {
@@ -498,7 +506,7 @@ export const Foo = {
         );
       }
       if (msg.fieldThree?.length) {
-        writer.writeRepeatedInt32(3, msg.fieldThree);
+        writer.writePackedInt32(3, msg.fieldThree);
       }
       return writer;
     },
@@ -548,7 +556,11 @@ export const Foo = {
             break;
           }
           case 3: {
-            msg.fieldThree.push(reader.readInt32());
+            if (reader.isDelimited()) {
+              msg.fieldThree.push(...reader.readPackedInt32());
+            } else {
+              msg.fieldThree.push(reader.readInt32());
+            }
             break;
           }
           default: {
@@ -808,7 +820,7 @@ export const Bar = {
       );
     }
     if (msg.fieldThree?.length) {
-      writer.writeRepeatedInt32(3, msg.fieldThree);
+      writer.writePackedInt32(3, msg.fieldThree);
     }
     return writer;
   },
@@ -856,7 +868,11 @@ export const Bar = {
           break;
         }
         case 3: {
-          msg.fieldThree.push(reader.readInt32());
+          if (reader.isDelimited()) {
+            msg.fieldThree.push(...reader.readPackedInt32());
+          } else {
+            msg.fieldThree.push(reader.readInt32());
+          }
           break;
         }
         default: {

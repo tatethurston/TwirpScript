@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.55
+
+- Protobuf messages now always pack packable repeated fields when serializing and can read packed or unpacked when deserializing. This will slightly decrease the size of some protobuf messages over the wire, and enable better interop with messages encoded by other protobuf serializers.
+
 ## v0.0.54
 
 - Fixes a regression introduced in v0.0.53 that caused JSON.parse to be invoked twice for JSON clients.

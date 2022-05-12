@@ -1,10 +1,11 @@
 {
   "name": "test-protos",
   "scripts": {
-    "clean": "find . -name '*.pb.ts' | xargs rm"
+    "clean": "find . -name '*.pb.ts' -delete",
+    "twirpscript": "../../dist/cli/index.js"
   },
   "dependencies": {
-    "twirpscript": "*"
+    "twirpscript": "link:../../dist"
   },
   "devDependencies": {
     "typescript": "^4.6.3"

@@ -26,5 +26,12 @@
     "rpc",
     "twirp",
     "typescript"
-  ]
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "node": "./index-node.js",
+      "default": "./index.js"
+    }
+  }
 }

@@ -142,8 +142,6 @@ This will generate `haberdasher.pb.ts` (or `haberdasher.pb.js` for JavaScript us
 
 Use the generated clients to make `json` or `protobuf` requests to your server:
 
-##### Browser or server client
-
 `src/client.ts`
 
 ```ts
@@ -156,7 +154,7 @@ const hat = await MakeHat({ inches: 12 });
 console.log(hat);
 ```
 
-See a [Node.js client example](https://github.com/tatethurston/TwirpScript/blob/main/twirp-clientcompat/src/client-harness.ts#L11-L12).
+The above client code may be used in browser or node.js runtimes. See a [Node.js client example](https://github.com/tatethurston/TwirpScript/blob/main/twirp-clientcompat/src/client-harness.ts#L11-L12).
 
 If you have an existing Twirp server you're connecting to and only need a client, that's it! You're done. If you're implementing a service as well, keep reading.
 

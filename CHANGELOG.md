@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.0.56
+
+- TwirpScript client code is now isomorphic: Node.js clients no longer require extra configuration (rpcTransport). TwirpScript now uses Node's [conditional exports](https://nodejs.org/api/packages.html#conditional-exports) internally.
+
+  ```diff
+  import { client } from "twirpscript";
+  -import { nodeHttpTransport } from "twirpscript/node";
+  import { MakeHat } from "../protos/haberdasher.pb";
+
+  client.baseURL = "http://localhost:8080";
+
+  -// This is provided as a convenience for Node.js clients. If you provide `fetch` globally, this isn't necessary and your client can look identical to the browser client above.
+  -client.rpcTransport = nodeHttpTransport;
+
+  const hat = await MakeHat({ inches: 12 });
+  console.log(hat);
+  ```
+
 ## v0.0.55
 
 - Protobuf messages now always pack packable repeated fields when serializing and can read packed or unpacked when deserializing. This will slightly decrease the size of some protobuf messages over the wire, and enable better interop with messages encoded by other protobuf serializers.

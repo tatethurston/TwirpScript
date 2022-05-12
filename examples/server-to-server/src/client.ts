@@ -1,14 +1,18 @@
 import { client } from "twirpscript";
-import { nodeHttpTransport } from "twirpscript/node";
 import { MakeHat, MakeHatJSON } from "./protos/haberdasher.pb";
 
 client.baseURL = "http://localhost:8080";
-client.rpcTransport = nodeHttpTransport;
 
-(async () => {
+async function main() {
   const hat = await MakeHat({ inches: 12 });
+  console.log("Response from server (application/protobuf): ");
   console.log(hat);
+  console.log();
 
   const hatJSON = await MakeHatJSON({ inches: 11 });
+  console.log("Response from server (application/json):");
   console.log(hatJSON);
-})();
+  console.log();
+}
+
+main();

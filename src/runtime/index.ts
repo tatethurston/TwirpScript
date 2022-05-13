@@ -9,7 +9,7 @@ export {
 } from "./server";
 export {
   RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION,
-  MIN_SUPPORTED_VERSION_0_0_54,
+  MIN_SUPPORTED_VERSION_0_0_56,
 } from "./compatCheck";
 export {
   BinaryReader,

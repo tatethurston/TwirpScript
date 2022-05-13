@@ -48,10 +48,14 @@ export type TwirpContext<
 } & ServiceContext<Pick<Services, number>[number]>;
 
 interface Message<T> {
-  encode: (message: T) => Uint8Array;
-  decode: (bytes: ByteSource) => T;
-  encodeJSON: (message: T) => string;
-  decodeJSON: (message: string) => T;
+  protobuf: {
+    encode: (message: T) => Uint8Array;
+    decode: (bytes: ByteSource) => T;
+  };
+  json: {
+    encode: (message: T) => string;
+    decode: (str: string) => T;
+  };
 }
 
 export interface ServiceMethod<Context = any> {
@@ -107,7 +111,7 @@ export async function executeServiceMethod<Context extends TwirpContext>(
   try {
     switch (context.contentType) {
       case "JSON": {
-        const body = parseJSON(req.body as string, method.input.decodeJSON);
+        const body = parseJSON(req.body as string, method.input.json.decode);
         if (!body) {
           return new TwirpError({
             code: "invalid_argument",
@@ -117,10 +121,13 @@ export async function executeServiceMethod<Context extends TwirpContext>(
         ee.emit("requestRouted", context, body as any);
         const response = await method.handler(body as any, context);
         ee.emit("responsePrepared", context, response);
-        return method.output.encodeJSON(response);
+        return method.output.json.encode(response);
       }
       case "Protobuf": {
-        const body = parseProto(req.body as Buffer, method.input.decode);
+        const body = parseProto(
+          req.body as Buffer,
+          method.input.protobuf.decode
+        );
         if (!body) {
           return new TwirpError({
             code: "invalid_argument",
@@ -130,7 +137,7 @@ export async function executeServiceMethod<Context extends TwirpContext>(
         ee.emit("requestRouted", context, body);
         const response = await method.handler(body, context);
         ee.emit("responsePrepared", context, response);
-        return Buffer.from(method.output.encode(response));
+        return Buffer.from(method.output.protobuf.encode(response));
       }
       default: {
         return new TwirpError({
@@ -258,11 +265,15 @@ export type ServerHooks<Context extends TwirpContext, Request> = {
   requestReceived: (context: Context, request: Request) => void;
   requestRouted: (
     context: Context,
-    input: ReturnType<NonNullable<Context["method"]>["input"]["decode"]>
+    input: ReturnType<
+      NonNullable<Context["method"]>["input"]["protobuf"]["decode"]
+    >
   ) => void;
   responsePrepared: (
     context: Context,
-    output: ReturnType<NonNullable<Context["method"]>["output"]["decode"]>
+    output: ReturnType<
+      NonNullable<Context["method"]>["output"]["protobuf"]["decode"]
+    >
   ) => void;
   responseSent: (context: Context, response: Response) => void;
   error: (context: Context, error: TwirpError) => void;

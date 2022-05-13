@@ -1,5 +1,5 @@
 import { describe, it } from "@jest/globals";
-import { Baz, Foo } from "./message.pb";
+import { Baz, Foo, FooJSON } from "./message.pb";
 
 const nestedMessage: Foo.FooBar = {
   fieldOne: "foo",
@@ -412,7 +412,7 @@ describe("Serialization/Deserialization", () => {
   describe("json", () => {
     describe("deserialization", () => {
       it("empty deserialization", () => {
-        expect(Foo.decodeJSON(Foo.encodeJSON({}))).toMatchInlineSnapshot(`
+        expect(FooJSON.decode(FooJSON.encode({}))).toMatchInlineSnapshot(`
           Object {
             "fieldEight": 0n,
             "fieldEleven": undefined,
@@ -436,7 +436,7 @@ describe("Serialization/Deserialization", () => {
       });
 
       it("partial deserialization", () => {
-        expect(Foo.decodeJSON(Foo.encodeJSON(partialMessage)))
+        expect(FooJSON.decode(FooJSON.encode(partialMessage)))
           .toMatchInlineSnapshot(`
           Object {
             "fieldEight": 0n,
@@ -461,7 +461,7 @@ describe("Serialization/Deserialization", () => {
       });
 
       it("default message deserialization", () => {
-        expect(Foo.decodeJSON(Foo.encodeJSON(Foo.initialize())))
+        expect(FooJSON.decode(FooJSON.encode(FooJSON.initialize())))
           .toMatchInlineSnapshot(`
           Object {
             "fieldEight": 0n,
@@ -486,7 +486,7 @@ describe("Serialization/Deserialization", () => {
       });
 
       it("full deserialization", () => {
-        expect(Foo.decodeJSON(Foo.encodeJSON(fullMessage)))
+        expect(FooJSON.decode(FooJSON.encode(fullMessage)))
           .toMatchInlineSnapshot(`
           Object {
             "fieldEight": 223372036854775807n,
@@ -572,7 +572,7 @@ describe("Serialization/Deserialization", () => {
       });
 
       it("original proto field name", () => {
-        expect(Foo.decodeJSON('{ "field_one": 3 }')).toMatchInlineSnapshot(`
+        expect(FooJSON.decode('{ "field_one": 3 }')).toMatchInlineSnapshot(`
           Object {
             "fieldEight": 0n,
             "fieldEleven": undefined,
@@ -598,21 +598,21 @@ describe("Serialization/Deserialization", () => {
 
     describe("serialization", () => {
       it("empty serialization", () => {
-        expect(Foo.encodeJSON({})).toMatchInlineSnapshot(`"{}"`);
+        expect(FooJSON.encode({})).toMatchInlineSnapshot(`"{}"`);
       });
 
       it("partial serialization", () => {
-        expect(Foo.encodeJSON(partialMessage)).toMatchInlineSnapshot(
+        expect(FooJSON.encode(partialMessage)).toMatchInlineSnapshot(
           `"{\\"fieldOne\\":3}"`
         );
       });
 
       it("default message serialization", () => {
-        expect(Foo.encodeJSON(Foo.initialize())).toMatchInlineSnapshot(`"{}"`);
+        expect(FooJSON.encode(Foo.initialize())).toMatchInlineSnapshot(`"{}"`);
       });
 
       it("full serialization", () => {
-        expect(Foo.encodeJSON(fullMessage)).toMatchInlineSnapshot(
+        expect(FooJSON.encode(fullMessage)).toMatchInlineSnapshot(
           `"{\\"fieldOne\\":3,\\"fieldTwo\\":{\\"foo\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}},\\"fieldThree\\":[{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}],\\"fieldFour\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]},\\"fieldFive\\":[\\"1\\",\\"2\\"],\\"fieldSix\\":\\"BAR\\",\\"luckySeven\\":[\\"BAR\\",\\"FOO\\"],\\"fieldEight\\":\\"223372036854775807\\",\\"fieldNine\\":\\"CAc=\\",\\"fieldTen\\":[\\"BA==\\"],\\"fieldEleven\\":{},\\"fieldThirteen\\":{\\"fieldOne\\":\\"foo\\",\\"fieldTwo\\":{\\"foo\\":\\"3\\",\\"bar\\":\\"4\\"},\\"fieldThree\\":[1,2,3]}}"`
         );
       });

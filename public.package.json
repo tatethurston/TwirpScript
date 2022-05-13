@@ -31,6 +31,8 @@
     "./package.json": "./package.json",
     ".": {
       "node": "./index-node.js",
+      "import": "./module/index.js",
+      "module": "./module/index.js",
       "default": "./index.js"
     }
   }

@@ -4,7 +4,7 @@
 import type { ByteSource } from "twirpscript";
 import { BinaryReader, BinaryWriter } from "twirpscript";
 
-import { Foo } from "./A.pb";
+import { Foo, FooJSON } from "./A.pb";
 
 //========================================//
 //                 Types                  //
@@ -34,20 +34,6 @@ export const Bar = {
   },
 
   /**
-   * Serializes Bar to JSON.
-   */
-  encodeJSON: function (msg: Partial<Bar>): string {
-    return JSON.stringify(Bar._writeMessageJSON(msg));
-  },
-
-  /**
-   * Deserializes Bar from JSON.
-   */
-  decodeJSON: function (json: string): Bar {
-    return Bar._readMessageJSON(Bar.initialize(), JSON.parse(json));
-  },
-
-  /**
    * Initializes Bar with all fields set to their default value.
    */
   initialize: function (): Bar {
@@ -72,20 +58,6 @@ export const Bar = {
   /**
    * @private
    */
-  _writeMessageJSON: function (msg: Partial<Bar>): Record<string, unknown> {
-    const json: Record<string, unknown> = {};
-    if (msg.foo) {
-      const foo = Foo._writeMessageJSON(msg.foo);
-      if (Object.keys(foo).length > 0) {
-        json.foo = foo;
-      }
-    }
-    return json;
-  },
-
-  /**
-   * @private
-   */
   _readMessage: function (msg: Bar, reader: BinaryReader): Bar {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -102,15 +74,58 @@ export const Bar = {
     }
     return msg;
   },
+};
+
+//========================================//
+//          JSON Encode / Decode          //
+//========================================//
+
+export const BarJSON = {
+  /**
+   * Serializes Bar to JSON.
+   */
+  encode: function (msg: Partial<Bar>): string {
+    return JSON.stringify(BarJSON._writeMessage(msg));
+  },
+
+  /**
+   * Deserializes Bar from JSON.
+   */
+  decode: function (json: string): Bar {
+    return BarJSON._readMessage(BarJSON.initialize(), JSON.parse(json));
+  },
+
+  /**
+   * Initializes Bar with all fields set to their default value.
+   */
+  initialize: function (): Bar {
+    return {
+      foo: Foo.initialize(),
+    };
+  },
 
   /**
    * @private
    */
-  _readMessageJSON: function (msg: Bar, json: any): Bar {
+  _writeMessage: function (msg: Partial<Bar>): Record<string, unknown> {
+    const json: Record<string, unknown> = {};
+    if (msg.foo) {
+      const foo = FooJSON._writeMessage(msg.foo);
+      if (Object.keys(foo).length > 0) {
+        json.foo = foo;
+      }
+    }
+    return json;
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (msg: Bar, json: any): Bar {
     const _foo = json.foo;
     if (_foo) {
       const m = Foo.initialize();
-      Foo._readMessageJSON(m, _foo);
+      FooJSON._readMessage(m, _foo);
       msg.foo = m;
     }
     return msg;

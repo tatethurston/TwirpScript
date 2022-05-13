@@ -16,6 +16,7 @@ jobs:
           cache: "yarn"
       - run: yarn
       - run: yarn lint
+      - run: yarn package:build
       - run: yarn test:ci && yarn codecov --token=$CODECOV_TOKEN
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

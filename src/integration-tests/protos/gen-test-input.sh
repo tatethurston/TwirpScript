@@ -7,13 +7,13 @@
 # - new or changed compilar parameters ( --twirpscript_out=<PARAMETER> )
 
 protoc \
-  --plugin=protoc-gen-twirpscript=../../dist/test-protos/gen-test-input.js \
+  --plugin=protoc-gen-twirpscript=./dist/gen-test-input.js \
   --twirpscript_out=. \
   --twirpscript_opt=language=typescript \
   $(find . -name '*.proto')
 
 protoc \
-  --plugin=protoc-gen-twirpscript=../../dist/test-protos/gen-test-input.js \
+  --plugin=protoc-gen-twirpscript=./dist/gen-test-input.js \
   --twirpscript_out=. \
   --twirpscript_opt=language=javascript \
   $(find . -name '*.proto')

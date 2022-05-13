@@ -1,0 +1,3 @@
+#!/bin/sh
+
+node ./src/integration-tests/clientcompat/dist/client-harness.js

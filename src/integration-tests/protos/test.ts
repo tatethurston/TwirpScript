@@ -1,7 +1,7 @@
 import { describe, it } from "@jest/globals";
 import { readFileSync } from "fs";
 import { join } from "path";
-import { compile } from "../compile";
+import { compile } from "../../compile";
 
 // mock console.error to silence group errors
 console.error = jest.fn();

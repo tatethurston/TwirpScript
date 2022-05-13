@@ -1,4 +1,5 @@
 **/dist/*
+!**/dist/index.html
 package-lock.json
 todo.txt
 node_modules

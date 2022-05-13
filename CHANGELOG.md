@@ -2,7 +2,49 @@
 
 ## v0.0.56
 
-- TwirpScript client code is now isomorphic: Node.js clients no longer require extra configuration (rpcTransport). TwirpScript now uses Node's [conditional exports](https://nodejs.org/api/packages.html#conditional-exports) internally.
+Users will need to `yarn twirpscript` to regenerate their `.pb.ts` / `.pb.js` files when adopting this version.
+
+- The generated message serializer/deserializer objects have been split into two separate objects: one for JSON and one for Protobuf. This enables smaller client bundles when using a bundler that supports tree shaking / dead code elimination. Many users will be unaffected by this change, but this is a breaking change for users that use message encode/decode methods directly in their source code.
+
+Previously this `proto`:
+
+```proto
+// A Hat is a piece of headwear made by a Haberdasher.
+message Hat {
+  int32 inches = 1;
+  // anything but "invisible"
+  string color = 2;
+  // i.e. "bowler"
+  string name = 3;
+}
+```
+
+would generate an object like this in the generated `pb.ts` or `pb.js` file:
+
+```
+export const Hat = {
+  encode: ...
+  decode: ...
+  encodeJSON: ...
+  decodeJSON: ...
+}
+```
+
+now two objects are generated, one for Protobuf and one for JSON (with a `JSON` suffix appended to the message name):
+
+```ts
+export const Hat = {
+  encode: ...
+  decode: ...
+}
+
+export const HatJSON = {
+  encode: ...
+  decode: ...
+}
+```
+
+- TwirpScript client code is now isomorphic: Node.js clients no longer require extra configuration (using the `client` `rpcTransport` attribute). TwirpScript now uses Node's [conditional exports](https://nodejs.org/api/packages.html#conditional-exports) internally.
 
   ```diff
   import { client } from "twirpscript";

@@ -33,20 +33,6 @@ export const Foo = {
   },
 
   /**
-   * Serializes Foo to JSON.
-   */
-  encodeJSON: function (msg: Partial<Foo>): string {
-    return JSON.stringify(Foo._writeMessageJSON(msg));
-  },
-
-  /**
-   * Deserializes Foo from JSON.
-   */
-  decodeJSON: function (json: string): Foo {
-    return Foo._readMessageJSON(Foo.initialize(), JSON.parse(json));
-  },
-
-  /**
    * Initializes Foo with all fields set to their default value.
    */
   initialize: function (): Foo {
@@ -75,16 +61,6 @@ export const Foo = {
   /**
    * @private
    */
-  _writeMessageJSON: function (msg: Partial<Foo>): Record<string, unknown> {
-    const json: Record<string, unknown> = {};
-    json.baz = msg.baz;
-    json.foo_bars = msg.fooBars;
-    return json;
-  },
-
-  /**
-   * @private
-   */
   _readMessage: function (msg: Foo, reader: BinaryReader): Foo {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -105,11 +81,51 @@ export const Foo = {
     }
     return msg;
   },
+};
+
+//========================================//
+//          JSON Encode / Decode          //
+//========================================//
+
+export const FooJSON = {
+  /**
+   * Serializes Foo to JSON.
+   */
+  encode: function (msg: Partial<Foo>): string {
+    return JSON.stringify(FooJSON._writeMessage(msg));
+  },
+
+  /**
+   * Deserializes Foo from JSON.
+   */
+  decode: function (json: string): Foo {
+    return FooJSON._readMessage(FooJSON.initialize(), JSON.parse(json));
+  },
+
+  /**
+   * Initializes Foo with all fields set to their default value.
+   */
+  initialize: function (): Foo {
+    return {
+      baz: 0,
+      fooBars: [],
+    };
+  },
 
   /**
    * @private
    */
-  _readMessageJSON: function (msg: Foo, json: any): Foo {
+  _writeMessage: function (msg: Partial<Foo>): Record<string, unknown> {
+    const json: Record<string, unknown> = {};
+    json.baz = msg.baz;
+    json.foo_bars = msg.fooBars;
+    return json;
+  },
+
+  /**
+   * @private
+   */
+  _readMessage: function (msg: Foo, json: any): Foo {
     const _baz = json.baz;
     if (_baz) {
       msg.baz = _baz;

@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { render } from "react-dom";
-import { MakeHat, Hat, Size } from "../protos/haberdasher.pb";
+import { MakeHat, type Hat, type Size } from "../protos/haberdasher.pb";
 import { client } from "twirpscript";
 
 client.baseURL = "http://localhost:8080";

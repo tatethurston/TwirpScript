@@ -33,8 +33,8 @@ describe("executeServiceMethod", () => {
   const decodeJSON = jest.fn(JSON.parse);
   const methodHandler = {
     handler,
-    input: { decode, decodeJSON },
-    output: { encode, encodeJSON },
+    input: { protobuf: { decode }, json: { decode: decodeJSON } },
+    output: { protobuf: { encode }, json: { encode: encodeJSON } },
   } as unknown as ServiceMethod;
 
   describe("json", () => {
@@ -191,12 +191,20 @@ describe("twirpHandler", () => {
         name: "MakeHat",
         handler: jest.fn(),
         input: {
-          decode: jest.fn(),
-          decodeJSON: jest.fn(JSON.parse),
+          protobuf: {
+            decode: jest.fn(),
+          },
+          json: {
+            decode: jest.fn(JSON.parse),
+          },
         } as any,
         output: {
-          encode: jest.fn(),
-          encodeJSON: jest.fn(JSON.stringify),
+          protobuf: {
+            encode: jest.fn(),
+          },
+          json: {
+            encode: jest.fn(JSON.stringify),
+          },
         } as any,
       },
     },

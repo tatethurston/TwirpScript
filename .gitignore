@@ -1,4 +1,4 @@
-dist
+**/dist/*
 package-lock.json
 todo.txt
 node_modules

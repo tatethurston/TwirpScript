@@ -1,0 +1,14 @@
+{
+  "name": "clientcompat",
+  "scripts": {
+    "build": "rm -rf dist && yarn twirpscript && yarn tsc",
+    "twirpscript": "../../../dist/cli/index.js"
+  },
+  "dependencies": {
+    "twirpscript": "link:../../../dist"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "typescript": "^4.6.3"
+  }
+}

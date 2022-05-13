@@ -1,0 +1,9 @@
+{
+  "name": "test-serialization",
+  "scripts": {
+    "twirpscript": "../../../dist/cli/index.js"
+  },
+  "dependencies": {
+    "twirpscript": "link:../../../dist"
+  }
+}

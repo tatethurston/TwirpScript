@@ -25,7 +25,7 @@
     "package:prune": "find dist -name test.* -delete; rm -rf dist/node_modules",
     "regen": "yarn test-serialization && yarn test -u && yarn examples:check && yarn examples:buf && yarn clientcompat",
     "test": "yarn jest src/*",
-    "test-serialization": "(cd src/test-serialization && yarn twirpscript)",
+    "test-serialization": "(cd src/integration-tests/serialization && yarn twirpscript)",
     "test:ci": "yarn test --coverage",
     "typecheck": "yarn tsc --noEmit"
   },

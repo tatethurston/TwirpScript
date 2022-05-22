@@ -169,7 +169,7 @@ Given the proto above, the generated helper is now `createHaberdasher` instead o
 Changes:
 
 - remove naming suffixes by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/125
-- add exclude option to twirp.json by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/127
+- add exclude option to `.twirp.json` by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/127
 - add null to optional ts types by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/128
 
 **Full Changelog**: https://github.com/tatethurston/TwirpScript/compare/v0.0.45...v0.0.46

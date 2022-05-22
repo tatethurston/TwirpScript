@@ -53,7 +53,7 @@ type Config = {
    *
    * Setting `root` to `src`:
    *
-   * // twirp.json
+   * // .twirp.json
    * ```json
    * {
    *   "root": "src"
@@ -83,7 +83,7 @@ type Config = {
    *
    * Setting `exclude` to `["/bar/"]`:
    *
-   * // twirp.json
+   * // .twirp.json
    * ```json
    * {
    *   "exclude": ["/bar/"]
@@ -117,7 +117,7 @@ type Config = {
    *
    * Setting `dest` to `out`:
    *
-   * // twirp.json
+   * // .twirp.json
    * {
    *   "dest": "out",
    * }
@@ -134,7 +134,7 @@ type Config = {
    *
    * Setting `root` to `src`:
    *
-   * // twirp.json
+   * // .twirp.json
    * {
    *   "root": "src",
    *   "dest": "out",

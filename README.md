@@ -567,7 +567,7 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
  
   Setting `root` to `src`:
 
-// twirp.json
+// .twirp.json
 
 ```json
 {
@@ -602,7 +602,7 @@ TypeScript projects will generally want to set this value to match their `rootDi
   
    Setting `exclude` to `["/bar/"]`:
   
-   // twirp.json
+   // .twirp.json
    ```json
    {
      "exclude": ["/bar/"]
@@ -640,7 +640,7 @@ TypeScript projects will generally want to set this value to match their `rootDi
  
   Setting `dest` to `out` will generate the following:
  
-  // twirp.json
+  // .twirp.json
   ```json
   {
     "dest": "out",
@@ -661,7 +661,7 @@ TypeScript projects will generally want to set this value to match their `rootDi
   
   Setting `root` to `src` (in addition to setting `dest` to `out`) will generate the following:
  
-  // twirp.json
+  // .twirp.json
   ```json
   {
     "root": "src",
@@ -778,7 +778,7 @@ module.exports = {
 
 ### Buf
 
-TwirpScript can be used with [Buf](https://docs.buf.build/introduction). This will bypass TwirpScript's cli runner, so all options must be passed to `buf` via it's configuration yaml. `twirp.json` is bypassed, as is automatic `typescript` inference.
+TwirpScript can be used with [Buf](https://docs.buf.build/introduction). This will bypass TwirpScript's cli runner, so all options must be passed to `buf` via it's configuration yaml. `.twirp.json` is bypassed, as is automatic `typescript` inference.
 
 `buf.gen.yaml`
 

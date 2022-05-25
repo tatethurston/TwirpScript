@@ -68,13 +68,13 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
 
 ## Highlights 🛠
 
-1. TwirpScript clients can be consumed in the browser or server and are built with [tree shaking](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking) in mind so only the service methods consumed by the client end up in the final bundle.
+1. Isomorphic. TwirpScript's generated serializers/deserializers can be consumed in the browser or Node.js runtimes.
 
-2. The only runtime dependency is Google's [protobuf js](https://github.com/protocolbuffers/protobuf/tree/master/js). If you decide to use JSON instead of Protobuf as the serialization format, this dependency will be removed from clients via tree shaking.
+2. Small. TwirpScript's runtime and generated code are built with [tree shaking](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking) to minimize bundle sizes. This results in a significantly smaller bundle size than [google-protobuf](https://www.npmjs.com/package/google-protobuf). TwirpScript's runtime is 2KB (1.2 gzipped). The serialization runtime, [ProtoScript](https://github.com/tatethurston/ProtoScript), is 37KB (7.2 gzipped). ProtoScript will be eliminated from bundles when only using the generated JSON clients.
 
-3. Clients get in-editor API documentation. Comments in your `.proto` files become [TSDoc](https://github.com/microsoft/tsdoc) comments in the generated code that will show inline documentation in supported editors.
+3. In-editor API documentation. Comments in your `.proto` files become [TSDoc](https://github.com/microsoft/tsdoc) comments in the generated code and will show inline documentation in supported editors.
 
-4. Generates idiomatic JavaScript / TypeScript code. None of the Java idioms that `protoc --js_out` generates such as the `List` suffix naming for repeated fields or the various getter and setter methods. TwirpScript generates and consumes plain JavaScript objects over classes.
+4. Idiomatic JavaScript / TypeScript code. None of the Java idioms that `protoc --js_out` generates such as the `List` suffix naming for repeated fields, `Map` suffix for maps, or the various getter and setter methods. TwirpScript generates and consumes plain JavaScript objects over classes.
 
 ## Installation 📦
 

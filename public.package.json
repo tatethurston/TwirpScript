@@ -16,9 +16,9 @@
   "sideEffects": false,
   "types": "index.d.ts",
   "dependencies": {
-    "@types/google-protobuf": "^3.15.6",
     "google-protobuf": "^3.20.1",
-    "prettier": "^2.6.0"
+    "prettier": "^2.6.0",
+    "protoscript": "^0.0.3"
   },
   "keywords": [
     "protobuf",

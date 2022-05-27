@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.57
+
+- Generated `.pb` files now opt out of eslint via `eslint-disable` comments
+- TwirpScript now uses [ProtoScript](https://github.com/tatethurston/ProtoScript) as the serialization runtime instead of `google-protobuf`. ProtoScript's runtime is 37KB (7.2KB gzipped) compared to google-protobuf's 231KB (46KB gzipped).
+
 ## v0.0.56
 
 Users will need to `yarn twirpscript` to regenerate their `.pb.ts` / `.pb.js` files when adopting this version.

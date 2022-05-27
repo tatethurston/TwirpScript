@@ -1,4 +1,4 @@
-export { BinaryReader, BinaryWriter } from "google-protobuf";
+export { BinaryReader, BinaryWriter } from "protoscript";
 
 export function encodeBase64Bytes(bytes: Uint8Array): string {
   return btoa(

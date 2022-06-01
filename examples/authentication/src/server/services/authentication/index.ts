@@ -45,10 +45,10 @@ export const authentication: Authentication = {
   Login: (credentials) => {
     const user = login(credentials);
     if (!user) {
-      throw {
+      throw new TwirpError({
         code: "invalid_argument",
         msg: "Invalid username or password",
-      };
+      });
     }
     return user;
   },

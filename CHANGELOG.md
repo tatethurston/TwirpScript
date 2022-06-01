@@ -1,5 +1,49 @@
 # Changelog
 
+## v0.0.58
+
+- Better insight into internal server Errors. TwirpScript catches any errors thrown internally. Errors that aren't an `instanceof` `TwirpError` present to users as a generic Twirp `internal_error` for security so that internal details don't leak. This can hurt the DX for identifying issues during development, and also can hide important debugging information when relying on error reporting using `hooks`.
+
+TwirpScript now includes the thrown error as an `error` property in the `TwirpError` that is passed to the error hook, but continues _not_ to the response.
+
+Example:
+
+If we have code that does the following in a service or middleware:
+
+```js
+throw new Error("uh oh.");
+```
+
+The error hook will be invoked with:
+
+```
+TwirpError {
+  code: 'internal',
+  msg: 'server error',
+  meta: {
+    // this is kept private to the error hook and not exposed to end users
+    error: Error("uh oh")
+  }
+}
+```
+
+And the response will be:
+
+```
+TwirpError {
+  code: 'internal',
+  msg: 'server error',
+  // note the error is kept private: it's not exposed to end users
+  meta: undefined,
+}
+```
+
+As before, any errors that should be surfaced to end users should be created by throwing `TwirpError`:
+
+```js
+throw new TwirpError({ code: "code", msg: "msg" });
+```
+
 ## v0.0.57
 
 - Generated `.pb` files now opt out of eslint via `eslint-disable` comments

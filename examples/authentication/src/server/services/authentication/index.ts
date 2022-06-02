@@ -5,8 +5,12 @@ import {
   Credentials,
 } from "../../../protos/authentication.pb";
 import { randomBytes } from "crypto";
+import { TwirpError } from "twirpscript";
 
-const users = [{ username: "example", password: "1234" }];
+const users = [
+  { username: "example", password: "1234" },
+  { username: "👋", password: "1234" },
+];
 
 const sessions: CurrentUser[] = [];
 

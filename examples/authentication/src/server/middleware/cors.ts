@@ -14,7 +14,7 @@ export const cors: Middleware<Context, IncomingMessage> = async (
         "access-control-allow-origin": "*",
         "access-control-request-method": "*",
         "access-control-allow-methods": "*",
-        "access-control-allow-headers": "*",
+        "access-control-allow-headers": "Content-Type, Authorization",
         "content-type": "application/json",
       },
       body: "",

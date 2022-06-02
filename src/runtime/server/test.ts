@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access */
 import {
   InboundRequest,
   Request,
@@ -25,19 +26,28 @@ describe("TwirpErrorResponse", () => {
 });
 
 describe("executeServiceMethod", () => {
-  const ee = { emit: jest.fn() };
+  const ee = { emit: jest.fn() } as any;
   const handler = jest.fn();
   const encode = jest.fn();
   const decode = jest.fn();
   const encodeJSON = jest.fn(JSON.stringify);
   const decodeJSON = jest.fn(JSON.parse);
-  const methodHandler = {
+  const methodHandler: ServiceMethod = {
+    name: "foo",
     handler,
-    input: { protobuf: { decode }, json: { decode: decodeJSON } },
-    output: { protobuf: { encode }, json: { encode: encodeJSON } },
-  } as unknown as ServiceMethod;
+    input: {
+      protobuf: { decode, encode },
+      json: { encode: encodeJSON, decode: decodeJSON },
+    },
+    output: {
+      protobuf: { decode, encode },
+      json: { decode: decodeJSON, encode: encodeJSON },
+    },
+  };
 
   describe("json", () => {
+    const context = { contentType: "JSON" } as TwirpContext;
+
     it("handles json requests", async () => {
       const body = { foo: "bar" };
       const response = { bar: "baz" };
@@ -46,27 +56,30 @@ describe("executeServiceMethod", () => {
       const res = await executeServiceMethod(
         methodHandler,
         { body: JSON.stringify(body) } as Request,
-        {
-          contentType: "JSON",
-        } as TwirpContext,
-        ee as any
+        context,
+        ee
       );
 
-      expect(handler).toBeCalledWith(body, expect.any(Object));
+      expect(handler).toBeCalledWith(body, context);
       expect(res).toEqual(JSON.stringify(response));
     });
 
-    it("TwirpError  when deserialization fails", async () => {
-      const res = await executeServiceMethod(
-        methodHandler,
-        { body: "not json" } as Request,
-        {
-          contentType: "JSON",
-        } as TwirpContext,
-        ee as any
-      );
+    it("TwirpError when deserialization fails", async () => {
+      let error;
+      try {
+        await executeServiceMethod(
+          methodHandler,
+          { body: "not json" } as Request,
+          {
+            contentType: "JSON",
+          } as TwirpContext,
+          ee
+        );
+      } catch (e) {
+        error = e;
+      }
 
-      expect(res).toEqual(
+      expect(error).toEqual(
         new TwirpError({
           code: "invalid_argument",
           msg: `failed to deserialize argument as JSON`,
@@ -76,6 +89,8 @@ describe("executeServiceMethod", () => {
   });
 
   describe("protobuf", () => {
+    const context = { contentType: "Protobuf" } as TwirpContext;
+
     it("handles protobuf requests", async () => {
       const body = { foo: "bar" };
       const response = { bar: "baz" };
@@ -87,29 +102,33 @@ describe("executeServiceMethod", () => {
       const res = await executeServiceMethod(
         methodHandler,
         { body: "" } as Request,
-        {
-          contentType: "Protobuf",
-        } as TwirpContext,
-        ee as any
+        context,
+        ee
       );
 
       expect(decode).toBeCalledWith("");
-      expect(handler).toBeCalledWith(body, expect.any(Object));
+      expect(handler).toBeCalledWith(body, context);
       expect(encode).toBeCalledWith(response);
       expect(res).toEqual(Buffer.from(encoded));
     });
 
     it("TwirpError when deserialization fails", async () => {
-      const res = await executeServiceMethod(
-        methodHandler,
-        { body: "not protobuf" } as Request,
-        {
-          contentType: "Protobuf",
-        } as TwirpContext,
-        ee as any
-      );
+      decode.mockImplementationOnce(() => {
+        throw new Error();
+      });
+      let error;
+      try {
+        await executeServiceMethod(
+          methodHandler,
+          { body: "not protobuf" } as Request,
+          context,
+          ee
+        );
+      } catch (e) {
+        error = e;
+      }
 
-      expect(res).toEqual(
+      expect(error).toEqual(
         new TwirpError({
           code: "invalid_argument",
           msg: `failed to deserialize argument as Protobuf`,
@@ -117,112 +136,26 @@ describe("executeServiceMethod", () => {
       );
     });
   });
-
-  describe("error", () => {
-    it("TwirpError when invalid contentType", async () => {
-      const res = await executeServiceMethod(
-        methodHandler,
-        { body: "" } as Request,
-        {
-          contentType: "Unknown",
-        } as TwirpContext,
-        ee as any
-      );
-
-      expect(res).toEqual(
-        new TwirpError({
-          code: "malformed",
-          msg: `Unexpected or missing content-type`,
-        })
-      );
-    });
-
-    it("TwirpError when unknown exception thrown", async () => {
-      handler.mockImplementationOnce(() => {
-        throw new Error("Oh noes");
-      });
-
-      const res = await executeServiceMethod(
-        methodHandler,
-        { body: JSON.stringify({}) } as Request,
-        {
-          contentType: "JSON",
-        } as TwirpContext,
-        ee as any
-      );
-
-      expect(res).toEqual(
-        new TwirpError({
-          code: "internal",
-          msg: `server error`,
-        })
-      );
-    });
-
-    it("preserves TwirpError when handler throws TwirpError", async () => {
-      const error = new TwirpError({
-        code: "not_found",
-        msg: `Hat not found`,
-      });
-      handler.mockImplementationOnce(() => {
-        throw error;
-      });
-
-      const res = await executeServiceMethod(
-        methodHandler,
-        { body: JSON.stringify({}) } as Request,
-        {
-          contentType: "JSON",
-        } as TwirpContext,
-        ee as any
-      );
-
-      expect(res).toEqual(error);
-    });
-  });
 });
 
 describe("twirpHandler", () => {
-  const ee = { emit: jest.fn() };
-  const service = {
-    name: "Haberdasher",
-    methods: {
-      MakeHat: {
-        name: "MakeHat",
-        handler: jest.fn(),
-        input: {
-          protobuf: {
-            decode: jest.fn(),
-          },
-          json: {
-            decode: jest.fn(JSON.parse),
-          },
-        } as any,
-        output: {
-          protobuf: {
-            encode: jest.fn(),
-          },
-          json: {
-            encode: jest.fn(JSON.stringify),
-          },
-        } as any,
-      },
-    },
-  };
-
-  const handler = twirpHandler(ee as any);
-  const request = {
+  const ee = { emit: jest.fn() } as any;
+  const handler = twirpHandler(ee);
+  const request: InboundRequest = {
     url: "http://localhost:8080",
     method: "POST",
     headers: {
       "content-type": "application/json",
     },
-  } as unknown as InboundRequest;
+    body: "",
+  };
 
   describe("request validation", () => {
+    const context = {} as TwirpContext;
     it("missing url", async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { url, ...rest } = request;
-      const res = await handler(rest as any, {} as TwirpContext);
+      const res = await handler(rest as any, context);
       expect(res).toEqual(
         TwirpErrorResponse(
           new TwirpError({
@@ -234,8 +167,9 @@ describe("twirpHandler", () => {
     });
 
     it("missing method", async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { method, ...rest } = request;
-      const res = await handler(rest as any, {} as TwirpContext);
+      const res = await handler(rest as any, context);
       expect(res).toEqual(
         TwirpErrorResponse(
           new TwirpError({
@@ -247,10 +181,7 @@ describe("twirpHandler", () => {
     });
 
     it("method other than POST", async () => {
-      const res = await handler(
-        { ...request, method: "GET" } as any,
-        {} as TwirpContext
-      );
+      const res = await handler({ ...request, method: "GET" } as any, context);
       expect(res).toEqual(
         TwirpErrorResponse(
           new TwirpError({
@@ -262,12 +193,13 @@ describe("twirpHandler", () => {
     });
 
     it("missing content-type", async () => {
-      const req = {
-        ...request,
-        headers: {},
-      };
-      const res = await handler(req as any, {} as TwirpContext);
-
+      const res = await handler(
+        {
+          ...request,
+          headers: {},
+        } as any,
+        context
+      );
       expect(res).toEqual(
         TwirpErrorResponse(
           new TwirpError({
@@ -279,12 +211,13 @@ describe("twirpHandler", () => {
     });
 
     it("invalid content-type", async () => {
-      const req = {
-        ...request,
-        headers: { "content-type": "text/html" },
-      };
-      const res = await handler(req as any, {} as TwirpContext);
-
+      const res = await handler(
+        {
+          ...request,
+          headers: { "content-type": "text/html" },
+        } as any,
+        context
+      );
       expect(res).toEqual(
         TwirpErrorResponse(
           new TwirpError({
@@ -296,13 +229,14 @@ describe("twirpHandler", () => {
     });
 
     it("emits error", async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { url, ...rest } = request;
       await handler(rest as any, {} as TwirpContext);
 
       expect(ee.emit).toBeCalledTimes(1);
       expect(ee.emit).toBeCalledWith(
         "error",
-        expect.any(Object),
+        context,
         new TwirpError({
           code: "malformed",
           msg: `no request url provided`,
@@ -311,84 +245,153 @@ describe("twirpHandler", () => {
     });
   });
 
-  it("missing handler", async () => {
-    const res = await handler(request, {
-      service: undefined,
-      method: undefined,
-      contentType: "JSON",
-    });
+  describe("missing handler", () => {
+    it("throws", async () => {
+      const context: TwirpContext = {
+        service: undefined,
+        method: undefined,
+        contentType: "JSON",
+      };
+      const res = await handler(request, context);
 
-    expect(res).toEqual(
-      TwirpErrorResponse(
+      expect(res).toEqual(
+        TwirpErrorResponse(
+          new TwirpError({
+            code: "bad_route",
+            msg: `no handler for path POST ${request.url}.`,
+          })
+        )
+      );
+
+      expect(ee.emit).toBeCalledTimes(1);
+      expect(ee.emit).toBeCalledWith(
+        "error",
+        context,
         new TwirpError({
           code: "bad_route",
           msg: `no handler for path POST ${request.url}.`,
         })
-      )
-    );
-
-    expect(ee.emit).toBeCalledTimes(1);
-    expect(ee.emit).toBeCalledWith(
-      "error",
-      expect.any(Object),
-      new TwirpError({
-        code: "bad_route",
-        msg: `no handler for path POST ${request.url}.`,
-      })
-    );
+      );
+    });
   });
 
-  it("returns TwirpError from handler", async () => {
-    const body = { foo: "bar" };
-    const req = { ...request, body: JSON.stringify(body) };
-    const response = new TwirpError({
-      code: "internal",
-      msg: "my handler errored",
-    });
-    service.methods["MakeHat"].handler.mockImplementationOnce(() => {
-      throw response;
-    });
-
-    const res = await handler(req, {
-      service,
-      method: service.methods.MakeHat,
-      contentType: "JSON",
-    } as unknown as TwirpContext);
-
-    expect(res).toEqual(TwirpErrorResponse(response));
-
-    expect(ee.emit).toBeCalledTimes(2);
-    expect(ee.emit).toBeCalledWith("requestRouted", expect.any(Object), body);
-    expect(ee.emit).toBeCalledWith("error", expect.any(Object), response);
-  });
-
-  it("processes the request (happy path)", async () => {
-    const body = { foo: "bar" };
-    const req = { ...request, body: JSON.stringify(body) };
-    const resBody = { bar: "baz" };
-    service.methods["MakeHat"].handler.mockImplementationOnce(() => resBody);
-
-    const res = await handler(req, {
-      service,
-      method: service.methods.MakeHat,
-      contentType: "JSON",
-    } as unknown as TwirpContext);
-    const expectedResponse = {
-      statusCode: 200,
-      headers: {
-        "content-type": "application/json",
+  describe("handler", () => {
+    const service = {
+      name: "Haberdasher",
+      methods: {
+        MakeHat: {
+          name: "MakeHat",
+          handler: jest.fn(),
+          input: {
+            protobuf: {
+              decode: jest.fn(),
+              encode: jest.fn(),
+            },
+            json: {
+              decode: jest.fn(JSON.parse),
+              encode: jest.fn(JSON.stringify),
+            },
+          },
+          output: {
+            protobuf: {
+              decode: jest.fn(),
+              encode: jest.fn(),
+            },
+            json: {
+              decode: jest.fn(JSON.parse),
+              encode: jest.fn(JSON.stringify),
+            },
+          },
+        },
       },
-      body: JSON.stringify(resBody),
     };
 
-    expect(res).toEqual(expectedResponse);
+    describe("service errors", () => {
+      it("TwirpError", async () => {
+        const body = { foo: "bar" };
+        const req = { ...request, body: JSON.stringify(body) };
+        const error = new TwirpError({
+          code: "internal",
+          msg: "my handler errored",
+        });
+        service.methods["MakeHat"].handler.mockImplementationOnce(() => {
+          throw error;
+        });
+        const context: TwirpContext = {
+          service,
+          method: service.methods.MakeHat,
+          contentType: "JSON",
+        };
 
-    expect(ee.emit).toBeCalledTimes(2);
-    expect(ee.emit).toBeCalledWith("requestRouted", expect.any(Object), body);
-    expect(ee.emit).toBeCalledWith(
-      "responsePrepared",
-      expect.any(Object),
-      resBody
-    );
+        const res = await handler(req, context);
+
+        expect(res).toEqual(TwirpErrorResponse(error));
+        expect(ee.emit).toBeCalledTimes(2);
+        expect(ee.emit).toBeCalledWith("requestRouted", context, body);
+        expect(ee.emit).toBeCalledWith("error", context, error);
+      });
+
+      it("Unexpected Error", async () => {
+        const body = { foo: "bar" };
+        const req = { ...request, body: JSON.stringify(body) };
+        const error = new Error("oh no");
+        service.methods["MakeHat"].handler.mockImplementationOnce(() => {
+          throw error;
+        });
+        const context: TwirpContext = {
+          service,
+          method: service.methods.MakeHat,
+          contentType: "JSON",
+        };
+
+        const res = await handler(req, context);
+
+        expect(res).toEqual(
+          TwirpErrorResponse(
+            new TwirpError({
+              code: "internal",
+              msg: "server error",
+            })
+          )
+        );
+        expect(ee.emit).toBeCalledTimes(2);
+        expect(ee.emit).toBeCalledWith("requestRouted", context, body);
+        expect(ee.emit).toBeCalledWith(
+          "error",
+          context,
+          new TwirpError({
+            code: "internal",
+            msg: "server error",
+            meta: { error: error as any },
+          })
+        );
+      });
+    });
+
+    it("processes the request (happy path)", async () => {
+      const body = { foo: "bar" };
+      const req = { ...request, body: JSON.stringify(body) };
+      const resBody = { bar: "baz" };
+      service.methods["MakeHat"].handler.mockImplementationOnce(() => resBody);
+      const context: TwirpContext = {
+        service,
+        method: service.methods.MakeHat,
+        contentType: "JSON",
+      };
+      const res = await handler(req, context);
+      const expectedResponse = {
+        statusCode: 200,
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(resBody),
+      };
+
+      expect(res).toEqual(expectedResponse);
+
+      expect(ee.emit).toBeCalledTimes(2);
+      expect(ee.emit).toBeCalledWith("requestRouted", context, body);
+      expect(ee.emit).toBeCalledWith("responsePrepared", context, resBody);
+    });
   });
 });

@@ -5,8 +5,12 @@ import {
   Credentials,
 } from "../../../protos/authentication.pb";
 import { randomBytes } from "crypto";
+import { TwirpError } from "twirpscript";
 
-const users = [{ username: "example", password: "1234" }];
+const users = [
+  { username: "example", password: "1234" },
+  { username: "👋", password: "1234" },
+];
 
 const sessions: CurrentUser[] = [];
 
@@ -45,10 +49,10 @@ export const authentication: Authentication = {
   Login: (credentials) => {
     const user = login(credentials);
     if (!user) {
-      throw {
+      throw new TwirpError({
         code: "invalid_argument",
         msg: "Invalid username or password",
-      };
+      });
     }
     return user;
   },

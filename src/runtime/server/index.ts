@@ -5,6 +5,14 @@ import { withRequestLogging } from "./requestLogging";
 
 export type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
 
+/**
+ * This should never occur.
+ *
+ * If this error is encountered, please open an issue:
+ * https://github.com/tatethurston/TwirpScript/issues/new
+ */
+const TWIRPSCRIPT_INVARIANT = "TwirpScript Invariant";
+
 export interface Response {
   body: string | Buffer;
   headers: {
@@ -37,14 +45,16 @@ type ServiceContext<U> = U extends Service
   ? { service: U | undefined; method: U["methods"][keyof U["methods"]] }
   : never;
 
+/**
+ * The requested content-type for the request.
+ */
+type ContentType = "JSON" | "Protobuf" | "Unknown";
+
 export type TwirpContext<
   ContextExt = unknown,
   Services extends Service[] = Service[]
 > = ContextExt & {
-  /**
-   * The requested content-type for the request.
-   */
-  contentType: "JSON" | "Protobuf" | "Unknown";
+  contentType: ContentType;
 } & ServiceContext<Pick<Services, number>[number]>;
 
 interface Message<T> {
@@ -58,12 +68,14 @@ interface Message<T> {
   };
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ServiceMethod<Context = any> {
   name: string;
   handler: (input: any, ctx: Context) => any;
   input: Message<any>;
   output: Message<any>;
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export interface Service {
   name: string;
@@ -80,105 +92,80 @@ export function TwirpErrorResponse(error: TwirpError): Response {
   };
 }
 
-function parseJSON<T>(
-  json: string,
-  decode: (json: string) => T
-): T | undefined {
-  try {
-    return decode(json);
-  } catch (e) {
-    return undefined;
-  }
-}
-
-function parseProto<T>(
-  proto: ByteSource,
-  decode: (proto: ByteSource) => T
-): T | undefined {
-  try {
-    return decode(proto);
-  } catch (e) {
-    return undefined;
-  }
-}
-
 export async function executeServiceMethod<Context extends TwirpContext>(
   method: ServiceMethod,
   req: Request,
   context: Context,
   ee: Emitter<ServerHooks<Context, Request>>
-): Promise<TwirpError | string | Buffer> {
-  try {
-    switch (context.contentType) {
-      case "JSON": {
-        const body = parseJSON(req.body as string, method.input.json.decode);
-        if (!body) {
-          return new TwirpError({
-            code: "invalid_argument",
-            msg: `failed to deserialize argument as JSON`,
-          });
-        }
-        ee.emit("requestRouted", context, body as any);
-        const response = await method.handler(body as any, context);
-        ee.emit("responsePrepared", context, response);
-        return method.output.json.encode(response);
-      }
-      case "Protobuf": {
-        const body = parseProto(
-          req.body as Buffer,
-          method.input.protobuf.decode
-        );
-        if (!body) {
-          return new TwirpError({
-            code: "invalid_argument",
-            msg: `failed to deserialize argument as Protobuf`,
-          });
-        }
-        ee.emit("requestRouted", context, body);
-        const response = await method.handler(body, context);
-        ee.emit("responsePrepared", context, response);
-        return Buffer.from(method.output.protobuf.encode(response));
-      }
-      default: {
-        return new TwirpError({
-          code: "malformed",
-          msg: `Unexpected or missing content-type`,
+): Promise<string | Buffer> {
+  switch (context.contentType) {
+    case "JSON": {
+      let body;
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        body = method.input.json.decode(req.body as string);
+      } catch (e) {
+        throw new TwirpError({
+          code: "invalid_argument",
+          msg: "failed to deserialize argument as JSON",
         });
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      ee.emit("requestRouted", context, body);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const response = await method.handler(body, context);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      ee.emit("responsePrepared", context, response);
+      return method.output.json.encode(response);
     }
-  } catch (error) {
-    if (error instanceof TwirpError) {
-      return error;
-    } else {
-      return new TwirpError({
-        code: "internal",
-        msg: "server error",
-      });
+    case "Protobuf": {
+      let body;
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        body = method.input.protobuf.decode(req.body as Buffer);
+      } catch (e) {
+        throw new TwirpError({
+          code: "invalid_argument",
+          msg: "failed to deserialize argument as Protobuf",
+        });
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      ee.emit("requestRouted", context, body);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const response = await method.handler(body, context);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      ee.emit("responsePrepared", context, response);
+      return Buffer.from(method.output.protobuf.encode(response));
+    }
+    // This should never occur because we've processed the content type in
+    // validateRequest
+    // istanbul ignore: invariant
+    case "Unknown": {
+      throw new Error(TWIRPSCRIPT_INVARIANT);
+    }
+    // This should never occur because we've processed the content type in
+    // validateRequest
+    // istanbul ignore: invariant
+    default: {
+      const _exhaust: never = context.contentType;
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      throw new Error(TWIRPSCRIPT_INVARIANT + _exhaust);
     }
   }
-}
-
-async function getBody(req: ServerRequest): Promise<Buffer> {
-  const buffers = [];
-  for await (const chunk of req) {
-    buffers.push(chunk);
-  }
-  const body = Buffer.concat(buffers);
-  return body;
 }
 
 function validateRequest(req: InboundRequest): TwirpError | undefined {
   if (!req.url) {
     return new TwirpError({
       code: "malformed",
-      msg: `no request url provided`,
+      msg: "no request url provided",
     });
   }
 
   if (!req.method) {
     return new TwirpError({
       code: "malformed",
-      msg: `no request method provided`,
+      msg: "no request method provided",
     });
   }
 
@@ -193,7 +180,7 @@ function validateRequest(req: InboundRequest): TwirpError | undefined {
   if (!contentType) {
     return new TwirpError({
       code: "malformed",
-      msg: `no request content-type provided`,
+      msg: "no request content-type provided",
     });
   }
   if (
@@ -220,6 +207,44 @@ interface TwirpServerConfig {
   prefix?: string;
 }
 
+function handleError<Context extends TwirpContext>(
+  error: TwirpError,
+  ctx: Context,
+  ee: Emitter<ServerHooks<Context, Request>>
+): Response {
+  ee.emit("error", ctx, error);
+  return TwirpErrorResponse(error);
+}
+
+function handleUserSpaceError<Context extends TwirpContext>(
+  error: unknown,
+  ctx: Context,
+  ee: Emitter<ServerHooks<Context, Request>>
+): Response {
+  if (error instanceof TwirpError) {
+    return handleError(error, ctx, ee);
+  } else {
+    ee.emit(
+      "error",
+      ctx,
+      new TwirpError({
+        code: "internal",
+        msg: "server error",
+        // Do expose internal error message in reporting
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+        meta: { error: error as any },
+      })
+    );
+    // Don't expose internal error message in response
+    return TwirpErrorResponse(
+      new TwirpError({
+        code: "internal",
+        msg: "server error",
+      })
+    );
+  }
+}
+
 export type Middleware<Context = unknown, Request = unknown> = (
   request: Request,
   context: TwirpContext<Context>,
@@ -232,32 +257,33 @@ export function twirpHandler<Context extends TwirpContext>(
   return async (req: InboundRequest, ctx: Context): Promise<Response> => {
     const err = validateRequest(req);
     if (err) {
-      ee.emit("error", ctx, err);
-      return TwirpErrorResponse(err);
+      return handleError(err, ctx, ee);
     }
 
     const handler = ctx.method;
     if (!handler) {
-      const error = new TwirpError({
-        code: "bad_route",
-        msg: `no handler for path POST ${req.url ?? ""}.`,
-      });
-      ee.emit("error", ctx, error);
-      return TwirpErrorResponse(error);
+      return handleError(
+        new TwirpError({
+          code: "bad_route",
+          msg: `no handler for path POST ${req.url}.`,
+        }),
+        ctx,
+        ee
+      );
     }
 
-    const response = await executeServiceMethod(handler, req, ctx, ee);
-    if (response instanceof TwirpError) {
-      ee.emit("error", ctx, response);
-      return TwirpErrorResponse(response);
+    try {
+      const response = await executeServiceMethod(handler, req, ctx, ee);
+      return {
+        statusCode: 200,
+        headers: {
+          "content-type": req.headers["content-type"],
+        },
+        body: response,
+      };
+    } catch (error) {
+      return handleUserSpaceError(error, ctx, ee);
     }
-    return {
-      statusCode: 200,
-      headers: {
-        "content-type": req.headers["content-type"],
-      },
-      body: response,
-    };
   };
 }
 
@@ -330,84 +356,27 @@ interface TwirpServerless<Context extends TwirpContext, Request>
   (req: Request): Promise<Response>;
 }
 
-export function createTwirpServer<
-  ContextExt,
-  Services extends Service[],
-  Request extends ServerRequest = IncomingMessage
->(
-  services: Services,
-  config: TwirpServerConfig = {}
-): TwirpServer<TwirpContext<ContextExt, typeof services>, Request> {
-  const _app = createTwirpServerless(services, config);
-
-  async function app(req: Request, res: ServerResponse): Promise<void> {
-    const body = await getBody(req);
-    const request = req as unknown as InboundRequest;
-    request.body = body;
-    const response = await _app(request);
-    res.writeHead(response.statusCode, response.headers);
-    res.end(response.body);
+function getContentType(contentType: string | undefined): ContentType {
+  switch (contentType) {
+    case "application/json":
+      return "JSON";
+    case "application/protobuf":
+      return "Protobuf";
+    default:
+      return "Unknown";
   }
-
-  app.use = (
-    handler: Middleware<
-      TwirpContext<ContextExt, typeof services>,
-      ServerRequestWithBody<Request>
-    >
-  ) => {
-    _app.use(handler as any);
-    return app;
-  };
-
-  app.on = (
-    ...args: Parameters<
-      Emitter<
-        ServerHooks<
-          TwirpContext<ContextExt, typeof services>,
-          ServerRequestWithBody<Request>
-        >
-      >["on"]
-    >
-  ) => {
-    _app.on(...(args as [any, any]));
-    return app;
-  };
-
-  app.off = (
-    ...args: Parameters<
-      Emitter<
-        ServerHooks<
-          TwirpContext<ContextExt, typeof services>,
-          ServerRequestWithBody<Request>
-        >
-      >["off"]
-    >
-  ) => {
-    _app.off(...(args as [any, any]));
-    return app;
-  };
-
-  return app;
 }
-
-const contentTypeName: {
-  [key: string]: TwirpContext["contentType"] | undefined;
-} = {
-  "application/json": "JSON",
-  "application/protobuf": "Protobuf",
-};
 
 function getRequestContext<Services extends Service[]>(
   req: InboundRequest,
   services: Services,
   config: Required<TwirpServerConfig>
 ): TwirpContext {
-  const ctx = {
+  const ctx: TwirpContext = {
     service: undefined,
     method: undefined,
-    contentType:
-      contentTypeName[req.headers["content-type"] as string] ?? "Unknown",
-  } as unknown as TwirpContext;
+    contentType: getContentType(req.headers["content-type"]),
+  };
 
   const prefix = config.prefix + "/";
   const startsWithPrefix = req.url.startsWith(prefix);
@@ -458,23 +427,17 @@ export function createTwirpServerless<
     ee.emit("requestReceived", ctx, req);
 
     let response: Response;
+    let idx = 1;
+    const middleware = [...serverMiddleware, twirp];
     try {
-      let idx = 1;
-      const middleware = [...serverMiddleware, twirp];
       response = await middleware[0](req, ctx, function next() {
         const nxt = middleware[idx];
         idx++;
         return nxt(req, ctx, next);
       });
-    } catch (e) {
-      const error =
-        e instanceof TwirpError
-          ? e
-          : new TwirpError({ code: "internal", msg: "server error" });
-      ee.emit("error", ctx, error);
-      response = TwirpErrorResponse(error);
+    } catch (error) {
+      response = handleUserSpaceError(error, ctx, ee);
     }
-
     ee.emit("responseSent", ctx, response);
     return response;
   }
@@ -508,5 +471,78 @@ export function createTwirpServerless<
     withRequestLogging(app);
   }
 
+  return app;
+}
+
+async function getBody(req: ServerRequest): Promise<Buffer> {
+  const buffers = [];
+  for await (const chunk of req) {
+    buffers.push(chunk);
+  }
+  const body = Buffer.concat(buffers);
+  return body;
+}
+
+export function createTwirpServer<
+  ContextExt,
+  Services extends Service[],
+  Request extends ServerRequest = IncomingMessage
+>(
+  services: Services,
+  config: TwirpServerConfig = {}
+): TwirpServer<TwirpContext<ContextExt, typeof services>, Request> {
+  const _app = createTwirpServerless(services, config);
+
+  async function app(req: Request, res: ServerResponse): Promise<void> {
+    const body = await getBody(req);
+    const request = req as unknown as InboundRequest;
+    request.body = body;
+    const response = await _app(request);
+    res.writeHead(response.statusCode, response.headers);
+    res.end(response.body);
+  }
+
+  app.use = (
+    handler: Middleware<
+      TwirpContext<ContextExt, typeof services>,
+      ServerRequestWithBody<Request>
+    >
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any , @typescript-eslint/no-unsafe-argument
+    _app.use(handler as any);
+    return app;
+  };
+
+  app.on = (
+    ...args: Parameters<
+      Emitter<
+        ServerHooks<
+          TwirpContext<ContextExt, typeof services>,
+          ServerRequestWithBody<Request>
+        >
+      >["on"]
+    >
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    _app.on(...(args as [any, any]));
+    return app;
+  };
+
+  app.off = (
+    ...args: Parameters<
+      Emitter<
+        ServerHooks<
+          TwirpContext<ContextExt, typeof services>,
+          ServerRequestWithBody<Request>
+        >
+      >["off"]
+    >
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    _app.off(...(args as [any, any]));
+    return app;
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   return app;
 }

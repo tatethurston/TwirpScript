@@ -3695,10 +3695,13 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-protoscript@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/protoscript/-/protoscript-0.0.2.tgz#28928bb4d8281d7f2c9e005509fa0a490967c6d4"
-  integrity sha512-1BcRJC6Yk8Ms+gic40uBDSKXxryLUxVjuyHq+jeQsC/Jg7CeKFyU07ZgRClFatpEwJd35jniKrwqNApDnYHinA==
+protoscript@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/protoscript/-/protoscript-0.0.4.tgz#af7e4ab20e3135b1463bdc87bb3ebd524a365797"
+  integrity sha512-uF1uprgBCyMsiqYubpK96PrZ6zyIMxKaHKAYpyPu8K4n71sLQ4LP0MYLvFTEJCvhRarx6Q8kybUEnQTxaGVOGQ==
+  dependencies:
+    google-protobuf "^3.20.1"
+    prettier "^2.6.0"
 
 protoscript@^0.0.3:
   version "0.0.3"

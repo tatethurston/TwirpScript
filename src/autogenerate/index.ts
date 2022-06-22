@@ -822,10 +822,10 @@ export async function ${method.name}JSON(${input}${printIfTypescript(
       )}, config${printIfTypescript(
         `?: ClientConfiguration`
       )})${printIfTypescript(`: Promise<${method.output}>`)} {
-  const response = await JSONrequest('${path}', ${
-        method.input
-      }JSON.encode(${input}), config);
-  return ${method.output}JSON.decode(response);
+  const response = await JSONrequest('${path}', ${addJSONSuffixToFullyQualifiedName(
+        method.input!
+      )}.encode(${input}), config);
+  return ${addJSONSuffixToFullyQualifiedName(method.output!)}.decode(response);
 }
 
 `;
@@ -868,7 +868,15 @@ function writeServers(
     name: '${[packageName, service.name].filter(Boolean).join(".")}',
     methods: {\n`;
     service.methods.forEach((method) => {
-      result += `${method.name}: { name: '${method.name}', handler: service.${method.name}, input: { protobuf: ${method.input}, json: ${method.input}JSON }, output: { protobuf: ${method.output}, json: ${method.output}JSON } },`;
+      result += `${method.name}: { name: '${method.name}', handler: service.${
+        method.name
+      }, input: { protobuf: ${
+        method.input
+      }, json: ${addJSONSuffixToFullyQualifiedName(
+        method.input!
+      )} }, output: { protobuf: ${
+        method.output
+      }, json: ${addJSONSuffixToFullyQualifiedName(method.output!)} } },`;
     });
     result += "}\n";
     result += `} ${printIfTypescript("as const")}\n`;

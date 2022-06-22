@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+// Haberdasher service makes hats for clients.
+service Haberdasher {
+  // MakeHat produces a hat of mysterious, randomly-selected color!
+  rpc MakeHat(Req.MakeHat) returns (Hat);
+}
+
+// Size of a Hat, in inches.
+message Req {
+    message MakeHat {
+        int32 inches = 1; // must be > 0
+    }
+}
+
+// A Hat is a piece of headwear made by a Haberdasher.
+message Hat {
+  int32 inches = 1;
+  string color = 2; // anything but "invisible"
+  string name = 3; // i.e. "bowler"
+}

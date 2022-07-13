@@ -10,14 +10,6 @@ The Twirp `clientcompat` testing tool has been vendored into the repo so it does
 
 ### First time setup
 
-Then build and link your local TwirpScript
-
 ```
-yarn clientcompat:setup
-```
-
-### Running
-
-```
-yarn clientcompat
+npm run build
 ```

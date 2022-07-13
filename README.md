@@ -92,14 +92,14 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
    Or install from a [precompiled binary](https://github.com/protocolbuffers/protobuf/releases).
 
 1. Add this package to your project:
-   `yarn add twirpscript` or `npm install twirpscript`
+   `npm install twirpscript` or `yarn add twirpscript`
 
 ## Getting Started
 
 ### Overview 📖
 
 1. Define your service in a `.proto` file.
-2. Run `yarn twirpscript` to generate JavaScript or TypeScript code from your `.proto` file. This will generate JSON and Protobuf clients, a service interface, and service utilities.
+2. Run `npx twirpscript` to generate JavaScript or TypeScript code from your `.proto` file. This will generate JSON and Protobuf clients, a service interface, and service utilities.
 3. If you only need a client, you're done! Use the generated client to make requests to your server.
 4. Implement the generated service interface.
 5. Add your implemented service to your application server's routes.
@@ -132,11 +132,11 @@ message Hat {
 }
 ```
 
-#### 2. Run `yarn twirpscript`
+#### 2. Run `npx twirpscript`
 
 This will generate `haberdasher.pb.ts` (or `haberdasher.pb.js` for JavaScript users) in the same directory as as `haberdasher.proto`. Any comments will become [TSDoc](https://github.com/microsoft/tsdoc) comments and will show inline in supported editors.
 
-`yarn twirpscript` will compile all`.proto` files in your project.
+`npx twirpscript` will compile all`.proto` files in your project.
 
 #### 3. Use the client
 

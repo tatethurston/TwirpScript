@@ -1,8 +1,7 @@
 {
   "name": "clientcompat",
   "scripts": {
-    "build": "rm -rf dist && yarn twirpscript && yarn tsc",
-    "twirpscript": "../../../dist/cli/index.js"
+    "build": "rm -rf dist && twirpscript && tsc"
   },
   "dependencies": {
     "twirpscript": "link:../../../dist"

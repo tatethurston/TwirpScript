@@ -1,7 +1,7 @@
 {
   "name": "config-json",
   "scripts": {
-    "build": "yarn twirpscript && yarn tsc"
+    "build": "twirpscript && tsc"
   },
   "dependencies": {
     "twirpscript": "*"

@@ -4,5 +4,5 @@
 
 ### Running Locally
 
-1. `yarn install`
-2. `yarn build`
+1. `npm install`
+2. `npm build`

@@ -1,5 +1,5 @@
 {
-  "app": "yarn ts-node cdk.ts",
+  "app": "npx ts-node cdk.ts",
   "context": {
     "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
     "@aws-cdk/core:stackRelativeExports": true,

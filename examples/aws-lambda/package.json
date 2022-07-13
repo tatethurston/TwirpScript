@@ -4,8 +4,8 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc -w",
-    "deploy:prepare": "yarn build && cp lambda.package.json dist/package.json && (cd dist && yarn)",
-    "deploy": "yarn deploy:prepare && yarn cdk synth && yarn cdk deploy"
+    "deploy:prepare": "npm run build && cp lambda.package.json dist/package.json && (cd dist && npm install)",
+    "deploy": "npm run deploy:prepare && npx cdk synth && npx cdk deploy"
   },
   "devDependencies": {
     "@aws-cdk/aws-apigateway": "^1.135.0",
@@ -20,6 +20,6 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "twirpscript": "*"
+    "twirpscript": "file:../../dist"
   }
 }

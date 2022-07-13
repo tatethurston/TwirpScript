@@ -6,7 +6,7 @@
     "test": "jest src/*"
   },
   "dependencies": {
-    "twirpscript": "*"
+    "twirpscript": "file:../../dist"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",

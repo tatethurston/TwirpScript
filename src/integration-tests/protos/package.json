@@ -6,7 +6,7 @@
     "typecheck:protos": "twirpscript && tsc --noEmit && npm run clean"
   },
   "dependencies": {
-    "twirpscript": "link:../../../dist"
+    "twirpscript": "file:../../../dist"
   },
   "devDependencies": {
     "typescript": "^4.6.3"

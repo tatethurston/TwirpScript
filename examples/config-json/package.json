@@ -4,7 +4,7 @@
     "build": "twirpscript && tsc"
   },
   "dependencies": {
-    "twirpscript": "*"
+    "twirpscript": "file:../../dist"
   },
   "devDependencies": {
     "typescript": "^4.3.5"

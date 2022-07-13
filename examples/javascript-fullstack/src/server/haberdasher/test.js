@@ -1,12 +1,12 @@
 import { describe, it, expect } from "@jest/globals";
-import { Haberdasher } from ".";
+import { haberdasher } from ".";
 
 describe("Haberdasher", () => {
   describe("Haberdasher.MakeHat", () => {
     it("makes hats", () => {
       const size = { inches: 12 };
 
-      expect(Haberdasher.MakeHat(size, {})).toEqual(
+      expect(haberdasher.MakeHat(size, {})).toEqual(
         expect.objectContaining({
           inches: size.inches,
         })

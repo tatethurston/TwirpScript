@@ -1,12 +1,12 @@
 {
   "name": "server-to-server",
   "scripts": {
-    "start": "yarn build && node dist/server/index.js",
-    "build": "yarn twirpscript && yarn tsc",
-    "test": "yarn jest src/*"
+    "start": "npm run build && node dist/server/index.js",
+    "build": "twirpscript && tsc",
+    "test": "jest src/*"
   },
   "dependencies": {
-    "twirpscript": "*"
+    "twirpscript": "file:../../dist"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",

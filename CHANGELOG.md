@@ -55,7 +55,7 @@ throw new TwirpError({ code: "code", msg: "msg" });
 
 ## v0.0.56
 
-Users will need to `yarn twirpscript` to regenerate their `.pb.ts` / `.pb.js` files when adopting this version.
+Users will need to `npx twirpscript` to regenerate their `.pb.ts` / `.pb.js` files when adopting this version.
 
 - The generated message serializer/deserializer objects have been split into two separate objects: one for JSON and one for Protobuf. This enables smaller client bundles when using a bundler that supports tree shaking / dead code elimination. Many users will be unaffected by this change, but this is a breaking change for users that use message encode/decode methods directly in their source code.
 
@@ -234,7 +234,7 @@ Changes:
 
 ## v0.0.44
 
-This version has breaking changes between the generated code and the runtime. Run `yarn twrispcript` to update your generated `.pb.ts` when updating to this version.
+This version has breaking changes between the generated code and the runtime. Run `npx twrispcript` to update your generated `.pb.ts` when updating to this version.
 
 TwirpScript now ships with JSON serializers and supports the `json_name` option described [here](https://developers.google.com/protocol-buffers/docs/proto3#json). This enables clients to specify custom JSON field names.
 
@@ -256,7 +256,7 @@ Changes:
 ## v0.0.41
 
 - Breaking Change: field names are now camelCased by @tatethurston in https://github.com/tatethurston/TwirpScript/pull/97.
-  `yarn twirpscript` will regenerate your `.pb.ts` files with the correct casing. If you run into significant issues with this change or prefer snake_case, please open an issue.
+  `npx twirpscript` will regenerate your `.pb.ts` files with the correct casing. If you run into significant issues with this change or prefer snake_case, please open an issue.
 
 ## v0.0.40
 
@@ -305,7 +305,7 @@ Changes:
 
 This release includes breaking changes:
 
-1. The generated `.pb.ts` files have been restructured. You'll need to run `yarn twirpscript` to regenerate your `.pb.ts` files after updating.
+1. The generated `.pb.ts` files have been restructured. You'll need to run `npx twirpscript` to regenerate your `.pb.ts` files after updating.
 2. `context`'s `service` and `method` properties now point to generated objects instead of simply being strings (eg previously these were "Haberdasher" and "MakeHat" and now these properties point to generated objects. This enables more powerful runtime reflection, eg:
 
 ```

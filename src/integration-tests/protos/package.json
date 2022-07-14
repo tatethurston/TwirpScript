@@ -2,12 +2,11 @@
   "name": "test-protos",
   "scripts": {
     "clean": "find . -name '*.pb.ts' -delete",
-    "build": "rm -rf dist && yarn tsc && chmod +x ./dist/integration-tests/protos/gen-test-input.js",
-    "twirpscript": "../../../dist/cli/index.js",
-    "typecheck:protos": "yarn twirpscript && yarn tsc --noEmit && yarn clean"
+    "build": "rm -rf dist && tsc && chmod +x ./dist/integration-tests/protos/gen-test-input.js",
+    "typecheck:protos": "twirpscript && tsc --noEmit && npm run clean"
   },
   "dependencies": {
-    "twirpscript": "link:../../../dist"
+    "twirpscript": "file:../../../dist"
   },
   "devDependencies": {
     "typescript": "^4.6.3"

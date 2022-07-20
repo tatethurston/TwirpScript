@@ -109,7 +109,7 @@ describe("executeServiceMethod", () => {
       expect(decode).toBeCalledWith("");
       expect(handler).toBeCalledWith(body, context);
       expect(encode).toBeCalledWith(response);
-      expect(res).toEqual(Buffer.from(encoded));
+      expect(res).toEqual(Uint8Array.from(encoded));
     });
 
     it("TwirpError when deserialization fails", async () => {

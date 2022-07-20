@@ -20,7 +20,7 @@ const handler: Handler<APIGatewayProxyEvent, APIGatewayProxyResult> = async (
 
   // Binary responses must be base64 encoded for the AWS API Gateway / LambdaProxy integration
   if (res.headers["content-type"] === "application/protobuf") {
-    res.body = res.body.toString("base64");
+    res.body = Buffer.from(res.body).toString("base64");
     (res as APIGatewayProxyResult).isBase64Encoded = true;
   }
 

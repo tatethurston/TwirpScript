@@ -1,7 +1,7 @@
 export { client, JSONrequest, PBrequest } from "./client";
 export type { RpcTransport, ClientConfiguration } from "./client";
 export { TwirpError } from "./error";
-export type { ByteSource, Middleware } from "./server";
+export type { Middleware } from "./server";
 export {
   createTwirpServer,
   createTwirpServerless,
@@ -16,4 +16,5 @@ export {
   BinaryWriter,
   encodeBase64Bytes,
   decodeBase64Bytes,
-} from "./protobuf";
+} from "protoscript";
+export type { ByteSource } from "protoscript";

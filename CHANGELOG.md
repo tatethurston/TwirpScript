@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.60
+
+- Removes @types/node dependency. @types/node is no longer necessary when using a TwirpScript generated client.
+
 ## v0.0.59
 
 - Fixes generated JSON client when using nested messages. The generated JSON serialization names were invalid for nested messages. See [#176](https://github.com/tatethurston/TwirpScript/issues/176) for more context.

@@ -1,9 +1,7 @@
-import { IncomingMessage, ServerResponse } from "http";
 import { TwirpError, statusCodeForErrorCode } from "../error";
 import { Emitter, createEventEmitter } from "../eventEmitter";
 import { withRequestLogging } from "./requestLogging";
-
-export type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
+import type { ByteSource } from "protoscript";
 
 /**
  * This should never occur.
@@ -14,7 +12,7 @@ export type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
 const TWIRPSCRIPT_INVARIANT = "TwirpScript Invariant";
 
 export interface Response {
-  body: string | Buffer;
+  body: string | Uint8Array;
   headers: {
     [key: string]: string | undefined;
   };
@@ -22,7 +20,7 @@ export interface Response {
 }
 
 export interface Request {
-  body: string | Buffer | undefined | null;
+  body: string | Uint8Array | undefined | null;
   headers: {
     [key: string]: string | undefined;
   };
@@ -33,10 +31,19 @@ export interface InboundRequest extends Request {
   method: string;
 }
 
-type ServerRequest = Pick<
-  IncomingMessage,
-  "method" | "url" | "headers" | typeof Symbol.asyncIterator
->;
+interface ServerResponse {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  end: (chunk: any, cb?: () => void) => void;
+  writeHead: (statusCode: number, headers?: ServerRequest["headers"]) => void;
+}
+
+interface ServerRequest {
+  headers: Record<string, string | string[] | undefined>;
+  method?: string | undefined;
+  url?: string | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+}
 
 type ServerRequestWithBody<SR extends ServerRequest> = SR &
   Pick<Request, "body">;
@@ -97,7 +104,7 @@ export async function executeServiceMethod<Context extends TwirpContext>(
   req: Request,
   context: Context,
   ee: Emitter<ServerHooks<Context, Request>>
-): Promise<string | Buffer> {
+): Promise<string | Uint8Array> {
   switch (context.contentType) {
     case "JSON": {
       let body;
@@ -121,8 +128,8 @@ export async function executeServiceMethod<Context extends TwirpContext>(
     case "Protobuf": {
       let body;
       try {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        body = method.input.protobuf.decode(req.body as Buffer);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-non-null-assertion
+        body = method.input.protobuf.decode(req.body!);
       } catch (e) {
         throw new TwirpError({
           code: "invalid_argument",
@@ -135,7 +142,7 @@ export async function executeServiceMethod<Context extends TwirpContext>(
       const response = await method.handler(body, context);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       ee.emit("responsePrepared", context, response);
-      return Buffer.from(method.output.protobuf.encode(response));
+      return method.output.protobuf.encode(response);
     }
     // This should never occur because we've processed the content type in
     // validateRequest
@@ -474,19 +481,26 @@ export function createTwirpServerless<
   return app;
 }
 
-async function getBody(req: ServerRequest): Promise<Buffer> {
-  const buffers = [];
+async function getBody(req: ServerRequest): Promise<Uint8Array> {
+  const buffers: Uint8Array[] = [];
   for await (const chunk of req) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     buffers.push(chunk);
   }
-  const body = Buffer.concat(buffers);
+  const length = buffers.reduce((acc, buffer) => acc + buffer.length, 0);
+  const body = new Uint8Array(length);
+  let offset = 0;
+  buffers.forEach((buffer) => {
+    body.set(buffer, offset);
+    offset += buffer.length;
+  });
   return body;
 }
 
 export function createTwirpServer<
   ContextExt,
   Services extends Service[],
-  Request extends ServerRequest = IncomingMessage
+  Request extends ServerRequest = ServerRequest
 >(
   services: Services,
   config: TwirpServerConfig = {}

@@ -1,7 +1,7 @@
 import { describe, it } from "@jest/globals";
-import { nodeHttpTransport } from ".";
+import { nodeHttpTransport } from "./index.js";
 import { createServer, IncomingMessage, ServerResponse } from "http";
-import { RpcTransportOpts } from "../runtime/client";
+import { RpcTransportOpts } from "../runtime/client/index.js";
 
 const server = jest.fn((_req: IncomingMessage, res: ServerResponse) => {
   res.writeHead(200, {});

@@ -1,4 +1,4 @@
-import type { RpcTransportResponse } from "../client";
+import type { RpcTransportResponse } from "../client/index.js";
 
 export interface TwirpError {
   code: ErrorCode;

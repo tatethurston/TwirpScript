@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.61
+
+- Distribute strict ESM. A CommonJS is runtime is included for legacy node clients. Code generation uses ESM and requires Node.js v14 or later.
+- Use [ProtoScript](https://github.com/tatethurston/ProtoScript) code generation. This will result in some generated imports coming from protoscript instead of twirpscript, but this is a non breaking change. These imports were previously delegated to protoscript via reexports inside twirpscript, and that indirection has now been removed.
+
 ## v0.0.60
 
 - Removes @types/node dependency. @types/node is no longer necessary when using a TwirpScript generated client.

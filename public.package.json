@@ -1,6 +1,6 @@
 {
   "name": "twirpscript",
-  "version": "0.0.60",
+  "version": "0.0.61",
   "description": "Protobuf RPC framework for JavaScript and TypeScript",
   "license": "MIT",
   "author": "Tate <tatethurston@gmail.com>",
@@ -8,8 +8,9 @@
     "type": "git",
     "url": "https://github.com/tatethurston/twirpscript"
   },
-  "main": "index.js",
-  "module": "module",
+  "type": "module",
+  "main": "./cjs/index.cjs",
+  "module": "./index.js",
   "bin": {
     "twirpscript": "cli/index.js"
   },
@@ -18,7 +19,7 @@
   "dependencies": {
     "google-protobuf": "^3.20.1",
     "prettier": "^2.6.0",
-    "protoscript": "0.0.5"
+    "protoscript": "0.0.8"
   },
   "keywords": [
     "protobuf",
@@ -30,9 +31,13 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "node": "./index-node.js",
-      "import": "./module/index.js",
-      "module": "./module/index.js",
+      "node": {
+        "import": "./index-node.js",
+        "require": "./cjs/index-node.cjs"
+      },
+      "import": "./index.js",
+      "module": "./index.js",
+      "require": "./cjs/index.cjs",
       "default": "./index.js"
     }
   }

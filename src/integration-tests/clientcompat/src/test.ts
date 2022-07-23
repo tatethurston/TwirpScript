@@ -4,11 +4,10 @@ import { join } from "path";
 
 describe("Twirp Client Compatabilitiy Test", () => {
   it("passes", () => {
-    const binary = join(__dirname, "../clientcompat");
-    const harness = join(__dirname, "../test");
-    const child = spawnSync(`${binary} -client=${harness}`, {
+    const child = spawnSync("clientcompat -client=./test", {
       encoding: "utf8",
       shell: true,
+      cwd: join(__dirname, ".."),
     });
 
     // TODO: Run under GitHub CI

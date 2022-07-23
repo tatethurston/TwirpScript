@@ -1,4 +1,4 @@
-import { RpcTransportResponse } from ".";
+import { RpcTransportResponse } from "./index.js";
 
 export const mockRpcTransportResponse: RpcTransportResponse = {
   arrayBuffer: () => Promise.resolve(Buffer.from([])),

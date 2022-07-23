@@ -2,8 +2,8 @@
 // Source: src/A.proto
 /* eslint-disable */
 
-import type { ByteSource } from "twirpscript";
-import { BinaryReader, BinaryWriter } from "twirpscript";
+import type { ByteSource } from "protoscript";
+import { BinaryReader, BinaryWriter } from "protoscript";
 
 //========================================//
 //                 Types                  //
@@ -118,8 +118,8 @@ export const FooJSON = {
    */
   _writeMessage: function (msg: Partial<Foo>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
-    json.baz = msg.baz;
-    json.foo_bars = msg.fooBars;
+    json["baz"] = msg.baz;
+    json["foo_bars"] = msg.fooBars;
     return json;
   },
 
@@ -127,11 +127,11 @@ export const FooJSON = {
    * @private
    */
   _readMessage: function (msg: Foo, json: any): Foo {
-    const _baz = json.baz;
+    const _baz = json["baz"];
     if (_baz) {
       msg.baz = _baz;
     }
-    const _fooBars = json.fooBars ?? json.foo_bars;
+    const _fooBars = json["fooBars"] ?? json["foo_bars"];
     if (_fooBars) {
       msg.fooBars = _fooBars;
     }

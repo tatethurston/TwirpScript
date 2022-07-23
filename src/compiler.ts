@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { readFileSync } from "fs";
-import { compile } from "./compile";
+import { compile } from "./compile.js";
 
 const input = readFileSync(process.stdin.fd);
 const response = compile(input);

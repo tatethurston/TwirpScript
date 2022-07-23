@@ -1,4 +1,4 @@
-import { TwirpServerRuntime } from "..";
+import { TwirpServerRuntime } from "../index.js";
 
 export const timingField = "__twirpRequestStartMs__";
 

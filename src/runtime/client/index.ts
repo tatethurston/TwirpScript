@@ -1,5 +1,5 @@
-import { TwirpError, twirpErrorFromResponse } from "../error";
-import { createEventEmitter, Emitter } from "../eventEmitter";
+import { TwirpError, twirpErrorFromResponse } from "../error/index.js";
+import { createEventEmitter, Emitter } from "../eventEmitter/index.js";
 
 export type ClientConfiguration = Partial<{
   /**

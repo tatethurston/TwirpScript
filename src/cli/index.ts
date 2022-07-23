@@ -9,7 +9,7 @@ import {
   findFiles,
   isWindows,
   pluralize,
-} from "./utils";
+} from "./utils.js";
 
 const logger: Pick<Console, "info" | "warn" | "error"> = {
   info: (str: string) => console.info("[TwirpScript] " + str),
@@ -281,16 +281,10 @@ protoc \
   --plugin=protoc-gen-twirpscript=${join(
     projectRoot,
     "node_modules",
-    "protoscript",
+    "twirpscript",
     `compiler.${isWindows ? "cmd" : "js"}`
   )} \
   --twirpscript_out=${destination} \
-  --twirpscript_opt=plugin=twirpscript=${join(
-    projectRoot,
-    "node_modules",
-    "twirpscript",
-    "plugin.js"
-  )} \
   --twirpscript_opt=language=${config.language} \
   ${
     config.json.emitFieldsWithDefaultValues

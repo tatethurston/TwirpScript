@@ -7,10 +7,10 @@
     "type": "git",
     "url": "https://github.com/tatethurston/twirpscript"
   },
+  "type": "module",
   "scripts": {
-    "build:commonjs": "tsc",
-    "build:module": "tsc --module esnext --outDir dist/module",
-    "build:watch": "npm run build:commonjs --watch",
+    "build:commonjs": "esbuild src/index-node.ts --bundle --platform=node --outfile=dist/cjs/index-node.cjs && esbuild src/index.ts --bundle --platform=node --outfile=dist/cjs/index.cjs",
+    "build:module": "tsc",
     "clean": "rm -rf dist",
     "examples:buf:regen": "(cd examples/buf && buf generate && tsc --noEmit)",
     "examples:each": "for e in $(ls examples | grep -v buf); do (cd ./examples/\"$e\" && $npm_config_command); done",
@@ -19,7 +19,7 @@
     "lint": "npm run typecheck && prettier --check . && prettier-package-json --list-different '{,public.,example/}package.json'",
     "lint:fix": "prettier --write . && prettier-package-json --write '{,public.,example/}package.json'",
     "lint:package:fix": "prettier-package-json --write ./package.json",
-    "package:build": "npm install && npm run clean && npm run build:commonjs && npm run build:module && chmod +x dist/compiler.js dist/cli/index.js && cp src/compiler.cmd dist/compiler.cmd && npm run package:prune && npm run package:copy:files",
+    "package:build": "npm run clean && npm run build:commonjs && npm run build:module && chmod +x dist/compiler.js dist/cli/index.js && cp src/compiler.cmd dist/compiler.cmd && npm run package:prune && npm run package:copy:files",
     "package:copy:files": "cp ./LICENSE ./README.md dist/ && cp ./public.package.json dist/package.json",
     "package:prune": "find dist -name test.* -delete; rm -rf dist/node_modules",
     "prepare": "husky install",
@@ -27,9 +27,8 @@
     "test": "jest src/*",
     "test-clientcompat": "(cd ./src/integration-tests/clientcompat && npm run build && npx twirpscript)",
     "test-protos": "(cd src/integration-tests/protos && npm run build && npm run typecheck:protos)",
-    "test-serialization": "(cd src/integration-tests/serialization && npx twirpscript)",
     "test:ci": "jest --coverage",
-    "test:integration": "npm run test-serialization && npm run test-protos && npm run test-clientcompat",
+    "test:integration": "npm run test-protos && npm run test-clientcompat",
     "typecheck": "tsc --noEmit"
   },
   "sideEffects": false,
@@ -44,6 +43,7 @@
     "@typescript-eslint/parser": "^5.27.0",
     "babel-loader": "^8.2.5",
     "codecov": "^3.8.3",
+    "esbuild": "^0.14.48",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.1.0",
     "google-protobuf": "^3.20.1",
@@ -51,10 +51,8 @@
     "jest": "^28.1.0",
     "prettier": "^2.6.0",
     "prettier-package-json": "^2.1.3",
-    "protoscript": "0.0.7",
+    "protoscript": "0.0.8",
     "twirpscript": "file:./dist",
-    "typescript": "^4.7.2",
-    "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2"
+    "typescript": "^4.7.2"
   }
 }

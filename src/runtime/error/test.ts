@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
-import { twirpErrorFromResponse } from ".";
-import { mockRpcTransportResponse } from "../client/test.mocks";
+import { twirpErrorFromResponse } from "./index.js";
+import { mockRpcTransportResponse } from "../client/test.mocks.js";
 
 describe("twirpErrorFromResponse", () => {
   it("Twirp error when Twirp error", async () => {

@@ -9,7 +9,7 @@ import {
   findFiles,
   isWindows,
   pluralize,
-} from "./utils";
+} from "./utils.js";
 
 const logger: Pick<Console, "info" | "warn" | "error"> = {
   info: (str: string) => console.info("[TwirpScript] " + str),

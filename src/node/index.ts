@@ -1,4 +1,4 @@
-import { RpcTransport } from "..";
+import { RpcTransport } from "../index.js";
 import * as http from "http";
 import * as https from "https";
 

@@ -7,9 +7,9 @@ import {
   TwirpErrorResponse,
   executeServiceMethod,
   twirpHandler,
-} from ".";
+} from "./index.js";
 import { describe, it } from "@jest/globals";
-import { TwirpError } from "..";
+import { TwirpError } from "../index.js";
 
 describe("TwirpErrorResponse", () => {
   it("converts a Twirp error to a Response", () => {

@@ -1,6 +1,6 @@
-import { TwirpError, statusCodeForErrorCode } from "../error";
-import { Emitter, createEventEmitter } from "../eventEmitter";
-import { withRequestLogging } from "./requestLogging";
+import { TwirpError, statusCodeForErrorCode } from "../error/index.js";
+import { Emitter, createEventEmitter } from "../eventEmitter/index.js";
+import { withRequestLogging } from "./requestLogging/index.js";
 import type { ByteSource } from "protoscript";
 
 /**

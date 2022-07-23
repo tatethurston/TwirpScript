@@ -1,5 +1,5 @@
 import { describe, it } from "@jest/globals";
-import { createEventEmitter } from ".";
+import { createEventEmitter } from "./index.js";
 
 describe("EventEmitter", () => {
   it("#on", () => {

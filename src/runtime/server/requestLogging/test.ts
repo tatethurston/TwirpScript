@@ -1,8 +1,8 @@
-import { withRequestLogging, timingField } from ".";
+import { withRequestLogging, timingField } from "./index.js";
 import { describe, it } from "@jest/globals";
-import { createEventEmitter } from "../../eventEmitter";
-import { ServerHooks } from "..";
-import { TwirpError } from "../..";
+import { createEventEmitter } from "../../eventEmitter/index.js";
+import { ServerHooks } from "../index.js";
+import { TwirpError } from "../../index.js";
 
 console.info = jest.fn();
 console.error = jest.fn();

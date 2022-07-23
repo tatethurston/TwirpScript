@@ -2,10 +2,10 @@
 // Source: B.proto
 /* eslint-disable */
 
-import type { ByteSource } from "twirpscript";
-import { BinaryReader, BinaryWriter } from "twirpscript";
+import type { ByteSource } from "protoscript";
+import { BinaryReader, BinaryWriter } from "protoscript";
 
-import { Foo, FooJSON } from "./A.pb";
+import { Foo, FooJSON } from "./A.pb.js";
 
 //========================================//
 //                 Types                  //
@@ -113,7 +113,7 @@ export const BarJSON = {
     if (msg.foo) {
       const foo = FooJSON._writeMessage(msg.foo);
       if (Object.keys(foo).length > 0) {
-        json.foo = foo;
+        json["foo"] = foo;
       }
     }
     return json;
@@ -123,7 +123,7 @@ export const BarJSON = {
    * @private
    */
   _readMessage: function (msg: Bar, json: any): Bar {
-    const _foo = json.foo;
+    const _foo = json["foo"];
     if (_foo) {
       const m = Foo.initialize();
       FooJSON._readMessage(m, _foo);

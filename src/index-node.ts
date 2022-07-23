@@ -1,8 +1,8 @@
-import { nodeHttpTransport } from "./node";
-import { client } from "./index";
+import { nodeHttpTransport } from "./node/index.js";
+import { client } from "./index.js";
 
 if (typeof fetch === "undefined") {
   client.rpcTransport = nodeHttpTransport;
 }
 
-export * from "./index";
+export * from "./index.js";

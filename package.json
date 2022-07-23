@@ -19,7 +19,7 @@
     "lint": "npm run typecheck && prettier --check . && prettier-package-json --list-different '{,public.,example/}package.json'",
     "lint:fix": "prettier --write . && prettier-package-json --write '{,public.,example/}package.json'",
     "lint:package:fix": "prettier-package-json --write ./package.json",
-    "package:build": "npm install && npm run clean && npm run build:commonjs && npm run build:module && chmod +x dist/compiler.js dist/cli/index.js && cp src/compiler.cmd dist/compiler.cmd && npm run package:prune && npm run package:copy:files",
+    "package:build": "npm run clean && npm run build:commonjs && npm run build:module && chmod +x dist/compiler.js dist/cli/index.js && cp src/compiler.cmd dist/compiler.cmd && npm run package:prune && npm run package:copy:files",
     "package:copy:files": "cp ./LICENSE ./README.md dist/ && cp ./public.package.json dist/package.json",
     "package:prune": "find dist -name test.* -delete; rm -rf dist/node_modules",
     "prepare": "husky install",

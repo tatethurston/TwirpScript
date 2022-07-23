@@ -281,10 +281,16 @@ protoc \
   --plugin=protoc-gen-twirpscript=${join(
     projectRoot,
     "node_modules",
-    "twirpscript",
+    "protoscript",
     `compiler.${isWindows ? "cmd" : "js"}`
   )} \
   --twirpscript_out=${destination} \
+  --twirpscript_opt=plugin=twirpscript=${join(
+    projectRoot,
+    "node_modules",
+    "twirpscript",
+    "plugin.js"
+  )} \
   --twirpscript_opt=language=${config.language} \
   ${
     config.json.emitFieldsWithDefaultValues

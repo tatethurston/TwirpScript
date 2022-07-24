@@ -20,7 +20,7 @@ export interface Response {
 }
 
 export interface Request {
-  body: string | Uint8Array | undefined | null;
+  body: Uint8Array;
   headers: {
     [key: string]: string | undefined;
   };
@@ -109,8 +109,9 @@ export async function executeServiceMethod<Context extends TwirpContext>(
     case "JSON": {
       let body;
       try {
+        const utf8 = new TextDecoder().decode(req.body);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        body = method.input.json.decode(req.body as string);
+        body = method.input.json.decode(utf8);
       } catch (e) {
         throw new TwirpError({
           code: "invalid_argument",
@@ -129,7 +130,7 @@ export async function executeServiceMethod<Context extends TwirpContext>(
       let body;
       try {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-non-null-assertion
-        body = method.input.protobuf.decode(req.body!);
+        body = method.input.protobuf.decode(req.body);
       } catch (e) {
         throw new TwirpError({
           code: "invalid_argument",

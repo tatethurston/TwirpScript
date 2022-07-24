@@ -719,7 +719,7 @@ TypeScript projects will generally want to set this value to match their `rootDi
 
 TwirpScript's JSON serialization/deserialization is migrating to the [proto3 specification](https://developers.google.com/protocol-buffers/docs/proto3#json). This is nearly complete, but still in progress.
 
-TwirpScript will serialize JSON keys as `lowerCamelCase` versions of the proto field. Per the proto3 spec, the runtime will accept both `lowerCamelCase` and the original proto field name when deserializing. You can provide the `json_name` field option to specify an alternate key name. When doing so, the runtime will accept the `json_name` and the origin proto field name, but not `lowerCamelCase`.
+TwirpScript will serialize JSON keys as `lowerCamelCase` versions of the proto field. Per the proto3 spec, the runtime will accept both `lowerCamelCase` and the original proto field name when deserializing. You can provide the `json_name` field option to specify an alternate key name. When doing so, the runtime will encode JSON messages using the the `json_name` as the key, and will decode JSON messages using the `json_name` if present, otherwise falling back to the `lowerCamelCase` name and finally to the original proto field name.
 
 ### Example
 

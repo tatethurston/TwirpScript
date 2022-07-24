@@ -12,6 +12,7 @@ jobs:
           node-version: "16.x"
           cache: "npm"
           registry-url: "https://registry.npmjs.org"
+      - run: npm install
       - run: npm run package:build
       - run: cd dist && npm publish
         env:

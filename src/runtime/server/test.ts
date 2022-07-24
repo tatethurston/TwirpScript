@@ -55,7 +55,9 @@ describe("executeServiceMethod", () => {
 
       const res = await executeServiceMethod(
         methodHandler,
-        { body: JSON.stringify(body) } as Request,
+        {
+          body: new TextEncoder().encode(JSON.stringify(body)),
+        } as Request,
         context,
         ee
       );
@@ -69,7 +71,7 @@ describe("executeServiceMethod", () => {
       try {
         await executeServiceMethod(
           methodHandler,
-          { body: "not json" } as Request,
+          { body: new TextEncoder().encode("not json") } as Request,
           {
             contentType: "JSON",
           } as TwirpContext,
@@ -101,12 +103,12 @@ describe("executeServiceMethod", () => {
 
       const res = await executeServiceMethod(
         methodHandler,
-        { body: "" } as Request,
+        { body: new TextEncoder().encode("") } as Request,
         context,
         ee
       );
 
-      expect(decode).toBeCalledWith("");
+      expect(decode).toBeCalledTimes(1);
       expect(handler).toBeCalledWith(body, context);
       expect(encode).toBeCalledWith(response);
       expect(res).toEqual(Uint8Array.from(encoded));
@@ -120,7 +122,7 @@ describe("executeServiceMethod", () => {
       try {
         await executeServiceMethod(
           methodHandler,
-          { body: "not protobuf" } as Request,
+          { body: new TextEncoder().encode("not protobuf") } as Request,
           context,
           ee
         );
@@ -147,7 +149,7 @@ describe("twirpHandler", () => {
     headers: {
       "content-type": "application/json",
     },
-    body: "",
+    body: new TextEncoder().encode(""),
   };
 
   describe("request validation", () => {
@@ -309,7 +311,10 @@ describe("twirpHandler", () => {
     describe("service errors", () => {
       it("TwirpError", async () => {
         const body = { foo: "bar" };
-        const req = { ...request, body: JSON.stringify(body) };
+        const req = {
+          ...request,
+          body: new TextEncoder().encode(JSON.stringify(body)),
+        };
         const error = new TwirpError({
           code: "internal",
           msg: "my handler errored",
@@ -333,7 +338,10 @@ describe("twirpHandler", () => {
 
       it("Unexpected Error", async () => {
         const body = { foo: "bar" };
-        const req = { ...request, body: JSON.stringify(body) };
+        const req = {
+          ...request,
+          body: new TextEncoder().encode(JSON.stringify(body)),
+        };
         const error = new Error("oh no");
         service.methods["MakeHat"].handler.mockImplementationOnce(() => {
           throw error;
@@ -370,7 +378,10 @@ describe("twirpHandler", () => {
 
     it("processes the request (happy path)", async () => {
       const body = { foo: "bar" };
-      const req = { ...request, body: JSON.stringify(body) };
+      const req = {
+        ...request,
+        body: new TextEncoder().encode(JSON.stringify(body)),
+      };
       const resBody = { bar: "baz" };
       service.methods["MakeHat"].handler.mockImplementationOnce(() => resBody);
       const context: TwirpContext = {

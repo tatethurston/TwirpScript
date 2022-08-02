@@ -206,11 +206,12 @@ Clients can be configured globally, at the RPC callsite, or with [middleware](ht
 
 ##### Configuration Options
 
-| Name    | Description                                                                            | Type                   | Example                      |
-| ------- | -------------------------------------------------------------------------------------- | ---------------------- | ---------------------------- |
-| baseURL | The base URL for the RPC. The service path will be appended to this string.            | string                 | "https://my.server.com/"     |
-| headers | HTTP headers to include in the RPC.                                                    | Record<string, string> | { "idempotency-key": "foo" } |
-| prefix  | A path prefix such as "/my/custom/prefix". Defaults to "/twirp", but can be set to "". | string                 | "/my/custom/prefix"          |
+| Name         | Description                                                                                                                                          | Type                   | Example                      |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------------------- |
+| baseURL      | The base URL for the RPC. The service path will be appended to this string.                                                                          | string                 | "https://my.server.com/"     |
+| headers      | HTTP headers to include in the RPC.                                                                                                                  | Record<string, string> | { "idempotency-key": "foo" } |
+| prefix       | A path prefix such as "/my/custom/prefix". Defaults to "/twirp", but can be set to "".                                                               | string                 | "/my/custom/prefix"          |
+| rpcTransport | The transport to use for the RPC. Defaults to `fetch`. Overrides must conform to a subset of the fetch interface defined by the `RpcTransport` type. | `RpcTransport`         | `fetch`                      |
 
 ##### Example
 
@@ -270,6 +271,21 @@ const hat = await MakeHat(
 );
 console.log(hat);
 ```
+
+##### rpcTransport
+
+Twirp abstracts many network details from clients. Sometimes you will want more control over the underlying network request. For these cases, TwirpScript exposes `rpcTransport`.
+
+`rpcTransport` can be used to customize the `fetch` request made. For example, setting `fetch`'s [credentials](https://developer.mozilla.org/en-US/docs/Web/API/fetch#credentials) option to include (which will include cookies in cross origin requests):
+
+```ts
+import { client } from "twirpscript";
+
+client.rpcTransport = (url, opts) =>
+  fetch(url, { ...opts, credentials: "include" });
+```
+
+`rpcTransport` could also be used to replace `fetch` use entirely with something like `axios` or an [https agent](https://nodejs.org/api/https.html#https_class_https_agent).
 
 #### Server
 

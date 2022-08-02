@@ -1,15 +1,18 @@
 import { TwirpError, twirpErrorFromResponse } from "../error/index.js";
 import { createEventEmitter, Emitter } from "../eventEmitter/index.js";
 
+type FetchOptions = Omit<RequestInit, "body" | "method">;
+
 export type ClientConfiguration = Partial<{
   /**
    * The base URL for the RPC. The service path will be appended to this string.
    */
   baseURL: string;
   /**
-   * HTTP headers to include in the RPC.
+   * An object containing any custom settings that you want to pass to the RPC
+   * transport, which is `fetch` unless overriden via client.rpcTransport.
    */
-  headers: Record<string, string>;
+  options: FetchOptions;
   /**
    * A path prefix such as "/my/custom/prefix". Defaults to "/twirp", but can be set to "".
    */
@@ -22,9 +25,10 @@ interface MiddlewareConfig {
    */
   url: string;
   /**
-   * HTTP headers to include in the RPC.
+   * An object containing any custom settings that you want to pass to the RPC
+   * transport, which is `fetch` unless overriden via client.rpcTransport.
    */
-  headers: Record<string, string>;
+  options: FetchOptions;
 }
 
 type ClientMiddleware<T = unknown> = (
@@ -97,6 +101,8 @@ interface Headers {
   get(name: string): string | null;
 }
 
+type R = Response;
+
 export interface RpcTransportResponse {
   arrayBuffer: () => Promise<ArrayBuffer>;
   json: () => Promise<unknown>;
@@ -120,7 +126,7 @@ const fetchTransport: RpcTransport = async (url, opts) => {
  */
 export const client: Client = {
   baseURL: "",
-  headers: {},
+  options: {},
   prefix: "/twirp",
   use(middleware: ClientMiddleware) {
     clientMiddleware.push(middleware);
@@ -174,9 +180,9 @@ function mergeConfig(
   const url = baseURL + prefix + path;
   return {
     url,
-    headers: {
-      ...client.headers,
-      ...config.headers,
+    options: {
+      ...client.options,
+      ...config.options,
     },
   };
 }
@@ -192,11 +198,12 @@ async function makeRequest(
     async (c: MiddlewareConfig) => {
       ee.emit("requestPrepared", c);
       const res = await client.rpcTransport(c.url, {
+        ...c.options,
         method: "POST",
         headers: {
           accept: contentType,
           "content-type": contentType,
-          ...c.headers,
+          ...c.options.headers,
         },
         body,
       });

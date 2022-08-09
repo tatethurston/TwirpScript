@@ -14,6 +14,10 @@ export type ClientConfiguration = Partial<{
    * A path prefix such as "/my/custom/prefix". Defaults to "/twirp", but can be set to "".
    */
   prefix: string;
+  /**
+   * The transport to use for the RPC. Defaults to `fetch`. Overrides must conform to a subset of the fetch interface defined by the `RpcTransport` type.
+   */
+  rpcTransport: RpcTransport;
 }>;
 
 interface MiddlewareConfig {
@@ -25,6 +29,10 @@ interface MiddlewareConfig {
    * HTTP headers to include in the RPC.
    */
   headers: Record<string, string>;
+  /**
+   * The transport to use for the RPC. Defaults to `fetch`. Overrides must conform to a subset of the fetch interface defined by the `RpcTransport` type.
+   */
+  rpcTransport: RpcTransport;
 }
 
 type ClientMiddleware<T = unknown> = (
@@ -172,12 +180,14 @@ function mergeConfig(
   const baseURL = config.baseURL ?? client.baseURL ?? "";
   const prefix = config.prefix ?? client.prefix ?? "";
   const url = baseURL + prefix + path;
+  const rpcTransport = config.rpcTransport ?? client.rpcTransport;
   return {
     url,
     headers: {
       ...client.headers,
       ...config.headers,
     },
+    rpcTransport,
   };
 }
 
@@ -191,7 +201,7 @@ async function makeRequest(
     mergeConfig(config, path),
     async (c: MiddlewareConfig) => {
       ee.emit("requestPrepared", c);
-      const res = await client.rpcTransport(c.url, {
+      const res = await c.rpcTransport(c.url, {
         method: "POST",
         headers: {
           accept: contentType,

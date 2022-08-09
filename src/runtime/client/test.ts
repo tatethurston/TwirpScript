@@ -282,6 +282,17 @@ describe("config", () => {
         );
       });
     });
+
+    it("can provide a custom transport", async () => {
+      const transport = jest.fn(() =>
+        Promise.resolve(mockRpcTransportResponse)
+      );
+
+      await PBrequest("/foo", undefined, { rpcTransport: transport });
+
+      expect(transport).toHaveBeenCalledTimes(1);
+      expect(mockRpcTransport).toHaveBeenCalledTimes(0);
+    });
   });
 
   describe("global", () => {

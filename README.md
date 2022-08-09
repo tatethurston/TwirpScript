@@ -284,7 +284,7 @@ import { client } from "twirpscript";
 client.rpcTransport = (url, opts) =>
   fetch(url, { ...opts, credentials: "include" });
 
-// setting a (non standard) HTTP "idempotency-key" header for this RPC call. This header will only be sent for this RPC.
+// setting a custom rpcTransport for this RPC call. This transport will only be used for this RPC.
 const hat = await MakeHat(
   { inches: 12 },
   {

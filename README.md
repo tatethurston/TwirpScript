@@ -276,13 +276,22 @@ console.log(hat);
 
 Twirp abstracts many network details from clients. Sometimes you will want more control over the underlying network request. For these cases, TwirpScript exposes `rpcTransport`.
 
-`rpcTransport` can be used to customize the `fetch` request made. For example, setting `fetch`'s [credentials](https://developer.mozilla.org/en-US/docs/Web/API/fetch#credentials) option to include (which will include cookies in cross origin requests):
+`rpcTransport` can be used to customize the `fetch` request made. For example, setting `fetch`'s [credentials](https://developer.mozilla.org/en-US/docs/Web/API/fetch#credentials) option to include (which will include cookies in cross origin requests). `rpcTransport` can be set via _global configuration_ or _call site configuration_:
 
 ```ts
 import { client } from "twirpscript";
 
 client.rpcTransport = (url, opts) =>
   fetch(url, { ...opts, credentials: "include" });
+
+// setting a custom rpcTransport for this RPC call. This transport will only be used for this RPC.
+const hat = await MakeHat(
+  { inches: 12 },
+  {
+    rpcTransport: (url, opts) =>
+      fetch(url, { ...opts, credentials: "include" }),
+  }
+);
 ```
 
 `rpcTransport` could also be used to replace `fetch` use entirely with something like `axios` or an [https agent](https://nodejs.org/api/https.html#https_class_https_agent).

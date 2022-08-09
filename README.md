@@ -343,7 +343,19 @@ createServer(app).listen(PORT, () =>
 
 Your service handlers are invoked with `context` as their second argument. The base fields are documented above, but you may extend this object with arbitrary fields. This means you can use `context` to provide information to your handler that doesn't come from the RPC request itself, such as http headers or server-side API invocations.
 
-Custom fields can be added to the context object via [middleware](#middleware--interceptors).
+Custom fields can be added to the context object via [middleware](#middleware--interceptors) or as the last argument to the `app()` returned from `createTwirpServer` or `createTwirpServerless`:
+
+```ts
+import { createTwirpServerless, InboundRequest } from "twirpscript";
+import { habderdasherHandler } from "./haberdasher";
+
+const app = createTwirpServerless([habderdasherHandler]);
+
+async function handler(request: InboundRequest) {
+  const extraContext = { foo: "bar" };
+  const res = await app(request, extraContext);
+}
+```
 
 ##### Example
 

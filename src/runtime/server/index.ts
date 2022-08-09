@@ -357,11 +357,17 @@ interface TwirpServer<
   Request extends ServerRequest
 > extends TwirpServerRuntime<Context, ServerRequestWithBody<Request>> {
   (req: Request, res: ServerResponse): void;
+  <ExtraContext>(
+    req: Request,
+    res: ServerResponse,
+    extraContext?: ExtraContext
+  ): void;
 }
 
 interface TwirpServerless<Context extends TwirpContext, Request>
   extends TwirpServerRuntime<Context, Request> {
   (req: Request): Promise<Response>;
+  <ExtraContext>(req: Request, extraContext?: ExtraContext): Promise<Response>;
 }
 
 function getContentType(contentType: string | undefined): ContentType {
@@ -375,12 +381,14 @@ function getContentType(contentType: string | undefined): ContentType {
   }
 }
 
-function getRequestContext<Services extends Service[]>(
+function getRequestContext<Services extends Service[], ExtraContext>(
   req: InboundRequest,
   services: Services,
-  config: Required<TwirpServerConfig>
+  config: Required<TwirpServerConfig>,
+  extraContext?: ExtraContext
 ): TwirpContext {
   const ctx: TwirpContext = {
+    ...extraContext,
     service: undefined,
     method: undefined,
     contentType: getContentType(req.headers["content-type"]),
@@ -426,11 +434,15 @@ export function createTwirpServerless<
     >();
   const twirp = twirpHandler<TwirpContext<ContextExt, Services>>(ee);
 
-  async function app(req: Request): Promise<Response> {
+  async function app<ExtraContext>(
+    req: Request,
+    extraContext?: ExtraContext
+  ): Promise<Response> {
     const ctx = getRequestContext(
       req,
       services,
-      configWithDefaults
+      configWithDefaults,
+      extraContext
     ) as TwirpContext<ContextExt, Services>;
     ee.emit("requestReceived", ctx, req);
 
@@ -508,11 +520,15 @@ export function createTwirpServer<
 ): TwirpServer<TwirpContext<ContextExt, typeof services>, Request> {
   const _app = createTwirpServerless(services, config);
 
-  async function app(req: Request, res: ServerResponse): Promise<void> {
+  async function app<ExtraContext>(
+    req: Request,
+    res: ServerResponse,
+    extraContext?: ExtraContext
+  ): Promise<void> {
     const body = await getBody(req);
     const request = req as unknown as InboundRequest;
     request.body = body;
-    const response = await _app(request);
+    const response = await _app(request, extraContext);
     res.writeHead(response.statusCode, response.headers);
     res.end(response.body);
   }

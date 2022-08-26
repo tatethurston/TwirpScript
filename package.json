@@ -43,16 +43,16 @@
     "@typescript-eslint/parser": "^5.27.0",
     "babel-loader": "^8.2.5",
     "codecov": "^3.8.3",
-    "esbuild": "^0.14.49",
+    "esbuild": "^0.15.5",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.1.0",
     "google-protobuf": "^3.20.1",
     "husky": "^8.0.1",
-    "jest": "^28.1.0",
+    "jest": "^29.0.1",
     "prettier": "^2.6.0",
     "prettier-package-json": "^2.1.3",
     "protoscript": "0.0.9",
     "twirpscript": "file:./dist",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.3"
   }
 }

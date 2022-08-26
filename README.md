@@ -36,6 +36,7 @@ TwirpScript implements the latest [Twirp Wire Protocol (v7)](https://twitchtv.gi
 - [Highlights 🛠](#highlights-)
 - [Installation 📦](#installation-)
 - [Getting Started](#getting-started)
+- [Requirements ⚠️](#requirements-)
   - [Overview 📖](#overview-)
   - [Configuring your Twirp Runtime](#configuring-your-twirp-runtime)
     - [Client](#client)
@@ -93,6 +94,11 @@ To learn more about the motivation behind Twirp (and a comparison to REST APIs a
 
 1. Add this package to your project:
    `npm install twirpscript` or `yarn add twirpscript`
+
+## Requirements ⚠️
+
+- Node.js v16 or greater
+- TypeScript v4.7 or greater when using TypeScript
 
 ## Getting Started
 

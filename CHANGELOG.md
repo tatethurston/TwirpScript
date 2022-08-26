@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.62
+
+- Remove `process.stdin.fd` usage to see if it resolves intermittent `Error: EAGAIN: resource temporarily unavailable`, read. See [#191](https://github.com/tatethurston/TwirpScript/issues/191) for more context.
+
 ## v0.0.61
 
 - Fix JSON deserialization. #181 introduced a regression that caused TwirpScript servers' JSON serialization to fail.

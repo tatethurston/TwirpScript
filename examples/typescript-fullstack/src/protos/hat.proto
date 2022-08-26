@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+// Size of a Hat, in inches.
+message Size {
+  // must be > 0
+  int32 inches = 1;
+}

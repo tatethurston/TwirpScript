@@ -14,9 +14,9 @@ describe("withRequestLogging", () => {
   it("requestReceived", () => {
     ee.emit("requestReceived", {}, { method: "POST", url: "/foo" });
     expect((console.info as jest.Mock).mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
-          "[TwirpScript] Started POST \\"/foo\\"",
+      [
+        [
+          "[TwirpScript] Started POST "/foo"",
         ],
       ]
     `);
@@ -33,8 +33,8 @@ describe("withRequestLogging", () => {
       {}
     );
     expect((console.info as jest.Mock).mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
+      [
+        [
           "[TwirpScript] Processing by foo#bar as JSON",
         ],
       ]
@@ -57,11 +57,11 @@ describe("withRequestLogging", () => {
       new TwirpError({ code: "internal", msg: "Internal Error" })
     );
     expect((console.error as jest.Mock).mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
+      [
+        [
           "[TwirpScript] Error:",
         ],
-        Array [
+        [
           TwirpError {
             "code": "internal",
             "meta": undefined,

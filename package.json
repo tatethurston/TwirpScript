@@ -53,6 +53,6 @@
     "prettier-package-json": "^2.1.3",
     "protoscript": "0.0.9",
     "twirpscript": "file:./dist",
-    "typescript": "^4.7.3"
+    "typescript": "^4.8.2"
   }
 }

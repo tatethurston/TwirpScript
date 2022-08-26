@@ -8,6 +8,7 @@
 
 - Fix JSON deserialization. #181 introduced a regression that caused TwirpScript servers' JSON serialization to fail.
 - Distribute strict ESM. A CommonJS is runtime is included for legacy node clients. Code generation uses ESM and requires Node.js v14 or later.
+  If you're using a compiler other than TypeScript such as `webpack`, please see [these instructions](https://github.com/tatethurston/TwirpScript#webpack-setup)
 - Use [ProtoScript](https://github.com/tatethurston/ProtoScript) code generation. This will result in some generated imports coming from `protoscript` instead of `twirpscript`, but this is a non breaking change. These imports were previously delegated to ProtoScript via reexports inside TwirpScript, and that indirection has now been removed.
 
 ## v0.0.60

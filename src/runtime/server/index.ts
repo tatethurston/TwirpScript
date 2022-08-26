@@ -48,9 +48,14 @@ interface ServerRequest {
 type ServerRequestWithBody<SR extends ServerRequest> = SR &
   Pick<Request, "body">;
 
-type ServiceContext<U> = U extends Service
-  ? { service: U | undefined; method: U["methods"][keyof U["methods"]] }
-  : never;
+type ServiceContext<S extends readonly Service[]> =
+  | {
+      [Idx in keyof S]: {
+        service: S[Idx];
+        method: NonNullable<S[Idx]["methods"][keyof S[Idx]["methods"]]>;
+      };
+    }[number]
+  | { service: undefined; method: undefined };
 
 /**
  * The requested content-type for the request.
@@ -59,10 +64,11 @@ type ContentType = "JSON" | "Protobuf" | "Unknown";
 
 export type TwirpContext<
   ContextExt = unknown,
-  Services extends Service[] = Service[]
-> = ContextExt & {
+  Services extends readonly Service[] = Service[]
+> = {
   contentType: ContentType;
-} & ServiceContext<Pick<Services, number>[number]>;
+} & ServiceContext<Services> &
+  ContextExt;
 
 interface Message<T> {
   protobuf: {
@@ -295,19 +301,20 @@ export function twirpHandler<Context extends TwirpContext>(
   };
 }
 
+type ContextMethod<Context extends TwirpContext> = Exclude<
+  Context["method"],
+  undefined
+>;
+
 export type ServerHooks<Context extends TwirpContext, Request> = {
   requestReceived: (context: Context, request: Request) => void;
   requestRouted: (
     context: Context,
-    input: ReturnType<
-      NonNullable<Context["method"]>["input"]["protobuf"]["decode"]
-    >
+    input: ReturnType<ContextMethod<Context>["input"]["protobuf"]["decode"]>
   ) => void;
   responsePrepared: (
     context: Context,
-    output: ReturnType<
-      NonNullable<Context["method"]>["output"]["protobuf"]["decode"]
-    >
+    output: ReturnType<ContextMethod<Context>["output"]["protobuf"]["decode"]>
   ) => void;
   responseSent: (context: Context, response: Response) => void;
   error: (context: Context, error: TwirpError) => void;
@@ -375,14 +382,16 @@ function getContentType(contentType: string | undefined): ContentType {
   }
 }
 
-function getRequestContext<Services extends Service[]>(
+function getRequestContext<Services extends readonly Service[]>(
   req: InboundRequest,
   services: Services,
   config: Required<TwirpServerConfig>
 ): TwirpContext {
   const ctx: TwirpContext = {
-    service: undefined,
-    method: undefined,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment , @typescript-eslint/no-explicit-any
+    service: undefined as any,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment , @typescript-eslint/no-explicit-any
+    method: undefined as any,
     contentType: getContentType(req.headers["content-type"]),
   };
 
@@ -405,7 +414,7 @@ function getRequestContext<Services extends Service[]>(
 
 export function createTwirpServerless<
   ContextExt,
-  Services extends Service[],
+  Services extends readonly Service[],
   Request extends InboundRequest = InboundRequest
 >(
   services: Services,
@@ -500,7 +509,7 @@ async function getBody(req: ServerRequest): Promise<Uint8Array> {
 
 export function createTwirpServer<
   ContextExt,
-  Services extends Service[],
+  Services extends readonly Service[],
   Request extends ServerRequest = ServerRequest
 >(
   services: Services,

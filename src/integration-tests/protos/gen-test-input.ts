@@ -7,7 +7,7 @@ import {
 } from "google-protobuf/google/protobuf/compiler/plugin_pb";
 import { deserializeConfig } from "../../cli/utils";
 
-const input = readFileSync(process.stdin.fd);
+const input = readFileSync(0);
 const response = new CodeGeneratorResponse();
 response.setSupportedFeatures(
   CodeGeneratorResponse.Feature.FEATURE_PROTO3_OPTIONAL

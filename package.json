@@ -51,7 +51,7 @@
     "jest": "^28.1.0",
     "prettier": "^2.6.0",
     "prettier-package-json": "^2.1.3",
-    "protoscript": "0.0.8",
+    "protoscript": "0.0.9",
     "twirpscript": "file:./dist",
     "typescript": "^4.7.2"
   }

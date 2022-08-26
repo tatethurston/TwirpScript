@@ -9,7 +9,7 @@ import {
 } from "./clientcompat.pb.js";
 import { TwirpError } from "twirpscript";
 
-const input = readFileSync(process.stdin.fd);
+const input = readFileSync(0);
 const message = ClientCompatMessage.decode(input);
 
 switch (message.method) {
@@ -18,9 +18,9 @@ switch (message.method) {
       const res = await NoopMethod(Empty.decode(message.request), {
         baseURL: message.serviceAddress,
       });
-      writeFileSync(process.stdout.fd, Empty.encode(res));
+      writeFileSync(1, Empty.encode(res));
     } catch (e) {
-      writeFileSync(process.stderr.fd, (e as TwirpError).code);
+      writeFileSync(2, (e as TwirpError).code);
     }
     break;
   }
@@ -29,9 +29,9 @@ switch (message.method) {
       const res = await Method(Req.decode(message.request), {
         baseURL: message.serviceAddress,
       });
-      writeFileSync(process.stdout.fd, Resp.encode(res));
+      writeFileSync(1, Resp.encode(res));
     } catch (e) {
-      writeFileSync(process.stderr.fd, (e as TwirpError).code);
+      writeFileSync(2, (e as TwirpError).code);
     }
     break;
   }

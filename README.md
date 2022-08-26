@@ -36,7 +36,7 @@ TwirpScript implements the latest [Twirp Wire Protocol (v7)](https://twitchtv.gi
 - [Highlights 🛠](#highlights-)
 - [Installation 📦](#installation-)
 - [Getting Started](#getting-started)
-- [Requirements ⚠️](#requirements-)
+- [Requirements ⚠️](#requirements-%EF%B8%8F)
   - [Overview 📖](#overview-)
   - [Configuring your Twirp Runtime](#configuring-your-twirp-runtime)
     - [Client](#client)

@@ -562,7 +562,7 @@ createServer(app).listen(PORT, () =>
 
 ## Configuration 🛠
 
-TwirpScript aims to be zero config, but can be configured by creating a `.twirp.json` file in your project root.
+TwirpScript aims to be zero config, but can be configured by creating a `.twirp.js` (or `.mjs` or `.cjs`) file in your project root.
 
 <table>
   <thead>
@@ -600,12 +600,13 @@ TwirpScript aims to be zero config, but can be configured by creating a `.twirp.
  
   Setting `root` to `src`:
 
-// .twirp.json
+// proto.config.mjs
 
-```json
-{
-  "root": "src"
-}
+```js
+/** @type {import('twirpscript').Config} */
+export default {
+  root: "src",
+};
 ```
 
 A.proto would `import` B.proto as follows:
@@ -635,10 +636,11 @@ TypeScript projects will generally want to set this value to match their `rootDi
   
    Setting `exclude` to `["/bar/"]`:
   
-   // .twirp.json
-   ```json
-   {
-     "exclude": ["/bar/"]
+   // proto.config.mjs
+   ```js
+   /** @type {import('twirpscript').Config} */
+   export default {
+     exclude: ["/bar/"]
    }
    ```
   
@@ -673,10 +675,11 @@ TypeScript projects will generally want to set this value to match their `rootDi
  
   Setting `dest` to `out` will generate the following:
  
-  // .twirp.json
-  ```json
-  {
-    "dest": "out",
+  // proto.config.mjs
+  ```js
+  /** @type {import('twirpscript').Config} */
+  export default {
+    dest: "out",
   }
   ```
  
@@ -694,11 +697,12 @@ TypeScript projects will generally want to set this value to match their `rootDi
   
   Setting `root` to `src` (in addition to setting `dest` to `out`) will generate the following:
  
-  // .twirp.json
-  ```json
-  {
-    "root": "src",
-    "dest": "out",
+  // proto.config.mjs
+  ```js
+  /** @type {import('twirpscript').Config} */
+  export default {
+    root: "src",
+    dest: "out",
   }
   ```
   
@@ -811,7 +815,7 @@ module.exports = {
 
 ### Buf
 
-TwirpScript can be used with [Buf](https://docs.buf.build/introduction). This will bypass TwirpScript's cli runner, so all options must be passed to `buf` via it's configuration yaml. `.twirp.json` is bypassed, as is automatic `typescript` inference.
+TwirpScript can be used with [Buf](https://docs.buf.build/introduction). This will bypass TwirpScript's cli runner, so all options must be passed to `buf` via it's configuration yaml. `proto.config.mjs` is bypassed, as is automatic `typescript` inference.
 
 `buf.gen.yaml`
 

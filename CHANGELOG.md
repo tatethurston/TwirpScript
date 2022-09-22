@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.0.63
+
+- Change configuration file format. Now, the configuration file is JS instead of JSON. This provides better discoverability and type checking for TypeScript users.
+
+The following `.twirp.json`:
+
+```json
+{
+  "root": "src"
+}
+```
+
+Would be renamed to `proto.config.mjs` and changed to the following:
+
+```js
+/** @type {import('twirpscript').Config} */
+export default {
+  root: "src",
+};
+```
+
+- Use relative file path for determining path to compiler instead of hard coding from project root. This should interop better with more exotic package tooling and repo setup.
+
+- Fix: Improved `map` detection. Previously field types suffixed with `Entry` were incorrectly flagged as maps. This has been fixed.
+
 ## v0.0.62
 
 - Allow `rpcTransport` overrides. See [#189](https://github.com/tatethurston/TwirpScript/pull/189) for more context.

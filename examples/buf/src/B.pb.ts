@@ -5,7 +5,7 @@
 import type { ByteSource } from "protoscript";
 import { BinaryReader, BinaryWriter } from "protoscript";
 
-import { Foo, FooJSON } from "./A.pb.js";
+import { Foo, FooJSON } from "./A.pb";
 
 //========================================//
 //                 Types                  //

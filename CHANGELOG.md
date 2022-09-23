@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.0.64
+
+- Revert `Include file extensions in generated file imports` introduced in `v0.0.61` for TypeScript users. Generated TypeScript imports will revert to the following:
+
+```diff
+- import { Foo } from './foo.pb.js';
++ import { Foo } from './foo.pb';
+```
+
+When targeting ESM, the TypeScript compiler expects `.js` extensions and not `.ts` extensions for imports because the compiler does not manipulate import paths: https://www.typescriptlang.org/docs/handbook/esm-node.html.
+
+Including a full extension results in the following TypeScript error:
+
+```
+[tsserver 2691] [E] An import path cannot end with a '.ts' extension.
+```
+
+The TypeScript team's recommendation to use `.js` extensions for `.ts` file imports when targeting ESM causes a number of issues with the broader JavaScript ecosystem. Until this situation is rectified, TwirpScript will not emit ESM compliant extensions for TypeScript. This only impacts TypeScript users who wish to target ESM in Node.JS using the TypeScript compiler, as bundlers are not pedantic about file extensions. If you're impacted by this, please join the discussion in [#202](https://github.com/tatethurston/TwirpScript/issues/202.)
+
 ## v0.0.63
 
 - Change configuration file format. Now, the configuration file is JS instead of JSON. This provides better discoverability and type checking for TypeScript users.

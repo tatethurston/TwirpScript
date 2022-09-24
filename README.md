@@ -782,6 +782,7 @@ The documentation is a work in progress. Checkout the examples in the examples d
 - The [TypeScript fullstack](https://github.com/tatethurston/twirpscript/blob/main/examples/javascript-fullstack) shows a minimal browser client and server implementation in TypeScript.
 - The [authentication example](https://github.com/tatethurston/twirpscript/blob/main/examples/authentication) extends the fullstack example to demonstrate authentication using tokens.
 - The [aws lambda example](https://github.com/tatethurston/twirpscript/blob/main/examples/aws-lambda) shows TwirpScript running on AWS Lambda, complete with the necessary CDK to deploy a full stack (API Gateway + Lambda).
+- The [Next.js example](https://github.com/tatethurston/twirpscript/blob/main/examples/nextjs) shows using TwirpScript in Next.js.
 
 The examples also demonstrate testing using [jest](https://jestjs.io/).
 

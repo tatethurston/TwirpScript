@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+// Size of a Hat, in inches.
+message Size {
+  // must be > 0
+  int32 inches = 1;
+}
+
+// A Hat is a piece of headwear made by a Haberdasher.
+message Hat {
+  int32 inches = 1;
+  // anything but "invisible"
+  string color = 2;
+  // i.e. "bowler"
+  string name = 3;
+}
+
+message HatList {
+  repeated Hat hats = 1;
+}
+
+
+// Haberdasher service makes hats for clients.
+service Haberdasher {
+  rpc GetAll(google.protobuf.Empty) returns (HatList);
+  // MakeHat produces a hat of mysterious, randomly-selected color!
+  rpc MakeHat(Size) returns (Hat);
+}
+

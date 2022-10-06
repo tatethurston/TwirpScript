@@ -1618,7 +1618,7 @@
 
 "twirpscript@file:../../dist":
   "resolved" "file:../../dist"
-  "version" "0.0.64"
+  "version" "0.0.65"
   dependencies:
     "protoscript" "0.0.11"
 

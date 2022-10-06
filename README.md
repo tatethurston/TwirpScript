@@ -560,7 +560,7 @@ createServer(app).listen(PORT, () =>
 
 ## Configuration 🛠
 
-TwirpScript aims to be zero config, but can be configured by creating a `.twirp.js` (or `.mjs` or `.cjs`) file in your project root.
+TwirpScript aims to be zero config, but can be configured via the cli interface, or when using the `npx twirpscript` command, by creating a `proto.config.mjs` (or `.js` or `.cjs`) file in your project root.
 
 <table>
   <thead>
@@ -613,7 +613,7 @@ A.proto would `import` B.proto as follows:
 import "B.proto";
 ```
 
-TypeScript projects will generally want to set this value to match their `rootDir`, particularly when using [Protocol Buffers Well-Known Types](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf) so that the generated well-known type files are under the `rootDir`.
+TypeScript projects will generally want to set this value to match their `rootDir`.
 
 </td>
 <td>string (filepath)</td>

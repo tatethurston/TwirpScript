@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.0.65
+
+[Protocol Buffers Well-Known Types](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf) are now exported from `protoscript`. References to well-known types are now imported from `protoscript` rather than being generated. This is a non breaking change. If you have well-known types in your project, you can remove the `google/protobuf` directory that was generated in previous versions alongside your other `.pb.js/ts` files.
+
+The output location of `google/protobuf` was a common reason for using `dest` in `proto.config.mjs` so this change should facilitate zero configuration for a greater number of projects.
+
 ## v0.0.64
 
 - Revert `Include file extensions in generated file imports` introduced in `v0.0.61` for TypeScript users. Generated TypeScript imports will revert to the following:

@@ -285,13 +285,13 @@ export const CurrentUserJSON = {
    * @private
    */
   _readMessage: function (msg: CurrentUser, json: any): CurrentUser {
-    const _username = json["username"];
-    if (_username) {
-      msg.username = _username;
+    const _username_ = json["username"];
+    if (_username_) {
+      msg.username = _username_;
     }
-    const _token = json["token"];
-    if (_token) {
-      msg.token = _token;
+    const _token_ = json["token"];
+    if (_token_) {
+      msg.token = _token_;
     }
     return msg;
   },
@@ -343,13 +343,13 @@ export const CredentialsJSON = {
    * @private
    */
   _readMessage: function (msg: Credentials, json: any): Credentials {
-    const _username = json["username"];
-    if (_username) {
-      msg.username = _username;
+    const _username_ = json["username"];
+    if (_username_) {
+      msg.username = _username_;
     }
-    const _password = json["password"];
-    if (_password) {
-      msg.password = _password;
+    const _password_ = json["password"];
+    if (_password_) {
+      msg.password = _password_;
     }
     return msg;
   },

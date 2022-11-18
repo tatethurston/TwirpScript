@@ -495,9 +495,9 @@ export const ReqJSON = {
    * @private
    */
   _readMessage: function (msg: Req, json: any): Req {
-    const _v = json["v"];
-    if (_v) {
-      msg.v = _v;
+    const _v_ = json["v"];
+    if (_v_) {
+      msg.v = _v_;
     }
     return msg;
   },
@@ -542,9 +542,9 @@ export const RespJSON = {
    * @private
    */
   _readMessage: function (msg: Resp, json: any): Resp {
-    const _v = json["v"];
-    if (_v) {
-      msg.v = _v;
+    const _v_ = json["v"];
+    if (_v_) {
+      msg.v = _v_;
     }
     return msg;
   },
@@ -608,17 +608,17 @@ export const ClientCompatMessageJSON = {
     msg: ClientCompatMessage,
     json: any
   ): ClientCompatMessage {
-    const _serviceAddress = json["serviceAddress"] ?? json["service_address"];
-    if (_serviceAddress) {
-      msg.serviceAddress = _serviceAddress;
+    const _serviceAddress_ = json["serviceAddress"] ?? json["service_address"];
+    if (_serviceAddress_) {
+      msg.serviceAddress = _serviceAddress_;
     }
-    const _method = json["method"];
-    if (_method) {
-      msg.method = _method;
+    const _method_ = json["method"];
+    if (_method_) {
+      msg.method = _method_;
     }
-    const _request = json["request"];
-    if (_request) {
-      msg.request = decodeBase64Bytes(_request);
+    const _request_ = json["request"];
+    if (_request_) {
+      msg.request = decodeBase64Bytes(_request_);
     }
     return msg;
   },

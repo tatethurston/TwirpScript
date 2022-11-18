@@ -4,6 +4,21 @@
 
 - Fix intermittent EAGAIN issue encountered when compiling protos
 
+- Use glob imports for generated messages instead of destructuring. This preserves tree shaking, but preserves module namespacing to disambiguate name collisions between protos. Previously, identically named messages in different modules could causes a name collision, eg:
+
+  ```proto
+  // foo.proto
+  message Foo {}
+  ```
+
+  ```proto
+  // bar.proto
+  import "foo.proto";
+  message Foo {}
+  ```
+
+  Would result in errors in the generated code. Now, this is namespaced and works correctly.
+
 ## v0.0.65
 
 [Protocol Buffers Well-Known Types](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf) are now exported from `protoscript`. References to well-known types are now imported from `protoscript` rather than being generated. This is a non breaking change. If you have well-known types in your project, you can remove the `google/protobuf` directory that was generated in previous versions alongside your other `.pb.js/ts` files.

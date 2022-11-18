@@ -124,9 +124,9 @@ export const SizeJSON = {
    * @private
    */
   _readMessage: function (msg: Size, json: any): Size {
-    const _inches = json["inches"];
-    if (_inches) {
-      msg.inches = _inches;
+    const _inches_ = json["inches"];
+    if (_inches_) {
+      msg.inches = _inches_;
     }
     return msg;
   },

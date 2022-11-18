@@ -1,6 +1,5 @@
 import { RUNTIME_MIN_CODE_GEN_SUPPORTED_VERSION } from "../runtime/index.js";
 import {
-  addJSONSuffixToFullyQualifiedName,
   printComments,
   printHeading,
   printIfTypescript,
@@ -65,10 +64,10 @@ export async function ${method.name}JSON(${input}${printIfTypescript(
       )}, config${printIfTypescript(
         `?: ClientConfiguration`
       )})${printIfTypescript(`: Promise<${method.output}>`)} {
-  const response = await JSONrequest('${path}', ${addJSONSuffixToFullyQualifiedName(
-        method.input!
-      )}.encode(${input}), config);
-  return ${addJSONSuffixToFullyQualifiedName(method.output!)}.decode(response);
+  const response = await JSONrequest('${path}', ${
+        method.inputJSON
+      }.encode(${input}), config);
+  return ${method.outputJSON}.decode(response);
 }
 
 `;
@@ -111,15 +110,7 @@ function writeServers({
     name: '${[packageName, service.name].filter(Boolean).join(".")}',
     methods: {\n`;
     service.methods.forEach((method) => {
-      result += `${method.name}: { name: '${method.name}', handler: service.${
-        method.name
-      }, input: { protobuf: ${
-        method.input
-      }, json: ${addJSONSuffixToFullyQualifiedName(
-        method.input!
-      )} }, output: { protobuf: ${
-        method.output
-      }, json: ${addJSONSuffixToFullyQualifiedName(method.output!)} } },`;
+      result += `${method.name}: { name: '${method.name}', handler: service.${method.name}, input: { protobuf: ${method.input}, json: ${method.inputJSON} }, output: { protobuf: ${method.output}, json: ${method.outputJSON} } },`;
     });
     result += "}\n";
     result += `} ${printIfTypescript("as const")}\n`;

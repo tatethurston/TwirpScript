@@ -5,14 +5,14 @@
 import type { ByteSource } from "protoscript";
 import { BinaryReader, BinaryWriter } from "protoscript";
 
-import { Foo, FooJSON } from "./A.pb";
+import * as A from "./A.pb";
 
 //========================================//
 //                 Types                  //
 //========================================//
 
 export interface Bar {
-  foo: Foo;
+  foo: A.Foo;
 }
 
 //========================================//
@@ -39,7 +39,7 @@ export const Bar = {
    */
   initialize: function (): Bar {
     return {
-      foo: Foo.initialize(),
+      foo: A.Foo.initialize(),
     };
   },
 
@@ -51,7 +51,7 @@ export const Bar = {
     writer: BinaryWriter
   ): BinaryWriter {
     if (msg.foo) {
-      writer.writeMessage(1, msg.foo, Foo._writeMessage);
+      writer.writeMessage(1, msg.foo, A.Foo._writeMessage);
     }
     return writer;
   },
@@ -64,7 +64,7 @@ export const Bar = {
       const field = reader.getFieldNumber();
       switch (field) {
         case 1: {
-          reader.readMessage(msg.foo, Foo._readMessage);
+          reader.readMessage(msg.foo, A.Foo._readMessage);
           break;
         }
         default: {
@@ -101,7 +101,7 @@ export const BarJSON = {
    */
   initialize: function (): Bar {
     return {
-      foo: Foo.initialize(),
+      foo: A.FooJSON.initialize(),
     };
   },
 
@@ -111,9 +111,9 @@ export const BarJSON = {
   _writeMessage: function (msg: Partial<Bar>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.foo) {
-      const foo = FooJSON._writeMessage(msg.foo);
-      if (Object.keys(foo).length > 0) {
-        json["foo"] = foo;
+      const _foo_ = A.FooJSON._writeMessage(msg.foo);
+      if (Object.keys(_foo_).length > 0) {
+        json["foo"] = _foo_;
       }
     }
     return json;
@@ -123,10 +123,10 @@ export const BarJSON = {
    * @private
    */
   _readMessage: function (msg: Bar, json: any): Bar {
-    const _foo = json["foo"];
-    if (_foo) {
-      const m = Foo.initialize();
-      FooJSON._readMessage(m, _foo);
+    const _foo_ = json["foo"];
+    if (_foo_) {
+      const m = A.Foo.initialize();
+      A.FooJSON._readMessage(m, _foo_);
       msg.foo = m;
     }
     return msg;

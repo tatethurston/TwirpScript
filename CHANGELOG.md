@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.0.65
+## v0.0.66
 
 - Fix intermittent EAGAIN issue encountered when compiling protos
 

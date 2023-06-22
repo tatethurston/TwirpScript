@@ -1,0 +1,16 @@
+{
+  "name": "clientcompat",
+  "type": "module",
+  "scripts": {
+    "build": "rm -rf dist && twirpscript && tsc",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "twirpscript": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "typescript": "^5.1.6"
+  }
+}

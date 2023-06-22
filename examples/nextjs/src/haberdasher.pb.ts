@@ -2,7 +2,7 @@
 // Source: src/haberdasher.proto
 /* eslint-disable */
 
-import type { ByteSource } from "protoscript";
+import type { ByteSource, PartialDeep } from "protoscript";
 import { BinaryReader, BinaryWriter } from "protoscript";
 import { JSONrequest, PBrequest } from "twirpscript";
 // This is the minimum version supported by the current runtime.
@@ -51,12 +51,12 @@ export interface HatList {
 
 export async function GetAll(
   empty: protoscript.Empty,
-  config?: ClientConfiguration
+  config?: ClientConfiguration,
 ): Promise<HatList> {
   const response = await PBrequest(
     "/Haberdasher/GetAll",
     protoscript.Empty.encode(empty),
-    config
+    config,
   );
   return HatList.decode(response);
 }
@@ -66,12 +66,12 @@ export async function GetAll(
  */
 export async function MakeHat(
   size: Size,
-  config?: ClientConfiguration
+  config?: ClientConfiguration,
 ): Promise<Hat> {
   const response = await PBrequest(
     "/Haberdasher/MakeHat",
     Size.encode(size),
-    config
+    config,
   );
   return Hat.decode(response);
 }
@@ -82,12 +82,12 @@ export async function MakeHat(
 
 export async function GetAllJSON(
   empty: protoscript.Empty,
-  config?: ClientConfiguration
+  config?: ClientConfiguration,
 ): Promise<HatList> {
   const response = await JSONrequest(
     "/Haberdasher/GetAll",
     protoscript.EmptyJSON.encode(empty),
-    config
+    config,
   );
   return HatListJSON.decode(response);
 }
@@ -97,12 +97,12 @@ export async function GetAllJSON(
  */
 export async function MakeHatJSON(
   size: Size,
-  config?: ClientConfiguration
+  config?: ClientConfiguration,
 ): Promise<Hat> {
   const response = await JSONrequest(
     "/Haberdasher/MakeHat",
     SizeJSON.encode(size),
-    config
+    config,
   );
   return HatJSON.decode(response);
 }
@@ -117,7 +117,7 @@ export async function MakeHatJSON(
 export interface Haberdasher<Context = unknown> {
   GetAll: (
     empty: protoscript.Empty,
-    context: Context
+    context: Context,
   ) => Promise<HatList> | HatList;
   /**
    * MakeHat produces a hat of mysterious, randomly-selected color!
@@ -153,7 +153,7 @@ export const Size = {
   /**
    * Serializes Size to protobuf.
    */
-  encode: function (msg: Partial<Size>): Uint8Array {
+  encode: function (msg: PartialDeep<Size>): Uint8Array {
     return Size._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
@@ -177,8 +177,8 @@ export const Size = {
    * @private
    */
   _writeMessage: function (
-    msg: Partial<Size>,
-    writer: BinaryWriter
+    msg: PartialDeep<Size>,
+    writer: BinaryWriter,
   ): BinaryWriter {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
@@ -211,7 +211,7 @@ export const Hat = {
   /**
    * Serializes Hat to protobuf.
    */
-  encode: function (msg: Partial<Hat>): Uint8Array {
+  encode: function (msg: PartialDeep<Hat>): Uint8Array {
     return Hat._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
@@ -237,8 +237,8 @@ export const Hat = {
    * @private
    */
   _writeMessage: function (
-    msg: Partial<Hat>,
-    writer: BinaryWriter
+    msg: PartialDeep<Hat>,
+    writer: BinaryWriter,
   ): BinaryWriter {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
@@ -285,7 +285,7 @@ export const HatList = {
   /**
    * Serializes HatList to protobuf.
    */
-  encode: function (msg: Partial<HatList>): Uint8Array {
+  encode: function (msg: PartialDeep<HatList>): Uint8Array {
     return HatList._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
@@ -309,8 +309,8 @@ export const HatList = {
    * @private
    */
   _writeMessage: function (
-    msg: Partial<HatList>,
-    writer: BinaryWriter
+    msg: PartialDeep<HatList>,
+    writer: BinaryWriter,
   ): BinaryWriter {
     if (msg.hats?.length) {
       writer.writeRepeatedMessage(1, msg.hats as any, Hat._writeMessage);
@@ -349,7 +349,7 @@ export const SizeJSON = {
   /**
    * Serializes Size to JSON.
    */
-  encode: function (msg: Partial<Size>): string {
+  encode: function (msg: PartialDeep<Size>): string {
     return JSON.stringify(SizeJSON._writeMessage(msg));
   },
 
@@ -372,7 +372,7 @@ export const SizeJSON = {
   /**
    * @private
    */
-  _writeMessage: function (msg: Partial<Size>): Record<string, unknown> {
+  _writeMessage: function (msg: PartialDeep<Size>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.inches) {
       json["inches"] = msg.inches;
@@ -396,7 +396,7 @@ export const HatJSON = {
   /**
    * Serializes Hat to JSON.
    */
-  encode: function (msg: Partial<Hat>): string {
+  encode: function (msg: PartialDeep<Hat>): string {
     return JSON.stringify(HatJSON._writeMessage(msg));
   },
 
@@ -421,7 +421,7 @@ export const HatJSON = {
   /**
    * @private
    */
-  _writeMessage: function (msg: Partial<Hat>): Record<string, unknown> {
+  _writeMessage: function (msg: PartialDeep<Hat>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.inches) {
       json["inches"] = msg.inches;
@@ -459,7 +459,7 @@ export const HatListJSON = {
   /**
    * Serializes HatList to JSON.
    */
-  encode: function (msg: Partial<HatList>): string {
+  encode: function (msg: PartialDeep<HatList>): string {
     return JSON.stringify(HatListJSON._writeMessage(msg));
   },
 
@@ -482,7 +482,7 @@ export const HatListJSON = {
   /**
    * @private
    */
-  _writeMessage: function (msg: Partial<HatList>): Record<string, unknown> {
+  _writeMessage: function (msg: PartialDeep<HatList>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.hats?.length) {
       json["hats"] = msg.hats.map(HatJSON._writeMessage);
@@ -497,7 +497,7 @@ export const HatListJSON = {
     const _hats_ = json["hats"];
     if (_hats_) {
       for (const item of _hats_) {
-        const m = Hat.initialize();
+        const m = HatJSON.initialize();
         HatJSON._readMessage(m, item);
         msg.hats.push(m);
       }

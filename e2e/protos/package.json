@@ -1,0 +1,16 @@
+{
+  "name": "test-protos",
+  "scripts": {
+    "clean": "find . -name '*.pb.ts' -delete",
+    "build": "rm -rf dist && tsc",
+    "typecheck:protos": "twirpscript && tsc --noEmit && npm run clean",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "twirpscript": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}

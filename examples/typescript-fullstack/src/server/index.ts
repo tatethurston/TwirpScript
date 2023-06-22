@@ -34,5 +34,5 @@ app.use(async (req, _ctx, next) => {
 });
 
 createServer(app).listen(PORT, () =>
-  console.log(`Server listening on port ${PORT}`)
+  console.log(`Server listening on port ${PORT}`),
 );

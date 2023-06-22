@@ -17,7 +17,8 @@ const sessions: CurrentUser[] = [];
 function login(credentials: Credentials): CurrentUser | undefined {
   const user = users.find(
     (u) =>
-      u.username === credentials.username && u.password === credentials.password
+      u.username === credentials.username &&
+      u.password === credentials.password,
   );
 
   if (user) {
@@ -37,7 +38,7 @@ export const unauthenticatedUser: CurrentUser = {
 };
 
 export function getCurrentUser(
-  token: string | undefined
+  token: string | undefined,
 ): CurrentUser | undefined {
   if (!token) {
     return;

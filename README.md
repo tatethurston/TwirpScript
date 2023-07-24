@@ -822,7 +822,7 @@ TwirpScript can be used with [Buf](https://docs.buf.build/introduction). This wi
 version: v1
 plugins:
   - name: protoc-gen-twirpscript
-    path: ./node_modules/twirpscript/compiler.js
+    path: ./node_modules/twirpscript/dist/compiler.js
     out: .
     opt:
       - language=typescript

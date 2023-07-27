@@ -20,7 +20,7 @@ export async function MakeHat(size, config) {
   const response = await PBrequest(
     "/Haberdasher/MakeHat",
     Size.encode(size),
-    config
+    config,
   );
   return Hat.decode(response);
 }
@@ -36,7 +36,7 @@ export async function MakeHatJSON(size, config) {
   const response = await JSONrequest(
     "/Haberdasher/MakeHat",
     SizeJSON.encode(size),
-    config
+    config,
   );
   return HatJSON.decode(response);
 }

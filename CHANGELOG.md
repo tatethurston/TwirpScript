@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.0.67
+
+- Updates to v0.0.18 of [ProtoScript](https://github.com/tatethurston/ProtoScript), which includes fixes for self-referncing (recursive) messages.
+
+- Buf users will need to update their `buf.gen.yaml` path:
+  `buf.gen.yaml`
+
+  ```diff
+  version: v1
+  plugins:
+    - name: protoc-gen-protoscript
+  -    path: ./node_modules/protoscript/compiler.js
+  +    path: ./node_modules/protoscript/dist/compiler.js
+      out: .
+      opt:
+        - language=typescript
+      strategy: all
+  ```
+
 ## v0.0.66
 
 - Fix intermittent EAGAIN issue encountered when compiling protos

@@ -9,14 +9,33 @@ jobs:
     name: "Lint and Test"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      # Install protoc for e2e:setup
+      - uses: arduino/setup-protoc@v2
         with:
-          node-version: "16.x"
-          cache: "npm"
-      - run: npm install
-      - run: npm run lint
-      - run: npm run package:build
-      - run: npm run test:ci && npx codecov --token=$CODECOV_TOKEN
+          version: "23.4"
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: (cd packages/twirpscript && pnpm package:build)
+      # run again to link bin that is now available after package:build
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm test:ci && pnpm codecov --token=$CODECOV_TOKEN
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Check for uncommited changes to generated files
+        run: |
+          pnpm regen
+          if git diff --quiet; then
+            echo "No changes detected."
+          else
+            echo "Changes detected:"
+            git diff --name-only
+            git diff
+            echo "Failing build."
+            exit 1
+          fi

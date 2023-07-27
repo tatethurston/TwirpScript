@@ -8,11 +8,11 @@ const PORT = 8080;
 const services = [authenticationHandler, habderdasherHandler];
 
 const app = createTwirpServer<Context, typeof services, IncomingMessage>(
-  services
+  services,
 )
   .use(cors)
   .use(requireAuthentication({ exceptions: [authenticationHandler.name] }));
 
 createServer(app).listen(PORT, () =>
-  console.log(`Server listening on port ${PORT}`)
+  console.log(`Server listening on port ${PORT}`),
 );

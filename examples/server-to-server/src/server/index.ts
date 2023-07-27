@@ -7,5 +7,5 @@ const PORT = 8080;
 const app = createTwirpServer([habderdasherHandler]);
 
 createServer(app).listen(PORT, () =>
-  console.log(`Server listening on port ${PORT}`)
+  console.log(`Server listening on port ${PORT}`),
 );

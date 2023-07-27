@@ -9,7 +9,7 @@ import {
 const app = createTwirpServerless([habderdasherHandler]);
 
 const handler: Handler<APIGatewayProxyEvent, APIGatewayProxyResult> = async (
-  event
+  event,
 ) => {
   const res = await app({
     body: Buffer.from(event.body!),

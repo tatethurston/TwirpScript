@@ -1,4 +1,3 @@
-import { describe, it, expect } from "@jest/globals";
 import { haberdasher } from ".";
 
 describe("Haberdasher", () => {
@@ -9,7 +8,7 @@ describe("Haberdasher", () => {
       expect(haberdasher.MakeHat(size, {})).toEqual(
         expect.objectContaining({
           inches: size.inches,
-        })
+        }),
       );
     });
   });

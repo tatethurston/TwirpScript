@@ -2,7 +2,7 @@
 // Source: src/protos/haberdasher.proto
 /* eslint-disable */
 
-import type { ByteSource } from "protoscript";
+import type { ByteSource, PartialDeep } from "protoscript";
 import { BinaryReader, BinaryWriter } from "protoscript";
 import { JSONrequest, PBrequest } from "twirpscript";
 // This is the minimum version supported by the current runtime.
@@ -49,12 +49,12 @@ export interface Hat {
  */
 export async function MakeHat(
   size: Size,
-  config?: ClientConfiguration
+  config?: ClientConfiguration,
 ): Promise<Hat> {
   const response = await PBrequest(
     "/Haberdasher/MakeHat",
     Size.encode(size),
-    config
+    config,
   );
   return Hat.decode(response);
 }
@@ -68,12 +68,12 @@ export async function MakeHat(
  */
 export async function MakeHatJSON(
   size: Size,
-  config?: ClientConfiguration
+  config?: ClientConfiguration,
 ): Promise<Hat> {
   const response = await JSONrequest(
     "/Haberdasher/MakeHat",
     SizeJSON.encode(size),
-    config
+    config,
   );
   return HatJSON.decode(response);
 }
@@ -114,7 +114,7 @@ export const Size = {
   /**
    * Serializes Size to protobuf.
    */
-  encode: function (msg: Partial<Size>): Uint8Array {
+  encode: function (msg: PartialDeep<Size>): Uint8Array {
     return Size._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
@@ -138,8 +138,8 @@ export const Size = {
    * @private
    */
   _writeMessage: function (
-    msg: Partial<Size>,
-    writer: BinaryWriter
+    msg: PartialDeep<Size>,
+    writer: BinaryWriter,
   ): BinaryWriter {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
@@ -172,7 +172,7 @@ export const Hat = {
   /**
    * Serializes Hat to protobuf.
    */
-  encode: function (msg: Partial<Hat>): Uint8Array {
+  encode: function (msg: PartialDeep<Hat>): Uint8Array {
     return Hat._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
@@ -198,8 +198,8 @@ export const Hat = {
    * @private
    */
   _writeMessage: function (
-    msg: Partial<Hat>,
-    writer: BinaryWriter
+    msg: PartialDeep<Hat>,
+    writer: BinaryWriter,
   ): BinaryWriter {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
@@ -250,7 +250,7 @@ export const SizeJSON = {
   /**
    * Serializes Size to JSON.
    */
-  encode: function (msg: Partial<Size>): string {
+  encode: function (msg: PartialDeep<Size>): string {
     return JSON.stringify(SizeJSON._writeMessage(msg));
   },
 
@@ -273,7 +273,7 @@ export const SizeJSON = {
   /**
    * @private
    */
-  _writeMessage: function (msg: Partial<Size>): Record<string, unknown> {
+  _writeMessage: function (msg: PartialDeep<Size>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.inches) {
       json["inches"] = msg.inches;
@@ -297,7 +297,7 @@ export const HatJSON = {
   /**
    * Serializes Hat to JSON.
    */
-  encode: function (msg: Partial<Hat>): string {
+  encode: function (msg: PartialDeep<Hat>): string {
     return JSON.stringify(HatJSON._writeMessage(msg));
   },
 
@@ -322,7 +322,7 @@ export const HatJSON = {
   /**
    * @private
    */
-  _writeMessage: function (msg: Partial<Hat>): Record<string, unknown> {
+  _writeMessage: function (msg: PartialDeep<Hat>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.inches) {
       json["inches"] = msg.inches;

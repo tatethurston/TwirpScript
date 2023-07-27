@@ -5,7 +5,7 @@ import { Context } from "../context";
 export const cors: Middleware<Context, IncomingMessage> = async (
   req,
   _ctx,
-  next
+  next,
 ) => {
   if (req.method === "OPTIONS") {
     return {

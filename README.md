@@ -198,7 +198,7 @@ const PORT = 8080;
 const app = createTwirpServer([haberdasherHandler]);
 
 createServer(app).listen(PORT, () =>
-  console.log(`Server listening on port ${PORT}`)
+  console.log(`Server listening on port ${PORT}`),
 );
 ```
 
@@ -251,7 +251,7 @@ client.baseURL = "http://localhost:8080";
 // This RPC will make a request to https://api.example.com instead of http://localhost:8080
 const hat = await MakeHat(
   { inches: 12 },
-  { baseURL: "https://api.example.com" }
+  { baseURL: "https://api.example.com" },
 );
 console.log(hat);
 
@@ -273,7 +273,7 @@ client.headers = { "device-id": getOrGenerateDeviceId() };
 // setting a (non standard) HTTP "idempotency-key" header for this RPC call. This header will only be sent for this RPC.
 const hat = await MakeHat(
   { inches: 12 },
-  { headers: { "idempotency-key": "foo" } }
+  { headers: { "idempotency-key": "foo" } },
 );
 console.log(hat);
 ```
@@ -296,7 +296,7 @@ const hat = await MakeHat(
   {
     rpcTransport: (url, opts) =>
       fetch(url, { ...opts, credentials: "include" }),
-  }
+  },
 );
 ```
 
@@ -326,7 +326,7 @@ const PORT = 8080;
 const app = createTwirpServer([haberdasherHandler], { prefix: "" });
 
 createServer(app).listen(PORT, () =>
-  console.log(`Server listening on port ${PORT}`)
+  console.log(`Server listening on port ${PORT}`),
 );
 ```
 
@@ -415,7 +415,7 @@ client.use((context, next) => {
 // This will make a request to https://www.foo.com instead of http://localhost:8080 or https://api.example.com"
 const hat = await MakeHat(
   { inches: 12 },
-  { baseURL: "https://api.example.com" }
+  { baseURL: "https://api.example.com" },
 );
 console.log(hat);
 ```
@@ -554,7 +554,7 @@ app.on("responseSent", (ctx) => {
 });
 
 createServer(app).listen(PORT, () =>
-  console.log(`Server listening on port ${PORT}`)
+  console.log(`Server listening on port ${PORT}`),
 );
 ```
 

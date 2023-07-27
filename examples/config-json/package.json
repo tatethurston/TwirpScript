@@ -1,12 +1,13 @@
 {
   "name": "config-json",
   "scripts": {
-    "build": "twirpscript && tsc"
+    "build": "twirpscript && tsc",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "twirpscript": "file:../../dist"
+    "twirpscript": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^4.3.5"
+    "typescript": "^5.1.6"
   }
 }

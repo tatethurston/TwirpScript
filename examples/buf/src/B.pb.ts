@@ -2,7 +2,7 @@
 // Source: B.proto
 /* eslint-disable */
 
-import type { ByteSource } from "protoscript";
+import type { ByteSource, PartialDeep } from "protoscript";
 import { BinaryReader, BinaryWriter } from "protoscript";
 
 import * as A from "./A.pb";
@@ -23,7 +23,7 @@ export const Bar = {
   /**
    * Serializes Bar to protobuf.
    */
-  encode: function (msg: Partial<Bar>): Uint8Array {
+  encode: function (msg: PartialDeep<Bar>): Uint8Array {
     return Bar._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
@@ -47,8 +47,8 @@ export const Bar = {
    * @private
    */
   _writeMessage: function (
-    msg: Partial<Bar>,
-    writer: BinaryWriter
+    msg: PartialDeep<Bar>,
+    writer: BinaryWriter,
   ): BinaryWriter {
     if (msg.foo) {
       writer.writeMessage(1, msg.foo, A.Foo._writeMessage);
@@ -85,7 +85,7 @@ export const BarJSON = {
   /**
    * Serializes Bar to JSON.
    */
-  encode: function (msg: Partial<Bar>): string {
+  encode: function (msg: PartialDeep<Bar>): string {
     return JSON.stringify(BarJSON._writeMessage(msg));
   },
 
@@ -108,7 +108,7 @@ export const BarJSON = {
   /**
    * @private
    */
-  _writeMessage: function (msg: Partial<Bar>): Record<string, unknown> {
+  _writeMessage: function (msg: PartialDeep<Bar>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.foo) {
       const _foo_ = A.FooJSON._writeMessage(msg.foo);
@@ -125,9 +125,7 @@ export const BarJSON = {
   _readMessage: function (msg: Bar, json: any): Bar {
     const _foo_ = json["foo"];
     if (_foo_) {
-      const m = A.Foo.initialize();
-      A.FooJSON._readMessage(m, _foo_);
-      msg.foo = m;
+      A.FooJSON._readMessage(msg.foo, _foo_);
     }
     return msg;
   },

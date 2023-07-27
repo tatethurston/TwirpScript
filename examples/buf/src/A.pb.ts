@@ -2,7 +2,7 @@
 // Source: A.proto
 /* eslint-disable */
 
-import type { ByteSource } from "protoscript";
+import type { ByteSource, PartialDeep } from "protoscript";
 import { BinaryReader, BinaryWriter } from "protoscript";
 
 //========================================//
@@ -21,7 +21,7 @@ export const Foo = {
   /**
    * Serializes Foo to protobuf.
    */
-  encode: function (msg: Partial<Foo>): Uint8Array {
+  encode: function (msg: PartialDeep<Foo>): Uint8Array {
     return Foo._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
@@ -45,8 +45,8 @@ export const Foo = {
    * @private
    */
   _writeMessage: function (
-    msg: Partial<Foo>,
-    writer: BinaryWriter
+    msg: PartialDeep<Foo>,
+    writer: BinaryWriter,
   ): BinaryWriter {
     if (msg.name) {
       writer.writeString(1, msg.name);
@@ -83,7 +83,7 @@ export const FooJSON = {
   /**
    * Serializes Foo to JSON.
    */
-  encode: function (msg: Partial<Foo>): string {
+  encode: function (msg: PartialDeep<Foo>): string {
     return JSON.stringify(FooJSON._writeMessage(msg));
   },
 
@@ -106,7 +106,7 @@ export const FooJSON = {
   /**
    * @private
    */
-  _writeMessage: function (msg: Partial<Foo>): Record<string, unknown> {
+  _writeMessage: function (msg: PartialDeep<Foo>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.name) {
       json["name"] = msg.name;

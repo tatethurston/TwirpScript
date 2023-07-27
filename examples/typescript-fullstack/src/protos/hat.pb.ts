@@ -2,7 +2,7 @@
 // Source: src/protos/hat.proto
 /* eslint-disable */
 
-import type { ByteSource } from "protoscript";
+import type { ByteSource, PartialDeep } from "protoscript";
 import { BinaryReader, BinaryWriter } from "protoscript";
 
 //========================================//
@@ -27,7 +27,7 @@ export const Size = {
   /**
    * Serializes Size to protobuf.
    */
-  encode: function (msg: Partial<Size>): Uint8Array {
+  encode: function (msg: PartialDeep<Size>): Uint8Array {
     return Size._writeMessage(msg, new BinaryWriter()).getResultBuffer();
   },
 
@@ -51,8 +51,8 @@ export const Size = {
    * @private
    */
   _writeMessage: function (
-    msg: Partial<Size>,
-    writer: BinaryWriter
+    msg: PartialDeep<Size>,
+    writer: BinaryWriter,
   ): BinaryWriter {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
@@ -89,7 +89,7 @@ export const SizeJSON = {
   /**
    * Serializes Size to JSON.
    */
-  encode: function (msg: Partial<Size>): string {
+  encode: function (msg: PartialDeep<Size>): string {
     return JSON.stringify(SizeJSON._writeMessage(msg));
   },
 
@@ -112,7 +112,7 @@ export const SizeJSON = {
   /**
    * @private
    */
-  _writeMessage: function (msg: Partial<Size>): Record<string, unknown> {
+  _writeMessage: function (msg: PartialDeep<Size>): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.inches) {
       json["inches"] = msg.inches;

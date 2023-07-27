@@ -1,0 +1,50 @@
+{
+  "name": "twirpscript",
+  "version": "0.0.67",
+  "description": "Protobuf RPC framework for JavaScript and TypeScript",
+  "license": "MIT",
+  "author": "Tate <tatethurston@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tatethurston/twirpscript"
+  },
+  "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/index.js",
+  "bin": {
+    "twirpscript": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build:commonjs": "esbuild src/index-node.ts --bundle --platform=node --target=es2020 --outfile=dist/cjs/index-node.cjs && esbuild src/index.ts --bundle --platform=node --target=es2020 --outfile=dist/cjs/index.cjs",
+    "build:module": "tsc",
+    "package:build": "pnpm run clean && pnpm run build:commonjs && pnpm run build:module && chmod +x dist/compiler.js dist/cli/index.js && cp src/compiler.cmd dist/compiler.cmd && pnpm run package:prune",
+    "package:prune": "find dist -name test.* -delete; rm -rf dist/node_modules",
+    "typecheck": "tsc --noEmit"
+  },
+  "sideEffects": false,
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "protoscript": "0.0.18"
+  },
+  "keywords": [
+    "protobuf",
+    "protocol buffers",
+    "rpc",
+    "twirp",
+    "typescript"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "node": {
+        "import": "./dist/index-node.js",
+        "require": "./dist/cjs/index-node.cjs"
+      },
+      "import": "./dist/index.js",
+      "module": "./dist/index.js",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/index.js"
+    }
+  }
+}

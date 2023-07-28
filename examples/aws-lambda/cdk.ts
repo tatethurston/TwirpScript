@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { App, Stack, StackProps } from "@aws-cdk/core";
 import * as lambda from "@aws-cdk/aws-lambda";
 import * as apigateway from "@aws-cdk/aws-apigateway";
 
 export class AwsLambdaStack extends Stack {
-  constructor(scope: any, id: string, props?: StackProps) {
+  constructor(scope: unknown, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const handler = new lambda.Function(this, "TwirpHandler", {

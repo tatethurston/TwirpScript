@@ -27,7 +27,7 @@ export const nodeHttpTransport: RpcTransport = (url, options) => {
           });
         };
         res.on("error", reject);
-        res.on("data", (chunk) => chunks.push(chunk));
+        res.on("data", (chunk: Buffer) => chunks.push(chunk));
         res.on("end", onResolve);
       },
     ).on("error", reject);

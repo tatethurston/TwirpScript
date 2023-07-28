@@ -11,7 +11,7 @@ export function requireAuthentication({
   exceptions,
 }: RequireAuthenticationOpts): Middleware<Context, IncomingMessage> {
   return async (req, ctx, next) => {
-    for (let exception of exceptions) {
+    for (const exception of exceptions) {
       if (ctx.service?.name === exception) {
         ctx.currentUser = unauthenticatedUser;
         return next();

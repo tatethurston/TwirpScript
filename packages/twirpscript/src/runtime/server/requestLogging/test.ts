@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { withRequestLogging, timingField } from "./index.js";
 import { createEventEmitter } from "../../eventEmitter/index.js";
 import { ServerHooks } from "../index.js";
@@ -41,6 +42,7 @@ describe("withRequestLogging", () => {
   });
 
   it("responseSent", () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     ee.emit("responseSent", { [timingField]: Date.now() - 10 }, {
       statusCode: 200,
     } as any);

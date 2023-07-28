@@ -9,11 +9,6 @@ describe("Twirp Client Compatabilitiy Test", () => {
       cwd: join(__dirname, ".."),
     });
 
-    // TODO: Run under GitHub CI
-    if (process.env.CODECOV_TOKEN) {
-      return;
-    }
-
     expect(child.stdout).toMatchInlineSnapshot(`
       "Testing noop without error... PASS
       Testing "canceled" error parsing... PASS

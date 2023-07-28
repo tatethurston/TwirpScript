@@ -3,21 +3,24 @@ import { mkdirSync, readFileSync, readdirSync, rmdirSync } from "fs";
 import { join } from "path";
 
 describe("TwirpScript Compiler", () => {
+  const TYPESCRIPT_DEST = join(__dirname, "dist/typescript");
+  const JAVASCRIPT_DEST = join(__dirname, "dist/javascript");
+
   beforeAll(() => {
-    mkdirSync(join(__dirname, "dist/typescript"), { recursive: true });
-    mkdirSync(join(__dirname, "dist/javascript"), { recursive: true });
+    mkdirSync(TYPESCRIPT_DEST, { recursive: true });
+    mkdirSync(JAVASCRIPT_DEST, { recursive: true });
   });
 
   afterAll(() => {
-    rmdirSync(join(__dirname, "dist/typescript"), { recursive: true });
-    rmdirSync(join(__dirname, "dist/javascript"), { recursive: true });
+    rmdirSync(TYPESCRIPT_DEST, { recursive: true });
+    rmdirSync(JAVASCRIPT_DEST, { recursive: true });
   });
 
   it("generates TypeScript", () => {
     const child = spawnSync(
       `protoc \
          --plugin=protoc-gen-twirpscript=./node_modules/twirpscript/dist/compiler.js \
-         --twirpscript_out=./dist/typescript \
+         --twirpscript_out=${TYPESCRIPT_DEST} \
          --twirpscript_opt=language=typescript \
          $(find . -name '*.proto')`,
       {
@@ -28,13 +31,13 @@ describe("TwirpScript Compiler", () => {
     );
 
     expect(child.output).toMatchSnapshot();
-    const files = readdirSync(join(__dirname, "dist/typescript"), {
+    const files = readdirSync(join(TYPESCRIPT_DEST), {
       recursive: true,
       withFileTypes: true,
     })
       .filter((f) => f.isFile())
       .map((f) => join(f.path, f.name));
-    expect(files).toMatchSnapshot();
+    expect(files.map((f) => f.replace(__dirname, ""))).toMatchSnapshot();
     files.forEach((file) =>
       expect(readFileSync(file, { encoding: "utf8" })).toMatchSnapshot(),
     );
@@ -44,7 +47,7 @@ describe("TwirpScript Compiler", () => {
     const child = spawnSync(
       `protoc \
          --plugin=protoc-gen-twirpscript=./node_modules/twirpscript/dist/compiler.js \
-         --twirpscript_out=./dist/javascript  \
+         --twirpscript_out=${JAVASCRIPT_DEST}  \
          --twirpscript_opt=language=javascript \
          $(find . -name '*.proto')`,
       {
@@ -55,13 +58,13 @@ describe("TwirpScript Compiler", () => {
     );
 
     expect(child.output).toMatchSnapshot();
-    const files = readdirSync(join(__dirname, "dist/javascript"), {
+    const files = readdirSync(JAVASCRIPT_DEST, {
       recursive: true,
       withFileTypes: true,
     })
       .filter((f) => f.isFile())
       .map((f) => join(f.path, f.name));
-    expect(files).toMatchSnapshot();
+    expect(files.map((f) => f.replace(__dirname, ""))).toMatchSnapshot();
     files.forEach((file) =>
       expect(readFileSync(file, { encoding: "utf8" })).toMatchSnapshot(),
     );

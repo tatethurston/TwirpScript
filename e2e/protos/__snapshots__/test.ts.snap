@@ -25,10 +25,10 @@ Groups are not supported. Found group optionalgroup
 
 exports[`TwirpScript Compiler generates JavaScript 2`] = `
 [
-  "/Users/tatethurston/TwirpScript/e2e/protos/dist/javascript/twirpscript/empty.pb.js",
-  "/Users/tatethurston/TwirpScript/e2e/protos/dist/javascript/twirpscript/services.pb.js",
-  "/Users/tatethurston/TwirpScript/e2e/protos/dist/javascript/google/protobuf/map_unittest.pb.js",
-  "/Users/tatethurston/TwirpScript/e2e/protos/dist/javascript/google/protobuf/unittest.pb.js",
+  "/dist/javascript/twirpscript/empty.pb.js",
+  "/dist/javascript/twirpscript/services.pb.js",
+  "/dist/javascript/google/protobuf/map_unittest.pb.js",
+  "/dist/javascript/google/protobuf/unittest.pb.js",
 ]
 `;
 
@@ -23470,10 +23470,10 @@ Groups are not supported. Found group optionalgroup
 
 exports[`TwirpScript Compiler generates TypeScript 2`] = `
 [
-  "/Users/tatethurston/TwirpScript/e2e/protos/dist/typescript/twirpscript/empty.pb.ts",
-  "/Users/tatethurston/TwirpScript/e2e/protos/dist/typescript/twirpscript/services.pb.ts",
-  "/Users/tatethurston/TwirpScript/e2e/protos/dist/typescript/google/protobuf/map_unittest.pb.ts",
-  "/Users/tatethurston/TwirpScript/e2e/protos/dist/typescript/google/protobuf/unittest.pb.ts",
+  "/dist/typescript/twirpscript/empty.pb.ts",
+  "/dist/typescript/twirpscript/services.pb.ts",
+  "/dist/typescript/google/protobuf/map_unittest.pb.ts",
+  "/dist/typescript/google/protobuf/unittest.pb.ts",
 ]
 `;
 

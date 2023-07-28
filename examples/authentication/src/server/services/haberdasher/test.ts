@@ -9,6 +9,7 @@ describe("Haberdasher", () => {
       expect(haberdasher.MakeHat(size, ctx)).toEqual(
         expect.objectContaining({
           inches: size.inches,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           name: expect.stringMatching("tate"),
         }),
       );

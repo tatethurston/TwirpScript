@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
 import type { RpcTransportResponse } from "../client/index.js";
 
 export interface TwirpError {

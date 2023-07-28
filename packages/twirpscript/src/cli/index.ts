@@ -12,4 +12,5 @@ const compiler = join(
   `compiler.${isWindows ? "cmd" : "js"}`,
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 void main({ compiler: { path: compiler }, logger: { name: "TwirpScript" } });

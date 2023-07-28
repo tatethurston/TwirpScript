@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { haberdasher } from ".";
 
 describe("Haberdasher", () => {

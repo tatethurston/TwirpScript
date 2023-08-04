@@ -2,9 +2,13 @@
 import {
   InboundRequest,
   Request,
+  ServerRequest,
+  ServerResponse,
+  Service,
   ServiceMethod,
   TwirpContext,
   TwirpErrorResponse,
+  createTwirpServer,
   executeServiceMethod,
   twirpHandler,
 } from "./index.js";
@@ -402,6 +406,46 @@ describe("twirpHandler", () => {
       expect(ee.emit).toBeCalledTimes(2);
       expect(ee.emit).toBeCalledWith("requestRouted", context, body);
       expect(ee.emit).toBeCalledWith("responsePrepared", context, resBody);
+    });
+  });
+});
+
+describe("createTwirpServer", () => {
+  const mockService: Service = {
+    name: "MockService",
+    methods: {
+      MockMethod: {
+        name: "MockMethod",
+        handler: jest.fn(),
+        input: {
+          protobuf: { decode: jest.fn(), encode: jest.fn() },
+          json: { decode: jest.fn(), encode: jest.fn() },
+        },
+        output: {
+          protobuf: { decode: jest.fn(), encode: jest.fn() },
+          json: { decode: jest.fn(), encode: jest.fn() },
+        },
+      },
+    },
+  };
+
+  it("accepts case insensitive headers", async () => {
+    const app = createTwirpServer([mockService]);
+    const req: ServerRequest = {
+      headers: { "Content-Type": "application/json" },
+      url: "/twirp/MockService/MockMethod",
+      method: "POST",
+      async *[Symbol.asyncIterator]() {
+        await Promise.resolve();
+        yield new Uint8Array();
+      },
+    };
+    const res: ServerResponse = { writeHead: jest.fn(), end: jest.fn() };
+
+    await (app(req, res) as any as Promise<void>);
+
+    expect(res.writeHead).toHaveBeenCalledWith(200, {
+      "content-type": "application/json",
     });
   });
 });

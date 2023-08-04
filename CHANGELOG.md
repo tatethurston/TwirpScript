@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.68
+
+- All header names are now lowercased. This was already true for users using `createTwirpServer` in conjunction with Node.js' `createServer`, but previously users of `createTwirpServerless` did not receive this standardization.
+
 ## v0.0.67
 
 - Updates to v0.0.18 of [ProtoScript](https://github.com/tatethurston/ProtoScript), which includes fixes for self-referncing (recursive) messages.

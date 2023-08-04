@@ -31,13 +31,13 @@ export interface InboundRequest extends Request {
   method: string;
 }
 
-interface ServerResponse {
+export interface ServerResponse {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   end: (chunk: any, cb?: () => void) => void;
   writeHead: (statusCode: number, headers?: ServerRequest["headers"]) => void;
 }
 
-interface ServerRequest {
+export interface ServerRequest {
   headers: Record<string, string | string[] | undefined>;
   method?: string | undefined;
   url?: string | undefined;
@@ -412,6 +412,12 @@ function getRequestContext<Services extends readonly Service[]>(
   return ctx;
 }
 
+function lowercaseHeaders(headers: Request["headers"]): Request["headers"] {
+  return Object.fromEntries(
+    Object.entries(headers).map(([key, value]) => [key.toLowerCase(), value]),
+  );
+}
+
 export function createTwirpServerless<
   ContextExt,
   Services extends readonly Service[],
@@ -435,7 +441,11 @@ export function createTwirpServerless<
     >();
   const twirp = twirpHandler<TwirpContext<ContextExt, Services>>(ee);
 
-  async function app(req: Request): Promise<Response> {
+  async function app(rawRequest: Request): Promise<Response> {
+    const req = {
+      ...rawRequest,
+      headers: lowercaseHeaders(rawRequest.headers),
+    };
     const ctx = getRequestContext(
       req,
       services,

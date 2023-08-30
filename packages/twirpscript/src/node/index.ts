@@ -1,14 +1,28 @@
-import { RpcTransport } from "../index.js";
 import * as http from "http";
 import * as https from "https";
+import {
+  RpcTransportOpts,
+  RpcTransportResponse,
+} from "../runtime/client/index.js";
 
-export const nodeHttpTransport: RpcTransport = (url, options) => {
+type NodeHTTPTransport = (
+  url: string,
+  options: RpcTransportOpts & Omit<http.RequestOptions, "method">,
+) => Promise<RpcTransportResponse>;
+
+/**
+ * Transport for Node.js environments.
+ *
+ * This overrides `fetch` as the default transport (client.rpcTransport) when TwirpScript
+ * is imported into a Node.js environment.
+ */
+export const nodeHttpTransport: NodeHTTPTransport = (url, options) => {
   const request = url.startsWith("https") ? https.request : http.request;
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];
     const req = request(
       url,
-      { method: options.method, headers: options.headers },
+      { ...options, method: options.method, headers: options.headers },
       (res) => {
         const onResolve = () => {
           const statusCode = res.statusCode ?? 500;

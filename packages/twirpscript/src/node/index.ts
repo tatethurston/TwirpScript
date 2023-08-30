@@ -1,8 +1,15 @@
 import { RpcTransport } from "../index.js";
+import {
+  RpcTransportOpts,
+  RpcTransportResponse,
+} from "../runtime/client/index.js";
 import * as http from "http";
 import * as https from "https";
 
-export const nodeHttpTransport: RpcTransport = (url, options) => {
+export const nodeHttpTransport: RpcTransport = (
+  url: string,
+  options: RpcTransportOpts,
+): Promise<RpcTransportResponse> => {
   const request = url.startsWith("https") ? https.request : http.request;
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];
@@ -31,6 +38,10 @@ export const nodeHttpTransport: RpcTransport = (url, options) => {
         res.on("end", onResolve);
       },
     ).on("error", reject);
+
+    if (options.noDelay) {
+      req.setNoDelay(true);
+    }
 
     req.end(
       options.body instanceof Uint8Array

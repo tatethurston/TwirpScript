@@ -96,6 +96,7 @@ export interface RpcTransportOpts {
   method: string;
   headers: Record<string, string>;
   body: string | Uint8Array | undefined | null;
+  noDelay?: boolean;
 }
 
 /**

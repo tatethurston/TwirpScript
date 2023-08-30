@@ -287,7 +287,7 @@ Twirp abstracts many network details from clients. Sometimes you will want more 
 ```ts
 import { client } from "twirpscript";
 
-// global
+// sets a custom rpcTransport for all RPC calls, globally.
 client.rpcTransport = (url, opts) =>
   fetch(url, { ...opts, credentials: "include" });
 
@@ -301,7 +301,7 @@ const hat = await MakeHat(
 );
 ```
 
-In Node.js environemnts, TwirpScript automatically uses Node's `http` or `https` client instead of fetch. You can override this behavior and use `fetch` in Node.js environments by using the global example above.
+In Node.js environments, TwirpScript automatically uses Node's `http` or `https` client instead of fetch. You can override this behavior and use `fetch` in Node.js environments by using the global example above.
 
 `rpcTransport` can arbitraily be swapped out to use something like `axios` or an [https agent](https://nodejs.org/api/https.html#https_class_https_agent), the transport only needs to implement the `RpcTransport` interface.
 

@@ -30,7 +30,7 @@ interface MiddlewareConfig {
    */
   headers: Record<string, string>;
   /**
-   * The transport to use for the RPC. Defaults to `fetch`, but will use `nodeHttpTransport` in Node.js environments.. Overrides must conform to a subset of the fetch interface defined by the `RpcTransport` type.
+   * The transport to use for the RPC. Defaults to `fetch`, but will use `nodeHttpTransport` in Node.js environments. Overrides must conform to a subset of the fetch interface defined by the `RpcTransport` type.
    */
   rpcTransport: RpcTransport;
 }
@@ -84,7 +84,7 @@ interface Client extends ClientConfiguration {
    */
   off: (...args: Parameters<TwirpClientEvent<MiddlewareConfig>["off"]>) => this;
   /**
-   * The transport to use for the RPC. Defaults to `fetch`, but will use `nodeHttpTransport` in Node.js environments.. Overrides must conform to a subset of the fetch interface defined by the `RpcTransport` type.
+   * The transport to use for the RPC. Defaults to `fetch`, but will use `nodeHttpTransport` in Node.js environments. Overrides must conform to a subset of the fetch interface defined by the `RpcTransport` type.
    */
   rpcTransport: RpcTransport;
 }

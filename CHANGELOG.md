@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.69
+
+- Updates to [ProtoScript 0.0.20](https://github.com/tatethurston/ProtoScript/blob/main/CHANGELOG.md#v0020). This updates JSON serializtion of Timestamp and Duration well known types to conform to the Protobuf3 specification.
+
 ## v0.0.68
 
 - All header names are now lowercased. This was already true for users using `createTwirpServer` in conjunction with Node.js' `createServer`, but previously users of `createTwirpServerless` did not receive this standardization.

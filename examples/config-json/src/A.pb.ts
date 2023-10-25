@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import { BinaryReader, BinaryWriter } from "protoscript";
+import * as protoscript from "protoscript";
 
 //========================================//
 //                 Types                  //
@@ -23,23 +23,30 @@ export const Foo = {
    * Serializes Foo to protobuf.
    */
   encode: function (msg: PartialDeep<Foo>): Uint8Array {
-    return Foo._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return Foo._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
    * Deserializes Foo from protobuf.
    */
   decode: function (bytes: ByteSource): Foo {
-    return Foo._readMessage(Foo.initialize(), new BinaryReader(bytes));
+    return Foo._readMessage(
+      Foo.initialize(),
+      new protoscript.BinaryReader(bytes),
+    );
   },
 
   /**
    * Initializes Foo with all fields set to their default value.
    */
-  initialize: function (): Foo {
+  initialize: function (msg?: Partial<Foo>): Foo {
     return {
       baz: 0,
       fooBars: [],
+      ...msg,
     };
   },
 
@@ -48,8 +55,8 @@ export const Foo = {
    */
   _writeMessage: function (
     msg: PartialDeep<Foo>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.baz) {
       writer.writeInt32(1, msg.baz);
     }
@@ -62,7 +69,7 @@ export const Foo = {
   /**
    * @private
    */
-  _readMessage: function (msg: Foo, reader: BinaryReader): Foo {
+  _readMessage: function (msg: Foo, reader: protoscript.BinaryReader): Foo {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -106,10 +113,11 @@ export const FooJSON = {
   /**
    * Initializes Foo with all fields set to their default value.
    */
-  initialize: function (): Foo {
+  initialize: function (msg?: Partial<Foo>): Foo {
     return {
       baz: 0,
       fooBars: [],
+      ...msg,
     };
   },
 
@@ -129,7 +137,7 @@ export const FooJSON = {
   _readMessage: function (msg: Foo, json: any): Foo {
     const _baz_ = json["baz"];
     if (_baz_) {
-      msg.baz = _baz_;
+      msg.baz = protoscript.parseNumber(_baz_);
     }
     const _fooBars_ = json["fooBars"] ?? json["foo_bars"];
     if (_fooBars_) {

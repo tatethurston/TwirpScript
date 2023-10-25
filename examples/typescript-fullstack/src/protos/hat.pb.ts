@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import { BinaryReader, BinaryWriter } from "protoscript";
+import * as protoscript from "protoscript";
 
 //========================================//
 //                 Types                  //
@@ -28,22 +28,29 @@ export const Size = {
    * Serializes Size to protobuf.
    */
   encode: function (msg: PartialDeep<Size>): Uint8Array {
-    return Size._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return Size._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
    * Deserializes Size from protobuf.
    */
   decode: function (bytes: ByteSource): Size {
-    return Size._readMessage(Size.initialize(), new BinaryReader(bytes));
+    return Size._readMessage(
+      Size.initialize(),
+      new protoscript.BinaryReader(bytes),
+    );
   },
 
   /**
    * Initializes Size with all fields set to their default value.
    */
-  initialize: function (): Size {
+  initialize: function (msg?: Partial<Size>): Size {
     return {
       inches: 0,
+      ...msg,
     };
   },
 
@@ -52,8 +59,8 @@ export const Size = {
    */
   _writeMessage: function (
     msg: PartialDeep<Size>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
     }
@@ -63,7 +70,7 @@ export const Size = {
   /**
    * @private
    */
-  _readMessage: function (msg: Size, reader: BinaryReader): Size {
+  _readMessage: function (msg: Size, reader: protoscript.BinaryReader): Size {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -103,9 +110,10 @@ export const SizeJSON = {
   /**
    * Initializes Size with all fields set to their default value.
    */
-  initialize: function (): Size {
+  initialize: function (msg?: Partial<Size>): Size {
     return {
       inches: 0,
+      ...msg,
     };
   },
 
@@ -126,7 +134,7 @@ export const SizeJSON = {
   _readMessage: function (msg: Size, json: any): Size {
     const _inches_ = json["inches"];
     if (_inches_) {
-      msg.inches = _inches_;
+      msg.inches = protoscript.parseNumber(_inches_);
     }
     return msg;
   },

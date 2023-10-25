@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import { BinaryReader, BinaryWriter } from "protoscript";
+import * as protoscript from "protoscript";
 
 import * as A from "./A.pb";
 
@@ -24,22 +24,29 @@ export const Bar = {
    * Serializes Bar to protobuf.
    */
   encode: function (msg: PartialDeep<Bar>): Uint8Array {
-    return Bar._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return Bar._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
    * Deserializes Bar from protobuf.
    */
   decode: function (bytes: ByteSource): Bar {
-    return Bar._readMessage(Bar.initialize(), new BinaryReader(bytes));
+    return Bar._readMessage(
+      Bar.initialize(),
+      new protoscript.BinaryReader(bytes),
+    );
   },
 
   /**
    * Initializes Bar with all fields set to their default value.
    */
-  initialize: function (): Bar {
+  initialize: function (msg?: Partial<Bar>): Bar {
     return {
       foo: A.Foo.initialize(),
+      ...msg,
     };
   },
 
@@ -48,8 +55,8 @@ export const Bar = {
    */
   _writeMessage: function (
     msg: PartialDeep<Bar>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.foo) {
       writer.writeMessage(1, msg.foo, A.Foo._writeMessage);
     }
@@ -59,7 +66,7 @@ export const Bar = {
   /**
    * @private
    */
-  _readMessage: function (msg: Bar, reader: BinaryReader): Bar {
+  _readMessage: function (msg: Bar, reader: protoscript.BinaryReader): Bar {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -99,9 +106,10 @@ export const BarJSON = {
   /**
    * Initializes Bar with all fields set to their default value.
    */
-  initialize: function (): Bar {
+  initialize: function (msg?: Partial<Bar>): Bar {
     return {
       foo: A.FooJSON.initialize(),
+      ...msg,
     };
   },
 

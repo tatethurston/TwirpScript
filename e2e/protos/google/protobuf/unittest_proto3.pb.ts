@@ -3,12 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import {
-  BinaryReader,
-  BinaryWriter,
-  encodeBase64Bytes,
-  decodeBase64Bytes,
-} from "protoscript";
+import * as protoscript from "protoscript";
 
 import * as googleProtobufUnittest_import from "./unittest_import.pb";
 import * as googleProtobufUnittest_import_public from "./unittest_import_public.pb";
@@ -249,7 +244,7 @@ export const TestAllTypes = {
   encode: function (msg: PartialDeep<TestAllTypes>): Uint8Array {
     return TestAllTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -259,14 +254,14 @@ export const TestAllTypes = {
   decode: function (bytes: ByteSource): TestAllTypes {
     return TestAllTypes._readMessage(
       TestAllTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestAllTypes with all fields set to their default value.
    */
-  initialize: function (): TestAllTypes {
+  initialize: function (msg?: Partial<TestAllTypes>): TestAllTypes {
     return {
       optionalInt32: 0,
       optionalInt64: 0n,
@@ -323,6 +318,7 @@ export const TestAllTypes = {
       oneofNestedMessage: undefined,
       oneofString: undefined,
       oneofBytes: undefined,
+      ...msg,
     };
   },
 
@@ -331,8 +327,8 @@ export const TestAllTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestAllTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.optionalInt32) {
       writer.writeInt32(1, msg.optionalInt32);
     }
@@ -571,7 +567,7 @@ export const TestAllTypes = {
    */
   _readMessage: function (
     msg: TestAllTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestAllTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -976,7 +972,7 @@ export const TestAllTypes = {
     ): Uint8Array {
       return TestAllTypes.NestedMessage._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -986,16 +982,19 @@ export const TestAllTypes = {
     decode: function (bytes: ByteSource): TestAllTypes.NestedMessage {
       return TestAllTypes.NestedMessage._readMessage(
         TestAllTypes.NestedMessage.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestAllTypes.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestAllTypes.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestAllTypes.NestedMessage>,
+    ): TestAllTypes.NestedMessage {
       return {
         bb: 0,
+        ...msg,
       };
     },
 
@@ -1004,8 +1003,8 @@ export const TestAllTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestAllTypes.NestedMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.bb) {
         writer.writeInt32(1, msg.bb);
       }
@@ -1017,7 +1016,7 @@ export const TestAllTypes = {
      */
     _readMessage: function (
       msg: TestAllTypes.NestedMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestAllTypes.NestedMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1044,7 +1043,7 @@ export const TestPackedTypes = {
   encode: function (msg: PartialDeep<TestPackedTypes>): Uint8Array {
     return TestPackedTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -1054,14 +1053,14 @@ export const TestPackedTypes = {
   decode: function (bytes: ByteSource): TestPackedTypes {
     return TestPackedTypes._readMessage(
       TestPackedTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestPackedTypes with all fields set to their default value.
    */
-  initialize: function (): TestPackedTypes {
+  initialize: function (msg?: Partial<TestPackedTypes>): TestPackedTypes {
     return {
       packedInt32: [],
       packedInt64: [],
@@ -1077,6 +1076,7 @@ export const TestPackedTypes = {
       packedDouble: [],
       packedBool: [],
       packedEnum: [],
+      ...msg,
     };
   },
 
@@ -1085,8 +1085,8 @@ export const TestPackedTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestPackedTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.packedInt32?.length) {
       writer.writePackedInt32(90, msg.packedInt32);
     }
@@ -1152,7 +1152,7 @@ export const TestPackedTypes = {
    */
   _readMessage: function (
     msg: TestPackedTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestPackedTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -1296,7 +1296,7 @@ export const TestUnpackedTypes = {
   encode: function (msg: PartialDeep<TestUnpackedTypes>): Uint8Array {
     return TestUnpackedTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -1306,14 +1306,14 @@ export const TestUnpackedTypes = {
   decode: function (bytes: ByteSource): TestUnpackedTypes {
     return TestUnpackedTypes._readMessage(
       TestUnpackedTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestUnpackedTypes with all fields set to their default value.
    */
-  initialize: function (): TestUnpackedTypes {
+  initialize: function (msg?: Partial<TestUnpackedTypes>): TestUnpackedTypes {
     return {
       repeatedInt32: [],
       repeatedInt64: [],
@@ -1329,6 +1329,7 @@ export const TestUnpackedTypes = {
       repeatedDouble: [],
       repeatedBool: [],
       repeatedNestedEnum: [],
+      ...msg,
     };
   },
 
@@ -1337,8 +1338,8 @@ export const TestUnpackedTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestUnpackedTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.repeatedInt32?.length) {
       writer.writePackedInt32(1, msg.repeatedInt32);
     }
@@ -1407,7 +1408,7 @@ export const TestUnpackedTypes = {
    */
   _readMessage: function (
     msg: TestUnpackedTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestUnpackedTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -1555,7 +1556,7 @@ export const NestedTestAllTypes = {
   encode: function (msg: PartialDeep<NestedTestAllTypes>): Uint8Array {
     return NestedTestAllTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -1565,17 +1566,18 @@ export const NestedTestAllTypes = {
   decode: function (bytes: ByteSource): NestedTestAllTypes {
     return NestedTestAllTypes._readMessage(
       NestedTestAllTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes NestedTestAllTypes with all fields set to their default value.
    */
-  initialize: function (): NestedTestAllTypes {
+  initialize: function (msg?: Partial<NestedTestAllTypes>): NestedTestAllTypes {
     return {
       child: undefined,
       payload: TestAllTypes.initialize(),
+      ...msg,
     };
   },
 
@@ -1584,8 +1586,8 @@ export const NestedTestAllTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<NestedTestAllTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.child) {
       writer.writeMessage(1, msg.child, NestedTestAllTypes._writeMessage);
     }
@@ -1600,7 +1602,7 @@ export const NestedTestAllTypes = {
    */
   _readMessage: function (
     msg: NestedTestAllTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): NestedTestAllTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -1631,7 +1633,7 @@ export const ForeignMessage = {
   encode: function (msg: PartialDeep<ForeignMessage>): Uint8Array {
     return ForeignMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -1641,16 +1643,17 @@ export const ForeignMessage = {
   decode: function (bytes: ByteSource): ForeignMessage {
     return ForeignMessage._readMessage(
       ForeignMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes ForeignMessage with all fields set to their default value.
    */
-  initialize: function (): ForeignMessage {
+  initialize: function (msg?: Partial<ForeignMessage>): ForeignMessage {
     return {
       c: 0,
+      ...msg,
     };
   },
 
@@ -1659,8 +1662,8 @@ export const ForeignMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<ForeignMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.c) {
       writer.writeInt32(1, msg.c);
     }
@@ -1672,7 +1675,7 @@ export const ForeignMessage = {
    */
   _readMessage: function (
     msg: ForeignMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): ForeignMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -1709,8 +1712,10 @@ export const TestEmptyMessage = {
   /**
    * Initializes TestEmptyMessage with all fields set to their default value.
    */
-  initialize: function (): TestEmptyMessage {
-    return {};
+  initialize: function (msg?: Partial<TestEmptyMessage>): TestEmptyMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -1718,8 +1723,8 @@ export const TestEmptyMessage = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestEmptyMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -1728,7 +1733,7 @@ export const TestEmptyMessage = {
    */
   _readMessage: function (
     _msg: TestEmptyMessage,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestEmptyMessage {
     return _msg;
   },
@@ -1741,7 +1746,7 @@ export const TestMessageWithDummy = {
   encode: function (msg: PartialDeep<TestMessageWithDummy>): Uint8Array {
     return TestMessageWithDummy._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -1751,16 +1756,19 @@ export const TestMessageWithDummy = {
   decode: function (bytes: ByteSource): TestMessageWithDummy {
     return TestMessageWithDummy._readMessage(
       TestMessageWithDummy.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestMessageWithDummy with all fields set to their default value.
    */
-  initialize: function (): TestMessageWithDummy {
+  initialize: function (
+    msg?: Partial<TestMessageWithDummy>,
+  ): TestMessageWithDummy {
     return {
       dummy: false,
+      ...msg,
     };
   },
 
@@ -1769,8 +1777,8 @@ export const TestMessageWithDummy = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestMessageWithDummy>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.dummy) {
       writer.writeBool(536870911, msg.dummy);
     }
@@ -1782,7 +1790,7 @@ export const TestMessageWithDummy = {
    */
   _readMessage: function (
     msg: TestMessageWithDummy,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestMessageWithDummy {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -1806,7 +1814,10 @@ export const TestOneof2 = {
    * Serializes TestOneof2 to protobuf.
    */
   encode: function (msg: PartialDeep<TestOneof2>): Uint8Array {
-    return TestOneof2._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return TestOneof2._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -1815,16 +1826,17 @@ export const TestOneof2 = {
   decode: function (bytes: ByteSource): TestOneof2 {
     return TestOneof2._readMessage(
       TestOneof2.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestOneof2 with all fields set to their default value.
    */
-  initialize: function (): TestOneof2 {
+  initialize: function (msg?: Partial<TestOneof2>): TestOneof2 {
     return {
       fooEnum: undefined,
+      ...msg,
     };
   },
 
@@ -1833,8 +1845,8 @@ export const TestOneof2 = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestOneof2>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.fooEnum != undefined) {
       writer.writeEnum(6, TestOneof2.NestedEnum._toInt(msg.fooEnum));
     }
@@ -1844,7 +1856,10 @@ export const TestOneof2 = {
   /**
    * @private
    */
-  _readMessage: function (msg: TestOneof2, reader: BinaryReader): TestOneof2 {
+  _readMessage: function (
+    msg: TestOneof2,
+    reader: protoscript.BinaryReader,
+  ): TestOneof2 {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -1993,7 +2008,7 @@ export const TestAllTypesJSON = {
   /**
    * Initializes TestAllTypes with all fields set to their default value.
    */
-  initialize: function (): TestAllTypes {
+  initialize: function (msg?: Partial<TestAllTypes>): TestAllTypes {
     return {
       optionalInt32: 0,
       optionalInt64: 0n,
@@ -2050,6 +2065,7 @@ export const TestAllTypesJSON = {
       oneofNestedMessage: undefined,
       oneofString: undefined,
       oneofBytes: undefined,
+      ...msg,
     };
   },
 
@@ -2064,31 +2080,31 @@ export const TestAllTypesJSON = {
       json["optionalInt32"] = msg.optionalInt32;
     }
     if (msg.optionalInt64) {
-      json["optionalInt64"] = msg.optionalInt64.toString();
+      json["optionalInt64"] = String(msg.optionalInt64);
     }
     if (msg.optionalUint32) {
       json["optionalUint32"] = msg.optionalUint32;
     }
     if (msg.optionalUint64) {
-      json["optionalUint64"] = msg.optionalUint64.toString();
+      json["optionalUint64"] = String(msg.optionalUint64);
     }
     if (msg.optionalSint32) {
       json["optionalSint32"] = msg.optionalSint32;
     }
     if (msg.optionalSint64) {
-      json["optionalSint64"] = msg.optionalSint64.toString();
+      json["optionalSint64"] = String(msg.optionalSint64);
     }
     if (msg.optionalFixed32) {
       json["optionalFixed32"] = msg.optionalFixed32;
     }
     if (msg.optionalFixed64) {
-      json["optionalFixed64"] = msg.optionalFixed64.toString();
+      json["optionalFixed64"] = String(msg.optionalFixed64);
     }
     if (msg.optionalSfixed32) {
       json["optionalSfixed32"] = msg.optionalSfixed32;
     }
     if (msg.optionalSfixed64) {
-      json["optionalSfixed64"] = msg.optionalSfixed64.toString();
+      json["optionalSfixed64"] = String(msg.optionalSfixed64);
     }
     if (msg.optionalFloat) {
       json["optionalFloat"] = msg.optionalFloat;
@@ -2103,7 +2119,7 @@ export const TestAllTypesJSON = {
       json["optionalString"] = msg.optionalString;
     }
     if (msg.optionalBytes?.length) {
-      json["optionalBytes"] = encodeBase64Bytes(msg.optionalBytes);
+      json["optionalBytes"] = protoscript.serializeBytes(msg.optionalBytes);
     }
     if (msg.optionalNestedMessage) {
       const _optionalNestedMessage_ =
@@ -2176,31 +2192,31 @@ export const TestAllTypesJSON = {
       json["repeatedInt32"] = msg.repeatedInt32;
     }
     if (msg.repeatedInt64?.length) {
-      json["repeatedInt64"] = msg.repeatedInt64.map((x) => x.toString());
+      json["repeatedInt64"] = msg.repeatedInt64.map(String);
     }
     if (msg.repeatedUint32?.length) {
       json["repeatedUint32"] = msg.repeatedUint32;
     }
     if (msg.repeatedUint64?.length) {
-      json["repeatedUint64"] = msg.repeatedUint64.map((x) => x.toString());
+      json["repeatedUint64"] = msg.repeatedUint64.map(String);
     }
     if (msg.repeatedSint32?.length) {
       json["repeatedSint32"] = msg.repeatedSint32;
     }
     if (msg.repeatedSint64?.length) {
-      json["repeatedSint64"] = msg.repeatedSint64.map((x) => x.toString());
+      json["repeatedSint64"] = msg.repeatedSint64.map(String);
     }
     if (msg.repeatedFixed32?.length) {
       json["repeatedFixed32"] = msg.repeatedFixed32;
     }
     if (msg.repeatedFixed64?.length) {
-      json["repeatedFixed64"] = msg.repeatedFixed64.map((x) => x.toString());
+      json["repeatedFixed64"] = msg.repeatedFixed64.map(String);
     }
     if (msg.repeatedSfixed32?.length) {
       json["repeatedSfixed32"] = msg.repeatedSfixed32;
     }
     if (msg.repeatedSfixed64?.length) {
-      json["repeatedSfixed64"] = msg.repeatedSfixed64.map((x) => x.toString());
+      json["repeatedSfixed64"] = msg.repeatedSfixed64.map(String);
     }
     if (msg.repeatedFloat?.length) {
       json["repeatedFloat"] = msg.repeatedFloat;
@@ -2215,7 +2231,7 @@ export const TestAllTypesJSON = {
       json["repeatedString"] = msg.repeatedString;
     }
     if (msg.repeatedBytes?.length) {
-      json["repeatedBytes"] = msg.repeatedBytes.map(encodeBase64Bytes);
+      json["repeatedBytes"] = msg.repeatedBytes.map(protoscript.serializeBytes);
     }
     if (msg.repeatedNestedMessage?.length) {
       json["repeatedNestedMessage"] = msg.repeatedNestedMessage.map(
@@ -2262,7 +2278,7 @@ export const TestAllTypesJSON = {
       json["oneofString"] = msg.oneofString;
     }
     if (msg.oneofBytes?.length) {
-      json["oneofBytes"] = encodeBase64Bytes(msg.oneofBytes);
+      json["oneofBytes"] = protoscript.serializeBytes(msg.oneofBytes);
     }
     return json;
   },
@@ -2273,7 +2289,7 @@ export const TestAllTypesJSON = {
   _readMessage: function (msg: TestAllTypes, json: any): TestAllTypes {
     const _optionalInt32_ = json["optionalInt32"] ?? json["optional_int32"];
     if (_optionalInt32_) {
-      msg.optionalInt32 = _optionalInt32_;
+      msg.optionalInt32 = protoscript.parseNumber(_optionalInt32_);
     }
     const _optionalInt64_ = json["optionalInt64"] ?? json["optional_int64"];
     if (_optionalInt64_) {
@@ -2281,7 +2297,7 @@ export const TestAllTypesJSON = {
     }
     const _optionalUint32_ = json["optionalUint32"] ?? json["optional_uint32"];
     if (_optionalUint32_) {
-      msg.optionalUint32 = _optionalUint32_;
+      msg.optionalUint32 = protoscript.parseNumber(_optionalUint32_);
     }
     const _optionalUint64_ = json["optionalUint64"] ?? json["optional_uint64"];
     if (_optionalUint64_) {
@@ -2289,7 +2305,7 @@ export const TestAllTypesJSON = {
     }
     const _optionalSint32_ = json["optionalSint32"] ?? json["optional_sint32"];
     if (_optionalSint32_) {
-      msg.optionalSint32 = _optionalSint32_;
+      msg.optionalSint32 = protoscript.parseNumber(_optionalSint32_);
     }
     const _optionalSint64_ = json["optionalSint64"] ?? json["optional_sint64"];
     if (_optionalSint64_) {
@@ -2298,7 +2314,7 @@ export const TestAllTypesJSON = {
     const _optionalFixed32_ =
       json["optionalFixed32"] ?? json["optional_fixed32"];
     if (_optionalFixed32_) {
-      msg.optionalFixed32 = _optionalFixed32_;
+      msg.optionalFixed32 = protoscript.parseNumber(_optionalFixed32_);
     }
     const _optionalFixed64_ =
       json["optionalFixed64"] ?? json["optional_fixed64"];
@@ -2308,7 +2324,7 @@ export const TestAllTypesJSON = {
     const _optionalSfixed32_ =
       json["optionalSfixed32"] ?? json["optional_sfixed32"];
     if (_optionalSfixed32_) {
-      msg.optionalSfixed32 = _optionalSfixed32_;
+      msg.optionalSfixed32 = protoscript.parseNumber(_optionalSfixed32_);
     }
     const _optionalSfixed64_ =
       json["optionalSfixed64"] ?? json["optional_sfixed64"];
@@ -2317,11 +2333,11 @@ export const TestAllTypesJSON = {
     }
     const _optionalFloat_ = json["optionalFloat"] ?? json["optional_float"];
     if (_optionalFloat_) {
-      msg.optionalFloat = _optionalFloat_;
+      msg.optionalFloat = protoscript.parseDouble(_optionalFloat_);
     }
     const _optionalDouble_ = json["optionalDouble"] ?? json["optional_double"];
     if (_optionalDouble_) {
-      msg.optionalDouble = _optionalDouble_;
+      msg.optionalDouble = protoscript.parseDouble(_optionalDouble_);
     }
     const _optionalBool_ = json["optionalBool"] ?? json["optional_bool"];
     if (_optionalBool_) {
@@ -2333,7 +2349,7 @@ export const TestAllTypesJSON = {
     }
     const _optionalBytes_ = json["optionalBytes"] ?? json["optional_bytes"];
     if (_optionalBytes_) {
-      msg.optionalBytes = decodeBase64Bytes(_optionalBytes_);
+      msg.optionalBytes = protoscript.parseBytes(_optionalBytes_);
     }
     const _optionalNestedMessage_ =
       json["optionalNestedMessage"] ?? json["optional_nested_message"];
@@ -2362,12 +2378,13 @@ export const TestAllTypesJSON = {
     const _optionalNestedEnum_ =
       json["optionalNestedEnum"] ?? json["optional_nested_enum"];
     if (_optionalNestedEnum_) {
-      msg.optionalNestedEnum = _optionalNestedEnum_;
+      msg.optionalNestedEnum =
+        TestAllTypes.NestedEnum._fromInt(_optionalNestedEnum_);
     }
     const _optionalForeignEnum_ =
       json["optionalForeignEnum"] ?? json["optional_foreign_enum"];
     if (_optionalForeignEnum_) {
-      msg.optionalForeignEnum = _optionalForeignEnum_;
+      msg.optionalForeignEnum = ForeignEnum._fromInt(_optionalForeignEnum_);
     }
     const _optionalStringPiece_ =
       json["optionalStringPiece"] ?? json["optional_string_piece"];
@@ -2405,7 +2422,7 @@ export const TestAllTypesJSON = {
     }
     const _repeatedInt32_ = json["repeatedInt32"] ?? json["repeated_int32"];
     if (_repeatedInt32_) {
-      msg.repeatedInt32 = _repeatedInt32_;
+      msg.repeatedInt32 = _repeatedInt32_.map(protoscript.parseNumber);
     }
     const _repeatedInt64_ = json["repeatedInt64"] ?? json["repeated_int64"];
     if (_repeatedInt64_) {
@@ -2413,7 +2430,7 @@ export const TestAllTypesJSON = {
     }
     const _repeatedUint32_ = json["repeatedUint32"] ?? json["repeated_uint32"];
     if (_repeatedUint32_) {
-      msg.repeatedUint32 = _repeatedUint32_;
+      msg.repeatedUint32 = _repeatedUint32_.map(protoscript.parseNumber);
     }
     const _repeatedUint64_ = json["repeatedUint64"] ?? json["repeated_uint64"];
     if (_repeatedUint64_) {
@@ -2421,7 +2438,7 @@ export const TestAllTypesJSON = {
     }
     const _repeatedSint32_ = json["repeatedSint32"] ?? json["repeated_sint32"];
     if (_repeatedSint32_) {
-      msg.repeatedSint32 = _repeatedSint32_;
+      msg.repeatedSint32 = _repeatedSint32_.map(protoscript.parseNumber);
     }
     const _repeatedSint64_ = json["repeatedSint64"] ?? json["repeated_sint64"];
     if (_repeatedSint64_) {
@@ -2430,7 +2447,7 @@ export const TestAllTypesJSON = {
     const _repeatedFixed32_ =
       json["repeatedFixed32"] ?? json["repeated_fixed32"];
     if (_repeatedFixed32_) {
-      msg.repeatedFixed32 = _repeatedFixed32_;
+      msg.repeatedFixed32 = _repeatedFixed32_.map(protoscript.parseNumber);
     }
     const _repeatedFixed64_ =
       json["repeatedFixed64"] ?? json["repeated_fixed64"];
@@ -2440,7 +2457,7 @@ export const TestAllTypesJSON = {
     const _repeatedSfixed32_ =
       json["repeatedSfixed32"] ?? json["repeated_sfixed32"];
     if (_repeatedSfixed32_) {
-      msg.repeatedSfixed32 = _repeatedSfixed32_;
+      msg.repeatedSfixed32 = _repeatedSfixed32_.map(protoscript.parseNumber);
     }
     const _repeatedSfixed64_ =
       json["repeatedSfixed64"] ?? json["repeated_sfixed64"];
@@ -2449,11 +2466,11 @@ export const TestAllTypesJSON = {
     }
     const _repeatedFloat_ = json["repeatedFloat"] ?? json["repeated_float"];
     if (_repeatedFloat_) {
-      msg.repeatedFloat = _repeatedFloat_;
+      msg.repeatedFloat = _repeatedFloat_.map(protoscript.parseDouble);
     }
     const _repeatedDouble_ = json["repeatedDouble"] ?? json["repeated_double"];
     if (_repeatedDouble_) {
-      msg.repeatedDouble = _repeatedDouble_;
+      msg.repeatedDouble = _repeatedDouble_.map(protoscript.parseDouble);
     }
     const _repeatedBool_ = json["repeatedBool"] ?? json["repeated_bool"];
     if (_repeatedBool_) {
@@ -2465,7 +2482,7 @@ export const TestAllTypesJSON = {
     }
     const _repeatedBytes_ = json["repeatedBytes"] ?? json["repeated_bytes"];
     if (_repeatedBytes_) {
-      msg.repeatedBytes = _repeatedBytes_.map(decodeBase64Bytes);
+      msg.repeatedBytes = _repeatedBytes_.map(protoscript.parseBytes);
     }
     const _repeatedNestedMessage_ =
       json["repeatedNestedMessage"] ?? json["repeated_nested_message"];
@@ -2497,12 +2514,14 @@ export const TestAllTypesJSON = {
     const _repeatedNestedEnum_ =
       json["repeatedNestedEnum"] ?? json["repeated_nested_enum"];
     if (_repeatedNestedEnum_) {
-      msg.repeatedNestedEnum = _repeatedNestedEnum_;
+      msg.repeatedNestedEnum = _repeatedNestedEnum_.map(
+        TestAllTypes.NestedEnum._fromInt,
+      );
     }
     const _repeatedForeignEnum_ =
       json["repeatedForeignEnum"] ?? json["repeated_foreign_enum"];
     if (_repeatedForeignEnum_) {
-      msg.repeatedForeignEnum = _repeatedForeignEnum_;
+      msg.repeatedForeignEnum = _repeatedForeignEnum_.map(ForeignEnum._fromInt);
     }
     const _repeatedStringPiece_ =
       json["repeatedStringPiece"] ?? json["repeated_string_piece"];
@@ -2524,7 +2543,7 @@ export const TestAllTypesJSON = {
     }
     const _oneofUint32_ = json["oneofUint32"] ?? json["oneof_uint32"];
     if (_oneofUint32_) {
-      msg.oneofUint32 = _oneofUint32_;
+      msg.oneofUint32 = protoscript.parseNumber(_oneofUint32_);
     }
     const _oneofNestedMessage_ =
       json["oneofNestedMessage"] ?? json["oneof_nested_message"];
@@ -2541,7 +2560,7 @@ export const TestAllTypesJSON = {
     }
     const _oneofBytes_ = json["oneofBytes"] ?? json["oneof_bytes"];
     if (_oneofBytes_) {
-      msg.oneofBytes = decodeBase64Bytes(_oneofBytes_);
+      msg.oneofBytes = protoscript.parseBytes(_oneofBytes_);
     }
     return msg;
   },
@@ -2627,9 +2646,12 @@ export const TestAllTypesJSON = {
     /**
      * Initializes TestAllTypes.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestAllTypes.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestAllTypes.NestedMessage>,
+    ): TestAllTypes.NestedMessage {
       return {
         bb: 0,
+        ...msg,
       };
     },
 
@@ -2655,7 +2677,7 @@ export const TestAllTypesJSON = {
     ): TestAllTypes.NestedMessage {
       const _bb_ = json["bb"];
       if (_bb_) {
-        msg.bb = _bb_;
+        msg.bb = protoscript.parseNumber(_bb_);
       }
       return msg;
     },
@@ -2683,7 +2705,7 @@ export const TestPackedTypesJSON = {
   /**
    * Initializes TestPackedTypes with all fields set to their default value.
    */
-  initialize: function (): TestPackedTypes {
+  initialize: function (msg?: Partial<TestPackedTypes>): TestPackedTypes {
     return {
       packedInt32: [],
       packedInt64: [],
@@ -2699,6 +2721,7 @@ export const TestPackedTypesJSON = {
       packedDouble: [],
       packedBool: [],
       packedEnum: [],
+      ...msg,
     };
   },
 
@@ -2713,31 +2736,31 @@ export const TestPackedTypesJSON = {
       json["packedInt32"] = msg.packedInt32;
     }
     if (msg.packedInt64?.length) {
-      json["packedInt64"] = msg.packedInt64.map((x) => x.toString());
+      json["packedInt64"] = msg.packedInt64.map(String);
     }
     if (msg.packedUint32?.length) {
       json["packedUint32"] = msg.packedUint32;
     }
     if (msg.packedUint64?.length) {
-      json["packedUint64"] = msg.packedUint64.map((x) => x.toString());
+      json["packedUint64"] = msg.packedUint64.map(String);
     }
     if (msg.packedSint32?.length) {
       json["packedSint32"] = msg.packedSint32;
     }
     if (msg.packedSint64?.length) {
-      json["packedSint64"] = msg.packedSint64.map((x) => x.toString());
+      json["packedSint64"] = msg.packedSint64.map(String);
     }
     if (msg.packedFixed32?.length) {
       json["packedFixed32"] = msg.packedFixed32;
     }
     if (msg.packedFixed64?.length) {
-      json["packedFixed64"] = msg.packedFixed64.map((x) => x.toString());
+      json["packedFixed64"] = msg.packedFixed64.map(String);
     }
     if (msg.packedSfixed32?.length) {
       json["packedSfixed32"] = msg.packedSfixed32;
     }
     if (msg.packedSfixed64?.length) {
-      json["packedSfixed64"] = msg.packedSfixed64.map((x) => x.toString());
+      json["packedSfixed64"] = msg.packedSfixed64.map(String);
     }
     if (msg.packedFloat?.length) {
       json["packedFloat"] = msg.packedFloat;
@@ -2760,7 +2783,7 @@ export const TestPackedTypesJSON = {
   _readMessage: function (msg: TestPackedTypes, json: any): TestPackedTypes {
     const _packedInt32_ = json["packedInt32"] ?? json["packed_int32"];
     if (_packedInt32_) {
-      msg.packedInt32 = _packedInt32_;
+      msg.packedInt32 = _packedInt32_.map(protoscript.parseNumber);
     }
     const _packedInt64_ = json["packedInt64"] ?? json["packed_int64"];
     if (_packedInt64_) {
@@ -2768,7 +2791,7 @@ export const TestPackedTypesJSON = {
     }
     const _packedUint32_ = json["packedUint32"] ?? json["packed_uint32"];
     if (_packedUint32_) {
-      msg.packedUint32 = _packedUint32_;
+      msg.packedUint32 = _packedUint32_.map(protoscript.parseNumber);
     }
     const _packedUint64_ = json["packedUint64"] ?? json["packed_uint64"];
     if (_packedUint64_) {
@@ -2776,7 +2799,7 @@ export const TestPackedTypesJSON = {
     }
     const _packedSint32_ = json["packedSint32"] ?? json["packed_sint32"];
     if (_packedSint32_) {
-      msg.packedSint32 = _packedSint32_;
+      msg.packedSint32 = _packedSint32_.map(protoscript.parseNumber);
     }
     const _packedSint64_ = json["packedSint64"] ?? json["packed_sint64"];
     if (_packedSint64_) {
@@ -2784,7 +2807,7 @@ export const TestPackedTypesJSON = {
     }
     const _packedFixed32_ = json["packedFixed32"] ?? json["packed_fixed32"];
     if (_packedFixed32_) {
-      msg.packedFixed32 = _packedFixed32_;
+      msg.packedFixed32 = _packedFixed32_.map(protoscript.parseNumber);
     }
     const _packedFixed64_ = json["packedFixed64"] ?? json["packed_fixed64"];
     if (_packedFixed64_) {
@@ -2792,7 +2815,7 @@ export const TestPackedTypesJSON = {
     }
     const _packedSfixed32_ = json["packedSfixed32"] ?? json["packed_sfixed32"];
     if (_packedSfixed32_) {
-      msg.packedSfixed32 = _packedSfixed32_;
+      msg.packedSfixed32 = _packedSfixed32_.map(protoscript.parseNumber);
     }
     const _packedSfixed64_ = json["packedSfixed64"] ?? json["packed_sfixed64"];
     if (_packedSfixed64_) {
@@ -2800,11 +2823,11 @@ export const TestPackedTypesJSON = {
     }
     const _packedFloat_ = json["packedFloat"] ?? json["packed_float"];
     if (_packedFloat_) {
-      msg.packedFloat = _packedFloat_;
+      msg.packedFloat = _packedFloat_.map(protoscript.parseDouble);
     }
     const _packedDouble_ = json["packedDouble"] ?? json["packed_double"];
     if (_packedDouble_) {
-      msg.packedDouble = _packedDouble_;
+      msg.packedDouble = _packedDouble_.map(protoscript.parseDouble);
     }
     const _packedBool_ = json["packedBool"] ?? json["packed_bool"];
     if (_packedBool_) {
@@ -2812,7 +2835,7 @@ export const TestPackedTypesJSON = {
     }
     const _packedEnum_ = json["packedEnum"] ?? json["packed_enum"];
     if (_packedEnum_) {
-      msg.packedEnum = _packedEnum_;
+      msg.packedEnum = _packedEnum_.map(ForeignEnum._fromInt);
     }
     return msg;
   },
@@ -2839,7 +2862,7 @@ export const TestUnpackedTypesJSON = {
   /**
    * Initializes TestUnpackedTypes with all fields set to their default value.
    */
-  initialize: function (): TestUnpackedTypes {
+  initialize: function (msg?: Partial<TestUnpackedTypes>): TestUnpackedTypes {
     return {
       repeatedInt32: [],
       repeatedInt64: [],
@@ -2855,6 +2878,7 @@ export const TestUnpackedTypesJSON = {
       repeatedDouble: [],
       repeatedBool: [],
       repeatedNestedEnum: [],
+      ...msg,
     };
   },
 
@@ -2869,31 +2893,31 @@ export const TestUnpackedTypesJSON = {
       json["repeatedInt32"] = msg.repeatedInt32;
     }
     if (msg.repeatedInt64?.length) {
-      json["repeatedInt64"] = msg.repeatedInt64.map((x) => x.toString());
+      json["repeatedInt64"] = msg.repeatedInt64.map(String);
     }
     if (msg.repeatedUint32?.length) {
       json["repeatedUint32"] = msg.repeatedUint32;
     }
     if (msg.repeatedUint64?.length) {
-      json["repeatedUint64"] = msg.repeatedUint64.map((x) => x.toString());
+      json["repeatedUint64"] = msg.repeatedUint64.map(String);
     }
     if (msg.repeatedSint32?.length) {
       json["repeatedSint32"] = msg.repeatedSint32;
     }
     if (msg.repeatedSint64?.length) {
-      json["repeatedSint64"] = msg.repeatedSint64.map((x) => x.toString());
+      json["repeatedSint64"] = msg.repeatedSint64.map(String);
     }
     if (msg.repeatedFixed32?.length) {
       json["repeatedFixed32"] = msg.repeatedFixed32;
     }
     if (msg.repeatedFixed64?.length) {
-      json["repeatedFixed64"] = msg.repeatedFixed64.map((x) => x.toString());
+      json["repeatedFixed64"] = msg.repeatedFixed64.map(String);
     }
     if (msg.repeatedSfixed32?.length) {
       json["repeatedSfixed32"] = msg.repeatedSfixed32;
     }
     if (msg.repeatedSfixed64?.length) {
-      json["repeatedSfixed64"] = msg.repeatedSfixed64.map((x) => x.toString());
+      json["repeatedSfixed64"] = msg.repeatedSfixed64.map(String);
     }
     if (msg.repeatedFloat?.length) {
       json["repeatedFloat"] = msg.repeatedFloat;
@@ -2919,7 +2943,7 @@ export const TestUnpackedTypesJSON = {
   ): TestUnpackedTypes {
     const _repeatedInt32_ = json["repeatedInt32"] ?? json["repeated_int32"];
     if (_repeatedInt32_) {
-      msg.repeatedInt32 = _repeatedInt32_;
+      msg.repeatedInt32 = _repeatedInt32_.map(protoscript.parseNumber);
     }
     const _repeatedInt64_ = json["repeatedInt64"] ?? json["repeated_int64"];
     if (_repeatedInt64_) {
@@ -2927,7 +2951,7 @@ export const TestUnpackedTypesJSON = {
     }
     const _repeatedUint32_ = json["repeatedUint32"] ?? json["repeated_uint32"];
     if (_repeatedUint32_) {
-      msg.repeatedUint32 = _repeatedUint32_;
+      msg.repeatedUint32 = _repeatedUint32_.map(protoscript.parseNumber);
     }
     const _repeatedUint64_ = json["repeatedUint64"] ?? json["repeated_uint64"];
     if (_repeatedUint64_) {
@@ -2935,7 +2959,7 @@ export const TestUnpackedTypesJSON = {
     }
     const _repeatedSint32_ = json["repeatedSint32"] ?? json["repeated_sint32"];
     if (_repeatedSint32_) {
-      msg.repeatedSint32 = _repeatedSint32_;
+      msg.repeatedSint32 = _repeatedSint32_.map(protoscript.parseNumber);
     }
     const _repeatedSint64_ = json["repeatedSint64"] ?? json["repeated_sint64"];
     if (_repeatedSint64_) {
@@ -2944,7 +2968,7 @@ export const TestUnpackedTypesJSON = {
     const _repeatedFixed32_ =
       json["repeatedFixed32"] ?? json["repeated_fixed32"];
     if (_repeatedFixed32_) {
-      msg.repeatedFixed32 = _repeatedFixed32_;
+      msg.repeatedFixed32 = _repeatedFixed32_.map(protoscript.parseNumber);
     }
     const _repeatedFixed64_ =
       json["repeatedFixed64"] ?? json["repeated_fixed64"];
@@ -2954,7 +2978,7 @@ export const TestUnpackedTypesJSON = {
     const _repeatedSfixed32_ =
       json["repeatedSfixed32"] ?? json["repeated_sfixed32"];
     if (_repeatedSfixed32_) {
-      msg.repeatedSfixed32 = _repeatedSfixed32_;
+      msg.repeatedSfixed32 = _repeatedSfixed32_.map(protoscript.parseNumber);
     }
     const _repeatedSfixed64_ =
       json["repeatedSfixed64"] ?? json["repeated_sfixed64"];
@@ -2963,11 +2987,11 @@ export const TestUnpackedTypesJSON = {
     }
     const _repeatedFloat_ = json["repeatedFloat"] ?? json["repeated_float"];
     if (_repeatedFloat_) {
-      msg.repeatedFloat = _repeatedFloat_;
+      msg.repeatedFloat = _repeatedFloat_.map(protoscript.parseDouble);
     }
     const _repeatedDouble_ = json["repeatedDouble"] ?? json["repeated_double"];
     if (_repeatedDouble_) {
-      msg.repeatedDouble = _repeatedDouble_;
+      msg.repeatedDouble = _repeatedDouble_.map(protoscript.parseDouble);
     }
     const _repeatedBool_ = json["repeatedBool"] ?? json["repeated_bool"];
     if (_repeatedBool_) {
@@ -2976,7 +3000,9 @@ export const TestUnpackedTypesJSON = {
     const _repeatedNestedEnum_ =
       json["repeatedNestedEnum"] ?? json["repeated_nested_enum"];
     if (_repeatedNestedEnum_) {
-      msg.repeatedNestedEnum = _repeatedNestedEnum_;
+      msg.repeatedNestedEnum = _repeatedNestedEnum_.map(
+        TestAllTypes.NestedEnum._fromInt,
+      );
     }
     return msg;
   },
@@ -3003,10 +3029,11 @@ export const NestedTestAllTypesJSON = {
   /**
    * Initializes NestedTestAllTypes with all fields set to their default value.
    */
-  initialize: function (): NestedTestAllTypes {
+  initialize: function (msg?: Partial<NestedTestAllTypes>): NestedTestAllTypes {
     return {
       child: undefined,
       payload: TestAllTypesJSON.initialize(),
+      ...msg,
     };
   },
 
@@ -3073,9 +3100,10 @@ export const ForeignMessageJSON = {
   /**
    * Initializes ForeignMessage with all fields set to their default value.
    */
-  initialize: function (): ForeignMessage {
+  initialize: function (msg?: Partial<ForeignMessage>): ForeignMessage {
     return {
       c: 0,
+      ...msg,
     };
   },
 
@@ -3098,7 +3126,7 @@ export const ForeignMessageJSON = {
   _readMessage: function (msg: ForeignMessage, json: any): ForeignMessage {
     const _c_ = json["c"];
     if (_c_) {
-      msg.c = _c_;
+      msg.c = protoscript.parseNumber(_c_);
     }
     return msg;
   },
@@ -3122,8 +3150,10 @@ export const TestEmptyMessageJSON = {
   /**
    * Initializes TestEmptyMessage with all fields set to their default value.
    */
-  initialize: function (): TestEmptyMessage {
-    return {};
+  initialize: function (msg?: Partial<TestEmptyMessage>): TestEmptyMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -3164,9 +3194,12 @@ export const TestMessageWithDummyJSON = {
   /**
    * Initializes TestMessageWithDummy with all fields set to their default value.
    */
-  initialize: function (): TestMessageWithDummy {
+  initialize: function (
+    msg?: Partial<TestMessageWithDummy>,
+  ): TestMessageWithDummy {
     return {
       dummy: false,
+      ...msg,
     };
   },
 
@@ -3219,9 +3252,10 @@ export const TestOneof2JSON = {
   /**
    * Initializes TestOneof2 with all fields set to their default value.
    */
-  initialize: function (): TestOneof2 {
+  initialize: function (msg?: Partial<TestOneof2>): TestOneof2 {
     return {
       fooEnum: undefined,
+      ...msg,
     };
   },
 
@@ -3244,7 +3278,7 @@ export const TestOneof2JSON = {
   _readMessage: function (msg: TestOneof2, json: any): TestOneof2 {
     const _fooEnum_ = json["fooEnum"] ?? json["foo_enum"];
     if (_fooEnum_) {
-      msg.fooEnum = _fooEnum_;
+      msg.fooEnum = TestOneof2.NestedEnum._fromInt(_fooEnum_);
     }
     return msg;
   },

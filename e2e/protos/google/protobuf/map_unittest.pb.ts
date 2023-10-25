@@ -3,12 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import {
-  BinaryReader,
-  BinaryWriter,
-  encodeBase64Bytes,
-  decodeBase64Bytes,
-} from "protoscript";
+import * as protoscript from "protoscript";
 
 import * as googleProtobufUnittest from "./unittest.pb";
 
@@ -451,20 +446,26 @@ export const TestMap = {
    * Serializes TestMap to protobuf.
    */
   encode: function (msg: PartialDeep<TestMap>): Uint8Array {
-    return TestMap._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return TestMap._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
    * Deserializes TestMap from protobuf.
    */
   decode: function (bytes: ByteSource): TestMap {
-    return TestMap._readMessage(TestMap.initialize(), new BinaryReader(bytes));
+    return TestMap._readMessage(
+      TestMap.initialize(),
+      new protoscript.BinaryReader(bytes),
+    );
   },
 
   /**
    * Initializes TestMap with all fields set to their default value.
    */
-  initialize: function (): TestMap {
+  initialize: function (msg?: Partial<TestMap>): TestMap {
     return {
       mapInt32Int32: {},
       mapInt64Int64: {},
@@ -485,6 +486,7 @@ export const TestMap = {
       mapInt32ForeignMessage: {},
       mapStringForeignMessage: {},
       mapInt32AllTypes: {},
+      ...msg,
     };
   },
 
@@ -493,8 +495,8 @@ export const TestMap = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestMap>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.mapInt32Int32) {
       writer.writeRepeatedMessage(
         1,
@@ -691,7 +693,10 @@ export const TestMap = {
   /**
    * @private
    */
-  _readMessage: function (msg: TestMap, reader: BinaryReader): TestMap {
+  _readMessage: function (
+    msg: TestMap,
+    reader: protoscript.BinaryReader,
+  ): TestMap {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -824,8 +829,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapInt32Int32>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -840,7 +845,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapInt32Int32,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapInt32Int32 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -869,8 +874,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapInt64Int64>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt64String(1, msg.key.toString() as any);
       }
@@ -885,7 +890,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapInt64Int64,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapInt64Int64 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -914,8 +919,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapUint32Uint32>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeUint32(1, msg.key);
       }
@@ -930,7 +935,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapUint32Uint32,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapUint32Uint32 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -959,8 +964,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapUint64Uint64>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeUint64String(1, msg.key.toString() as any);
       }
@@ -975,7 +980,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapUint64Uint64,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapUint64Uint64 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1004,8 +1009,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapSint32Sint32>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeSint32(1, msg.key);
       }
@@ -1020,7 +1025,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapSint32Sint32,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapSint32Sint32 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1049,8 +1054,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapSint64Sint64>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeSint64String(1, msg.key.toString() as any);
       }
@@ -1065,7 +1070,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapSint64Sint64,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapSint64Sint64 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1094,8 +1099,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapFixed32Fixed32>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeFixed32(1, msg.key);
       }
@@ -1110,7 +1115,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapFixed32Fixed32,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapFixed32Fixed32 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1139,8 +1144,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapFixed64Fixed64>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeFixed64String(1, msg.key.toString() as any);
       }
@@ -1155,7 +1160,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapFixed64Fixed64,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapFixed64Fixed64 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1184,8 +1189,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapSfixed32Sfixed32>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeSfixed32(1, msg.key);
       }
@@ -1200,7 +1205,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapSfixed32Sfixed32,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapSfixed32Sfixed32 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1229,8 +1234,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapSfixed64Sfixed64>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeSfixed64String(1, msg.key.toString() as any);
       }
@@ -1245,7 +1250,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapSfixed64Sfixed64,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapSfixed64Sfixed64 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1274,8 +1279,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapInt32Float>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1290,7 +1295,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapInt32Float,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapInt32Float {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1319,8 +1324,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapInt32Double>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1335,7 +1340,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapInt32Double,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapInt32Double {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1364,8 +1369,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapBoolBool>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeBool(1, msg.key);
       }
@@ -1380,7 +1385,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapBoolBool,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapBoolBool {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1409,8 +1414,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapStringString>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeString(1, msg.key);
       }
@@ -1425,7 +1430,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapStringString,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapStringString {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1454,8 +1459,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapInt32Bytes>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1470,7 +1475,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapInt32Bytes,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapInt32Bytes {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1499,8 +1504,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapInt32Enum>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1515,7 +1520,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapInt32Enum,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapInt32Enum {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1544,8 +1549,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapInt32ForeignMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1564,7 +1569,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapInt32ForeignMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapInt32ForeignMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1597,8 +1602,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapStringForeignMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeString(1, msg.key);
       }
@@ -1617,7 +1622,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapStringForeignMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapStringForeignMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1650,8 +1655,8 @@ export const TestMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMap.MapInt32AllTypes>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1670,7 +1675,7 @@ export const TestMap = {
      */
     _readMessage: function (
       msg: TestMap.MapInt32AllTypes,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMap.MapInt32AllTypes {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1705,7 +1710,7 @@ export const TestMapSubmessage = {
   encode: function (msg: PartialDeep<TestMapSubmessage>): Uint8Array {
     return TestMapSubmessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -1715,16 +1720,17 @@ export const TestMapSubmessage = {
   decode: function (bytes: ByteSource): TestMapSubmessage {
     return TestMapSubmessage._readMessage(
       TestMapSubmessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestMapSubmessage with all fields set to their default value.
    */
-  initialize: function (): TestMapSubmessage {
+  initialize: function (msg?: Partial<TestMapSubmessage>): TestMapSubmessage {
     return {
       testMap: TestMap.initialize(),
+      ...msg,
     };
   },
 
@@ -1733,8 +1739,8 @@ export const TestMapSubmessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestMapSubmessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.testMap) {
       writer.writeMessage(1, msg.testMap, TestMap._writeMessage);
     }
@@ -1746,7 +1752,7 @@ export const TestMapSubmessage = {
    */
   _readMessage: function (
     msg: TestMapSubmessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestMapSubmessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -1772,7 +1778,7 @@ export const TestMessageMap = {
   encode: function (msg: PartialDeep<TestMessageMap>): Uint8Array {
     return TestMessageMap._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -1782,16 +1788,17 @@ export const TestMessageMap = {
   decode: function (bytes: ByteSource): TestMessageMap {
     return TestMessageMap._readMessage(
       TestMessageMap.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestMessageMap with all fields set to their default value.
    */
-  initialize: function (): TestMessageMap {
+  initialize: function (msg?: Partial<TestMessageMap>): TestMessageMap {
     return {
       mapInt32Message: {},
+      ...msg,
     };
   },
 
@@ -1800,8 +1807,8 @@ export const TestMessageMap = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestMessageMap>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.mapInt32Message) {
       writer.writeRepeatedMessage(
         1,
@@ -1820,7 +1827,7 @@ export const TestMessageMap = {
    */
   _readMessage: function (
     msg: TestMessageMap,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestMessageMap {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -1846,8 +1853,8 @@ export const TestMessageMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMessageMap.MapInt32Message>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1866,7 +1873,7 @@ export const TestMessageMap = {
      */
     _readMessage: function (
       msg: TestMessageMap.MapInt32Message,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMessageMap.MapInt32Message {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1901,7 +1908,7 @@ export const TestSameTypeMap = {
   encode: function (msg: PartialDeep<TestSameTypeMap>): Uint8Array {
     return TestSameTypeMap._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -1911,17 +1918,18 @@ export const TestSameTypeMap = {
   decode: function (bytes: ByteSource): TestSameTypeMap {
     return TestSameTypeMap._readMessage(
       TestSameTypeMap.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestSameTypeMap with all fields set to their default value.
    */
-  initialize: function (): TestSameTypeMap {
+  initialize: function (msg?: Partial<TestSameTypeMap>): TestSameTypeMap {
     return {
       map1: {},
       map2: {},
+      ...msg,
     };
   },
 
@@ -1930,8 +1938,8 @@ export const TestSameTypeMap = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestSameTypeMap>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.map1) {
       writer.writeRepeatedMessage(
         1,
@@ -1960,7 +1968,7 @@ export const TestSameTypeMap = {
    */
   _readMessage: function (
     msg: TestSameTypeMap,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestSameTypeMap {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -1992,8 +2000,8 @@ export const TestSameTypeMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestSameTypeMap.Map1>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2008,7 +2016,7 @@ export const TestSameTypeMap = {
      */
     _readMessage: function (
       msg: TestSameTypeMap.Map1,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestSameTypeMap.Map1 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2037,8 +2045,8 @@ export const TestSameTypeMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestSameTypeMap.Map2>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2053,7 +2061,7 @@ export const TestSameTypeMap = {
      */
     _readMessage: function (
       msg: TestSameTypeMap.Map2,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestSameTypeMap.Map2 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2084,7 +2092,7 @@ export const TestRequiredMessageMap = {
   encode: function (msg: PartialDeep<TestRequiredMessageMap>): Uint8Array {
     return TestRequiredMessageMap._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -2094,16 +2102,19 @@ export const TestRequiredMessageMap = {
   decode: function (bytes: ByteSource): TestRequiredMessageMap {
     return TestRequiredMessageMap._readMessage(
       TestRequiredMessageMap.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestRequiredMessageMap with all fields set to their default value.
    */
-  initialize: function (): TestRequiredMessageMap {
+  initialize: function (
+    msg?: Partial<TestRequiredMessageMap>,
+  ): TestRequiredMessageMap {
     return {
       mapField: {},
+      ...msg,
     };
   },
 
@@ -2112,8 +2123,8 @@ export const TestRequiredMessageMap = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestRequiredMessageMap>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.mapField) {
       writer.writeRepeatedMessage(
         1,
@@ -2132,7 +2143,7 @@ export const TestRequiredMessageMap = {
    */
   _readMessage: function (
     msg: TestRequiredMessageMap,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestRequiredMessageMap {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -2158,8 +2169,8 @@ export const TestRequiredMessageMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestRequiredMessageMap.MapField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2178,7 +2189,7 @@ export const TestRequiredMessageMap = {
      */
     _readMessage: function (
       msg: TestRequiredMessageMap.MapField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestRequiredMessageMap.MapField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2213,7 +2224,7 @@ export const TestArenaMap = {
   encode: function (msg: PartialDeep<TestArenaMap>): Uint8Array {
     return TestArenaMap._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -2223,14 +2234,14 @@ export const TestArenaMap = {
   decode: function (bytes: ByteSource): TestArenaMap {
     return TestArenaMap._readMessage(
       TestArenaMap.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestArenaMap with all fields set to their default value.
    */
-  initialize: function (): TestArenaMap {
+  initialize: function (msg?: Partial<TestArenaMap>): TestArenaMap {
     return {
       mapInt32Int32: {},
       mapInt64Int64: {},
@@ -2249,6 +2260,7 @@ export const TestArenaMap = {
       mapInt32Bytes: {},
       mapInt32Enum: {},
       mapInt32ForeignMessage: {},
+      ...msg,
     };
   },
 
@@ -2257,8 +2269,8 @@ export const TestArenaMap = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestArenaMap>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.mapInt32Int32) {
       writer.writeRepeatedMessage(
         1,
@@ -2437,7 +2449,7 @@ export const TestArenaMap = {
    */
   _readMessage: function (
     msg: TestArenaMap,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestArenaMap {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -2568,8 +2580,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapInt32Int32>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2584,7 +2596,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapInt32Int32,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapInt32Int32 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2613,8 +2625,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapInt64Int64>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt64String(1, msg.key.toString() as any);
       }
@@ -2629,7 +2641,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapInt64Int64,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapInt64Int64 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2658,8 +2670,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapUint32Uint32>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeUint32(1, msg.key);
       }
@@ -2674,7 +2686,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapUint32Uint32,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapUint32Uint32 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2703,8 +2715,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapUint64Uint64>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeUint64String(1, msg.key.toString() as any);
       }
@@ -2719,7 +2731,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapUint64Uint64,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapUint64Uint64 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2748,8 +2760,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapSint32Sint32>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeSint32(1, msg.key);
       }
@@ -2764,7 +2776,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapSint32Sint32,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapSint32Sint32 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2793,8 +2805,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapSint64Sint64>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeSint64String(1, msg.key.toString() as any);
       }
@@ -2809,7 +2821,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapSint64Sint64,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapSint64Sint64 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2838,8 +2850,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapFixed32Fixed32>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeFixed32(1, msg.key);
       }
@@ -2854,7 +2866,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapFixed32Fixed32,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapFixed32Fixed32 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2883,8 +2895,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapFixed64Fixed64>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeFixed64String(1, msg.key.toString() as any);
       }
@@ -2899,7 +2911,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapFixed64Fixed64,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapFixed64Fixed64 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2928,8 +2940,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapSfixed32Sfixed32>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeSfixed32(1, msg.key);
       }
@@ -2944,7 +2956,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapSfixed32Sfixed32,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapSfixed32Sfixed32 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2973,8 +2985,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapSfixed64Sfixed64>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeSfixed64String(1, msg.key.toString() as any);
       }
@@ -2989,7 +3001,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapSfixed64Sfixed64,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapSfixed64Sfixed64 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3018,8 +3030,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapInt32Float>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -3034,7 +3046,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapInt32Float,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapInt32Float {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3063,8 +3075,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapInt32Double>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -3079,7 +3091,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapInt32Double,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapInt32Double {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3108,8 +3120,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapBoolBool>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeBool(1, msg.key);
       }
@@ -3124,7 +3136,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapBoolBool,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapBoolBool {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3153,8 +3165,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapStringString>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeString(1, msg.key);
       }
@@ -3169,7 +3181,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapStringString,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapStringString {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3198,8 +3210,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapInt32Bytes>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -3214,7 +3226,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapInt32Bytes,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapInt32Bytes {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3243,8 +3255,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapInt32Enum>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -3259,7 +3271,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapInt32Enum,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapInt32Enum {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3288,8 +3300,8 @@ export const TestArenaMap = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestArenaMap.MapInt32ForeignMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -3308,7 +3320,7 @@ export const TestArenaMap = {
      */
     _readMessage: function (
       msg: TestArenaMap.MapInt32ForeignMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestArenaMap.MapInt32ForeignMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3345,7 +3357,7 @@ export const MessageContainingMapCalledEntry = {
   ): Uint8Array {
     return MessageContainingMapCalledEntry._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -3355,16 +3367,19 @@ export const MessageContainingMapCalledEntry = {
   decode: function (bytes: ByteSource): MessageContainingMapCalledEntry {
     return MessageContainingMapCalledEntry._readMessage(
       MessageContainingMapCalledEntry.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes MessageContainingMapCalledEntry with all fields set to their default value.
    */
-  initialize: function (): MessageContainingMapCalledEntry {
+  initialize: function (
+    msg?: Partial<MessageContainingMapCalledEntry>,
+  ): MessageContainingMapCalledEntry {
     return {
       entry: {},
+      ...msg,
     };
   },
 
@@ -3373,8 +3388,8 @@ export const MessageContainingMapCalledEntry = {
    */
   _writeMessage: function (
     msg: PartialDeep<MessageContainingMapCalledEntry>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.entry) {
       writer.writeRepeatedMessage(
         1,
@@ -3393,7 +3408,7 @@ export const MessageContainingMapCalledEntry = {
    */
   _readMessage: function (
     msg: MessageContainingMapCalledEntry,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): MessageContainingMapCalledEntry {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -3422,8 +3437,8 @@ export const MessageContainingMapCalledEntry = {
      */
     _writeMessage: function (
       msg: PartialDeep<MessageContainingMapCalledEntry.Entry>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -3438,7 +3453,7 @@ export const MessageContainingMapCalledEntry = {
      */
     _readMessage: function (
       msg: MessageContainingMapCalledEntry.Entry,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MessageContainingMapCalledEntry.Entry {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3469,7 +3484,7 @@ export const TestRecursiveMapMessage = {
   encode: function (msg: PartialDeep<TestRecursiveMapMessage>): Uint8Array {
     return TestRecursiveMapMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -3479,16 +3494,19 @@ export const TestRecursiveMapMessage = {
   decode: function (bytes: ByteSource): TestRecursiveMapMessage {
     return TestRecursiveMapMessage._readMessage(
       TestRecursiveMapMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestRecursiveMapMessage with all fields set to their default value.
    */
-  initialize: function (): TestRecursiveMapMessage {
+  initialize: function (
+    msg?: Partial<TestRecursiveMapMessage>,
+  ): TestRecursiveMapMessage {
     return {
       a: {},
+      ...msg,
     };
   },
 
@@ -3497,8 +3515,8 @@ export const TestRecursiveMapMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestRecursiveMapMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.a) {
       writer.writeRepeatedMessage(
         1,
@@ -3517,7 +3535,7 @@ export const TestRecursiveMapMessage = {
    */
   _readMessage: function (
     msg: TestRecursiveMapMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestRecursiveMapMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -3543,8 +3561,8 @@ export const TestRecursiveMapMessage = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestRecursiveMapMessage.A>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeString(1, msg.key);
       }
@@ -3563,7 +3581,7 @@ export const TestRecursiveMapMessage = {
      */
     _readMessage: function (
       msg: TestRecursiveMapMessage.A,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestRecursiveMapMessage.A {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3656,7 +3674,7 @@ export const TestMapJSON = {
   /**
    * Initializes TestMap with all fields set to their default value.
    */
-  initialize: function (): TestMap {
+  initialize: function (msg?: Partial<TestMap>): TestMap {
     return {
       mapInt32Int32: {},
       mapInt64Int64: {},
@@ -3677,6 +3695,7 @@ export const TestMapJSON = {
       mapInt32ForeignMessage: {},
       mapStringForeignMessage: {},
       mapInt32AllTypes: {},
+      ...msg,
     };
   },
 
@@ -4113,11 +4132,11 @@ export const TestMapJSON = {
     ): TestMap.MapInt32Int32 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -4132,10 +4151,10 @@ export const TestMapJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.key) {
-        json["key"] = msg.key.toString();
+        json["key"] = String(msg.key);
       }
       if (msg.value) {
-        json["value"] = msg.value.toString();
+        json["value"] = String(msg.value);
       }
       return json;
     },
@@ -4185,11 +4204,11 @@ export const TestMapJSON = {
     ): TestMap.MapUint32Uint32 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -4204,10 +4223,10 @@ export const TestMapJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.key) {
-        json["key"] = msg.key.toString();
+        json["key"] = String(msg.key);
       }
       if (msg.value) {
-        json["value"] = msg.value.toString();
+        json["value"] = String(msg.value);
       }
       return json;
     },
@@ -4257,11 +4276,11 @@ export const TestMapJSON = {
     ): TestMap.MapSint32Sint32 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -4276,10 +4295,10 @@ export const TestMapJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.key) {
-        json["key"] = msg.key.toString();
+        json["key"] = String(msg.key);
       }
       if (msg.value) {
-        json["value"] = msg.value.toString();
+        json["value"] = String(msg.value);
       }
       return json;
     },
@@ -4329,11 +4348,11 @@ export const TestMapJSON = {
     ): TestMap.MapFixed32Fixed32 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -4348,10 +4367,10 @@ export const TestMapJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.key) {
-        json["key"] = msg.key.toString();
+        json["key"] = String(msg.key);
       }
       if (msg.value) {
-        json["value"] = msg.value.toString();
+        json["value"] = String(msg.value);
       }
       return json;
     },
@@ -4401,11 +4420,11 @@ export const TestMapJSON = {
     ): TestMap.MapSfixed32Sfixed32 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -4420,10 +4439,10 @@ export const TestMapJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.key) {
-        json["key"] = msg.key.toString();
+        json["key"] = String(msg.key);
       }
       if (msg.value) {
-        json["value"] = msg.value.toString();
+        json["value"] = String(msg.value);
       }
       return json;
     },
@@ -4473,11 +4492,11 @@ export const TestMapJSON = {
     ): TestMap.MapInt32Float {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseDouble(_value_);
       }
       return msg;
     },
@@ -4509,11 +4528,11 @@ export const TestMapJSON = {
     ): TestMap.MapInt32Double {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseDouble(_value_);
       }
       return msg;
     },
@@ -4603,7 +4622,7 @@ export const TestMapJSON = {
         json["key"] = msg.key;
       }
       if (msg.value?.length) {
-        json["value"] = encodeBase64Bytes(msg.value);
+        json["value"] = protoscript.serializeBytes(msg.value);
       }
       return json;
     },
@@ -4617,11 +4636,11 @@ export const TestMapJSON = {
     ): TestMap.MapInt32Bytes {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = decodeBase64Bytes(_value_);
+        msg.value = protoscript.parseBytes(_value_);
       }
       return msg;
     },
@@ -4653,11 +4672,11 @@ export const TestMapJSON = {
     ): TestMap.MapInt32Enum {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = MapEnum._fromInt(_value_);
       }
       return msg;
     },
@@ -4694,7 +4713,7 @@ export const TestMapJSON = {
     ): TestMap.MapInt32ForeignMessage {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4782,7 +4801,7 @@ export const TestMapJSON = {
     ): TestMap.MapInt32AllTypes {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4817,9 +4836,10 @@ export const TestMapSubmessageJSON = {
   /**
    * Initializes TestMapSubmessage with all fields set to their default value.
    */
-  initialize: function (): TestMapSubmessage {
+  initialize: function (msg?: Partial<TestMapSubmessage>): TestMapSubmessage {
     return {
       testMap: TestMapJSON.initialize(),
+      ...msg,
     };
   },
 
@@ -4875,9 +4895,10 @@ export const TestMessageMapJSON = {
   /**
    * Initializes TestMessageMap with all fields set to their default value.
    */
-  initialize: function (): TestMessageMap {
+  initialize: function (msg?: Partial<TestMessageMap>): TestMessageMap {
     return {
       mapInt32Message: {},
+      ...msg,
     };
   },
 
@@ -4950,7 +4971,7 @@ export const TestMessageMapJSON = {
     ): TestMessageMap.MapInt32Message {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4985,10 +5006,11 @@ export const TestSameTypeMapJSON = {
   /**
    * Initializes TestSameTypeMap with all fields set to their default value.
    */
-  initialize: function (): TestSameTypeMap {
+  initialize: function (msg?: Partial<TestSameTypeMap>): TestSameTypeMap {
     return {
       map1: {},
       map2: {},
+      ...msg,
     };
   },
 
@@ -5075,11 +5097,11 @@ export const TestSameTypeMapJSON = {
     ): TestSameTypeMap.Map1 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -5111,11 +5133,11 @@ export const TestSameTypeMapJSON = {
     ): TestSameTypeMap.Map2 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -5143,9 +5165,12 @@ export const TestRequiredMessageMapJSON = {
   /**
    * Initializes TestRequiredMessageMap with all fields set to their default value.
    */
-  initialize: function (): TestRequiredMessageMap {
+  initialize: function (
+    msg?: Partial<TestRequiredMessageMap>,
+  ): TestRequiredMessageMap {
     return {
       mapField: {},
+      ...msg,
     };
   },
 
@@ -5220,7 +5245,7 @@ export const TestRequiredMessageMapJSON = {
     ): TestRequiredMessageMap.MapField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -5255,7 +5280,7 @@ export const TestArenaMapJSON = {
   /**
    * Initializes TestArenaMap with all fields set to their default value.
    */
-  initialize: function (): TestArenaMap {
+  initialize: function (msg?: Partial<TestArenaMap>): TestArenaMap {
     return {
       mapInt32Int32: {},
       mapInt64Int64: {},
@@ -5274,6 +5299,7 @@ export const TestArenaMapJSON = {
       mapInt32Bytes: {},
       mapInt32Enum: {},
       mapInt32ForeignMessage: {},
+      ...msg,
     };
   },
 
@@ -5670,11 +5696,11 @@ export const TestArenaMapJSON = {
     ): TestArenaMap.MapInt32Int32 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -5689,10 +5715,10 @@ export const TestArenaMapJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.key) {
-        json["key"] = msg.key.toString();
+        json["key"] = String(msg.key);
       }
       if (msg.value) {
-        json["value"] = msg.value.toString();
+        json["value"] = String(msg.value);
       }
       return json;
     },
@@ -5742,11 +5768,11 @@ export const TestArenaMapJSON = {
     ): TestArenaMap.MapUint32Uint32 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -5761,10 +5787,10 @@ export const TestArenaMapJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.key) {
-        json["key"] = msg.key.toString();
+        json["key"] = String(msg.key);
       }
       if (msg.value) {
-        json["value"] = msg.value.toString();
+        json["value"] = String(msg.value);
       }
       return json;
     },
@@ -5814,11 +5840,11 @@ export const TestArenaMapJSON = {
     ): TestArenaMap.MapSint32Sint32 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -5833,10 +5859,10 @@ export const TestArenaMapJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.key) {
-        json["key"] = msg.key.toString();
+        json["key"] = String(msg.key);
       }
       if (msg.value) {
-        json["value"] = msg.value.toString();
+        json["value"] = String(msg.value);
       }
       return json;
     },
@@ -5886,11 +5912,11 @@ export const TestArenaMapJSON = {
     ): TestArenaMap.MapFixed32Fixed32 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -5905,10 +5931,10 @@ export const TestArenaMapJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.key) {
-        json["key"] = msg.key.toString();
+        json["key"] = String(msg.key);
       }
       if (msg.value) {
-        json["value"] = msg.value.toString();
+        json["value"] = String(msg.value);
       }
       return json;
     },
@@ -5958,11 +5984,11 @@ export const TestArenaMapJSON = {
     ): TestArenaMap.MapSfixed32Sfixed32 {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -5977,10 +6003,10 @@ export const TestArenaMapJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.key) {
-        json["key"] = msg.key.toString();
+        json["key"] = String(msg.key);
       }
       if (msg.value) {
-        json["value"] = msg.value.toString();
+        json["value"] = String(msg.value);
       }
       return json;
     },
@@ -6030,11 +6056,11 @@ export const TestArenaMapJSON = {
     ): TestArenaMap.MapInt32Float {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseDouble(_value_);
       }
       return msg;
     },
@@ -6066,11 +6092,11 @@ export const TestArenaMapJSON = {
     ): TestArenaMap.MapInt32Double {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseDouble(_value_);
       }
       return msg;
     },
@@ -6160,7 +6186,7 @@ export const TestArenaMapJSON = {
         json["key"] = msg.key;
       }
       if (msg.value?.length) {
-        json["value"] = encodeBase64Bytes(msg.value);
+        json["value"] = protoscript.serializeBytes(msg.value);
       }
       return json;
     },
@@ -6174,11 +6200,11 @@ export const TestArenaMapJSON = {
     ): TestArenaMap.MapInt32Bytes {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = decodeBase64Bytes(_value_);
+        msg.value = protoscript.parseBytes(_value_);
       }
       return msg;
     },
@@ -6210,11 +6236,11 @@ export const TestArenaMapJSON = {
     ): TestArenaMap.MapInt32Enum {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = MapEnum._fromInt(_value_);
       }
       return msg;
     },
@@ -6251,7 +6277,7 @@ export const TestArenaMapJSON = {
     ): TestArenaMap.MapInt32ForeignMessage {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -6288,9 +6314,12 @@ export const MessageContainingMapCalledEntryJSON = {
   /**
    * Initializes MessageContainingMapCalledEntry with all fields set to their default value.
    */
-  initialize: function (): MessageContainingMapCalledEntry {
+  initialize: function (
+    msg?: Partial<MessageContainingMapCalledEntry>,
+  ): MessageContainingMapCalledEntry {
     return {
       entry: {},
+      ...msg,
     };
   },
 
@@ -6360,11 +6389,11 @@ export const MessageContainingMapCalledEntryJSON = {
     ): MessageContainingMapCalledEntry.Entry {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        msg.value = _value_;
+        msg.value = protoscript.parseNumber(_value_);
       }
       return msg;
     },
@@ -6392,9 +6421,12 @@ export const TestRecursiveMapMessageJSON = {
   /**
    * Initializes TestRecursiveMapMessage with all fields set to their default value.
    */
-  initialize: function (): TestRecursiveMapMessage {
+  initialize: function (
+    msg?: Partial<TestRecursiveMapMessage>,
+  ): TestRecursiveMapMessage {
     return {
       a: {},
+      ...msg,
     };
   },
 

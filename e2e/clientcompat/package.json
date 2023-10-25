@@ -10,7 +10,7 @@
     "twirpscript": "workspace:*"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.4",
+    "@types/jest": "^29.5.6",
     "typescript": "^5.2.2"
   }
 }

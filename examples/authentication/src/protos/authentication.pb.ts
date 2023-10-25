@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import { BinaryReader, BinaryWriter } from "protoscript";
+import * as protoscript from "protoscript";
 import { JSONrequest, PBrequest } from "twirpscript";
 // This is the minimum version supported by the current runtime.
 // If this line fails typechecking, breaking changes have been introduced and this
@@ -102,7 +102,10 @@ export const CurrentUser = {
    * Serializes CurrentUser to protobuf.
    */
   encode: function (msg: PartialDeep<CurrentUser>): Uint8Array {
-    return CurrentUser._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return CurrentUser._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -111,17 +114,18 @@ export const CurrentUser = {
   decode: function (bytes: ByteSource): CurrentUser {
     return CurrentUser._readMessage(
       CurrentUser.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes CurrentUser with all fields set to their default value.
    */
-  initialize: function (): CurrentUser {
+  initialize: function (msg?: Partial<CurrentUser>): CurrentUser {
     return {
       username: "",
       token: "",
+      ...msg,
     };
   },
 
@@ -130,8 +134,8 @@ export const CurrentUser = {
    */
   _writeMessage: function (
     msg: PartialDeep<CurrentUser>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.username) {
       writer.writeString(1, msg.username);
     }
@@ -144,7 +148,10 @@ export const CurrentUser = {
   /**
    * @private
    */
-  _readMessage: function (msg: CurrentUser, reader: BinaryReader): CurrentUser {
+  _readMessage: function (
+    msg: CurrentUser,
+    reader: protoscript.BinaryReader,
+  ): CurrentUser {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -171,7 +178,10 @@ export const Credentials = {
    * Serializes Credentials to protobuf.
    */
   encode: function (msg: PartialDeep<Credentials>): Uint8Array {
-    return Credentials._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return Credentials._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -180,17 +190,18 @@ export const Credentials = {
   decode: function (bytes: ByteSource): Credentials {
     return Credentials._readMessage(
       Credentials.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes Credentials with all fields set to their default value.
    */
-  initialize: function (): Credentials {
+  initialize: function (msg?: Partial<Credentials>): Credentials {
     return {
       username: "",
       password: "",
+      ...msg,
     };
   },
 
@@ -199,8 +210,8 @@ export const Credentials = {
    */
   _writeMessage: function (
     msg: PartialDeep<Credentials>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.username) {
       writer.writeString(1, msg.username);
     }
@@ -213,7 +224,10 @@ export const Credentials = {
   /**
    * @private
    */
-  _readMessage: function (msg: Credentials, reader: BinaryReader): Credentials {
+  _readMessage: function (
+    msg: Credentials,
+    reader: protoscript.BinaryReader,
+  ): Credentials {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -260,10 +274,11 @@ export const CurrentUserJSON = {
   /**
    * Initializes CurrentUser with all fields set to their default value.
    */
-  initialize: function (): CurrentUser {
+  initialize: function (msg?: Partial<CurrentUser>): CurrentUser {
     return {
       username: "",
       token: "",
+      ...msg,
     };
   },
 
@@ -320,10 +335,11 @@ export const CredentialsJSON = {
   /**
    * Initializes Credentials with all fields set to their default value.
    */
-  initialize: function (): Credentials {
+  initialize: function (msg?: Partial<Credentials>): Credentials {
     return {
       username: "",
       password: "",
+      ...msg,
     };
   },
 

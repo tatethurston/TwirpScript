@@ -3,8 +3,6 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import { BinaryReader, BinaryWriter } from "protoscript";
-
 import * as protoscript from "protoscript";
 
 //========================================//
@@ -245,7 +243,7 @@ export const TestWellKnownTypes = {
   encode: function (msg: PartialDeep<TestWellKnownTypes>): Uint8Array {
     return TestWellKnownTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -255,14 +253,14 @@ export const TestWellKnownTypes = {
   decode: function (bytes: ByteSource): TestWellKnownTypes {
     return TestWellKnownTypes._readMessage(
       TestWellKnownTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestWellKnownTypes with all fields set to their default value.
    */
-  initialize: function (): TestWellKnownTypes {
+  initialize: function (msg?: Partial<TestWellKnownTypes>): TestWellKnownTypes {
     return {
       anyField: protoscript.Any.initialize(),
       apiField: protoscript.Api.initialize(),
@@ -283,6 +281,7 @@ export const TestWellKnownTypes = {
       stringField: protoscript.StringValue.initialize(),
       bytesField: protoscript.BytesValue.initialize(),
       valueField: protoscript.Value.initialize(),
+      ...msg,
     };
   },
 
@@ -291,8 +290,8 @@ export const TestWellKnownTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestWellKnownTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.anyField) {
       writer.writeMessage(1, msg.anyField, protoscript.Any._writeMessage);
     }
@@ -410,7 +409,7 @@ export const TestWellKnownTypes = {
    */
   _readMessage: function (
     msg: TestWellKnownTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestWellKnownTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -544,7 +543,7 @@ export const RepeatedWellKnownTypes = {
   encode: function (msg: PartialDeep<RepeatedWellKnownTypes>): Uint8Array {
     return RepeatedWellKnownTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -554,14 +553,16 @@ export const RepeatedWellKnownTypes = {
   decode: function (bytes: ByteSource): RepeatedWellKnownTypes {
     return RepeatedWellKnownTypes._readMessage(
       RepeatedWellKnownTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes RepeatedWellKnownTypes with all fields set to their default value.
    */
-  initialize: function (): RepeatedWellKnownTypes {
+  initialize: function (
+    msg?: Partial<RepeatedWellKnownTypes>,
+  ): RepeatedWellKnownTypes {
     return {
       anyField: [],
       apiField: [],
@@ -581,6 +582,7 @@ export const RepeatedWellKnownTypes = {
       boolField: [],
       stringField: [],
       bytesField: [],
+      ...msg,
     };
   },
 
@@ -589,8 +591,8 @@ export const RepeatedWellKnownTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<RepeatedWellKnownTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.anyField?.length) {
       writer.writeRepeatedMessage(
         1,
@@ -725,7 +727,7 @@ export const RepeatedWellKnownTypes = {
    */
   _readMessage: function (
     msg: RepeatedWellKnownTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): RepeatedWellKnownTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -855,7 +857,7 @@ export const OneofWellKnownTypes = {
   encode: function (msg: PartialDeep<OneofWellKnownTypes>): Uint8Array {
     return OneofWellKnownTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -865,14 +867,16 @@ export const OneofWellKnownTypes = {
   decode: function (bytes: ByteSource): OneofWellKnownTypes {
     return OneofWellKnownTypes._readMessage(
       OneofWellKnownTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes OneofWellKnownTypes with all fields set to their default value.
    */
-  initialize: function (): OneofWellKnownTypes {
+  initialize: function (
+    msg?: Partial<OneofWellKnownTypes>,
+  ): OneofWellKnownTypes {
     return {
       anyField: undefined,
       apiField: undefined,
@@ -892,6 +896,7 @@ export const OneofWellKnownTypes = {
       boolField: undefined,
       stringField: undefined,
       bytesField: undefined,
+      ...msg,
     };
   },
 
@@ -900,8 +905,8 @@ export const OneofWellKnownTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<OneofWellKnownTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.anyField != undefined) {
       writer.writeMessage(1, msg.anyField, protoscript.Any._writeMessage);
     }
@@ -1016,7 +1021,7 @@ export const OneofWellKnownTypes = {
    */
   _readMessage: function (
     msg: OneofWellKnownTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): OneofWellKnownTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -1164,7 +1169,7 @@ export const MapWellKnownTypes = {
   encode: function (msg: PartialDeep<MapWellKnownTypes>): Uint8Array {
     return MapWellKnownTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -1174,14 +1179,14 @@ export const MapWellKnownTypes = {
   decode: function (bytes: ByteSource): MapWellKnownTypes {
     return MapWellKnownTypes._readMessage(
       MapWellKnownTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes MapWellKnownTypes with all fields set to their default value.
    */
-  initialize: function (): MapWellKnownTypes {
+  initialize: function (msg?: Partial<MapWellKnownTypes>): MapWellKnownTypes {
     return {
       anyField: {},
       apiField: {},
@@ -1201,6 +1206,7 @@ export const MapWellKnownTypes = {
       boolField: {},
       stringField: {},
       bytesField: {},
+      ...msg,
     };
   },
 
@@ -1209,8 +1215,8 @@ export const MapWellKnownTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<MapWellKnownTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.anyField) {
       writer.writeRepeatedMessage(
         1,
@@ -1399,7 +1405,7 @@ export const MapWellKnownTypes = {
    */
   _readMessage: function (
     msg: MapWellKnownTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): MapWellKnownTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -1536,8 +1542,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.AnyField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1552,7 +1558,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.AnyField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.AnyField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1582,8 +1588,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.ApiField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1598,7 +1604,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.ApiField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.ApiField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1628,8 +1634,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.DurationField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1644,7 +1650,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.DurationField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.DurationField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1674,8 +1680,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.EmptyField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1690,7 +1696,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.EmptyField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.EmptyField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1720,8 +1726,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.FieldMaskField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1736,7 +1742,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.FieldMaskField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.FieldMaskField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1766,8 +1772,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.SourceContextField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1786,7 +1792,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.SourceContextField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.SourceContextField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1819,8 +1825,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.StructField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1835,7 +1841,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.StructField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.StructField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1865,8 +1871,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.TimestampField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1881,7 +1887,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.TimestampField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.TimestampField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1911,8 +1917,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.TypeField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1927,7 +1933,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.TypeField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.TypeField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -1957,8 +1963,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.DoubleField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -1977,7 +1983,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.DoubleField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.DoubleField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2007,8 +2013,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.FloatField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2023,7 +2029,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.FloatField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.FloatField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2053,8 +2059,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.Int64Field>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2069,7 +2075,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.Int64Field,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.Int64Field {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2099,8 +2105,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.Uint64Field>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2119,7 +2125,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.Uint64Field,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.Uint64Field {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2149,8 +2155,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.Int32Field>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2165,7 +2171,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.Int32Field,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.Int32Field {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2195,8 +2201,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.Uint32Field>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2215,7 +2221,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.Uint32Field,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.Uint32Field {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2245,8 +2251,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.BoolField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2261,7 +2267,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.BoolField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.BoolField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2291,8 +2297,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.StringField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2311,7 +2317,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.StringField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.StringField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2341,8 +2347,8 @@ export const MapWellKnownTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<MapWellKnownTypes.BytesField>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeInt32(1, msg.key);
       }
@@ -2357,7 +2363,7 @@ export const MapWellKnownTypes = {
      */
     _readMessage: function (
       msg: MapWellKnownTypes.BytesField,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): MapWellKnownTypes.BytesField {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2407,7 +2413,7 @@ export const TestWellKnownTypesJSON = {
   /**
    * Initializes TestWellKnownTypes with all fields set to their default value.
    */
-  initialize: function (): TestWellKnownTypes {
+  initialize: function (msg?: Partial<TestWellKnownTypes>): TestWellKnownTypes {
     return {
       anyField: protoscript.AnyJSON.initialize(),
       apiField: protoscript.ApiJSON.initialize(),
@@ -2428,6 +2434,7 @@ export const TestWellKnownTypesJSON = {
       stringField: protoscript.StringValueJSON.initialize(),
       bytesField: protoscript.BytesValueJSON.initialize(),
       valueField: protoscript.ValueJSON.initialize(),
+      ...msg,
     };
   },
 
@@ -2450,13 +2457,12 @@ export const TestWellKnownTypesJSON = {
         json["apiField"] = _apiField_;
       }
     }
-    if (msg.durationField) {
-      const _durationField_ = protoscript.DurationJSON._writeMessage(
-        msg.durationField,
-      );
-      if (Object.keys(_durationField_).length > 0) {
-        json["durationField"] = _durationField_;
-      }
+    if (
+      msg.durationField &&
+      msg.durationField.seconds &&
+      msg.durationField.nanos
+    ) {
+      json["durationField"] = protoscript.serializeDuration(msg.durationField);
     }
     if (msg.emptyField) {
       const _emptyField_ = protoscript.EmptyJSON._writeMessage(msg.emptyField);
@@ -2488,13 +2494,14 @@ export const TestWellKnownTypesJSON = {
         json["structField"] = _structField_;
       }
     }
-    if (msg.timestampField) {
-      const _timestampField_ = protoscript.TimestampJSON._writeMessage(
+    if (
+      msg.timestampField &&
+      msg.timestampField.seconds &&
+      msg.timestampField.nanos
+    ) {
+      json["timestampField"] = protoscript.serializeTimestamp(
         msg.timestampField,
       );
-      if (Object.keys(_timestampField_).length > 0) {
-        json["timestampField"] = _timestampField_;
-      }
     }
     if (msg.typeField) {
       const _typeField_ = protoscript.TypeJSON._writeMessage(msg.typeField);
@@ -2600,7 +2607,7 @@ export const TestWellKnownTypesJSON = {
     }
     const _durationField_ = json["durationField"] ?? json["duration_field"];
     if (_durationField_) {
-      protoscript.DurationJSON._readMessage(msg.durationField, _durationField_);
+      msg.durationField = protoscript.parseDuration(_durationField_);
     }
     const _emptyField_ = json["emptyField"] ?? json["empty_field"];
     if (_emptyField_) {
@@ -2627,10 +2634,7 @@ export const TestWellKnownTypesJSON = {
     }
     const _timestampField_ = json["timestampField"] ?? json["timestamp_field"];
     if (_timestampField_) {
-      protoscript.TimestampJSON._readMessage(
-        msg.timestampField,
-        _timestampField_,
-      );
+      msg.timestampField = protoscript.parseTimestamp(_timestampField_);
     }
     const _typeField_ = json["typeField"] ?? json["type_field"];
     if (_typeField_) {
@@ -2701,7 +2705,9 @@ export const RepeatedWellKnownTypesJSON = {
   /**
    * Initializes RepeatedWellKnownTypes with all fields set to their default value.
    */
-  initialize: function (): RepeatedWellKnownTypes {
+  initialize: function (
+    msg?: Partial<RepeatedWellKnownTypes>,
+  ): RepeatedWellKnownTypes {
     return {
       anyField: [],
       apiField: [],
@@ -2721,6 +2727,7 @@ export const RepeatedWellKnownTypesJSON = {
       boolField: [],
       stringField: [],
       bytesField: [],
+      ...msg,
     };
   },
 
@@ -2739,7 +2746,7 @@ export const RepeatedWellKnownTypesJSON = {
     }
     if (msg.durationField?.length) {
       json["durationField"] = msg.durationField.map(
-        protoscript.DurationJSON._writeMessage,
+        protoscript.serializeDuration,
       );
     }
     if (msg.emptyField?.length) {
@@ -2764,7 +2771,7 @@ export const RepeatedWellKnownTypesJSON = {
     }
     if (msg.timestampField?.length) {
       json["timestampField"] = msg.timestampField.map(
-        protoscript.TimestampJSON._writeMessage,
+        protoscript.serializeTimestamp,
       );
     }
     if (msg.typeField?.length) {
@@ -2843,11 +2850,7 @@ export const RepeatedWellKnownTypesJSON = {
     }
     const _durationField_ = json["durationField"] ?? json["duration_field"];
     if (_durationField_) {
-      for (const item of _durationField_) {
-        const m = protoscript.DurationJSON.initialize();
-        protoscript.DurationJSON._readMessage(m, item);
-        msg.durationField.push(m);
-      }
+      msg.durationField = _durationField_.map(protoscript.parseDuration);
     }
     const _emptyField_ = json["emptyField"] ?? json["empty_field"];
     if (_emptyField_) {
@@ -2884,11 +2887,7 @@ export const RepeatedWellKnownTypesJSON = {
     }
     const _timestampField_ = json["timestampField"] ?? json["timestamp_field"];
     if (_timestampField_) {
-      for (const item of _timestampField_) {
-        const m = protoscript.TimestampJSON.initialize();
-        protoscript.TimestampJSON._readMessage(m, item);
-        msg.timestampField.push(m);
-      }
+      msg.timestampField = _timestampField_.map(protoscript.parseTimestamp);
     }
     const _typeField_ = json["typeField"] ?? json["type_field"];
     if (_typeField_) {
@@ -2995,7 +2994,9 @@ export const OneofWellKnownTypesJSON = {
   /**
    * Initializes OneofWellKnownTypes with all fields set to their default value.
    */
-  initialize: function (): OneofWellKnownTypes {
+  initialize: function (
+    msg?: Partial<OneofWellKnownTypes>,
+  ): OneofWellKnownTypes {
     return {
       anyField: undefined,
       apiField: undefined,
@@ -3015,6 +3016,7 @@ export const OneofWellKnownTypesJSON = {
       boolField: undefined,
       stringField: undefined,
       bytesField: undefined,
+      ...msg,
     };
   },
 
@@ -3034,10 +3036,7 @@ export const OneofWellKnownTypesJSON = {
       json["apiField"] = _apiField_;
     }
     if (msg.durationField != undefined) {
-      const _durationField_ = protoscript.DurationJSON._writeMessage(
-        msg.durationField,
-      );
-      json["durationField"] = _durationField_;
+      json["durationField"] = protoscript.serializeDuration(msg.durationField);
     }
     if (msg.emptyField != undefined) {
       const _emptyField_ = protoscript.EmptyJSON._writeMessage(msg.emptyField);
@@ -3062,10 +3061,9 @@ export const OneofWellKnownTypesJSON = {
       json["structField"] = _structField_;
     }
     if (msg.timestampField != undefined) {
-      const _timestampField_ = protoscript.TimestampJSON._writeMessage(
+      json["timestampField"] = protoscript.serializeTimestamp(
         msg.timestampField,
       );
-      json["timestampField"] = _timestampField_;
     }
     if (msg.typeField != undefined) {
       const _typeField_ = protoscript.TypeJSON._writeMessage(msg.typeField);
@@ -3147,8 +3145,7 @@ export const OneofWellKnownTypesJSON = {
     }
     const _durationField_ = json["durationField"] ?? json["duration_field"];
     if (_durationField_) {
-      msg.durationField = protoscript.DurationJSON.initialize();
-      protoscript.DurationJSON._readMessage(msg.durationField, _durationField_);
+      msg.durationField = protoscript.parseDuration(_durationField_);
     }
     const _emptyField_ = json["emptyField"] ?? json["empty_field"];
     if (_emptyField_) {
@@ -3179,11 +3176,7 @@ export const OneofWellKnownTypesJSON = {
     }
     const _timestampField_ = json["timestampField"] ?? json["timestamp_field"];
     if (_timestampField_) {
-      msg.timestampField = protoscript.TimestampJSON.initialize();
-      protoscript.TimestampJSON._readMessage(
-        msg.timestampField,
-        _timestampField_,
-      );
+      msg.timestampField = protoscript.parseTimestamp(_timestampField_);
     }
     const _typeField_ = json["typeField"] ?? json["type_field"];
     if (_typeField_) {
@@ -3260,7 +3253,7 @@ export const MapWellKnownTypesJSON = {
   /**
    * Initializes MapWellKnownTypes with all fields set to their default value.
    */
-  initialize: function (): MapWellKnownTypes {
+  initialize: function (msg?: Partial<MapWellKnownTypes>): MapWellKnownTypes {
     return {
       anyField: {},
       apiField: {},
@@ -3280,6 +3273,7 @@ export const MapWellKnownTypesJSON = {
       boolField: {},
       stringField: {},
       bytesField: {},
+      ...msg,
     };
   },
 
@@ -3693,7 +3687,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.AnyField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -3732,7 +3726,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.ApiField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -3753,11 +3747,8 @@ export const MapWellKnownTypesJSON = {
       if (msg.key) {
         json["key"] = msg.key;
       }
-      if (msg.value) {
-        const _value_ = protoscript.DurationJSON._writeMessage(msg.value);
-        if (Object.keys(_value_).length > 0) {
-          json["value"] = _value_;
-        }
+      if (msg.value && msg.value.seconds && msg.value.nanos) {
+        json["value"] = protoscript.serializeDuration(msg.value);
       }
       return json;
     },
@@ -3771,11 +3762,11 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.DurationField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        protoscript.DurationJSON._readMessage(msg.value, _value_);
+        msg.value = protoscript.parseDuration(_value_);
       }
       return msg;
     },
@@ -3810,7 +3801,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.EmptyField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -3849,7 +3840,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.FieldMaskField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -3888,7 +3879,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.SourceContextField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -3927,7 +3918,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.StructField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -3948,11 +3939,8 @@ export const MapWellKnownTypesJSON = {
       if (msg.key) {
         json["key"] = msg.key;
       }
-      if (msg.value) {
-        const _value_ = protoscript.TimestampJSON._writeMessage(msg.value);
-        if (Object.keys(_value_).length > 0) {
-          json["value"] = _value_;
-        }
+      if (msg.value && msg.value.seconds && msg.value.nanos) {
+        json["value"] = protoscript.serializeTimestamp(msg.value);
       }
       return json;
     },
@@ -3966,11 +3954,11 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.TimestampField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
-        protoscript.TimestampJSON._readMessage(msg.value, _value_);
+        msg.value = protoscript.parseTimestamp(_value_);
       }
       return msg;
     },
@@ -4005,7 +3993,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.TypeField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4044,7 +4032,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.DoubleField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4083,7 +4071,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.FloatField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4122,7 +4110,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.Int64Field {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4161,7 +4149,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.Uint64Field {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4200,7 +4188,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.Int32Field {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4239,7 +4227,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.Uint32Field {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4278,7 +4266,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.BoolField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4317,7 +4305,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.StringField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {
@@ -4356,7 +4344,7 @@ export const MapWellKnownTypesJSON = {
     ): MapWellKnownTypes.BytesField {
       const _key_ = json["key"];
       if (_key_) {
-        msg.key = _key_;
+        msg.key = protoscript.parseNumber(_key_);
       }
       const _value_ = json["value"];
       if (_value_) {

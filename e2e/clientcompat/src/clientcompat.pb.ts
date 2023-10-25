@@ -3,12 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import {
-  BinaryReader,
-  BinaryWriter,
-  encodeBase64Bytes,
-  decodeBase64Bytes,
-} from "protoscript";
+import * as protoscript from "protoscript";
 import { JSONrequest, PBrequest } from "twirpscript";
 // This is the minimum version supported by the current runtime.
 // If this line fails typechecking, breaking changes have been introduced and this
@@ -147,8 +142,10 @@ export const Empty = {
   /**
    * Initializes Empty with all fields set to their default value.
    */
-  initialize: function (): Empty {
-    return {};
+  initialize: function (msg?: Partial<Empty>): Empty {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -156,15 +153,18 @@ export const Empty = {
    */
   _writeMessage: function (
     _msg: PartialDeep<Empty>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
   /**
    * @private
    */
-  _readMessage: function (_msg: Empty, _reader: BinaryReader): Empty {
+  _readMessage: function (
+    _msg: Empty,
+    _reader: protoscript.BinaryReader,
+  ): Empty {
     return _msg;
   },
 };
@@ -174,22 +174,29 @@ export const Req = {
    * Serializes Req to protobuf.
    */
   encode: function (msg: PartialDeep<Req>): Uint8Array {
-    return Req._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return Req._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
    * Deserializes Req from protobuf.
    */
   decode: function (bytes: ByteSource): Req {
-    return Req._readMessage(Req.initialize(), new BinaryReader(bytes));
+    return Req._readMessage(
+      Req.initialize(),
+      new protoscript.BinaryReader(bytes),
+    );
   },
 
   /**
    * Initializes Req with all fields set to their default value.
    */
-  initialize: function (): Req {
+  initialize: function (msg?: Partial<Req>): Req {
     return {
       v: "",
+      ...msg,
     };
   },
 
@@ -198,8 +205,8 @@ export const Req = {
    */
   _writeMessage: function (
     msg: PartialDeep<Req>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.v) {
       writer.writeString(1, msg.v);
     }
@@ -209,7 +216,7 @@ export const Req = {
   /**
    * @private
    */
-  _readMessage: function (msg: Req, reader: BinaryReader): Req {
+  _readMessage: function (msg: Req, reader: protoscript.BinaryReader): Req {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -232,22 +239,29 @@ export const Resp = {
    * Serializes Resp to protobuf.
    */
   encode: function (msg: PartialDeep<Resp>): Uint8Array {
-    return Resp._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return Resp._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
    * Deserializes Resp from protobuf.
    */
   decode: function (bytes: ByteSource): Resp {
-    return Resp._readMessage(Resp.initialize(), new BinaryReader(bytes));
+    return Resp._readMessage(
+      Resp.initialize(),
+      new protoscript.BinaryReader(bytes),
+    );
   },
 
   /**
    * Initializes Resp with all fields set to their default value.
    */
-  initialize: function (): Resp {
+  initialize: function (msg?: Partial<Resp>): Resp {
     return {
       v: 0,
+      ...msg,
     };
   },
 
@@ -256,8 +270,8 @@ export const Resp = {
    */
   _writeMessage: function (
     msg: PartialDeep<Resp>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.v) {
       writer.writeInt32(1, msg.v);
     }
@@ -267,7 +281,7 @@ export const Resp = {
   /**
    * @private
    */
-  _readMessage: function (msg: Resp, reader: BinaryReader): Resp {
+  _readMessage: function (msg: Resp, reader: protoscript.BinaryReader): Resp {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -292,7 +306,7 @@ export const ClientCompatMessage = {
   encode: function (msg: PartialDeep<ClientCompatMessage>): Uint8Array {
     return ClientCompatMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -302,18 +316,21 @@ export const ClientCompatMessage = {
   decode: function (bytes: ByteSource): ClientCompatMessage {
     return ClientCompatMessage._readMessage(
       ClientCompatMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes ClientCompatMessage with all fields set to their default value.
    */
-  initialize: function (): ClientCompatMessage {
+  initialize: function (
+    msg?: Partial<ClientCompatMessage>,
+  ): ClientCompatMessage {
     return {
       serviceAddress: "",
       method: ClientCompatMessage.CompatServiceMethod._fromInt(0),
       request: new Uint8Array(),
+      ...msg,
     };
   },
 
@@ -322,8 +339,8 @@ export const ClientCompatMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<ClientCompatMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.serviceAddress) {
       writer.writeString(1, msg.serviceAddress);
     }
@@ -347,7 +364,7 @@ export const ClientCompatMessage = {
    */
   _readMessage: function (
     msg: ClientCompatMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): ClientCompatMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -437,8 +454,10 @@ export const EmptyJSON = {
   /**
    * Initializes Empty with all fields set to their default value.
    */
-  initialize: function (): Empty {
-    return {};
+  initialize: function (msg?: Partial<Empty>): Empty {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -474,9 +493,10 @@ export const ReqJSON = {
   /**
    * Initializes Req with all fields set to their default value.
    */
-  initialize: function (): Req {
+  initialize: function (msg?: Partial<Req>): Req {
     return {
       v: "",
+      ...msg,
     };
   },
 
@@ -521,9 +541,10 @@ export const RespJSON = {
   /**
    * Initializes Resp with all fields set to their default value.
    */
-  initialize: function (): Resp {
+  initialize: function (msg?: Partial<Resp>): Resp {
     return {
       v: 0,
+      ...msg,
     };
   },
 
@@ -544,7 +565,7 @@ export const RespJSON = {
   _readMessage: function (msg: Resp, json: any): Resp {
     const _v_ = json["v"];
     if (_v_) {
-      msg.v = _v_;
+      msg.v = protoscript.parseNumber(_v_);
     }
     return msg;
   },
@@ -571,11 +592,14 @@ export const ClientCompatMessageJSON = {
   /**
    * Initializes ClientCompatMessage with all fields set to their default value.
    */
-  initialize: function (): ClientCompatMessage {
+  initialize: function (
+    msg?: Partial<ClientCompatMessage>,
+  ): ClientCompatMessage {
     return {
       serviceAddress: "",
       method: ClientCompatMessage.CompatServiceMethod._fromInt(0),
       request: new Uint8Array(),
+      ...msg,
     };
   },
 
@@ -596,7 +620,7 @@ export const ClientCompatMessageJSON = {
       json["method"] = msg.method;
     }
     if (msg.request?.length) {
-      json["request"] = encodeBase64Bytes(msg.request);
+      json["request"] = protoscript.serializeBytes(msg.request);
     }
     return json;
   },
@@ -614,11 +638,11 @@ export const ClientCompatMessageJSON = {
     }
     const _method_ = json["method"];
     if (_method_) {
-      msg.method = _method_;
+      msg.method = ClientCompatMessage.CompatServiceMethod._fromInt(_method_);
     }
     const _request_ = json["request"];
     if (_request_) {
-      msg.request = decodeBase64Bytes(_request_);
+      msg.request = protoscript.parseBytes(_request_);
     }
     return msg;
   },

@@ -3,12 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import {
-  BinaryReader,
-  BinaryWriter,
-  encodeBase64Bytes,
-  decodeBase64Bytes,
-} from "protoscript";
+import * as protoscript from "protoscript";
 import { JSONrequest, PBrequest } from "twirpscript";
 // This is the minimum version supported by the current runtime.
 // If this line fails typechecking, breaking changes have been introduced and this
@@ -1971,7 +1966,7 @@ export const TestAllTypes = {
   encode: function (msg: PartialDeep<TestAllTypes>): Uint8Array {
     return TestAllTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -1981,14 +1976,14 @@ export const TestAllTypes = {
   decode: function (bytes: ByteSource): TestAllTypes {
     return TestAllTypes._readMessage(
       TestAllTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestAllTypes with all fields set to their default value.
    */
-  initialize: function (): TestAllTypes {
+  initialize: function (msg?: Partial<TestAllTypes>): TestAllTypes {
     return {
       optionalInt32: 0,
       optionalInt64: 0n,
@@ -2065,6 +2060,7 @@ export const TestAllTypes = {
       oneofNestedMessage: undefined,
       oneofString: undefined,
       oneofBytes: undefined,
+      ...msg,
     };
   },
 
@@ -2073,8 +2069,8 @@ export const TestAllTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestAllTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.optionalInt32) {
       writer.writeInt32(1, msg.optionalInt32);
     }
@@ -2395,7 +2391,7 @@ export const TestAllTypes = {
    */
   _readMessage: function (
     msg: TestAllTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestAllTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -2894,7 +2890,7 @@ export const TestAllTypes = {
     ): Uint8Array {
       return TestAllTypes.NestedMessage._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -2904,16 +2900,19 @@ export const TestAllTypes = {
     decode: function (bytes: ByteSource): TestAllTypes.NestedMessage {
       return TestAllTypes.NestedMessage._readMessage(
         TestAllTypes.NestedMessage.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestAllTypes.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestAllTypes.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestAllTypes.NestedMessage>,
+    ): TestAllTypes.NestedMessage {
       return {
         bb: 0,
+        ...msg,
       };
     },
 
@@ -2922,8 +2921,8 @@ export const TestAllTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestAllTypes.NestedMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.bb) {
         writer.writeInt32(1, msg.bb);
       }
@@ -2935,7 +2934,7 @@ export const TestAllTypes = {
      */
     _readMessage: function (
       msg: TestAllTypes.NestedMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestAllTypes.NestedMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -2963,7 +2962,7 @@ export const TestAllTypes = {
     ): Uint8Array {
       return TestAllTypes.OptionalGroup._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -2973,16 +2972,19 @@ export const TestAllTypes = {
     decode: function (bytes: ByteSource): TestAllTypes.OptionalGroup {
       return TestAllTypes.OptionalGroup._readMessage(
         TestAllTypes.OptionalGroup.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestAllTypes.OptionalGroup with all fields set to their default value.
      */
-    initialize: function (): TestAllTypes.OptionalGroup {
+    initialize: function (
+      msg?: Partial<TestAllTypes.OptionalGroup>,
+    ): TestAllTypes.OptionalGroup {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -2991,8 +2993,8 @@ export const TestAllTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestAllTypes.OptionalGroup>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.a) {
         writer.writeInt32(17, msg.a);
       }
@@ -3004,7 +3006,7 @@ export const TestAllTypes = {
      */
     _readMessage: function (
       msg: TestAllTypes.OptionalGroup,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestAllTypes.OptionalGroup {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3032,7 +3034,7 @@ export const TestAllTypes = {
     ): Uint8Array {
       return TestAllTypes.RepeatedGroup._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -3042,16 +3044,19 @@ export const TestAllTypes = {
     decode: function (bytes: ByteSource): TestAllTypes.RepeatedGroup {
       return TestAllTypes.RepeatedGroup._readMessage(
         TestAllTypes.RepeatedGroup.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestAllTypes.RepeatedGroup with all fields set to their default value.
      */
-    initialize: function (): TestAllTypes.RepeatedGroup {
+    initialize: function (
+      msg?: Partial<TestAllTypes.RepeatedGroup>,
+    ): TestAllTypes.RepeatedGroup {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -3060,8 +3065,8 @@ export const TestAllTypes = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestAllTypes.RepeatedGroup>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.a) {
         writer.writeInt32(47, msg.a);
       }
@@ -3073,7 +3078,7 @@ export const TestAllTypes = {
      */
     _readMessage: function (
       msg: TestAllTypes.RepeatedGroup,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestAllTypes.RepeatedGroup {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3100,7 +3105,7 @@ export const NestedTestAllTypes = {
   encode: function (msg: PartialDeep<NestedTestAllTypes>): Uint8Array {
     return NestedTestAllTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -3110,18 +3115,19 @@ export const NestedTestAllTypes = {
   decode: function (bytes: ByteSource): NestedTestAllTypes {
     return NestedTestAllTypes._readMessage(
       NestedTestAllTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes NestedTestAllTypes with all fields set to their default value.
    */
-  initialize: function (): NestedTestAllTypes {
+  initialize: function (msg?: Partial<NestedTestAllTypes>): NestedTestAllTypes {
     return {
       child: undefined,
       payload: TestAllTypes.initialize(),
       repeatedChild: [],
+      ...msg,
     };
   },
 
@@ -3130,8 +3136,8 @@ export const NestedTestAllTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<NestedTestAllTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.child) {
       writer.writeMessage(1, msg.child, NestedTestAllTypes._writeMessage);
     }
@@ -3153,7 +3159,7 @@ export const NestedTestAllTypes = {
    */
   _readMessage: function (
     msg: NestedTestAllTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): NestedTestAllTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -3190,7 +3196,7 @@ export const TestDeprecatedFields = {
   encode: function (msg: PartialDeep<TestDeprecatedFields>): Uint8Array {
     return TestDeprecatedFields._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -3200,17 +3206,20 @@ export const TestDeprecatedFields = {
   decode: function (bytes: ByteSource): TestDeprecatedFields {
     return TestDeprecatedFields._readMessage(
       TestDeprecatedFields.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestDeprecatedFields with all fields set to their default value.
    */
-  initialize: function (): TestDeprecatedFields {
+  initialize: function (
+    msg?: Partial<TestDeprecatedFields>,
+  ): TestDeprecatedFields {
     return {
       deprecatedInt32: 0,
       deprecatedInt32InOneof: undefined,
+      ...msg,
     };
   },
 
@@ -3219,8 +3228,8 @@ export const TestDeprecatedFields = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestDeprecatedFields>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.deprecatedInt32) {
       writer.writeInt32(1, msg.deprecatedInt32);
     }
@@ -3235,7 +3244,7 @@ export const TestDeprecatedFields = {
    */
   _readMessage: function (
     msg: TestDeprecatedFields,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestDeprecatedFields {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -3276,8 +3285,12 @@ export const TestDeprecatedMessage = {
   /**
    * Initializes TestDeprecatedMessage with all fields set to their default value.
    */
-  initialize: function (): TestDeprecatedMessage {
-    return {};
+  initialize: function (
+    msg?: Partial<TestDeprecatedMessage>,
+  ): TestDeprecatedMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -3285,8 +3298,8 @@ export const TestDeprecatedMessage = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestDeprecatedMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -3295,7 +3308,7 @@ export const TestDeprecatedMessage = {
    */
   _readMessage: function (
     _msg: TestDeprecatedMessage,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestDeprecatedMessage {
     return _msg;
   },
@@ -3308,7 +3321,7 @@ export const ForeignMessage = {
   encode: function (msg: PartialDeep<ForeignMessage>): Uint8Array {
     return ForeignMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -3318,17 +3331,18 @@ export const ForeignMessage = {
   decode: function (bytes: ByteSource): ForeignMessage {
     return ForeignMessage._readMessage(
       ForeignMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes ForeignMessage with all fields set to their default value.
    */
-  initialize: function (): ForeignMessage {
+  initialize: function (msg?: Partial<ForeignMessage>): ForeignMessage {
     return {
       c: 0,
       d: 0,
+      ...msg,
     };
   },
 
@@ -3337,8 +3351,8 @@ export const ForeignMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<ForeignMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.c) {
       writer.writeInt32(1, msg.c);
     }
@@ -3353,7 +3367,7 @@ export const ForeignMessage = {
    */
   _readMessage: function (
     msg: ForeignMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): ForeignMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -3394,8 +3408,10 @@ export const TestReservedFields = {
   /**
    * Initializes TestReservedFields with all fields set to their default value.
    */
-  initialize: function (): TestReservedFields {
-    return {};
+  initialize: function (msg?: Partial<TestReservedFields>): TestReservedFields {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -3403,8 +3419,8 @@ export const TestReservedFields = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestReservedFields>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -3413,7 +3429,7 @@ export const TestReservedFields = {
    */
   _readMessage: function (
     _msg: TestReservedFields,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestReservedFields {
     return _msg;
   },
@@ -3437,8 +3453,10 @@ export const TestAllExtensions = {
   /**
    * Initializes TestAllExtensions with all fields set to their default value.
    */
-  initialize: function (): TestAllExtensions {
-    return {};
+  initialize: function (msg?: Partial<TestAllExtensions>): TestAllExtensions {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -3446,8 +3464,8 @@ export const TestAllExtensions = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestAllExtensions>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -3456,7 +3474,7 @@ export const TestAllExtensions = {
    */
   _readMessage: function (
     _msg: TestAllExtensions,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestAllExtensions {
     return _msg;
   },
@@ -3469,7 +3487,7 @@ export const OptionalGroup_extension = {
   encode: function (msg: PartialDeep<OptionalGroup_extension>): Uint8Array {
     return OptionalGroup_extension._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -3479,16 +3497,19 @@ export const OptionalGroup_extension = {
   decode: function (bytes: ByteSource): OptionalGroup_extension {
     return OptionalGroup_extension._readMessage(
       OptionalGroup_extension.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes OptionalGroup_extension with all fields set to their default value.
    */
-  initialize: function (): OptionalGroup_extension {
+  initialize: function (
+    msg?: Partial<OptionalGroup_extension>,
+  ): OptionalGroup_extension {
     return {
       a: 0,
+      ...msg,
     };
   },
 
@@ -3497,8 +3518,8 @@ export const OptionalGroup_extension = {
    */
   _writeMessage: function (
     msg: PartialDeep<OptionalGroup_extension>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.a) {
       writer.writeInt32(17, msg.a);
     }
@@ -3510,7 +3531,7 @@ export const OptionalGroup_extension = {
    */
   _readMessage: function (
     msg: OptionalGroup_extension,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): OptionalGroup_extension {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -3536,7 +3557,7 @@ export const RepeatedGroup_extension = {
   encode: function (msg: PartialDeep<RepeatedGroup_extension>): Uint8Array {
     return RepeatedGroup_extension._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -3546,16 +3567,19 @@ export const RepeatedGroup_extension = {
   decode: function (bytes: ByteSource): RepeatedGroup_extension {
     return RepeatedGroup_extension._readMessage(
       RepeatedGroup_extension.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes RepeatedGroup_extension with all fields set to their default value.
    */
-  initialize: function (): RepeatedGroup_extension {
+  initialize: function (
+    msg?: Partial<RepeatedGroup_extension>,
+  ): RepeatedGroup_extension {
     return {
       a: 0,
+      ...msg,
     };
   },
 
@@ -3564,8 +3588,8 @@ export const RepeatedGroup_extension = {
    */
   _writeMessage: function (
     msg: PartialDeep<RepeatedGroup_extension>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.a) {
       writer.writeInt32(47, msg.a);
     }
@@ -3577,7 +3601,7 @@ export const RepeatedGroup_extension = {
    */
   _readMessage: function (
     msg: RepeatedGroup_extension,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): RepeatedGroup_extension {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -3601,7 +3625,10 @@ export const TestGroup = {
    * Serializes TestGroup to protobuf.
    */
   encode: function (msg: PartialDeep<TestGroup>): Uint8Array {
-    return TestGroup._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return TestGroup._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -3610,16 +3637,17 @@ export const TestGroup = {
   decode: function (bytes: ByteSource): TestGroup {
     return TestGroup._readMessage(
       TestGroup.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestGroup with all fields set to their default value.
    */
-  initialize: function (): TestGroup {
+  initialize: function (msg?: Partial<TestGroup>): TestGroup {
     return {
       optionalForeignEnum: ForeignEnum._fromInt(0),
+      ...msg,
     };
   },
 
@@ -3628,8 +3656,8 @@ export const TestGroup = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestGroup>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (
       msg.optionalForeignEnum &&
       ForeignEnum._toInt(msg.optionalForeignEnum)
@@ -3642,7 +3670,10 @@ export const TestGroup = {
   /**
    * @private
    */
-  _readMessage: function (msg: TestGroup, reader: BinaryReader): TestGroup {
+  _readMessage: function (
+    msg: TestGroup,
+    reader: protoscript.BinaryReader,
+  ): TestGroup {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -3666,7 +3697,7 @@ export const TestGroup = {
     encode: function (msg: PartialDeep<TestGroup.OptionalGroup>): Uint8Array {
       return TestGroup.OptionalGroup._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -3676,16 +3707,19 @@ export const TestGroup = {
     decode: function (bytes: ByteSource): TestGroup.OptionalGroup {
       return TestGroup.OptionalGroup._readMessage(
         TestGroup.OptionalGroup.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestGroup.OptionalGroup with all fields set to their default value.
      */
-    initialize: function (): TestGroup.OptionalGroup {
+    initialize: function (
+      msg?: Partial<TestGroup.OptionalGroup>,
+    ): TestGroup.OptionalGroup {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -3694,8 +3728,8 @@ export const TestGroup = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestGroup.OptionalGroup>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.a) {
         writer.writeInt32(17, msg.a);
       }
@@ -3707,7 +3741,7 @@ export const TestGroup = {
      */
     _readMessage: function (
       msg: TestGroup.OptionalGroup,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestGroup.OptionalGroup {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3745,8 +3779,10 @@ export const TestGroupExtension = {
   /**
    * Initializes TestGroupExtension with all fields set to their default value.
    */
-  initialize: function (): TestGroupExtension {
-    return {};
+  initialize: function (msg?: Partial<TestGroupExtension>): TestGroupExtension {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -3754,8 +3790,8 @@ export const TestGroupExtension = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestGroupExtension>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -3764,7 +3800,7 @@ export const TestGroupExtension = {
    */
   _readMessage: function (
     _msg: TestGroupExtension,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestGroupExtension {
     return _msg;
   },
@@ -3788,8 +3824,12 @@ export const TestNestedExtension = {
   /**
    * Initializes TestNestedExtension with all fields set to their default value.
    */
-  initialize: function (): TestNestedExtension {
-    return {};
+  initialize: function (
+    msg?: Partial<TestNestedExtension>,
+  ): TestNestedExtension {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -3797,8 +3837,8 @@ export const TestNestedExtension = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestNestedExtension>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -3807,7 +3847,7 @@ export const TestNestedExtension = {
    */
   _readMessage: function (
     _msg: TestNestedExtension,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestNestedExtension {
     return _msg;
   },
@@ -3821,7 +3861,7 @@ export const TestNestedExtension = {
     ): Uint8Array {
       return TestNestedExtension.OptionalGroup_extension._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -3833,16 +3873,19 @@ export const TestNestedExtension = {
     ): TestNestedExtension.OptionalGroup_extension {
       return TestNestedExtension.OptionalGroup_extension._readMessage(
         TestNestedExtension.OptionalGroup_extension.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestNestedExtension.OptionalGroup_extension with all fields set to their default value.
      */
-    initialize: function (): TestNestedExtension.OptionalGroup_extension {
+    initialize: function (
+      msg?: Partial<TestNestedExtension.OptionalGroup_extension>,
+    ): TestNestedExtension.OptionalGroup_extension {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -3851,8 +3894,8 @@ export const TestNestedExtension = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestNestedExtension.OptionalGroup_extension>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.a) {
         writer.writeInt32(17, msg.a);
       }
@@ -3864,7 +3907,7 @@ export const TestNestedExtension = {
      */
     _readMessage: function (
       msg: TestNestedExtension.OptionalGroup_extension,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestNestedExtension.OptionalGroup_extension {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -3891,7 +3934,7 @@ export const TestChildExtension = {
   encode: function (msg: PartialDeep<TestChildExtension>): Uint8Array {
     return TestChildExtension._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -3901,18 +3944,19 @@ export const TestChildExtension = {
   decode: function (bytes: ByteSource): TestChildExtension {
     return TestChildExtension._readMessage(
       TestChildExtension.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestChildExtension with all fields set to their default value.
    */
-  initialize: function (): TestChildExtension {
+  initialize: function (msg?: Partial<TestChildExtension>): TestChildExtension {
     return {
       a: "",
       b: "",
       optionalExtension: TestAllExtensions.initialize(),
+      ...msg,
     };
   },
 
@@ -3921,8 +3965,8 @@ export const TestChildExtension = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestChildExtension>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.a) {
       writer.writeString(1, msg.a);
     }
@@ -3944,7 +3988,7 @@ export const TestChildExtension = {
    */
   _readMessage: function (
     msg: TestChildExtension,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestChildExtension {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -3981,7 +4025,7 @@ export const TestRequired = {
   encode: function (msg: PartialDeep<TestRequired>): Uint8Array {
     return TestRequired._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -3991,14 +4035,14 @@ export const TestRequired = {
   decode: function (bytes: ByteSource): TestRequired {
     return TestRequired._readMessage(
       TestRequired.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestRequired with all fields set to their default value.
    */
-  initialize: function (): TestRequired {
+  initialize: function (msg?: Partial<TestRequired>): TestRequired {
     return {
       a: 0,
       dummy2: 0,
@@ -4033,6 +4077,7 @@ export const TestRequired = {
       dummy31: 0,
       dummy32: 0,
       c: 0,
+      ...msg,
     };
   },
 
@@ -4041,8 +4086,8 @@ export const TestRequired = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestRequired>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.a) {
       writer.writeInt32(1, msg.a);
     }
@@ -4150,7 +4195,7 @@ export const TestRequired = {
    */
   _readMessage: function (
     msg: TestRequired,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestRequired {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -4304,7 +4349,7 @@ export const TestRequiredForeign = {
   encode: function (msg: PartialDeep<TestRequiredForeign>): Uint8Array {
     return TestRequiredForeign._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -4314,18 +4359,21 @@ export const TestRequiredForeign = {
   decode: function (bytes: ByteSource): TestRequiredForeign {
     return TestRequiredForeign._readMessage(
       TestRequiredForeign.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestRequiredForeign with all fields set to their default value.
    */
-  initialize: function (): TestRequiredForeign {
+  initialize: function (
+    msg?: Partial<TestRequiredForeign>,
+  ): TestRequiredForeign {
     return {
       optionalMessage: TestRequired.initialize(),
       repeatedMessage: [],
       dummy: 0,
+      ...msg,
     };
   },
 
@@ -4334,8 +4382,8 @@ export const TestRequiredForeign = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestRequiredForeign>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.optionalMessage) {
       writer.writeMessage(1, msg.optionalMessage, TestRequired._writeMessage);
     }
@@ -4357,7 +4405,7 @@ export const TestRequiredForeign = {
    */
   _readMessage: function (
     msg: TestRequiredForeign,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestRequiredForeign {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -4393,7 +4441,7 @@ export const TestRequiredMessage = {
   encode: function (msg: PartialDeep<TestRequiredMessage>): Uint8Array {
     return TestRequiredMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -4403,18 +4451,21 @@ export const TestRequiredMessage = {
   decode: function (bytes: ByteSource): TestRequiredMessage {
     return TestRequiredMessage._readMessage(
       TestRequiredMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestRequiredMessage with all fields set to their default value.
    */
-  initialize: function (): TestRequiredMessage {
+  initialize: function (
+    msg?: Partial<TestRequiredMessage>,
+  ): TestRequiredMessage {
     return {
       optionalMessage: TestRequired.initialize(),
       repeatedMessage: [],
       requiredMessage: TestRequired.initialize(),
+      ...msg,
     };
   },
 
@@ -4423,8 +4474,8 @@ export const TestRequiredMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestRequiredMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.optionalMessage) {
       writer.writeMessage(1, msg.optionalMessage, TestRequired._writeMessage);
     }
@@ -4446,7 +4497,7 @@ export const TestRequiredMessage = {
    */
   _readMessage: function (
     msg: TestRequiredMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestRequiredMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -4482,7 +4533,7 @@ export const TestForeignNested = {
   encode: function (msg: PartialDeep<TestForeignNested>): Uint8Array {
     return TestForeignNested._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -4492,16 +4543,17 @@ export const TestForeignNested = {
   decode: function (bytes: ByteSource): TestForeignNested {
     return TestForeignNested._readMessage(
       TestForeignNested.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestForeignNested with all fields set to their default value.
    */
-  initialize: function (): TestForeignNested {
+  initialize: function (msg?: Partial<TestForeignNested>): TestForeignNested {
     return {
       foreignNested: TestAllTypes.NestedMessage.initialize(),
+      ...msg,
     };
   },
 
@@ -4510,8 +4562,8 @@ export const TestForeignNested = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestForeignNested>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.foreignNested) {
       writer.writeMessage(
         1,
@@ -4527,7 +4579,7 @@ export const TestForeignNested = {
    */
   _readMessage: function (
     msg: TestForeignNested,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestForeignNested {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -4567,8 +4619,10 @@ export const TestEmptyMessage = {
   /**
    * Initializes TestEmptyMessage with all fields set to their default value.
    */
-  initialize: function (): TestEmptyMessage {
-    return {};
+  initialize: function (msg?: Partial<TestEmptyMessage>): TestEmptyMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -4576,8 +4630,8 @@ export const TestEmptyMessage = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestEmptyMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -4586,7 +4640,7 @@ export const TestEmptyMessage = {
    */
   _readMessage: function (
     _msg: TestEmptyMessage,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestEmptyMessage {
     return _msg;
   },
@@ -4612,8 +4666,12 @@ export const TestEmptyMessageWithExtensions = {
   /**
    * Initializes TestEmptyMessageWithExtensions with all fields set to their default value.
    */
-  initialize: function (): TestEmptyMessageWithExtensions {
-    return {};
+  initialize: function (
+    msg?: Partial<TestEmptyMessageWithExtensions>,
+  ): TestEmptyMessageWithExtensions {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -4621,8 +4679,8 @@ export const TestEmptyMessageWithExtensions = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestEmptyMessageWithExtensions>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -4631,7 +4689,7 @@ export const TestEmptyMessageWithExtensions = {
    */
   _readMessage: function (
     _msg: TestEmptyMessageWithExtensions,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestEmptyMessageWithExtensions {
     return _msg;
   },
@@ -4655,8 +4713,12 @@ export const TestPickleNestedMessage = {
   /**
    * Initializes TestPickleNestedMessage with all fields set to their default value.
    */
-  initialize: function (): TestPickleNestedMessage {
-    return {};
+  initialize: function (
+    msg?: Partial<TestPickleNestedMessage>,
+  ): TestPickleNestedMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -4664,8 +4726,8 @@ export const TestPickleNestedMessage = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestPickleNestedMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -4674,7 +4736,7 @@ export const TestPickleNestedMessage = {
    */
   _readMessage: function (
     _msg: TestPickleNestedMessage,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestPickleNestedMessage {
     return _msg;
   },
@@ -4688,7 +4750,7 @@ export const TestPickleNestedMessage = {
     ): Uint8Array {
       return TestPickleNestedMessage.NestedMessage._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -4700,16 +4762,19 @@ export const TestPickleNestedMessage = {
     ): TestPickleNestedMessage.NestedMessage {
       return TestPickleNestedMessage.NestedMessage._readMessage(
         TestPickleNestedMessage.NestedMessage.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestPickleNestedMessage.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestPickleNestedMessage.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestPickleNestedMessage.NestedMessage>,
+    ): TestPickleNestedMessage.NestedMessage {
       return {
         bb: 0,
+        ...msg,
       };
     },
 
@@ -4718,8 +4783,8 @@ export const TestPickleNestedMessage = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestPickleNestedMessage.NestedMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.bb) {
         writer.writeInt32(1, msg.bb);
       }
@@ -4731,7 +4796,7 @@ export const TestPickleNestedMessage = {
      */
     _readMessage: function (
       msg: TestPickleNestedMessage.NestedMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestPickleNestedMessage.NestedMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -4758,7 +4823,7 @@ export const TestPickleNestedMessage = {
       ): Uint8Array {
         return TestPickleNestedMessage.NestedMessage.NestedNestedMessage._writeMessage(
           msg,
-          new BinaryWriter(),
+          new protoscript.BinaryWriter(),
         ).getResultBuffer();
       },
 
@@ -4770,27 +4835,29 @@ export const TestPickleNestedMessage = {
       ): TestPickleNestedMessage.NestedMessage.NestedNestedMessage {
         return TestPickleNestedMessage.NestedMessage.NestedNestedMessage._readMessage(
           TestPickleNestedMessage.NestedMessage.NestedNestedMessage.initialize(),
-          new BinaryReader(bytes),
+          new protoscript.BinaryReader(bytes),
         );
       },
 
       /**
        * Initializes TestPickleNestedMessage.NestedMessage.NestedNestedMessage with all fields set to their default value.
        */
-      initialize:
-        function (): TestPickleNestedMessage.NestedMessage.NestedNestedMessage {
-          return {
-            cc: 0,
-          };
-        },
+      initialize: function (
+        msg?: Partial<TestPickleNestedMessage.NestedMessage.NestedNestedMessage>,
+      ): TestPickleNestedMessage.NestedMessage.NestedNestedMessage {
+        return {
+          cc: 0,
+          ...msg,
+        };
+      },
 
       /**
        * @private
        */
       _writeMessage: function (
         msg: PartialDeep<TestPickleNestedMessage.NestedMessage.NestedNestedMessage>,
-        writer: BinaryWriter,
-      ): BinaryWriter {
+        writer: protoscript.BinaryWriter,
+      ): protoscript.BinaryWriter {
         if (msg.cc) {
           writer.writeInt32(1, msg.cc);
         }
@@ -4802,7 +4869,7 @@ export const TestPickleNestedMessage = {
        */
       _readMessage: function (
         msg: TestPickleNestedMessage.NestedMessage.NestedNestedMessage,
-        reader: BinaryReader,
+        reader: protoscript.BinaryReader,
       ): TestPickleNestedMessage.NestedMessage.NestedNestedMessage {
         while (reader.nextField()) {
           const field = reader.getFieldNumber();
@@ -4843,8 +4910,12 @@ export const TestMultipleExtensionRanges = {
   /**
    * Initializes TestMultipleExtensionRanges with all fields set to their default value.
    */
-  initialize: function (): TestMultipleExtensionRanges {
-    return {};
+  initialize: function (
+    msg?: Partial<TestMultipleExtensionRanges>,
+  ): TestMultipleExtensionRanges {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -4852,8 +4923,8 @@ export const TestMultipleExtensionRanges = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestMultipleExtensionRanges>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -4862,7 +4933,7 @@ export const TestMultipleExtensionRanges = {
    */
   _readMessage: function (
     _msg: TestMultipleExtensionRanges,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestMultipleExtensionRanges {
     return _msg;
   },
@@ -4875,7 +4946,7 @@ export const TestReallyLargeTagNumber = {
   encode: function (msg: PartialDeep<TestReallyLargeTagNumber>): Uint8Array {
     return TestReallyLargeTagNumber._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -4885,17 +4956,20 @@ export const TestReallyLargeTagNumber = {
   decode: function (bytes: ByteSource): TestReallyLargeTagNumber {
     return TestReallyLargeTagNumber._readMessage(
       TestReallyLargeTagNumber.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestReallyLargeTagNumber with all fields set to their default value.
    */
-  initialize: function (): TestReallyLargeTagNumber {
+  initialize: function (
+    msg?: Partial<TestReallyLargeTagNumber>,
+  ): TestReallyLargeTagNumber {
     return {
       a: 0,
       bb: 0,
+      ...msg,
     };
   },
 
@@ -4904,8 +4978,8 @@ export const TestReallyLargeTagNumber = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestReallyLargeTagNumber>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.a) {
       writer.writeInt32(1, msg.a);
     }
@@ -4920,7 +4994,7 @@ export const TestReallyLargeTagNumber = {
    */
   _readMessage: function (
     msg: TestReallyLargeTagNumber,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestReallyLargeTagNumber {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -4950,7 +5024,7 @@ export const TestRecursiveMessage = {
   encode: function (msg: PartialDeep<TestRecursiveMessage>): Uint8Array {
     return TestRecursiveMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -4960,17 +5034,20 @@ export const TestRecursiveMessage = {
   decode: function (bytes: ByteSource): TestRecursiveMessage {
     return TestRecursiveMessage._readMessage(
       TestRecursiveMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestRecursiveMessage with all fields set to their default value.
    */
-  initialize: function (): TestRecursiveMessage {
+  initialize: function (
+    msg?: Partial<TestRecursiveMessage>,
+  ): TestRecursiveMessage {
     return {
       a: undefined,
       i: 0,
+      ...msg,
     };
   },
 
@@ -4979,8 +5056,8 @@ export const TestRecursiveMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestRecursiveMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.a) {
       writer.writeMessage(1, msg.a, TestRecursiveMessage._writeMessage);
     }
@@ -4995,7 +5072,7 @@ export const TestRecursiveMessage = {
    */
   _readMessage: function (
     msg: TestRecursiveMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestRecursiveMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -5026,7 +5103,7 @@ export const TestMutualRecursionA = {
   encode: function (msg: PartialDeep<TestMutualRecursionA>): Uint8Array {
     return TestMutualRecursionA._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -5036,16 +5113,19 @@ export const TestMutualRecursionA = {
   decode: function (bytes: ByteSource): TestMutualRecursionA {
     return TestMutualRecursionA._readMessage(
       TestMutualRecursionA.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestMutualRecursionA with all fields set to their default value.
    */
-  initialize: function (): TestMutualRecursionA {
+  initialize: function (
+    msg?: Partial<TestMutualRecursionA>,
+  ): TestMutualRecursionA {
     return {
       bb: TestMutualRecursionB.initialize(),
+      ...msg,
     };
   },
 
@@ -5054,8 +5134,8 @@ export const TestMutualRecursionA = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestMutualRecursionA>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.bb) {
       writer.writeMessage(1, msg.bb, TestMutualRecursionB._writeMessage);
     }
@@ -5067,7 +5147,7 @@ export const TestMutualRecursionA = {
    */
   _readMessage: function (
     msg: TestMutualRecursionA,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestMutualRecursionA {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -5094,7 +5174,7 @@ export const TestMutualRecursionA = {
     ): Uint8Array {
       return TestMutualRecursionA.SubMessage._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -5104,16 +5184,19 @@ export const TestMutualRecursionA = {
     decode: function (bytes: ByteSource): TestMutualRecursionA.SubMessage {
       return TestMutualRecursionA.SubMessage._readMessage(
         TestMutualRecursionA.SubMessage.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestMutualRecursionA.SubMessage with all fields set to their default value.
      */
-    initialize: function (): TestMutualRecursionA.SubMessage {
+    initialize: function (
+      msg?: Partial<TestMutualRecursionA.SubMessage>,
+    ): TestMutualRecursionA.SubMessage {
       return {
         b: TestMutualRecursionB.initialize(),
+        ...msg,
       };
     },
 
@@ -5122,8 +5205,8 @@ export const TestMutualRecursionA = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMutualRecursionA.SubMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.b) {
         writer.writeMessage(1, msg.b, TestMutualRecursionB._writeMessage);
       }
@@ -5135,7 +5218,7 @@ export const TestMutualRecursionA = {
      */
     _readMessage: function (
       msg: TestMutualRecursionA.SubMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMutualRecursionA.SubMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -5163,7 +5246,7 @@ export const TestMutualRecursionA = {
     ): Uint8Array {
       return TestMutualRecursionA.SubGroup._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -5173,17 +5256,20 @@ export const TestMutualRecursionA = {
     decode: function (bytes: ByteSource): TestMutualRecursionA.SubGroup {
       return TestMutualRecursionA.SubGroup._readMessage(
         TestMutualRecursionA.SubGroup.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestMutualRecursionA.SubGroup with all fields set to their default value.
      */
-    initialize: function (): TestMutualRecursionA.SubGroup {
+    initialize: function (
+      msg?: Partial<TestMutualRecursionA.SubGroup>,
+    ): TestMutualRecursionA.SubGroup {
       return {
         subMessage: TestMutualRecursionA.SubMessage.initialize(),
         notInThisScc: TestAllTypes.initialize(),
+        ...msg,
       };
     },
 
@@ -5192,8 +5278,8 @@ export const TestMutualRecursionA = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestMutualRecursionA.SubGroup>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.subMessage) {
         writer.writeMessage(
           3,
@@ -5212,7 +5298,7 @@ export const TestMutualRecursionA = {
      */
     _readMessage: function (
       msg: TestMutualRecursionA.SubGroup,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestMutualRecursionA.SubGroup {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -5246,7 +5332,7 @@ export const TestMutualRecursionB = {
   encode: function (msg: PartialDeep<TestMutualRecursionB>): Uint8Array {
     return TestMutualRecursionB._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -5256,17 +5342,20 @@ export const TestMutualRecursionB = {
   decode: function (bytes: ByteSource): TestMutualRecursionB {
     return TestMutualRecursionB._readMessage(
       TestMutualRecursionB.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestMutualRecursionB with all fields set to their default value.
    */
-  initialize: function (): TestMutualRecursionB {
+  initialize: function (
+    msg?: Partial<TestMutualRecursionB>,
+  ): TestMutualRecursionB {
     return {
       a: TestMutualRecursionA.initialize(),
       optionalInt32: 0,
+      ...msg,
     };
   },
 
@@ -5275,8 +5364,8 @@ export const TestMutualRecursionB = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestMutualRecursionB>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.a) {
       writer.writeMessage(1, msg.a, TestMutualRecursionA._writeMessage);
     }
@@ -5291,7 +5380,7 @@ export const TestMutualRecursionB = {
    */
   _readMessage: function (
     msg: TestMutualRecursionB,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestMutualRecursionB {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -5321,7 +5410,7 @@ export const TestIsInitialized = {
   encode: function (msg: PartialDeep<TestIsInitialized>): Uint8Array {
     return TestIsInitialized._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -5331,16 +5420,17 @@ export const TestIsInitialized = {
   decode: function (bytes: ByteSource): TestIsInitialized {
     return TestIsInitialized._readMessage(
       TestIsInitialized.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestIsInitialized with all fields set to their default value.
    */
-  initialize: function (): TestIsInitialized {
+  initialize: function (msg?: Partial<TestIsInitialized>): TestIsInitialized {
     return {
       subMessage: TestIsInitialized.SubMessage.initialize(),
+      ...msg,
     };
   },
 
@@ -5349,8 +5439,8 @@ export const TestIsInitialized = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestIsInitialized>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.subMessage) {
       writer.writeMessage(
         1,
@@ -5366,7 +5456,7 @@ export const TestIsInitialized = {
    */
   _readMessage: function (
     msg: TestIsInitialized,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestIsInitialized {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -5407,8 +5497,12 @@ export const TestIsInitialized = {
     /**
      * Initializes TestIsInitialized.SubMessage with all fields set to their default value.
      */
-    initialize: function (): TestIsInitialized.SubMessage {
-      return {};
+    initialize: function (
+      msg?: Partial<TestIsInitialized.SubMessage>,
+    ): TestIsInitialized.SubMessage {
+      return {
+        ...msg,
+      };
     },
 
     /**
@@ -5416,8 +5510,8 @@ export const TestIsInitialized = {
      */
     _writeMessage: function (
       _msg: PartialDeep<TestIsInitialized.SubMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       return writer;
     },
 
@@ -5426,7 +5520,7 @@ export const TestIsInitialized = {
      */
     _readMessage: function (
       _msg: TestIsInitialized.SubMessage,
-      _reader: BinaryReader,
+      _reader: protoscript.BinaryReader,
     ): TestIsInitialized.SubMessage {
       return _msg;
     },
@@ -5440,7 +5534,7 @@ export const TestIsInitialized = {
       ): Uint8Array {
         return TestIsInitialized.SubMessage.SubGroup._writeMessage(
           msg,
-          new BinaryWriter(),
+          new protoscript.BinaryWriter(),
         ).getResultBuffer();
       },
 
@@ -5452,16 +5546,19 @@ export const TestIsInitialized = {
       ): TestIsInitialized.SubMessage.SubGroup {
         return TestIsInitialized.SubMessage.SubGroup._readMessage(
           TestIsInitialized.SubMessage.SubGroup.initialize(),
-          new BinaryReader(bytes),
+          new protoscript.BinaryReader(bytes),
         );
       },
 
       /**
        * Initializes TestIsInitialized.SubMessage.SubGroup with all fields set to their default value.
        */
-      initialize: function (): TestIsInitialized.SubMessage.SubGroup {
+      initialize: function (
+        msg?: Partial<TestIsInitialized.SubMessage.SubGroup>,
+      ): TestIsInitialized.SubMessage.SubGroup {
         return {
           i: 0,
+          ...msg,
         };
       },
 
@@ -5470,8 +5567,8 @@ export const TestIsInitialized = {
        */
       _writeMessage: function (
         msg: PartialDeep<TestIsInitialized.SubMessage.SubGroup>,
-        writer: BinaryWriter,
-      ): BinaryWriter {
+        writer: protoscript.BinaryWriter,
+      ): protoscript.BinaryWriter {
         if (msg.i) {
           writer.writeInt32(2, msg.i);
         }
@@ -5483,7 +5580,7 @@ export const TestIsInitialized = {
        */
       _readMessage: function (
         msg: TestIsInitialized.SubMessage.SubGroup,
-        reader: BinaryReader,
+        reader: protoscript.BinaryReader,
       ): TestIsInitialized.SubMessage.SubGroup {
         while (reader.nextField()) {
           const field = reader.getFieldNumber();
@@ -5511,7 +5608,7 @@ export const TestDupFieldNumber = {
   encode: function (msg: PartialDeep<TestDupFieldNumber>): Uint8Array {
     return TestDupFieldNumber._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -5521,16 +5618,17 @@ export const TestDupFieldNumber = {
   decode: function (bytes: ByteSource): TestDupFieldNumber {
     return TestDupFieldNumber._readMessage(
       TestDupFieldNumber.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestDupFieldNumber with all fields set to their default value.
    */
-  initialize: function (): TestDupFieldNumber {
+  initialize: function (msg?: Partial<TestDupFieldNumber>): TestDupFieldNumber {
     return {
       a: 0,
+      ...msg,
     };
   },
 
@@ -5539,8 +5637,8 @@ export const TestDupFieldNumber = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestDupFieldNumber>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.a) {
       writer.writeInt32(1, msg.a);
     }
@@ -5552,7 +5650,7 @@ export const TestDupFieldNumber = {
    */
   _readMessage: function (
     msg: TestDupFieldNumber,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestDupFieldNumber {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -5577,7 +5675,7 @@ export const TestDupFieldNumber = {
     encode: function (msg: PartialDeep<TestDupFieldNumber.Foo>): Uint8Array {
       return TestDupFieldNumber.Foo._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -5587,16 +5685,19 @@ export const TestDupFieldNumber = {
     decode: function (bytes: ByteSource): TestDupFieldNumber.Foo {
       return TestDupFieldNumber.Foo._readMessage(
         TestDupFieldNumber.Foo.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestDupFieldNumber.Foo with all fields set to their default value.
      */
-    initialize: function (): TestDupFieldNumber.Foo {
+    initialize: function (
+      msg?: Partial<TestDupFieldNumber.Foo>,
+    ): TestDupFieldNumber.Foo {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -5605,8 +5706,8 @@ export const TestDupFieldNumber = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestDupFieldNumber.Foo>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.a) {
         writer.writeInt32(1, msg.a);
       }
@@ -5618,7 +5719,7 @@ export const TestDupFieldNumber = {
      */
     _readMessage: function (
       msg: TestDupFieldNumber.Foo,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestDupFieldNumber.Foo {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -5644,7 +5745,7 @@ export const TestDupFieldNumber = {
     encode: function (msg: PartialDeep<TestDupFieldNumber.Bar>): Uint8Array {
       return TestDupFieldNumber.Bar._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -5654,16 +5755,19 @@ export const TestDupFieldNumber = {
     decode: function (bytes: ByteSource): TestDupFieldNumber.Bar {
       return TestDupFieldNumber.Bar._readMessage(
         TestDupFieldNumber.Bar.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestDupFieldNumber.Bar with all fields set to their default value.
      */
-    initialize: function (): TestDupFieldNumber.Bar {
+    initialize: function (
+      msg?: Partial<TestDupFieldNumber.Bar>,
+    ): TestDupFieldNumber.Bar {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -5672,8 +5776,8 @@ export const TestDupFieldNumber = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestDupFieldNumber.Bar>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.a) {
         writer.writeInt32(1, msg.a);
       }
@@ -5685,7 +5789,7 @@ export const TestDupFieldNumber = {
      */
     _readMessage: function (
       msg: TestDupFieldNumber.Bar,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestDupFieldNumber.Bar {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -5712,7 +5816,7 @@ export const TestEagerMessage = {
   encode: function (msg: PartialDeep<TestEagerMessage>): Uint8Array {
     return TestEagerMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -5722,16 +5826,17 @@ export const TestEagerMessage = {
   decode: function (bytes: ByteSource): TestEagerMessage {
     return TestEagerMessage._readMessage(
       TestEagerMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestEagerMessage with all fields set to their default value.
    */
-  initialize: function (): TestEagerMessage {
+  initialize: function (msg?: Partial<TestEagerMessage>): TestEagerMessage {
     return {
       subMessage: TestAllTypes.initialize(),
+      ...msg,
     };
   },
 
@@ -5740,8 +5845,8 @@ export const TestEagerMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestEagerMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.subMessage) {
       writer.writeMessage(1, msg.subMessage, TestAllTypes._writeMessage);
     }
@@ -5753,7 +5858,7 @@ export const TestEagerMessage = {
    */
   _readMessage: function (
     msg: TestEagerMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestEagerMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -5779,7 +5884,7 @@ export const TestLazyMessage = {
   encode: function (msg: PartialDeep<TestLazyMessage>): Uint8Array {
     return TestLazyMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -5789,16 +5894,17 @@ export const TestLazyMessage = {
   decode: function (bytes: ByteSource): TestLazyMessage {
     return TestLazyMessage._readMessage(
       TestLazyMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestLazyMessage with all fields set to their default value.
    */
-  initialize: function (): TestLazyMessage {
+  initialize: function (msg?: Partial<TestLazyMessage>): TestLazyMessage {
     return {
       subMessage: TestAllTypes.initialize(),
+      ...msg,
     };
   },
 
@@ -5807,8 +5913,8 @@ export const TestLazyMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestLazyMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.subMessage) {
       writer.writeMessage(1, msg.subMessage, TestAllTypes._writeMessage);
     }
@@ -5820,7 +5926,7 @@ export const TestLazyMessage = {
    */
   _readMessage: function (
     msg: TestLazyMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestLazyMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -5846,7 +5952,7 @@ export const TestNestedMessageHasBits = {
   encode: function (msg: PartialDeep<TestNestedMessageHasBits>): Uint8Array {
     return TestNestedMessageHasBits._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -5856,17 +5962,20 @@ export const TestNestedMessageHasBits = {
   decode: function (bytes: ByteSource): TestNestedMessageHasBits {
     return TestNestedMessageHasBits._readMessage(
       TestNestedMessageHasBits.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestNestedMessageHasBits with all fields set to their default value.
    */
-  initialize: function (): TestNestedMessageHasBits {
+  initialize: function (
+    msg?: Partial<TestNestedMessageHasBits>,
+  ): TestNestedMessageHasBits {
     return {
       optionalNestedMessage:
         TestNestedMessageHasBits.NestedMessage.initialize(),
+      ...msg,
     };
   },
 
@@ -5875,8 +5984,8 @@ export const TestNestedMessageHasBits = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestNestedMessageHasBits>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.optionalNestedMessage) {
       writer.writeMessage(
         1,
@@ -5892,7 +6001,7 @@ export const TestNestedMessageHasBits = {
    */
   _readMessage: function (
     msg: TestNestedMessageHasBits,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestNestedMessageHasBits {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -5922,7 +6031,7 @@ export const TestNestedMessageHasBits = {
     ): Uint8Array {
       return TestNestedMessageHasBits.NestedMessage._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -5934,17 +6043,20 @@ export const TestNestedMessageHasBits = {
     ): TestNestedMessageHasBits.NestedMessage {
       return TestNestedMessageHasBits.NestedMessage._readMessage(
         TestNestedMessageHasBits.NestedMessage.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestNestedMessageHasBits.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestNestedMessageHasBits.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestNestedMessageHasBits.NestedMessage>,
+    ): TestNestedMessageHasBits.NestedMessage {
       return {
         nestedmessageRepeatedInt32: [],
         nestedmessageRepeatedForeignmessage: [],
+        ...msg,
       };
     },
 
@@ -5953,8 +6065,8 @@ export const TestNestedMessageHasBits = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestNestedMessageHasBits.NestedMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.nestedmessageRepeatedInt32?.length) {
         writer.writePackedInt32(1, msg.nestedmessageRepeatedInt32);
       }
@@ -5973,7 +6085,7 @@ export const TestNestedMessageHasBits = {
      */
     _readMessage: function (
       msg: TestNestedMessageHasBits.NestedMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestNestedMessageHasBits.NestedMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -6010,7 +6122,7 @@ export const TestCamelCaseFieldNames = {
   encode: function (msg: PartialDeep<TestCamelCaseFieldNames>): Uint8Array {
     return TestCamelCaseFieldNames._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -6020,14 +6132,16 @@ export const TestCamelCaseFieldNames = {
   decode: function (bytes: ByteSource): TestCamelCaseFieldNames {
     return TestCamelCaseFieldNames._readMessage(
       TestCamelCaseFieldNames.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestCamelCaseFieldNames with all fields set to their default value.
    */
-  initialize: function (): TestCamelCaseFieldNames {
+  initialize: function (
+    msg?: Partial<TestCamelCaseFieldNames>,
+  ): TestCamelCaseFieldNames {
     return {
       PrimitiveField: 0,
       StringField: "",
@@ -6041,6 +6155,7 @@ export const TestCamelCaseFieldNames = {
       RepeatedMessageField: [],
       RepeatedStringPieceField: [],
       RepeatedCordField: [],
+      ...msg,
     };
   },
 
@@ -6049,8 +6164,8 @@ export const TestCamelCaseFieldNames = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestCamelCaseFieldNames>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.PrimitiveField) {
       writer.writeInt32(1, msg.PrimitiveField);
     }
@@ -6099,7 +6214,7 @@ export const TestCamelCaseFieldNames = {
    */
   _readMessage: function (
     msg: TestCamelCaseFieldNames,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestCamelCaseFieldNames {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -6181,7 +6296,7 @@ export const TestFieldOrderings = {
   encode: function (msg: PartialDeep<TestFieldOrderings>): Uint8Array {
     return TestFieldOrderings._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -6191,19 +6306,20 @@ export const TestFieldOrderings = {
   decode: function (bytes: ByteSource): TestFieldOrderings {
     return TestFieldOrderings._readMessage(
       TestFieldOrderings.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestFieldOrderings with all fields set to their default value.
    */
-  initialize: function (): TestFieldOrderings {
+  initialize: function (msg?: Partial<TestFieldOrderings>): TestFieldOrderings {
     return {
       myString: "",
       myInt: 0n,
       myFloat: 0,
       optionalNestedMessage: TestFieldOrderings.NestedMessage.initialize(),
+      ...msg,
     };
   },
 
@@ -6212,8 +6328,8 @@ export const TestFieldOrderings = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestFieldOrderings>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.myString) {
       writer.writeString(11, msg.myString);
     }
@@ -6238,7 +6354,7 @@ export const TestFieldOrderings = {
    */
   _readMessage: function (
     msg: TestFieldOrderings,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestFieldOrderings {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -6280,7 +6396,7 @@ export const TestFieldOrderings = {
     ): Uint8Array {
       return TestFieldOrderings.NestedMessage._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -6290,17 +6406,20 @@ export const TestFieldOrderings = {
     decode: function (bytes: ByteSource): TestFieldOrderings.NestedMessage {
       return TestFieldOrderings.NestedMessage._readMessage(
         TestFieldOrderings.NestedMessage.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestFieldOrderings.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestFieldOrderings.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestFieldOrderings.NestedMessage>,
+    ): TestFieldOrderings.NestedMessage {
       return {
         oo: 0n,
         bb: 0,
+        ...msg,
       };
     },
 
@@ -6309,8 +6428,8 @@ export const TestFieldOrderings = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestFieldOrderings.NestedMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.oo) {
         writer.writeInt64String(2, msg.oo.toString() as any);
       }
@@ -6325,7 +6444,7 @@ export const TestFieldOrderings = {
      */
     _readMessage: function (
       msg: TestFieldOrderings.NestedMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestFieldOrderings.NestedMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -6356,7 +6475,7 @@ export const TestExtensionOrderings1 = {
   encode: function (msg: PartialDeep<TestExtensionOrderings1>): Uint8Array {
     return TestExtensionOrderings1._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -6366,16 +6485,19 @@ export const TestExtensionOrderings1 = {
   decode: function (bytes: ByteSource): TestExtensionOrderings1 {
     return TestExtensionOrderings1._readMessage(
       TestExtensionOrderings1.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestExtensionOrderings1 with all fields set to their default value.
    */
-  initialize: function (): TestExtensionOrderings1 {
+  initialize: function (
+    msg?: Partial<TestExtensionOrderings1>,
+  ): TestExtensionOrderings1 {
     return {
       myString: "",
+      ...msg,
     };
   },
 
@@ -6384,8 +6506,8 @@ export const TestExtensionOrderings1 = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestExtensionOrderings1>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.myString) {
       writer.writeString(1, msg.myString);
     }
@@ -6397,7 +6519,7 @@ export const TestExtensionOrderings1 = {
    */
   _readMessage: function (
     msg: TestExtensionOrderings1,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestExtensionOrderings1 {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -6423,7 +6545,7 @@ export const TestExtensionOrderings2 = {
   encode: function (msg: PartialDeep<TestExtensionOrderings2>): Uint8Array {
     return TestExtensionOrderings2._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -6433,16 +6555,19 @@ export const TestExtensionOrderings2 = {
   decode: function (bytes: ByteSource): TestExtensionOrderings2 {
     return TestExtensionOrderings2._readMessage(
       TestExtensionOrderings2.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestExtensionOrderings2 with all fields set to their default value.
    */
-  initialize: function (): TestExtensionOrderings2 {
+  initialize: function (
+    msg?: Partial<TestExtensionOrderings2>,
+  ): TestExtensionOrderings2 {
     return {
       myString: "",
+      ...msg,
     };
   },
 
@@ -6451,8 +6576,8 @@ export const TestExtensionOrderings2 = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestExtensionOrderings2>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.myString) {
       writer.writeString(1, msg.myString);
     }
@@ -6464,7 +6589,7 @@ export const TestExtensionOrderings2 = {
    */
   _readMessage: function (
     msg: TestExtensionOrderings2,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestExtensionOrderings2 {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -6491,7 +6616,7 @@ export const TestExtensionOrderings2 = {
     ): Uint8Array {
       return TestExtensionOrderings2.TestExtensionOrderings3._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -6503,16 +6628,19 @@ export const TestExtensionOrderings2 = {
     ): TestExtensionOrderings2.TestExtensionOrderings3 {
       return TestExtensionOrderings2.TestExtensionOrderings3._readMessage(
         TestExtensionOrderings2.TestExtensionOrderings3.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestExtensionOrderings2.TestExtensionOrderings3 with all fields set to their default value.
      */
-    initialize: function (): TestExtensionOrderings2.TestExtensionOrderings3 {
+    initialize: function (
+      msg?: Partial<TestExtensionOrderings2.TestExtensionOrderings3>,
+    ): TestExtensionOrderings2.TestExtensionOrderings3 {
       return {
         myString: "",
+        ...msg,
       };
     },
 
@@ -6521,8 +6649,8 @@ export const TestExtensionOrderings2 = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestExtensionOrderings2.TestExtensionOrderings3>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.myString) {
         writer.writeString(1, msg.myString);
       }
@@ -6534,7 +6662,7 @@ export const TestExtensionOrderings2 = {
      */
     _readMessage: function (
       msg: TestExtensionOrderings2.TestExtensionOrderings3,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestExtensionOrderings2.TestExtensionOrderings3 {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -6561,7 +6689,7 @@ export const TestExtremeDefaultValues = {
   encode: function (msg: PartialDeep<TestExtremeDefaultValues>): Uint8Array {
     return TestExtremeDefaultValues._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -6571,14 +6699,16 @@ export const TestExtremeDefaultValues = {
   decode: function (bytes: ByteSource): TestExtremeDefaultValues {
     return TestExtremeDefaultValues._readMessage(
       TestExtremeDefaultValues.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestExtremeDefaultValues with all fields set to their default value.
    */
-  initialize: function (): TestExtremeDefaultValues {
+  initialize: function (
+    msg?: Partial<TestExtremeDefaultValues>,
+  ): TestExtremeDefaultValues {
     return {
       escapedBytes: new Uint8Array(),
       largeUint32: 0,
@@ -6607,6 +6737,7 @@ export const TestExtremeDefaultValues = {
       stringPieceWithZero: "",
       cordWithZero: "",
       replacementString: "",
+      ...msg,
     };
   },
 
@@ -6615,8 +6746,8 @@ export const TestExtremeDefaultValues = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestExtremeDefaultValues>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.escapedBytes?.length) {
       writer.writeBytes(1, msg.escapedBytes);
     }
@@ -6706,7 +6837,7 @@ export const TestExtremeDefaultValues = {
    */
   _readMessage: function (
     msg: TestExtremeDefaultValues,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestExtremeDefaultValues {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -6836,7 +6967,7 @@ export const SparseEnumMessage = {
   encode: function (msg: PartialDeep<SparseEnumMessage>): Uint8Array {
     return SparseEnumMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -6846,16 +6977,17 @@ export const SparseEnumMessage = {
   decode: function (bytes: ByteSource): SparseEnumMessage {
     return SparseEnumMessage._readMessage(
       SparseEnumMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes SparseEnumMessage with all fields set to their default value.
    */
-  initialize: function (): SparseEnumMessage {
+  initialize: function (msg?: Partial<SparseEnumMessage>): SparseEnumMessage {
     return {
       sparseEnum: TestSparseEnum._fromInt(0),
+      ...msg,
     };
   },
 
@@ -6864,8 +6996,8 @@ export const SparseEnumMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<SparseEnumMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.sparseEnum && TestSparseEnum._toInt(msg.sparseEnum)) {
       writer.writeEnum(1, TestSparseEnum._toInt(msg.sparseEnum));
     }
@@ -6877,7 +7009,7 @@ export const SparseEnumMessage = {
    */
   _readMessage: function (
     msg: SparseEnumMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): SparseEnumMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -6901,7 +7033,10 @@ export const OneString = {
    * Serializes OneString to protobuf.
    */
   encode: function (msg: PartialDeep<OneString>): Uint8Array {
-    return OneString._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return OneString._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -6910,16 +7045,17 @@ export const OneString = {
   decode: function (bytes: ByteSource): OneString {
     return OneString._readMessage(
       OneString.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes OneString with all fields set to their default value.
    */
-  initialize: function (): OneString {
+  initialize: function (msg?: Partial<OneString>): OneString {
     return {
       data: "",
+      ...msg,
     };
   },
 
@@ -6928,8 +7064,8 @@ export const OneString = {
    */
   _writeMessage: function (
     msg: PartialDeep<OneString>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.data) {
       writer.writeString(1, msg.data);
     }
@@ -6939,7 +7075,10 @@ export const OneString = {
   /**
    * @private
    */
-  _readMessage: function (msg: OneString, reader: BinaryReader): OneString {
+  _readMessage: function (
+    msg: OneString,
+    reader: protoscript.BinaryReader,
+  ): OneString {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -6962,7 +7101,10 @@ export const MoreString = {
    * Serializes MoreString to protobuf.
    */
   encode: function (msg: PartialDeep<MoreString>): Uint8Array {
-    return MoreString._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return MoreString._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -6971,16 +7113,17 @@ export const MoreString = {
   decode: function (bytes: ByteSource): MoreString {
     return MoreString._readMessage(
       MoreString.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes MoreString with all fields set to their default value.
    */
-  initialize: function (): MoreString {
+  initialize: function (msg?: Partial<MoreString>): MoreString {
     return {
       data: [],
+      ...msg,
     };
   },
 
@@ -6989,8 +7132,8 @@ export const MoreString = {
    */
   _writeMessage: function (
     msg: PartialDeep<MoreString>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.data?.length) {
       writer.writeRepeatedString(1, msg.data);
     }
@@ -7000,7 +7143,10 @@ export const MoreString = {
   /**
    * @private
    */
-  _readMessage: function (msg: MoreString, reader: BinaryReader): MoreString {
+  _readMessage: function (
+    msg: MoreString,
+    reader: protoscript.BinaryReader,
+  ): MoreString {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -7023,7 +7169,10 @@ export const OneBytes = {
    * Serializes OneBytes to protobuf.
    */
   encode: function (msg: PartialDeep<OneBytes>): Uint8Array {
-    return OneBytes._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return OneBytes._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -7032,16 +7181,17 @@ export const OneBytes = {
   decode: function (bytes: ByteSource): OneBytes {
     return OneBytes._readMessage(
       OneBytes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes OneBytes with all fields set to their default value.
    */
-  initialize: function (): OneBytes {
+  initialize: function (msg?: Partial<OneBytes>): OneBytes {
     return {
       data: new Uint8Array(),
+      ...msg,
     };
   },
 
@@ -7050,8 +7200,8 @@ export const OneBytes = {
    */
   _writeMessage: function (
     msg: PartialDeep<OneBytes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.data?.length) {
       writer.writeBytes(1, msg.data);
     }
@@ -7061,7 +7211,10 @@ export const OneBytes = {
   /**
    * @private
    */
-  _readMessage: function (msg: OneBytes, reader: BinaryReader): OneBytes {
+  _readMessage: function (
+    msg: OneBytes,
+    reader: protoscript.BinaryReader,
+  ): OneBytes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -7084,7 +7237,10 @@ export const MoreBytes = {
    * Serializes MoreBytes to protobuf.
    */
   encode: function (msg: PartialDeep<MoreBytes>): Uint8Array {
-    return MoreBytes._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return MoreBytes._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -7093,16 +7249,17 @@ export const MoreBytes = {
   decode: function (bytes: ByteSource): MoreBytes {
     return MoreBytes._readMessage(
       MoreBytes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes MoreBytes with all fields set to their default value.
    */
-  initialize: function (): MoreBytes {
+  initialize: function (msg?: Partial<MoreBytes>): MoreBytes {
     return {
       data: [],
+      ...msg,
     };
   },
 
@@ -7111,8 +7268,8 @@ export const MoreBytes = {
    */
   _writeMessage: function (
     msg: PartialDeep<MoreBytes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.data?.length) {
       writer.writeRepeatedBytes(1, msg.data);
     }
@@ -7122,7 +7279,10 @@ export const MoreBytes = {
   /**
    * @private
    */
-  _readMessage: function (msg: MoreBytes, reader: BinaryReader): MoreBytes {
+  _readMessage: function (
+    msg: MoreBytes,
+    reader: protoscript.BinaryReader,
+  ): MoreBytes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -7147,7 +7307,7 @@ export const Int32Message = {
   encode: function (msg: PartialDeep<Int32Message>): Uint8Array {
     return Int32Message._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -7157,16 +7317,17 @@ export const Int32Message = {
   decode: function (bytes: ByteSource): Int32Message {
     return Int32Message._readMessage(
       Int32Message.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes Int32Message with all fields set to their default value.
    */
-  initialize: function (): Int32Message {
+  initialize: function (msg?: Partial<Int32Message>): Int32Message {
     return {
       data: 0,
+      ...msg,
     };
   },
 
@@ -7175,8 +7336,8 @@ export const Int32Message = {
    */
   _writeMessage: function (
     msg: PartialDeep<Int32Message>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.data) {
       writer.writeInt32(1, msg.data);
     }
@@ -7188,7 +7349,7 @@ export const Int32Message = {
    */
   _readMessage: function (
     msg: Int32Message,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): Int32Message {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -7214,7 +7375,7 @@ export const Uint32Message = {
   encode: function (msg: PartialDeep<Uint32Message>): Uint8Array {
     return Uint32Message._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -7224,16 +7385,17 @@ export const Uint32Message = {
   decode: function (bytes: ByteSource): Uint32Message {
     return Uint32Message._readMessage(
       Uint32Message.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes Uint32Message with all fields set to their default value.
    */
-  initialize: function (): Uint32Message {
+  initialize: function (msg?: Partial<Uint32Message>): Uint32Message {
     return {
       data: 0,
+      ...msg,
     };
   },
 
@@ -7242,8 +7404,8 @@ export const Uint32Message = {
    */
   _writeMessage: function (
     msg: PartialDeep<Uint32Message>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.data) {
       writer.writeUint32(1, msg.data);
     }
@@ -7255,7 +7417,7 @@ export const Uint32Message = {
    */
   _readMessage: function (
     msg: Uint32Message,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): Uint32Message {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -7281,7 +7443,7 @@ export const Int64Message = {
   encode: function (msg: PartialDeep<Int64Message>): Uint8Array {
     return Int64Message._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -7291,16 +7453,17 @@ export const Int64Message = {
   decode: function (bytes: ByteSource): Int64Message {
     return Int64Message._readMessage(
       Int64Message.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes Int64Message with all fields set to their default value.
    */
-  initialize: function (): Int64Message {
+  initialize: function (msg?: Partial<Int64Message>): Int64Message {
     return {
       data: 0n,
+      ...msg,
     };
   },
 
@@ -7309,8 +7472,8 @@ export const Int64Message = {
    */
   _writeMessage: function (
     msg: PartialDeep<Int64Message>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.data) {
       writer.writeInt64String(1, msg.data.toString() as any);
     }
@@ -7322,7 +7485,7 @@ export const Int64Message = {
    */
   _readMessage: function (
     msg: Int64Message,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): Int64Message {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -7348,7 +7511,7 @@ export const Uint64Message = {
   encode: function (msg: PartialDeep<Uint64Message>): Uint8Array {
     return Uint64Message._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -7358,16 +7521,17 @@ export const Uint64Message = {
   decode: function (bytes: ByteSource): Uint64Message {
     return Uint64Message._readMessage(
       Uint64Message.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes Uint64Message with all fields set to their default value.
    */
-  initialize: function (): Uint64Message {
+  initialize: function (msg?: Partial<Uint64Message>): Uint64Message {
     return {
       data: 0n,
+      ...msg,
     };
   },
 
@@ -7376,8 +7540,8 @@ export const Uint64Message = {
    */
   _writeMessage: function (
     msg: PartialDeep<Uint64Message>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.data) {
       writer.writeUint64String(1, msg.data.toString() as any);
     }
@@ -7389,7 +7553,7 @@ export const Uint64Message = {
    */
   _readMessage: function (
     msg: Uint64Message,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): Uint64Message {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -7413,7 +7577,10 @@ export const BoolMessage = {
    * Serializes BoolMessage to protobuf.
    */
   encode: function (msg: PartialDeep<BoolMessage>): Uint8Array {
-    return BoolMessage._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return BoolMessage._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -7422,16 +7589,17 @@ export const BoolMessage = {
   decode: function (bytes: ByteSource): BoolMessage {
     return BoolMessage._readMessage(
       BoolMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes BoolMessage with all fields set to their default value.
    */
-  initialize: function (): BoolMessage {
+  initialize: function (msg?: Partial<BoolMessage>): BoolMessage {
     return {
       data: false,
+      ...msg,
     };
   },
 
@@ -7440,8 +7608,8 @@ export const BoolMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<BoolMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.data) {
       writer.writeBool(1, msg.data);
     }
@@ -7451,7 +7619,10 @@ export const BoolMessage = {
   /**
    * @private
    */
-  _readMessage: function (msg: BoolMessage, reader: BinaryReader): BoolMessage {
+  _readMessage: function (
+    msg: BoolMessage,
+    reader: protoscript.BinaryReader,
+  ): BoolMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -7474,7 +7645,10 @@ export const TestOneof = {
    * Serializes TestOneof to protobuf.
    */
   encode: function (msg: PartialDeep<TestOneof>): Uint8Array {
-    return TestOneof._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return TestOneof._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -7483,18 +7657,19 @@ export const TestOneof = {
   decode: function (bytes: ByteSource): TestOneof {
     return TestOneof._readMessage(
       TestOneof.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestOneof with all fields set to their default value.
    */
-  initialize: function (): TestOneof {
+  initialize: function (msg?: Partial<TestOneof>): TestOneof {
     return {
       fooInt: undefined,
       fooString: undefined,
       fooMessage: undefined,
+      ...msg,
     };
   },
 
@@ -7503,8 +7678,8 @@ export const TestOneof = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestOneof>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.fooInt != undefined) {
       writer.writeInt32(1, msg.fooInt);
     }
@@ -7520,7 +7695,10 @@ export const TestOneof = {
   /**
    * @private
    */
-  _readMessage: function (msg: TestOneof, reader: BinaryReader): TestOneof {
+  _readMessage: function (
+    msg: TestOneof,
+    reader: protoscript.BinaryReader,
+  ): TestOneof {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -7553,7 +7731,7 @@ export const TestOneof = {
     encode: function (msg: PartialDeep<TestOneof.FooGroup>): Uint8Array {
       return TestOneof.FooGroup._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -7563,17 +7741,20 @@ export const TestOneof = {
     decode: function (bytes: ByteSource): TestOneof.FooGroup {
       return TestOneof.FooGroup._readMessage(
         TestOneof.FooGroup.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestOneof.FooGroup with all fields set to their default value.
      */
-    initialize: function (): TestOneof.FooGroup {
+    initialize: function (
+      msg?: Partial<TestOneof.FooGroup>,
+    ): TestOneof.FooGroup {
       return {
         a: 0,
         b: "",
+        ...msg,
       };
     },
 
@@ -7582,8 +7763,8 @@ export const TestOneof = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestOneof.FooGroup>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.a) {
         writer.writeInt32(5, msg.a);
       }
@@ -7598,7 +7779,7 @@ export const TestOneof = {
      */
     _readMessage: function (
       msg: TestOneof.FooGroup,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestOneof.FooGroup {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -7631,7 +7812,7 @@ export const TestOneofBackwardsCompatible = {
   ): Uint8Array {
     return TestOneofBackwardsCompatible._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -7641,18 +7822,21 @@ export const TestOneofBackwardsCompatible = {
   decode: function (bytes: ByteSource): TestOneofBackwardsCompatible {
     return TestOneofBackwardsCompatible._readMessage(
       TestOneofBackwardsCompatible.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestOneofBackwardsCompatible with all fields set to their default value.
    */
-  initialize: function (): TestOneofBackwardsCompatible {
+  initialize: function (
+    msg?: Partial<TestOneofBackwardsCompatible>,
+  ): TestOneofBackwardsCompatible {
     return {
       fooInt: 0,
       fooString: "",
       fooMessage: TestAllTypes.initialize(),
+      ...msg,
     };
   },
 
@@ -7661,8 +7845,8 @@ export const TestOneofBackwardsCompatible = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestOneofBackwardsCompatible>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.fooInt) {
       writer.writeInt32(1, msg.fooInt);
     }
@@ -7680,7 +7864,7 @@ export const TestOneofBackwardsCompatible = {
    */
   _readMessage: function (
     msg: TestOneofBackwardsCompatible,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestOneofBackwardsCompatible {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -7715,7 +7899,7 @@ export const TestOneofBackwardsCompatible = {
     ): Uint8Array {
       return TestOneofBackwardsCompatible.FooGroup._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -7727,17 +7911,20 @@ export const TestOneofBackwardsCompatible = {
     ): TestOneofBackwardsCompatible.FooGroup {
       return TestOneofBackwardsCompatible.FooGroup._readMessage(
         TestOneofBackwardsCompatible.FooGroup.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestOneofBackwardsCompatible.FooGroup with all fields set to their default value.
      */
-    initialize: function (): TestOneofBackwardsCompatible.FooGroup {
+    initialize: function (
+      msg?: Partial<TestOneofBackwardsCompatible.FooGroup>,
+    ): TestOneofBackwardsCompatible.FooGroup {
       return {
         a: 0,
         b: "",
+        ...msg,
       };
     },
 
@@ -7746,8 +7933,8 @@ export const TestOneofBackwardsCompatible = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestOneofBackwardsCompatible.FooGroup>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.a) {
         writer.writeInt32(5, msg.a);
       }
@@ -7762,7 +7949,7 @@ export const TestOneofBackwardsCompatible = {
      */
     _readMessage: function (
       msg: TestOneofBackwardsCompatible.FooGroup,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestOneofBackwardsCompatible.FooGroup {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -7791,7 +7978,10 @@ export const TestOneof2 = {
    * Serializes TestOneof2 to protobuf.
    */
   encode: function (msg: PartialDeep<TestOneof2>): Uint8Array {
-    return TestOneof2._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return TestOneof2._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
@@ -7800,14 +7990,14 @@ export const TestOneof2 = {
   decode: function (bytes: ByteSource): TestOneof2 {
     return TestOneof2._readMessage(
       TestOneof2.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestOneof2 with all fields set to their default value.
    */
-  initialize: function (): TestOneof2 {
+  initialize: function (msg?: Partial<TestOneof2>): TestOneof2 {
     return {
       fooInt: undefined,
       fooString: undefined,
@@ -7829,6 +8019,7 @@ export const TestOneof2 = {
       barBytesWithEmptyDefault: undefined,
       bazInt: 0,
       bazString: "",
+      ...msg,
     };
   },
 
@@ -7837,8 +8028,8 @@ export const TestOneof2 = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestOneof2>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.fooInt != undefined) {
       writer.writeInt32(1, msg.fooInt);
     }
@@ -7913,7 +8104,10 @@ export const TestOneof2 = {
   /**
    * @private
    */
-  _readMessage: function (msg: TestOneof2, reader: BinaryReader): TestOneof2 {
+  _readMessage: function (
+    msg: TestOneof2,
+    reader: protoscript.BinaryReader,
+  ): TestOneof2 {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -8067,7 +8261,7 @@ export const TestOneof2 = {
     encode: function (msg: PartialDeep<TestOneof2.FooGroup>): Uint8Array {
       return TestOneof2.FooGroup._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -8077,17 +8271,20 @@ export const TestOneof2 = {
     decode: function (bytes: ByteSource): TestOneof2.FooGroup {
       return TestOneof2.FooGroup._readMessage(
         TestOneof2.FooGroup.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestOneof2.FooGroup with all fields set to their default value.
      */
-    initialize: function (): TestOneof2.FooGroup {
+    initialize: function (
+      msg?: Partial<TestOneof2.FooGroup>,
+    ): TestOneof2.FooGroup {
       return {
         a: 0,
         b: "",
+        ...msg,
       };
     },
 
@@ -8096,8 +8293,8 @@ export const TestOneof2 = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestOneof2.FooGroup>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.a) {
         writer.writeInt32(9, msg.a);
       }
@@ -8112,7 +8309,7 @@ export const TestOneof2 = {
      */
     _readMessage: function (
       msg: TestOneof2.FooGroup,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestOneof2.FooGroup {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -8142,7 +8339,7 @@ export const TestOneof2 = {
     encode: function (msg: PartialDeep<TestOneof2.NestedMessage>): Uint8Array {
       return TestOneof2.NestedMessage._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -8152,17 +8349,20 @@ export const TestOneof2 = {
     decode: function (bytes: ByteSource): TestOneof2.NestedMessage {
       return TestOneof2.NestedMessage._readMessage(
         TestOneof2.NestedMessage.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestOneof2.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestOneof2.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestOneof2.NestedMessage>,
+    ): TestOneof2.NestedMessage {
       return {
         quxInt: 0n,
         corgeInt: [],
+        ...msg,
       };
     },
 
@@ -8171,8 +8371,8 @@ export const TestOneof2 = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestOneof2.NestedMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.quxInt) {
         writer.writeInt64String(1, msg.quxInt.toString() as any);
       }
@@ -8187,7 +8387,7 @@ export const TestOneof2 = {
      */
     _readMessage: function (
       msg: TestOneof2.NestedMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestOneof2.NestedMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -8222,7 +8422,7 @@ export const TestRequiredOneof = {
   encode: function (msg: PartialDeep<TestRequiredOneof>): Uint8Array {
     return TestRequiredOneof._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -8232,18 +8432,19 @@ export const TestRequiredOneof = {
   decode: function (bytes: ByteSource): TestRequiredOneof {
     return TestRequiredOneof._readMessage(
       TestRequiredOneof.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestRequiredOneof with all fields set to their default value.
    */
-  initialize: function (): TestRequiredOneof {
+  initialize: function (msg?: Partial<TestRequiredOneof>): TestRequiredOneof {
     return {
       fooInt: undefined,
       fooString: undefined,
       fooMessage: undefined,
+      ...msg,
     };
   },
 
@@ -8252,8 +8453,8 @@ export const TestRequiredOneof = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestRequiredOneof>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.fooInt != undefined) {
       writer.writeInt32(1, msg.fooInt);
     }
@@ -8275,7 +8476,7 @@ export const TestRequiredOneof = {
    */
   _readMessage: function (
     msg: TestRequiredOneof,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestRequiredOneof {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -8314,7 +8515,7 @@ export const TestRequiredOneof = {
     ): Uint8Array {
       return TestRequiredOneof.NestedMessage._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -8324,16 +8525,19 @@ export const TestRequiredOneof = {
     decode: function (bytes: ByteSource): TestRequiredOneof.NestedMessage {
       return TestRequiredOneof.NestedMessage._readMessage(
         TestRequiredOneof.NestedMessage.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestRequiredOneof.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestRequiredOneof.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestRequiredOneof.NestedMessage>,
+    ): TestRequiredOneof.NestedMessage {
       return {
         requiredDouble: 0,
+        ...msg,
       };
     },
 
@@ -8342,8 +8546,8 @@ export const TestRequiredOneof = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestRequiredOneof.NestedMessage>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.requiredDouble) {
         writer.writeDouble(1, msg.requiredDouble);
       }
@@ -8355,7 +8559,7 @@ export const TestRequiredOneof = {
      */
     _readMessage: function (
       msg: TestRequiredOneof.NestedMessage,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestRequiredOneof.NestedMessage {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -8382,7 +8586,7 @@ export const TestPackedTypes = {
   encode: function (msg: PartialDeep<TestPackedTypes>): Uint8Array {
     return TestPackedTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -8392,14 +8596,14 @@ export const TestPackedTypes = {
   decode: function (bytes: ByteSource): TestPackedTypes {
     return TestPackedTypes._readMessage(
       TestPackedTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestPackedTypes with all fields set to their default value.
    */
-  initialize: function (): TestPackedTypes {
+  initialize: function (msg?: Partial<TestPackedTypes>): TestPackedTypes {
     return {
       packedInt32: [],
       packedInt64: [],
@@ -8415,6 +8619,7 @@ export const TestPackedTypes = {
       packedDouble: [],
       packedBool: [],
       packedEnum: [],
+      ...msg,
     };
   },
 
@@ -8423,8 +8628,8 @@ export const TestPackedTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestPackedTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.packedInt32?.length) {
       writer.writePackedInt32(90, msg.packedInt32);
     }
@@ -8490,7 +8695,7 @@ export const TestPackedTypes = {
    */
   _readMessage: function (
     msg: TestPackedTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestPackedTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -8634,7 +8839,7 @@ export const TestUnpackedTypes = {
   encode: function (msg: PartialDeep<TestUnpackedTypes>): Uint8Array {
     return TestUnpackedTypes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -8644,14 +8849,14 @@ export const TestUnpackedTypes = {
   decode: function (bytes: ByteSource): TestUnpackedTypes {
     return TestUnpackedTypes._readMessage(
       TestUnpackedTypes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestUnpackedTypes with all fields set to their default value.
    */
-  initialize: function (): TestUnpackedTypes {
+  initialize: function (msg?: Partial<TestUnpackedTypes>): TestUnpackedTypes {
     return {
       unpackedInt32: [],
       unpackedInt64: [],
@@ -8667,6 +8872,7 @@ export const TestUnpackedTypes = {
       unpackedDouble: [],
       unpackedBool: [],
       unpackedEnum: [],
+      ...msg,
     };
   },
 
@@ -8675,8 +8881,8 @@ export const TestUnpackedTypes = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestUnpackedTypes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.unpackedInt32?.length) {
       writer.writePackedInt32(90, msg.unpackedInt32);
     }
@@ -8742,7 +8948,7 @@ export const TestUnpackedTypes = {
    */
   _readMessage: function (
     msg: TestUnpackedTypes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestUnpackedTypes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -8899,8 +9105,12 @@ export const TestPackedExtensions = {
   /**
    * Initializes TestPackedExtensions with all fields set to their default value.
    */
-  initialize: function (): TestPackedExtensions {
-    return {};
+  initialize: function (
+    msg?: Partial<TestPackedExtensions>,
+  ): TestPackedExtensions {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -8908,8 +9118,8 @@ export const TestPackedExtensions = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestPackedExtensions>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -8918,7 +9128,7 @@ export const TestPackedExtensions = {
    */
   _readMessage: function (
     _msg: TestPackedExtensions,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestPackedExtensions {
     return _msg;
   },
@@ -8942,8 +9152,12 @@ export const TestUnpackedExtensions = {
   /**
    * Initializes TestUnpackedExtensions with all fields set to their default value.
    */
-  initialize: function (): TestUnpackedExtensions {
-    return {};
+  initialize: function (
+    msg?: Partial<TestUnpackedExtensions>,
+  ): TestUnpackedExtensions {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -8951,8 +9165,8 @@ export const TestUnpackedExtensions = {
    */
   _writeMessage: function (
     _msg: PartialDeep<TestUnpackedExtensions>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -8961,7 +9175,7 @@ export const TestUnpackedExtensions = {
    */
   _readMessage: function (
     _msg: TestUnpackedExtensions,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): TestUnpackedExtensions {
     return _msg;
   },
@@ -8974,7 +9188,7 @@ export const TestDynamicExtensions = {
   encode: function (msg: PartialDeep<TestDynamicExtensions>): Uint8Array {
     return TestDynamicExtensions._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -8984,14 +9198,16 @@ export const TestDynamicExtensions = {
   decode: function (bytes: ByteSource): TestDynamicExtensions {
     return TestDynamicExtensions._readMessage(
       TestDynamicExtensions.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestDynamicExtensions with all fields set to their default value.
    */
-  initialize: function (): TestDynamicExtensions {
+  initialize: function (
+    msg?: Partial<TestDynamicExtensions>,
+  ): TestDynamicExtensions {
     return {
       scalarExtension: 0,
       enumExtension: ForeignEnum._fromInt(0),
@@ -9001,6 +9217,7 @@ export const TestDynamicExtensions = {
         TestDynamicExtensions.DynamicMessageType.initialize(),
       repeatedExtension: [],
       packedExtension: [],
+      ...msg,
     };
   },
 
@@ -9009,8 +9226,8 @@ export const TestDynamicExtensions = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestDynamicExtensions>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.scalarExtension) {
       writer.writeFixed32(2000, msg.scalarExtension);
     }
@@ -9054,7 +9271,7 @@ export const TestDynamicExtensions = {
    */
   _readMessage: function (
     msg: TestDynamicExtensions,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestDynamicExtensions {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -9159,7 +9376,7 @@ export const TestDynamicExtensions = {
     ): Uint8Array {
       return TestDynamicExtensions.DynamicMessageType._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -9171,16 +9388,19 @@ export const TestDynamicExtensions = {
     ): TestDynamicExtensions.DynamicMessageType {
       return TestDynamicExtensions.DynamicMessageType._readMessage(
         TestDynamicExtensions.DynamicMessageType.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestDynamicExtensions.DynamicMessageType with all fields set to their default value.
      */
-    initialize: function (): TestDynamicExtensions.DynamicMessageType {
+    initialize: function (
+      msg?: Partial<TestDynamicExtensions.DynamicMessageType>,
+    ): TestDynamicExtensions.DynamicMessageType {
       return {
         dynamicField: 0,
+        ...msg,
       };
     },
 
@@ -9189,8 +9409,8 @@ export const TestDynamicExtensions = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestDynamicExtensions.DynamicMessageType>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.dynamicField) {
         writer.writeInt32(2100, msg.dynamicField);
       }
@@ -9202,7 +9422,7 @@ export const TestDynamicExtensions = {
      */
     _readMessage: function (
       msg: TestDynamicExtensions.DynamicMessageType,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestDynamicExtensions.DynamicMessageType {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -9231,7 +9451,7 @@ export const TestRepeatedScalarDifferentTagSizes = {
   ): Uint8Array {
     return TestRepeatedScalarDifferentTagSizes._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -9241,14 +9461,16 @@ export const TestRepeatedScalarDifferentTagSizes = {
   decode: function (bytes: ByteSource): TestRepeatedScalarDifferentTagSizes {
     return TestRepeatedScalarDifferentTagSizes._readMessage(
       TestRepeatedScalarDifferentTagSizes.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestRepeatedScalarDifferentTagSizes with all fields set to their default value.
    */
-  initialize: function (): TestRepeatedScalarDifferentTagSizes {
+  initialize: function (
+    msg?: Partial<TestRepeatedScalarDifferentTagSizes>,
+  ): TestRepeatedScalarDifferentTagSizes {
     return {
       repeatedFixed32: [],
       repeatedInt32: [],
@@ -9256,6 +9478,7 @@ export const TestRepeatedScalarDifferentTagSizes = {
       repeatedInt64: [],
       repeatedFloat: [],
       repeatedUint64: [],
+      ...msg,
     };
   },
 
@@ -9264,8 +9487,8 @@ export const TestRepeatedScalarDifferentTagSizes = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestRepeatedScalarDifferentTagSizes>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.repeatedFixed32?.length) {
       writer.writePackedFixed32(12, msg.repeatedFixed32);
     }
@@ -9301,7 +9524,7 @@ export const TestRepeatedScalarDifferentTagSizes = {
    */
   _readMessage: function (
     msg: TestRepeatedScalarDifferentTagSizes,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestRepeatedScalarDifferentTagSizes {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -9377,7 +9600,7 @@ export const TestParsingMerge = {
   encode: function (msg: PartialDeep<TestParsingMerge>): Uint8Array {
     return TestParsingMerge._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -9387,18 +9610,19 @@ export const TestParsingMerge = {
   decode: function (bytes: ByteSource): TestParsingMerge {
     return TestParsingMerge._readMessage(
       TestParsingMerge.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestParsingMerge with all fields set to their default value.
    */
-  initialize: function (): TestParsingMerge {
+  initialize: function (msg?: Partial<TestParsingMerge>): TestParsingMerge {
     return {
       requiredAllTypes: TestAllTypes.initialize(),
       optionalAllTypes: TestAllTypes.initialize(),
       repeatedAllTypes: [],
+      ...msg,
     };
   },
 
@@ -9407,8 +9631,8 @@ export const TestParsingMerge = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestParsingMerge>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.requiredAllTypes) {
       writer.writeMessage(1, msg.requiredAllTypes, TestAllTypes._writeMessage);
     }
@@ -9430,7 +9654,7 @@ export const TestParsingMerge = {
    */
   _readMessage: function (
     msg: TestParsingMerge,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestParsingMerge {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -9467,7 +9691,7 @@ export const TestParsingMerge = {
     ): Uint8Array {
       return TestParsingMerge.RepeatedFieldsGenerator._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -9479,20 +9703,23 @@ export const TestParsingMerge = {
     ): TestParsingMerge.RepeatedFieldsGenerator {
       return TestParsingMerge.RepeatedFieldsGenerator._readMessage(
         TestParsingMerge.RepeatedFieldsGenerator.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestParsingMerge.RepeatedFieldsGenerator with all fields set to their default value.
      */
-    initialize: function (): TestParsingMerge.RepeatedFieldsGenerator {
+    initialize: function (
+      msg?: Partial<TestParsingMerge.RepeatedFieldsGenerator>,
+    ): TestParsingMerge.RepeatedFieldsGenerator {
       return {
         field1: [],
         field2: [],
         field3: [],
         ext1: [],
         ext2: [],
+        ...msg,
       };
     },
 
@@ -9501,8 +9728,8 @@ export const TestParsingMerge = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestParsingMerge.RepeatedFieldsGenerator>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.field1?.length) {
         writer.writeRepeatedMessage(
           1,
@@ -9546,7 +9773,7 @@ export const TestParsingMerge = {
      */
     _readMessage: function (
       msg: TestParsingMerge.RepeatedFieldsGenerator,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestParsingMerge.RepeatedFieldsGenerator {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -9599,7 +9826,7 @@ export const TestParsingMerge = {
       ): Uint8Array {
         return TestParsingMerge.RepeatedFieldsGenerator.Group1._writeMessage(
           msg,
-          new BinaryWriter(),
+          new protoscript.BinaryWriter(),
         ).getResultBuffer();
       },
 
@@ -9611,16 +9838,19 @@ export const TestParsingMerge = {
       ): TestParsingMerge.RepeatedFieldsGenerator.Group1 {
         return TestParsingMerge.RepeatedFieldsGenerator.Group1._readMessage(
           TestParsingMerge.RepeatedFieldsGenerator.Group1.initialize(),
-          new BinaryReader(bytes),
+          new protoscript.BinaryReader(bytes),
         );
       },
 
       /**
        * Initializes TestParsingMerge.RepeatedFieldsGenerator.Group1 with all fields set to their default value.
        */
-      initialize: function (): TestParsingMerge.RepeatedFieldsGenerator.Group1 {
+      initialize: function (
+        msg?: Partial<TestParsingMerge.RepeatedFieldsGenerator.Group1>,
+      ): TestParsingMerge.RepeatedFieldsGenerator.Group1 {
         return {
           field1: TestAllTypes.initialize(),
+          ...msg,
         };
       },
 
@@ -9629,8 +9859,8 @@ export const TestParsingMerge = {
        */
       _writeMessage: function (
         msg: PartialDeep<TestParsingMerge.RepeatedFieldsGenerator.Group1>,
-        writer: BinaryWriter,
-      ): BinaryWriter {
+        writer: protoscript.BinaryWriter,
+      ): protoscript.BinaryWriter {
         if (msg.field1) {
           writer.writeMessage(11, msg.field1, TestAllTypes._writeMessage);
         }
@@ -9642,7 +9872,7 @@ export const TestParsingMerge = {
        */
       _readMessage: function (
         msg: TestParsingMerge.RepeatedFieldsGenerator.Group1,
-        reader: BinaryReader,
+        reader: protoscript.BinaryReader,
       ): TestParsingMerge.RepeatedFieldsGenerator.Group1 {
         while (reader.nextField()) {
           const field = reader.getFieldNumber();
@@ -9670,7 +9900,7 @@ export const TestParsingMerge = {
       ): Uint8Array {
         return TestParsingMerge.RepeatedFieldsGenerator.Group2._writeMessage(
           msg,
-          new BinaryWriter(),
+          new protoscript.BinaryWriter(),
         ).getResultBuffer();
       },
 
@@ -9682,16 +9912,19 @@ export const TestParsingMerge = {
       ): TestParsingMerge.RepeatedFieldsGenerator.Group2 {
         return TestParsingMerge.RepeatedFieldsGenerator.Group2._readMessage(
           TestParsingMerge.RepeatedFieldsGenerator.Group2.initialize(),
-          new BinaryReader(bytes),
+          new protoscript.BinaryReader(bytes),
         );
       },
 
       /**
        * Initializes TestParsingMerge.RepeatedFieldsGenerator.Group2 with all fields set to their default value.
        */
-      initialize: function (): TestParsingMerge.RepeatedFieldsGenerator.Group2 {
+      initialize: function (
+        msg?: Partial<TestParsingMerge.RepeatedFieldsGenerator.Group2>,
+      ): TestParsingMerge.RepeatedFieldsGenerator.Group2 {
         return {
           field1: TestAllTypes.initialize(),
+          ...msg,
         };
       },
 
@@ -9700,8 +9933,8 @@ export const TestParsingMerge = {
        */
       _writeMessage: function (
         msg: PartialDeep<TestParsingMerge.RepeatedFieldsGenerator.Group2>,
-        writer: BinaryWriter,
-      ): BinaryWriter {
+        writer: protoscript.BinaryWriter,
+      ): protoscript.BinaryWriter {
         if (msg.field1) {
           writer.writeMessage(21, msg.field1, TestAllTypes._writeMessage);
         }
@@ -9713,7 +9946,7 @@ export const TestParsingMerge = {
        */
       _readMessage: function (
         msg: TestParsingMerge.RepeatedFieldsGenerator.Group2,
-        reader: BinaryReader,
+        reader: protoscript.BinaryReader,
       ): TestParsingMerge.RepeatedFieldsGenerator.Group2 {
         while (reader.nextField()) {
           const field = reader.getFieldNumber();
@@ -9742,7 +9975,7 @@ export const TestParsingMerge = {
     ): Uint8Array {
       return TestParsingMerge.OptionalGroup._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -9752,16 +9985,19 @@ export const TestParsingMerge = {
     decode: function (bytes: ByteSource): TestParsingMerge.OptionalGroup {
       return TestParsingMerge.OptionalGroup._readMessage(
         TestParsingMerge.OptionalGroup.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestParsingMerge.OptionalGroup with all fields set to their default value.
      */
-    initialize: function (): TestParsingMerge.OptionalGroup {
+    initialize: function (
+      msg?: Partial<TestParsingMerge.OptionalGroup>,
+    ): TestParsingMerge.OptionalGroup {
       return {
         optionalGroupAllTypes: TestAllTypes.initialize(),
+        ...msg,
       };
     },
 
@@ -9770,8 +10006,8 @@ export const TestParsingMerge = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestParsingMerge.OptionalGroup>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.optionalGroupAllTypes) {
         writer.writeMessage(
           11,
@@ -9787,7 +10023,7 @@ export const TestParsingMerge = {
      */
     _readMessage: function (
       msg: TestParsingMerge.OptionalGroup,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestParsingMerge.OptionalGroup {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -9818,7 +10054,7 @@ export const TestParsingMerge = {
     ): Uint8Array {
       return TestParsingMerge.RepeatedGroup._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -9828,16 +10064,19 @@ export const TestParsingMerge = {
     decode: function (bytes: ByteSource): TestParsingMerge.RepeatedGroup {
       return TestParsingMerge.RepeatedGroup._readMessage(
         TestParsingMerge.RepeatedGroup.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestParsingMerge.RepeatedGroup with all fields set to their default value.
      */
-    initialize: function (): TestParsingMerge.RepeatedGroup {
+    initialize: function (
+      msg?: Partial<TestParsingMerge.RepeatedGroup>,
+    ): TestParsingMerge.RepeatedGroup {
       return {
         repeatedGroupAllTypes: TestAllTypes.initialize(),
+        ...msg,
       };
     },
 
@@ -9846,8 +10085,8 @@ export const TestParsingMerge = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestParsingMerge.RepeatedGroup>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.repeatedGroupAllTypes) {
         writer.writeMessage(
           21,
@@ -9863,7 +10102,7 @@ export const TestParsingMerge = {
      */
     _readMessage: function (
       msg: TestParsingMerge.RepeatedGroup,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestParsingMerge.RepeatedGroup {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -9893,7 +10132,7 @@ export const TestCommentInjectionMessage = {
   encode: function (msg: PartialDeep<TestCommentInjectionMessage>): Uint8Array {
     return TestCommentInjectionMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -9903,16 +10142,19 @@ export const TestCommentInjectionMessage = {
   decode: function (bytes: ByteSource): TestCommentInjectionMessage {
     return TestCommentInjectionMessage._readMessage(
       TestCommentInjectionMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestCommentInjectionMessage with all fields set to their default value.
    */
-  initialize: function (): TestCommentInjectionMessage {
+  initialize: function (
+    msg?: Partial<TestCommentInjectionMessage>,
+  ): TestCommentInjectionMessage {
     return {
       a: "",
+      ...msg,
     };
   },
 
@@ -9921,8 +10163,8 @@ export const TestCommentInjectionMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestCommentInjectionMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.a) {
       writer.writeString(1, msg.a);
     }
@@ -9934,7 +10176,7 @@ export const TestCommentInjectionMessage = {
    */
   _readMessage: function (
     msg: TestCommentInjectionMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestCommentInjectionMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -9971,8 +10213,10 @@ export const FooRequest = {
   /**
    * Initializes FooRequest with all fields set to their default value.
    */
-  initialize: function (): FooRequest {
-    return {};
+  initialize: function (msg?: Partial<FooRequest>): FooRequest {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -9980,15 +10224,18 @@ export const FooRequest = {
    */
   _writeMessage: function (
     _msg: PartialDeep<FooRequest>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
   /**
    * @private
    */
-  _readMessage: function (_msg: FooRequest, _reader: BinaryReader): FooRequest {
+  _readMessage: function (
+    _msg: FooRequest,
+    _reader: protoscript.BinaryReader,
+  ): FooRequest {
     return _msg;
   },
 };
@@ -10011,8 +10258,10 @@ export const FooResponse = {
   /**
    * Initializes FooResponse with all fields set to their default value.
    */
-  initialize: function (): FooResponse {
-    return {};
+  initialize: function (msg?: Partial<FooResponse>): FooResponse {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -10020,8 +10269,8 @@ export const FooResponse = {
    */
   _writeMessage: function (
     _msg: PartialDeep<FooResponse>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -10030,7 +10279,7 @@ export const FooResponse = {
    */
   _readMessage: function (
     _msg: FooResponse,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): FooResponse {
     return _msg;
   },
@@ -10054,8 +10303,10 @@ export const FooClientMessage = {
   /**
    * Initializes FooClientMessage with all fields set to their default value.
    */
-  initialize: function (): FooClientMessage {
-    return {};
+  initialize: function (msg?: Partial<FooClientMessage>): FooClientMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -10063,8 +10314,8 @@ export const FooClientMessage = {
    */
   _writeMessage: function (
     _msg: PartialDeep<FooClientMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -10073,7 +10324,7 @@ export const FooClientMessage = {
    */
   _readMessage: function (
     _msg: FooClientMessage,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): FooClientMessage {
     return _msg;
   },
@@ -10097,8 +10348,10 @@ export const FooServerMessage = {
   /**
    * Initializes FooServerMessage with all fields set to their default value.
    */
-  initialize: function (): FooServerMessage {
-    return {};
+  initialize: function (msg?: Partial<FooServerMessage>): FooServerMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -10106,8 +10359,8 @@ export const FooServerMessage = {
    */
   _writeMessage: function (
     _msg: PartialDeep<FooServerMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -10116,7 +10369,7 @@ export const FooServerMessage = {
    */
   _readMessage: function (
     _msg: FooServerMessage,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): FooServerMessage {
     return _msg;
   },
@@ -10140,8 +10393,10 @@ export const BarRequest = {
   /**
    * Initializes BarRequest with all fields set to their default value.
    */
-  initialize: function (): BarRequest {
-    return {};
+  initialize: function (msg?: Partial<BarRequest>): BarRequest {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -10149,15 +10404,18 @@ export const BarRequest = {
    */
   _writeMessage: function (
     _msg: PartialDeep<BarRequest>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
   /**
    * @private
    */
-  _readMessage: function (_msg: BarRequest, _reader: BinaryReader): BarRequest {
+  _readMessage: function (
+    _msg: BarRequest,
+    _reader: protoscript.BinaryReader,
+  ): BarRequest {
     return _msg;
   },
 };
@@ -10180,8 +10438,10 @@ export const BarResponse = {
   /**
    * Initializes BarResponse with all fields set to their default value.
    */
-  initialize: function (): BarResponse {
-    return {};
+  initialize: function (msg?: Partial<BarResponse>): BarResponse {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -10189,8 +10449,8 @@ export const BarResponse = {
    */
   _writeMessage: function (
     _msg: PartialDeep<BarResponse>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     return writer;
   },
 
@@ -10199,7 +10459,7 @@ export const BarResponse = {
    */
   _readMessage: function (
     _msg: BarResponse,
-    _reader: BinaryReader,
+    _reader: protoscript.BinaryReader,
   ): BarResponse {
     return _msg;
   },
@@ -10212,7 +10472,7 @@ export const TestJsonName = {
   encode: function (msg: PartialDeep<TestJsonName>): Uint8Array {
     return TestJsonName._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -10222,14 +10482,14 @@ export const TestJsonName = {
   decode: function (bytes: ByteSource): TestJsonName {
     return TestJsonName._readMessage(
       TestJsonName.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestJsonName with all fields set to their default value.
    */
-  initialize: function (): TestJsonName {
+  initialize: function (msg?: Partial<TestJsonName>): TestJsonName {
     return {
       fieldName1: 0,
       fieldName2: 0,
@@ -10238,6 +10498,7 @@ export const TestJsonName = {
       FIELDNAME5: 0,
       fieldName6: 0,
       fieldname7: 0,
+      ...msg,
     };
   },
 
@@ -10246,8 +10507,8 @@ export const TestJsonName = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestJsonName>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.fieldName1) {
       writer.writeInt32(1, msg.fieldName1);
     }
@@ -10277,7 +10538,7 @@ export const TestJsonName = {
    */
   _readMessage: function (
     msg: TestJsonName,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestJsonName {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -10327,7 +10588,7 @@ export const TestHugeFieldNumbers = {
   encode: function (msg: PartialDeep<TestHugeFieldNumbers>): Uint8Array {
     return TestHugeFieldNumbers._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -10337,14 +10598,16 @@ export const TestHugeFieldNumbers = {
   decode: function (bytes: ByteSource): TestHugeFieldNumbers {
     return TestHugeFieldNumbers._readMessage(
       TestHugeFieldNumbers.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestHugeFieldNumbers with all fields set to their default value.
    */
-  initialize: function (): TestHugeFieldNumbers {
+  initialize: function (
+    msg?: Partial<TestHugeFieldNumbers>,
+  ): TestHugeFieldNumbers {
     return {
       optionalInt32: 0,
       fixed32: 0,
@@ -10359,6 +10622,7 @@ export const TestHugeFieldNumbers = {
       oneofTestAllTypes: undefined,
       oneofString: undefined,
       oneofBytes: undefined,
+      ...msg,
     };
   },
 
@@ -10367,8 +10631,8 @@ export const TestHugeFieldNumbers = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestHugeFieldNumbers>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.optionalInt32) {
       writer.writeInt32(536870000, msg.optionalInt32);
     }
@@ -10431,7 +10695,7 @@ export const TestHugeFieldNumbers = {
    */
   _readMessage: function (
     msg: TestHugeFieldNumbers,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestHugeFieldNumbers {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -10520,7 +10784,7 @@ export const TestHugeFieldNumbers = {
     ): Uint8Array {
       return TestHugeFieldNumbers.OptionalGroup._writeMessage(
         msg,
-        new BinaryWriter(),
+        new protoscript.BinaryWriter(),
       ).getResultBuffer();
     },
 
@@ -10530,16 +10794,19 @@ export const TestHugeFieldNumbers = {
     decode: function (bytes: ByteSource): TestHugeFieldNumbers.OptionalGroup {
       return TestHugeFieldNumbers.OptionalGroup._readMessage(
         TestHugeFieldNumbers.OptionalGroup.initialize(),
-        new BinaryReader(bytes),
+        new protoscript.BinaryReader(bytes),
       );
     },
 
     /**
      * Initializes TestHugeFieldNumbers.OptionalGroup with all fields set to their default value.
      */
-    initialize: function (): TestHugeFieldNumbers.OptionalGroup {
+    initialize: function (
+      msg?: Partial<TestHugeFieldNumbers.OptionalGroup>,
+    ): TestHugeFieldNumbers.OptionalGroup {
       return {
         groupA: 0,
+        ...msg,
       };
     },
 
@@ -10548,8 +10815,8 @@ export const TestHugeFieldNumbers = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestHugeFieldNumbers.OptionalGroup>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.groupA) {
         writer.writeInt32(536870009, msg.groupA);
       }
@@ -10561,7 +10828,7 @@ export const TestHugeFieldNumbers = {
      */
     _readMessage: function (
       msg: TestHugeFieldNumbers.OptionalGroup,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestHugeFieldNumbers.OptionalGroup {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -10586,8 +10853,8 @@ export const TestHugeFieldNumbers = {
      */
     _writeMessage: function (
       msg: PartialDeep<TestHugeFieldNumbers.StringStringMap>,
-      writer: BinaryWriter,
-    ): BinaryWriter {
+      writer: protoscript.BinaryWriter,
+    ): protoscript.BinaryWriter {
       if (msg.key) {
         writer.writeString(1, msg.key);
       }
@@ -10602,7 +10869,7 @@ export const TestHugeFieldNumbers = {
      */
     _readMessage: function (
       msg: TestHugeFieldNumbers.StringStringMap,
-      reader: BinaryReader,
+      reader: protoscript.BinaryReader,
     ): TestHugeFieldNumbers.StringStringMap {
       while (reader.nextField()) {
         const field = reader.getFieldNumber();
@@ -10633,7 +10900,7 @@ export const TestExtensionInsideTable = {
   encode: function (msg: PartialDeep<TestExtensionInsideTable>): Uint8Array {
     return TestExtensionInsideTable._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -10643,14 +10910,16 @@ export const TestExtensionInsideTable = {
   decode: function (bytes: ByteSource): TestExtensionInsideTable {
     return TestExtensionInsideTable._readMessage(
       TestExtensionInsideTable.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestExtensionInsideTable with all fields set to their default value.
    */
-  initialize: function (): TestExtensionInsideTable {
+  initialize: function (
+    msg?: Partial<TestExtensionInsideTable>,
+  ): TestExtensionInsideTable {
     return {
       field1: 0,
       field2: 0,
@@ -10661,6 +10930,7 @@ export const TestExtensionInsideTable = {
       field8: 0,
       field9: 0,
       field10: 0,
+      ...msg,
     };
   },
 
@@ -10669,8 +10939,8 @@ export const TestExtensionInsideTable = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestExtensionInsideTable>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.field1) {
       writer.writeInt32(1, msg.field1);
     }
@@ -10706,7 +10976,7 @@ export const TestExtensionInsideTable = {
    */
   _readMessage: function (
     msg: TestExtensionInsideTable,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestExtensionInsideTable {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -10764,7 +11034,7 @@ export const TestExtensionRangeSerialize = {
   encode: function (msg: PartialDeep<TestExtensionRangeSerialize>): Uint8Array {
     return TestExtensionRangeSerialize._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -10774,19 +11044,22 @@ export const TestExtensionRangeSerialize = {
   decode: function (bytes: ByteSource): TestExtensionRangeSerialize {
     return TestExtensionRangeSerialize._readMessage(
       TestExtensionRangeSerialize.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes TestExtensionRangeSerialize with all fields set to their default value.
    */
-  initialize: function (): TestExtensionRangeSerialize {
+  initialize: function (
+    msg?: Partial<TestExtensionRangeSerialize>,
+  ): TestExtensionRangeSerialize {
     return {
       fooOne: 0,
       fooTwo: 0,
       fooThree: 0,
       fooFour: 0,
+      ...msg,
     };
   },
 
@@ -10795,8 +11068,8 @@ export const TestExtensionRangeSerialize = {
    */
   _writeMessage: function (
     msg: PartialDeep<TestExtensionRangeSerialize>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.fooOne) {
       writer.writeInt32(1, msg.fooOne);
     }
@@ -10817,7 +11090,7 @@ export const TestExtensionRangeSerialize = {
    */
   _readMessage: function (
     msg: TestExtensionRangeSerialize,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): TestExtensionRangeSerialize {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -11779,7 +12052,7 @@ export const TestAllTypesJSON = {
   /**
    * Initializes TestAllTypes with all fields set to their default value.
    */
-  initialize: function (): TestAllTypes {
+  initialize: function (msg?: Partial<TestAllTypes>): TestAllTypes {
     return {
       optionalInt32: 0,
       optionalInt64: 0n,
@@ -11856,6 +12129,7 @@ export const TestAllTypesJSON = {
       oneofNestedMessage: undefined,
       oneofString: undefined,
       oneofBytes: undefined,
+      ...msg,
     };
   },
 
@@ -11870,31 +12144,31 @@ export const TestAllTypesJSON = {
       json["optionalInt32"] = msg.optionalInt32;
     }
     if (msg.optionalInt64) {
-      json["optionalInt64"] = msg.optionalInt64.toString();
+      json["optionalInt64"] = String(msg.optionalInt64);
     }
     if (msg.optionalUint32) {
       json["optionalUint32"] = msg.optionalUint32;
     }
     if (msg.optionalUint64) {
-      json["optionalUint64"] = msg.optionalUint64.toString();
+      json["optionalUint64"] = String(msg.optionalUint64);
     }
     if (msg.optionalSint32) {
       json["optionalSint32"] = msg.optionalSint32;
     }
     if (msg.optionalSint64) {
-      json["optionalSint64"] = msg.optionalSint64.toString();
+      json["optionalSint64"] = String(msg.optionalSint64);
     }
     if (msg.optionalFixed32) {
       json["optionalFixed32"] = msg.optionalFixed32;
     }
     if (msg.optionalFixed64) {
-      json["optionalFixed64"] = msg.optionalFixed64.toString();
+      json["optionalFixed64"] = String(msg.optionalFixed64);
     }
     if (msg.optionalSfixed32) {
       json["optionalSfixed32"] = msg.optionalSfixed32;
     }
     if (msg.optionalSfixed64) {
-      json["optionalSfixed64"] = msg.optionalSfixed64.toString();
+      json["optionalSfixed64"] = String(msg.optionalSfixed64);
     }
     if (msg.optionalFloat) {
       json["optionalFloat"] = msg.optionalFloat;
@@ -11909,7 +12183,7 @@ export const TestAllTypesJSON = {
       json["optionalString"] = msg.optionalString;
     }
     if (msg.optionalBytes?.length) {
-      json["optionalBytes"] = encodeBase64Bytes(msg.optionalBytes);
+      json["optionalBytes"] = protoscript.serializeBytes(msg.optionalBytes);
     }
     if (msg.optionalNestedMessage) {
       const _optionalNestedMessage_ =
@@ -11981,31 +12255,31 @@ export const TestAllTypesJSON = {
       json["repeatedInt32"] = msg.repeatedInt32;
     }
     if (msg.repeatedInt64?.length) {
-      json["repeatedInt64"] = msg.repeatedInt64.map((x) => x.toString());
+      json["repeatedInt64"] = msg.repeatedInt64.map(String);
     }
     if (msg.repeatedUint32?.length) {
       json["repeatedUint32"] = msg.repeatedUint32;
     }
     if (msg.repeatedUint64?.length) {
-      json["repeatedUint64"] = msg.repeatedUint64.map((x) => x.toString());
+      json["repeatedUint64"] = msg.repeatedUint64.map(String);
     }
     if (msg.repeatedSint32?.length) {
       json["repeatedSint32"] = msg.repeatedSint32;
     }
     if (msg.repeatedSint64?.length) {
-      json["repeatedSint64"] = msg.repeatedSint64.map((x) => x.toString());
+      json["repeatedSint64"] = msg.repeatedSint64.map(String);
     }
     if (msg.repeatedFixed32?.length) {
       json["repeatedFixed32"] = msg.repeatedFixed32;
     }
     if (msg.repeatedFixed64?.length) {
-      json["repeatedFixed64"] = msg.repeatedFixed64.map((x) => x.toString());
+      json["repeatedFixed64"] = msg.repeatedFixed64.map(String);
     }
     if (msg.repeatedSfixed32?.length) {
       json["repeatedSfixed32"] = msg.repeatedSfixed32;
     }
     if (msg.repeatedSfixed64?.length) {
-      json["repeatedSfixed64"] = msg.repeatedSfixed64.map((x) => x.toString());
+      json["repeatedSfixed64"] = msg.repeatedSfixed64.map(String);
     }
     if (msg.repeatedFloat?.length) {
       json["repeatedFloat"] = msg.repeatedFloat;
@@ -12020,7 +12294,7 @@ export const TestAllTypesJSON = {
       json["repeatedString"] = msg.repeatedString;
     }
     if (msg.repeatedBytes?.length) {
-      json["repeatedBytes"] = msg.repeatedBytes.map(encodeBase64Bytes);
+      json["repeatedBytes"] = msg.repeatedBytes.map(protoscript.serializeBytes);
     }
     if (msg.repeatedNestedMessage?.length) {
       json["repeatedNestedMessage"] = msg.repeatedNestedMessage.map(
@@ -12061,31 +12335,31 @@ export const TestAllTypesJSON = {
       json["defaultInt32"] = msg.defaultInt32;
     }
     if (msg.defaultInt64) {
-      json["defaultInt64"] = msg.defaultInt64.toString();
+      json["defaultInt64"] = String(msg.defaultInt64);
     }
     if (msg.defaultUint32) {
       json["defaultUint32"] = msg.defaultUint32;
     }
     if (msg.defaultUint64) {
-      json["defaultUint64"] = msg.defaultUint64.toString();
+      json["defaultUint64"] = String(msg.defaultUint64);
     }
     if (msg.defaultSint32) {
       json["defaultSint32"] = msg.defaultSint32;
     }
     if (msg.defaultSint64) {
-      json["defaultSint64"] = msg.defaultSint64.toString();
+      json["defaultSint64"] = String(msg.defaultSint64);
     }
     if (msg.defaultFixed32) {
       json["defaultFixed32"] = msg.defaultFixed32;
     }
     if (msg.defaultFixed64) {
-      json["defaultFixed64"] = msg.defaultFixed64.toString();
+      json["defaultFixed64"] = String(msg.defaultFixed64);
     }
     if (msg.defaultSfixed32) {
       json["defaultSfixed32"] = msg.defaultSfixed32;
     }
     if (msg.defaultSfixed64) {
-      json["defaultSfixed64"] = msg.defaultSfixed64.toString();
+      json["defaultSfixed64"] = String(msg.defaultSfixed64);
     }
     if (msg.defaultFloat) {
       json["defaultFloat"] = msg.defaultFloat;
@@ -12100,7 +12374,7 @@ export const TestAllTypesJSON = {
       json["defaultString"] = msg.defaultString;
     }
     if (msg.defaultBytes?.length) {
-      json["defaultBytes"] = encodeBase64Bytes(msg.defaultBytes);
+      json["defaultBytes"] = protoscript.serializeBytes(msg.defaultBytes);
     }
     if (
       msg.defaultNestedEnum &&
@@ -12139,7 +12413,7 @@ export const TestAllTypesJSON = {
       json["oneofString"] = msg.oneofString;
     }
     if (msg.oneofBytes?.length) {
-      json["oneofBytes"] = encodeBase64Bytes(msg.oneofBytes);
+      json["oneofBytes"] = protoscript.serializeBytes(msg.oneofBytes);
     }
     return json;
   },
@@ -12150,7 +12424,7 @@ export const TestAllTypesJSON = {
   _readMessage: function (msg: TestAllTypes, json: any): TestAllTypes {
     const _optionalInt32_ = json["optionalInt32"] ?? json["optional_int32"];
     if (_optionalInt32_) {
-      msg.optionalInt32 = _optionalInt32_;
+      msg.optionalInt32 = protoscript.parseNumber(_optionalInt32_);
     }
     const _optionalInt64_ = json["optionalInt64"] ?? json["optional_int64"];
     if (_optionalInt64_) {
@@ -12158,7 +12432,7 @@ export const TestAllTypesJSON = {
     }
     const _optionalUint32_ = json["optionalUint32"] ?? json["optional_uint32"];
     if (_optionalUint32_) {
-      msg.optionalUint32 = _optionalUint32_;
+      msg.optionalUint32 = protoscript.parseNumber(_optionalUint32_);
     }
     const _optionalUint64_ = json["optionalUint64"] ?? json["optional_uint64"];
     if (_optionalUint64_) {
@@ -12166,7 +12440,7 @@ export const TestAllTypesJSON = {
     }
     const _optionalSint32_ = json["optionalSint32"] ?? json["optional_sint32"];
     if (_optionalSint32_) {
-      msg.optionalSint32 = _optionalSint32_;
+      msg.optionalSint32 = protoscript.parseNumber(_optionalSint32_);
     }
     const _optionalSint64_ = json["optionalSint64"] ?? json["optional_sint64"];
     if (_optionalSint64_) {
@@ -12175,7 +12449,7 @@ export const TestAllTypesJSON = {
     const _optionalFixed32_ =
       json["optionalFixed32"] ?? json["optional_fixed32"];
     if (_optionalFixed32_) {
-      msg.optionalFixed32 = _optionalFixed32_;
+      msg.optionalFixed32 = protoscript.parseNumber(_optionalFixed32_);
     }
     const _optionalFixed64_ =
       json["optionalFixed64"] ?? json["optional_fixed64"];
@@ -12185,7 +12459,7 @@ export const TestAllTypesJSON = {
     const _optionalSfixed32_ =
       json["optionalSfixed32"] ?? json["optional_sfixed32"];
     if (_optionalSfixed32_) {
-      msg.optionalSfixed32 = _optionalSfixed32_;
+      msg.optionalSfixed32 = protoscript.parseNumber(_optionalSfixed32_);
     }
     const _optionalSfixed64_ =
       json["optionalSfixed64"] ?? json["optional_sfixed64"];
@@ -12194,11 +12468,11 @@ export const TestAllTypesJSON = {
     }
     const _optionalFloat_ = json["optionalFloat"] ?? json["optional_float"];
     if (_optionalFloat_) {
-      msg.optionalFloat = _optionalFloat_;
+      msg.optionalFloat = protoscript.parseDouble(_optionalFloat_);
     }
     const _optionalDouble_ = json["optionalDouble"] ?? json["optional_double"];
     if (_optionalDouble_) {
-      msg.optionalDouble = _optionalDouble_;
+      msg.optionalDouble = protoscript.parseDouble(_optionalDouble_);
     }
     const _optionalBool_ = json["optionalBool"] ?? json["optional_bool"];
     if (_optionalBool_) {
@@ -12210,7 +12484,7 @@ export const TestAllTypesJSON = {
     }
     const _optionalBytes_ = json["optionalBytes"] ?? json["optional_bytes"];
     if (_optionalBytes_) {
-      msg.optionalBytes = decodeBase64Bytes(_optionalBytes_);
+      msg.optionalBytes = protoscript.parseBytes(_optionalBytes_);
     }
     const _optionalNestedMessage_ =
       json["optionalNestedMessage"] ?? json["optional_nested_message"];
@@ -12239,17 +12513,19 @@ export const TestAllTypesJSON = {
     const _optionalNestedEnum_ =
       json["optionalNestedEnum"] ?? json["optional_nested_enum"];
     if (_optionalNestedEnum_) {
-      msg.optionalNestedEnum = _optionalNestedEnum_;
+      msg.optionalNestedEnum =
+        TestAllTypes.NestedEnum._fromInt(_optionalNestedEnum_);
     }
     const _optionalForeignEnum_ =
       json["optionalForeignEnum"] ?? json["optional_foreign_enum"];
     if (_optionalForeignEnum_) {
-      msg.optionalForeignEnum = _optionalForeignEnum_;
+      msg.optionalForeignEnum = ForeignEnum._fromInt(_optionalForeignEnum_);
     }
     const _optionalImportEnum_ =
       json["optionalImportEnum"] ?? json["optional_import_enum"];
     if (_optionalImportEnum_) {
-      msg.optionalImportEnum = _optionalImportEnum_;
+      msg.optionalImportEnum =
+        googleProtobufUnittest_import.ImportEnum._fromInt(_optionalImportEnum_);
     }
     const _optionalStringPiece_ =
       json["optionalStringPiece"] ?? json["optional_string_piece"];
@@ -12279,7 +12555,7 @@ export const TestAllTypesJSON = {
     }
     const _repeatedInt32_ = json["repeatedInt32"] ?? json["repeated_int32"];
     if (_repeatedInt32_) {
-      msg.repeatedInt32 = _repeatedInt32_;
+      msg.repeatedInt32 = _repeatedInt32_.map(protoscript.parseNumber);
     }
     const _repeatedInt64_ = json["repeatedInt64"] ?? json["repeated_int64"];
     if (_repeatedInt64_) {
@@ -12287,7 +12563,7 @@ export const TestAllTypesJSON = {
     }
     const _repeatedUint32_ = json["repeatedUint32"] ?? json["repeated_uint32"];
     if (_repeatedUint32_) {
-      msg.repeatedUint32 = _repeatedUint32_;
+      msg.repeatedUint32 = _repeatedUint32_.map(protoscript.parseNumber);
     }
     const _repeatedUint64_ = json["repeatedUint64"] ?? json["repeated_uint64"];
     if (_repeatedUint64_) {
@@ -12295,7 +12571,7 @@ export const TestAllTypesJSON = {
     }
     const _repeatedSint32_ = json["repeatedSint32"] ?? json["repeated_sint32"];
     if (_repeatedSint32_) {
-      msg.repeatedSint32 = _repeatedSint32_;
+      msg.repeatedSint32 = _repeatedSint32_.map(protoscript.parseNumber);
     }
     const _repeatedSint64_ = json["repeatedSint64"] ?? json["repeated_sint64"];
     if (_repeatedSint64_) {
@@ -12304,7 +12580,7 @@ export const TestAllTypesJSON = {
     const _repeatedFixed32_ =
       json["repeatedFixed32"] ?? json["repeated_fixed32"];
     if (_repeatedFixed32_) {
-      msg.repeatedFixed32 = _repeatedFixed32_;
+      msg.repeatedFixed32 = _repeatedFixed32_.map(protoscript.parseNumber);
     }
     const _repeatedFixed64_ =
       json["repeatedFixed64"] ?? json["repeated_fixed64"];
@@ -12314,7 +12590,7 @@ export const TestAllTypesJSON = {
     const _repeatedSfixed32_ =
       json["repeatedSfixed32"] ?? json["repeated_sfixed32"];
     if (_repeatedSfixed32_) {
-      msg.repeatedSfixed32 = _repeatedSfixed32_;
+      msg.repeatedSfixed32 = _repeatedSfixed32_.map(protoscript.parseNumber);
     }
     const _repeatedSfixed64_ =
       json["repeatedSfixed64"] ?? json["repeated_sfixed64"];
@@ -12323,11 +12599,11 @@ export const TestAllTypesJSON = {
     }
     const _repeatedFloat_ = json["repeatedFloat"] ?? json["repeated_float"];
     if (_repeatedFloat_) {
-      msg.repeatedFloat = _repeatedFloat_;
+      msg.repeatedFloat = _repeatedFloat_.map(protoscript.parseDouble);
     }
     const _repeatedDouble_ = json["repeatedDouble"] ?? json["repeated_double"];
     if (_repeatedDouble_) {
-      msg.repeatedDouble = _repeatedDouble_;
+      msg.repeatedDouble = _repeatedDouble_.map(protoscript.parseDouble);
     }
     const _repeatedBool_ = json["repeatedBool"] ?? json["repeated_bool"];
     if (_repeatedBool_) {
@@ -12339,7 +12615,7 @@ export const TestAllTypesJSON = {
     }
     const _repeatedBytes_ = json["repeatedBytes"] ?? json["repeated_bytes"];
     if (_repeatedBytes_) {
-      msg.repeatedBytes = _repeatedBytes_.map(decodeBase64Bytes);
+      msg.repeatedBytes = _repeatedBytes_.map(protoscript.parseBytes);
     }
     const _repeatedNestedMessage_ =
       json["repeatedNestedMessage"] ?? json["repeated_nested_message"];
@@ -12371,17 +12647,21 @@ export const TestAllTypesJSON = {
     const _repeatedNestedEnum_ =
       json["repeatedNestedEnum"] ?? json["repeated_nested_enum"];
     if (_repeatedNestedEnum_) {
-      msg.repeatedNestedEnum = _repeatedNestedEnum_;
+      msg.repeatedNestedEnum = _repeatedNestedEnum_.map(
+        TestAllTypes.NestedEnum._fromInt,
+      );
     }
     const _repeatedForeignEnum_ =
       json["repeatedForeignEnum"] ?? json["repeated_foreign_enum"];
     if (_repeatedForeignEnum_) {
-      msg.repeatedForeignEnum = _repeatedForeignEnum_;
+      msg.repeatedForeignEnum = _repeatedForeignEnum_.map(ForeignEnum._fromInt);
     }
     const _repeatedImportEnum_ =
       json["repeatedImportEnum"] ?? json["repeated_import_enum"];
     if (_repeatedImportEnum_) {
-      msg.repeatedImportEnum = _repeatedImportEnum_;
+      msg.repeatedImportEnum = _repeatedImportEnum_.map(
+        googleProtobufUnittest_import.ImportEnum._fromInt,
+      );
     }
     const _repeatedStringPiece_ =
       json["repeatedStringPiece"] ?? json["repeated_string_piece"];
@@ -12403,7 +12683,7 @@ export const TestAllTypesJSON = {
     }
     const _defaultInt32_ = json["defaultInt32"] ?? json["default_int32"];
     if (_defaultInt32_) {
-      msg.defaultInt32 = _defaultInt32_;
+      msg.defaultInt32 = protoscript.parseNumber(_defaultInt32_);
     }
     const _defaultInt64_ = json["defaultInt64"] ?? json["default_int64"];
     if (_defaultInt64_) {
@@ -12411,7 +12691,7 @@ export const TestAllTypesJSON = {
     }
     const _defaultUint32_ = json["defaultUint32"] ?? json["default_uint32"];
     if (_defaultUint32_) {
-      msg.defaultUint32 = _defaultUint32_;
+      msg.defaultUint32 = protoscript.parseNumber(_defaultUint32_);
     }
     const _defaultUint64_ = json["defaultUint64"] ?? json["default_uint64"];
     if (_defaultUint64_) {
@@ -12419,7 +12699,7 @@ export const TestAllTypesJSON = {
     }
     const _defaultSint32_ = json["defaultSint32"] ?? json["default_sint32"];
     if (_defaultSint32_) {
-      msg.defaultSint32 = _defaultSint32_;
+      msg.defaultSint32 = protoscript.parseNumber(_defaultSint32_);
     }
     const _defaultSint64_ = json["defaultSint64"] ?? json["default_sint64"];
     if (_defaultSint64_) {
@@ -12427,7 +12707,7 @@ export const TestAllTypesJSON = {
     }
     const _defaultFixed32_ = json["defaultFixed32"] ?? json["default_fixed32"];
     if (_defaultFixed32_) {
-      msg.defaultFixed32 = _defaultFixed32_;
+      msg.defaultFixed32 = protoscript.parseNumber(_defaultFixed32_);
     }
     const _defaultFixed64_ = json["defaultFixed64"] ?? json["default_fixed64"];
     if (_defaultFixed64_) {
@@ -12436,7 +12716,7 @@ export const TestAllTypesJSON = {
     const _defaultSfixed32_ =
       json["defaultSfixed32"] ?? json["default_sfixed32"];
     if (_defaultSfixed32_) {
-      msg.defaultSfixed32 = _defaultSfixed32_;
+      msg.defaultSfixed32 = protoscript.parseNumber(_defaultSfixed32_);
     }
     const _defaultSfixed64_ =
       json["defaultSfixed64"] ?? json["default_sfixed64"];
@@ -12445,11 +12725,11 @@ export const TestAllTypesJSON = {
     }
     const _defaultFloat_ = json["defaultFloat"] ?? json["default_float"];
     if (_defaultFloat_) {
-      msg.defaultFloat = _defaultFloat_;
+      msg.defaultFloat = protoscript.parseDouble(_defaultFloat_);
     }
     const _defaultDouble_ = json["defaultDouble"] ?? json["default_double"];
     if (_defaultDouble_) {
-      msg.defaultDouble = _defaultDouble_;
+      msg.defaultDouble = protoscript.parseDouble(_defaultDouble_);
     }
     const _defaultBool_ = json["defaultBool"] ?? json["default_bool"];
     if (_defaultBool_) {
@@ -12461,22 +12741,24 @@ export const TestAllTypesJSON = {
     }
     const _defaultBytes_ = json["defaultBytes"] ?? json["default_bytes"];
     if (_defaultBytes_) {
-      msg.defaultBytes = decodeBase64Bytes(_defaultBytes_);
+      msg.defaultBytes = protoscript.parseBytes(_defaultBytes_);
     }
     const _defaultNestedEnum_ =
       json["defaultNestedEnum"] ?? json["default_nested_enum"];
     if (_defaultNestedEnum_) {
-      msg.defaultNestedEnum = _defaultNestedEnum_;
+      msg.defaultNestedEnum =
+        TestAllTypes.NestedEnum._fromInt(_defaultNestedEnum_);
     }
     const _defaultForeignEnum_ =
       json["defaultForeignEnum"] ?? json["default_foreign_enum"];
     if (_defaultForeignEnum_) {
-      msg.defaultForeignEnum = _defaultForeignEnum_;
+      msg.defaultForeignEnum = ForeignEnum._fromInt(_defaultForeignEnum_);
     }
     const _defaultImportEnum_ =
       json["defaultImportEnum"] ?? json["default_import_enum"];
     if (_defaultImportEnum_) {
-      msg.defaultImportEnum = _defaultImportEnum_;
+      msg.defaultImportEnum =
+        googleProtobufUnittest_import.ImportEnum._fromInt(_defaultImportEnum_);
     }
     const _defaultStringPiece_ =
       json["defaultStringPiece"] ?? json["default_string_piece"];
@@ -12489,7 +12771,7 @@ export const TestAllTypesJSON = {
     }
     const _oneofUint32_ = json["oneofUint32"] ?? json["oneof_uint32"];
     if (_oneofUint32_) {
-      msg.oneofUint32 = _oneofUint32_;
+      msg.oneofUint32 = protoscript.parseNumber(_oneofUint32_);
     }
     const _oneofNestedMessage_ =
       json["oneofNestedMessage"] ?? json["oneof_nested_message"];
@@ -12506,7 +12788,7 @@ export const TestAllTypesJSON = {
     }
     const _oneofBytes_ = json["oneofBytes"] ?? json["oneof_bytes"];
     if (_oneofBytes_) {
-      msg.oneofBytes = decodeBase64Bytes(_oneofBytes_);
+      msg.oneofBytes = protoscript.parseBytes(_oneofBytes_);
     }
     return msg;
   },
@@ -12585,9 +12867,12 @@ export const TestAllTypesJSON = {
     /**
      * Initializes TestAllTypes.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestAllTypes.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestAllTypes.NestedMessage>,
+    ): TestAllTypes.NestedMessage {
       return {
         bb: 0,
+        ...msg,
       };
     },
 
@@ -12613,7 +12898,7 @@ export const TestAllTypesJSON = {
     ): TestAllTypes.NestedMessage {
       const _bb_ = json["bb"];
       if (_bb_) {
-        msg.bb = _bb_;
+        msg.bb = protoscript.parseNumber(_bb_);
       }
       return msg;
     },
@@ -12640,9 +12925,12 @@ export const TestAllTypesJSON = {
     /**
      * Initializes TestAllTypes.OptionalGroup with all fields set to their default value.
      */
-    initialize: function (): TestAllTypes.OptionalGroup {
+    initialize: function (
+      msg?: Partial<TestAllTypes.OptionalGroup>,
+    ): TestAllTypes.OptionalGroup {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -12668,7 +12956,7 @@ export const TestAllTypesJSON = {
     ): TestAllTypes.OptionalGroup {
       const _a_ = json["a"];
       if (_a_) {
-        msg.a = _a_;
+        msg.a = protoscript.parseNumber(_a_);
       }
       return msg;
     },
@@ -12695,9 +12983,12 @@ export const TestAllTypesJSON = {
     /**
      * Initializes TestAllTypes.RepeatedGroup with all fields set to their default value.
      */
-    initialize: function (): TestAllTypes.RepeatedGroup {
+    initialize: function (
+      msg?: Partial<TestAllTypes.RepeatedGroup>,
+    ): TestAllTypes.RepeatedGroup {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -12723,7 +13014,7 @@ export const TestAllTypesJSON = {
     ): TestAllTypes.RepeatedGroup {
       const _a_ = json["a"];
       if (_a_) {
-        msg.a = _a_;
+        msg.a = protoscript.parseNumber(_a_);
       }
       return msg;
     },
@@ -12751,11 +13042,12 @@ export const NestedTestAllTypesJSON = {
   /**
    * Initializes NestedTestAllTypes with all fields set to their default value.
    */
-  initialize: function (): NestedTestAllTypes {
+  initialize: function (msg?: Partial<NestedTestAllTypes>): NestedTestAllTypes {
     return {
       child: undefined,
       payload: TestAllTypesJSON.initialize(),
       repeatedChild: [],
+      ...msg,
     };
   },
 
@@ -12835,10 +13127,13 @@ export const TestDeprecatedFieldsJSON = {
   /**
    * Initializes TestDeprecatedFields with all fields set to their default value.
    */
-  initialize: function (): TestDeprecatedFields {
+  initialize: function (
+    msg?: Partial<TestDeprecatedFields>,
+  ): TestDeprecatedFields {
     return {
       deprecatedInt32: 0,
       deprecatedInt32InOneof: undefined,
+      ...msg,
     };
   },
 
@@ -12868,12 +13163,14 @@ export const TestDeprecatedFieldsJSON = {
     const _deprecatedInt32_ =
       json["deprecatedInt32"] ?? json["deprecated_int32"];
     if (_deprecatedInt32_) {
-      msg.deprecatedInt32 = _deprecatedInt32_;
+      msg.deprecatedInt32 = protoscript.parseNumber(_deprecatedInt32_);
     }
     const _deprecatedInt32InOneof_ =
       json["deprecatedInt32InOneof"] ?? json["deprecated_int32_in_oneof"];
     if (_deprecatedInt32InOneof_) {
-      msg.deprecatedInt32InOneof = _deprecatedInt32InOneof_;
+      msg.deprecatedInt32InOneof = protoscript.parseNumber(
+        _deprecatedInt32InOneof_,
+      );
     }
     return msg;
   },
@@ -12897,8 +13194,12 @@ export const TestDeprecatedMessageJSON = {
   /**
    * Initializes TestDeprecatedMessage with all fields set to their default value.
    */
-  initialize: function (): TestDeprecatedMessage {
-    return {};
+  initialize: function (
+    msg?: Partial<TestDeprecatedMessage>,
+  ): TestDeprecatedMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -12942,10 +13243,11 @@ export const ForeignMessageJSON = {
   /**
    * Initializes ForeignMessage with all fields set to their default value.
    */
-  initialize: function (): ForeignMessage {
+  initialize: function (msg?: Partial<ForeignMessage>): ForeignMessage {
     return {
       c: 0,
       d: 0,
+      ...msg,
     };
   },
 
@@ -12971,11 +13273,11 @@ export const ForeignMessageJSON = {
   _readMessage: function (msg: ForeignMessage, json: any): ForeignMessage {
     const _c_ = json["c"];
     if (_c_) {
-      msg.c = _c_;
+      msg.c = protoscript.parseNumber(_c_);
     }
     const _d_ = json["d"];
     if (_d_) {
-      msg.d = _d_;
+      msg.d = protoscript.parseNumber(_d_);
     }
     return msg;
   },
@@ -12999,8 +13301,10 @@ export const TestReservedFieldsJSON = {
   /**
    * Initializes TestReservedFields with all fields set to their default value.
    */
-  initialize: function (): TestReservedFields {
-    return {};
+  initialize: function (msg?: Partial<TestReservedFields>): TestReservedFields {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -13041,8 +13345,10 @@ export const TestAllExtensionsJSON = {
   /**
    * Initializes TestAllExtensions with all fields set to their default value.
    */
-  initialize: function (): TestAllExtensions {
-    return {};
+  initialize: function (msg?: Partial<TestAllExtensions>): TestAllExtensions {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -13086,9 +13392,12 @@ export const OptionalGroup_extensionJSON = {
   /**
    * Initializes OptionalGroup_extension with all fields set to their default value.
    */
-  initialize: function (): OptionalGroup_extension {
+  initialize: function (
+    msg?: Partial<OptionalGroup_extension>,
+  ): OptionalGroup_extension {
     return {
       a: 0,
+      ...msg,
     };
   },
 
@@ -13114,7 +13423,7 @@ export const OptionalGroup_extensionJSON = {
   ): OptionalGroup_extension {
     const _a_ = json["a"];
     if (_a_) {
-      msg.a = _a_;
+      msg.a = protoscript.parseNumber(_a_);
     }
     return msg;
   },
@@ -13141,9 +13450,12 @@ export const RepeatedGroup_extensionJSON = {
   /**
    * Initializes RepeatedGroup_extension with all fields set to their default value.
    */
-  initialize: function (): RepeatedGroup_extension {
+  initialize: function (
+    msg?: Partial<RepeatedGroup_extension>,
+  ): RepeatedGroup_extension {
     return {
       a: 0,
+      ...msg,
     };
   },
 
@@ -13169,7 +13481,7 @@ export const RepeatedGroup_extensionJSON = {
   ): RepeatedGroup_extension {
     const _a_ = json["a"];
     if (_a_) {
-      msg.a = _a_;
+      msg.a = protoscript.parseNumber(_a_);
     }
     return msg;
   },
@@ -13196,9 +13508,10 @@ export const TestGroupJSON = {
   /**
    * Initializes TestGroup with all fields set to their default value.
    */
-  initialize: function (): TestGroup {
+  initialize: function (msg?: Partial<TestGroup>): TestGroup {
     return {
       optionalForeignEnum: ForeignEnum._fromInt(0),
+      ...msg,
     };
   },
 
@@ -13225,7 +13538,7 @@ export const TestGroupJSON = {
     const _optionalForeignEnum_ =
       json["optionalForeignEnum"] ?? json["optional_foreign_enum"];
     if (_optionalForeignEnum_) {
-      msg.optionalForeignEnum = _optionalForeignEnum_;
+      msg.optionalForeignEnum = ForeignEnum._fromInt(_optionalForeignEnum_);
     }
     return msg;
   },
@@ -13251,9 +13564,12 @@ export const TestGroupJSON = {
     /**
      * Initializes TestGroup.OptionalGroup with all fields set to their default value.
      */
-    initialize: function (): TestGroup.OptionalGroup {
+    initialize: function (
+      msg?: Partial<TestGroup.OptionalGroup>,
+    ): TestGroup.OptionalGroup {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -13279,7 +13595,7 @@ export const TestGroupJSON = {
     ): TestGroup.OptionalGroup {
       const _a_ = json["a"];
       if (_a_) {
-        msg.a = _a_;
+        msg.a = protoscript.parseNumber(_a_);
       }
       return msg;
     },
@@ -13304,8 +13620,10 @@ export const TestGroupExtensionJSON = {
   /**
    * Initializes TestGroupExtension with all fields set to their default value.
    */
-  initialize: function (): TestGroupExtension {
-    return {};
+  initialize: function (msg?: Partial<TestGroupExtension>): TestGroupExtension {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -13346,8 +13664,12 @@ export const TestNestedExtensionJSON = {
   /**
    * Initializes TestNestedExtension with all fields set to their default value.
    */
-  initialize: function (): TestNestedExtension {
-    return {};
+  initialize: function (
+    msg?: Partial<TestNestedExtension>,
+  ): TestNestedExtension {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -13396,9 +13718,12 @@ export const TestNestedExtensionJSON = {
     /**
      * Initializes TestNestedExtension.OptionalGroup_extension with all fields set to their default value.
      */
-    initialize: function (): TestNestedExtension.OptionalGroup_extension {
+    initialize: function (
+      msg?: Partial<TestNestedExtension.OptionalGroup_extension>,
+    ): TestNestedExtension.OptionalGroup_extension {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -13424,7 +13749,7 @@ export const TestNestedExtensionJSON = {
     ): TestNestedExtension.OptionalGroup_extension {
       const _a_ = json["a"];
       if (_a_) {
-        msg.a = _a_;
+        msg.a = protoscript.parseNumber(_a_);
       }
       return msg;
     },
@@ -13452,11 +13777,12 @@ export const TestChildExtensionJSON = {
   /**
    * Initializes TestChildExtension with all fields set to their default value.
    */
-  initialize: function (): TestChildExtension {
+  initialize: function (msg?: Partial<TestChildExtension>): TestChildExtension {
     return {
       a: "",
       b: "",
       optionalExtension: TestAllExtensionsJSON.initialize(),
+      ...msg,
     };
   },
 
@@ -13532,7 +13858,7 @@ export const TestRequiredJSON = {
   /**
    * Initializes TestRequired with all fields set to their default value.
    */
-  initialize: function (): TestRequired {
+  initialize: function (msg?: Partial<TestRequired>): TestRequired {
     return {
       a: 0,
       dummy2: 0,
@@ -13567,6 +13893,7 @@ export const TestRequiredJSON = {
       dummy31: 0,
       dummy32: 0,
       c: 0,
+      ...msg,
     };
   },
 
@@ -13685,135 +14012,135 @@ export const TestRequiredJSON = {
   _readMessage: function (msg: TestRequired, json: any): TestRequired {
     const _a_ = json["a"];
     if (_a_) {
-      msg.a = _a_;
+      msg.a = protoscript.parseNumber(_a_);
     }
     const _dummy2_ = json["dummy2"];
     if (_dummy2_) {
-      msg.dummy2 = _dummy2_;
+      msg.dummy2 = protoscript.parseNumber(_dummy2_);
     }
     const _b_ = json["b"];
     if (_b_) {
-      msg.b = _b_;
+      msg.b = protoscript.parseNumber(_b_);
     }
     const _dummy4_ = json["dummy4"];
     if (_dummy4_) {
-      msg.dummy4 = _dummy4_;
+      msg.dummy4 = protoscript.parseNumber(_dummy4_);
     }
     const _dummy5_ = json["dummy5"];
     if (_dummy5_) {
-      msg.dummy5 = _dummy5_;
+      msg.dummy5 = protoscript.parseNumber(_dummy5_);
     }
     const _dummy6_ = json["dummy6"];
     if (_dummy6_) {
-      msg.dummy6 = _dummy6_;
+      msg.dummy6 = protoscript.parseNumber(_dummy6_);
     }
     const _dummy7_ = json["dummy7"];
     if (_dummy7_) {
-      msg.dummy7 = _dummy7_;
+      msg.dummy7 = protoscript.parseNumber(_dummy7_);
     }
     const _dummy8_ = json["dummy8"];
     if (_dummy8_) {
-      msg.dummy8 = _dummy8_;
+      msg.dummy8 = protoscript.parseNumber(_dummy8_);
     }
     const _dummy9_ = json["dummy9"];
     if (_dummy9_) {
-      msg.dummy9 = _dummy9_;
+      msg.dummy9 = protoscript.parseNumber(_dummy9_);
     }
     const _dummy10_ = json["dummy10"];
     if (_dummy10_) {
-      msg.dummy10 = _dummy10_;
+      msg.dummy10 = protoscript.parseNumber(_dummy10_);
     }
     const _dummy11_ = json["dummy11"];
     if (_dummy11_) {
-      msg.dummy11 = _dummy11_;
+      msg.dummy11 = protoscript.parseNumber(_dummy11_);
     }
     const _dummy12_ = json["dummy12"];
     if (_dummy12_) {
-      msg.dummy12 = _dummy12_;
+      msg.dummy12 = protoscript.parseNumber(_dummy12_);
     }
     const _dummy13_ = json["dummy13"];
     if (_dummy13_) {
-      msg.dummy13 = _dummy13_;
+      msg.dummy13 = protoscript.parseNumber(_dummy13_);
     }
     const _dummy14_ = json["dummy14"];
     if (_dummy14_) {
-      msg.dummy14 = _dummy14_;
+      msg.dummy14 = protoscript.parseNumber(_dummy14_);
     }
     const _dummy15_ = json["dummy15"];
     if (_dummy15_) {
-      msg.dummy15 = _dummy15_;
+      msg.dummy15 = protoscript.parseNumber(_dummy15_);
     }
     const _dummy16_ = json["dummy16"];
     if (_dummy16_) {
-      msg.dummy16 = _dummy16_;
+      msg.dummy16 = protoscript.parseNumber(_dummy16_);
     }
     const _dummy17_ = json["dummy17"];
     if (_dummy17_) {
-      msg.dummy17 = _dummy17_;
+      msg.dummy17 = protoscript.parseNumber(_dummy17_);
     }
     const _dummy18_ = json["dummy18"];
     if (_dummy18_) {
-      msg.dummy18 = _dummy18_;
+      msg.dummy18 = protoscript.parseNumber(_dummy18_);
     }
     const _dummy19_ = json["dummy19"];
     if (_dummy19_) {
-      msg.dummy19 = _dummy19_;
+      msg.dummy19 = protoscript.parseNumber(_dummy19_);
     }
     const _dummy20_ = json["dummy20"];
     if (_dummy20_) {
-      msg.dummy20 = _dummy20_;
+      msg.dummy20 = protoscript.parseNumber(_dummy20_);
     }
     const _dummy21_ = json["dummy21"];
     if (_dummy21_) {
-      msg.dummy21 = _dummy21_;
+      msg.dummy21 = protoscript.parseNumber(_dummy21_);
     }
     const _dummy22_ = json["dummy22"];
     if (_dummy22_) {
-      msg.dummy22 = _dummy22_;
+      msg.dummy22 = protoscript.parseNumber(_dummy22_);
     }
     const _dummy23_ = json["dummy23"];
     if (_dummy23_) {
-      msg.dummy23 = _dummy23_;
+      msg.dummy23 = protoscript.parseNumber(_dummy23_);
     }
     const _dummy24_ = json["dummy24"];
     if (_dummy24_) {
-      msg.dummy24 = _dummy24_;
+      msg.dummy24 = protoscript.parseNumber(_dummy24_);
     }
     const _dummy25_ = json["dummy25"];
     if (_dummy25_) {
-      msg.dummy25 = _dummy25_;
+      msg.dummy25 = protoscript.parseNumber(_dummy25_);
     }
     const _dummy26_ = json["dummy26"];
     if (_dummy26_) {
-      msg.dummy26 = _dummy26_;
+      msg.dummy26 = protoscript.parseNumber(_dummy26_);
     }
     const _dummy27_ = json["dummy27"];
     if (_dummy27_) {
-      msg.dummy27 = _dummy27_;
+      msg.dummy27 = protoscript.parseNumber(_dummy27_);
     }
     const _dummy28_ = json["dummy28"];
     if (_dummy28_) {
-      msg.dummy28 = _dummy28_;
+      msg.dummy28 = protoscript.parseNumber(_dummy28_);
     }
     const _dummy29_ = json["dummy29"];
     if (_dummy29_) {
-      msg.dummy29 = _dummy29_;
+      msg.dummy29 = protoscript.parseNumber(_dummy29_);
     }
     const _dummy30_ = json["dummy30"];
     if (_dummy30_) {
-      msg.dummy30 = _dummy30_;
+      msg.dummy30 = protoscript.parseNumber(_dummy30_);
     }
     const _dummy31_ = json["dummy31"];
     if (_dummy31_) {
-      msg.dummy31 = _dummy31_;
+      msg.dummy31 = protoscript.parseNumber(_dummy31_);
     }
     const _dummy32_ = json["dummy32"];
     if (_dummy32_) {
-      msg.dummy32 = _dummy32_;
+      msg.dummy32 = protoscript.parseNumber(_dummy32_);
     }
     const _c_ = json["c"];
     if (_c_) {
-      msg.c = _c_;
+      msg.c = protoscript.parseNumber(_c_);
     }
     return msg;
   },
@@ -13840,11 +14167,14 @@ export const TestRequiredForeignJSON = {
   /**
    * Initializes TestRequiredForeign with all fields set to their default value.
    */
-  initialize: function (): TestRequiredForeign {
+  initialize: function (
+    msg?: Partial<TestRequiredForeign>,
+  ): TestRequiredForeign {
     return {
       optionalMessage: TestRequiredJSON.initialize(),
       repeatedMessage: [],
       dummy: 0,
+      ...msg,
     };
   },
 
@@ -13897,7 +14227,7 @@ export const TestRequiredForeignJSON = {
     }
     const _dummy_ = json["dummy"];
     if (_dummy_) {
-      msg.dummy = _dummy_;
+      msg.dummy = protoscript.parseNumber(_dummy_);
     }
     return msg;
   },
@@ -13924,11 +14254,14 @@ export const TestRequiredMessageJSON = {
   /**
    * Initializes TestRequiredMessage with all fields set to their default value.
    */
-  initialize: function (): TestRequiredMessage {
+  initialize: function (
+    msg?: Partial<TestRequiredMessage>,
+  ): TestRequiredMessage {
     return {
       optionalMessage: TestRequiredJSON.initialize(),
       repeatedMessage: [],
       requiredMessage: TestRequiredJSON.initialize(),
+      ...msg,
     };
   },
 
@@ -14014,9 +14347,10 @@ export const TestForeignNestedJSON = {
   /**
    * Initializes TestForeignNested with all fields set to their default value.
    */
-  initialize: function (): TestForeignNested {
+  initialize: function (msg?: Partial<TestForeignNested>): TestForeignNested {
     return {
       foreignNested: TestAllTypesJSON.NestedMessage.initialize(),
+      ...msg,
     };
   },
 
@@ -14074,8 +14408,10 @@ export const TestEmptyMessageJSON = {
   /**
    * Initializes TestEmptyMessage with all fields set to their default value.
    */
-  initialize: function (): TestEmptyMessage {
-    return {};
+  initialize: function (msg?: Partial<TestEmptyMessage>): TestEmptyMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -14115,8 +14451,12 @@ export const TestEmptyMessageWithExtensionsJSON = {
   /**
    * Initializes TestEmptyMessageWithExtensions with all fields set to their default value.
    */
-  initialize: function (): TestEmptyMessageWithExtensions {
-    return {};
+  initialize: function (
+    msg?: Partial<TestEmptyMessageWithExtensions>,
+  ): TestEmptyMessageWithExtensions {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -14157,8 +14497,12 @@ export const TestPickleNestedMessageJSON = {
   /**
    * Initializes TestPickleNestedMessage with all fields set to their default value.
    */
-  initialize: function (): TestPickleNestedMessage {
-    return {};
+  initialize: function (
+    msg?: Partial<TestPickleNestedMessage>,
+  ): TestPickleNestedMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -14205,9 +14549,12 @@ export const TestPickleNestedMessageJSON = {
     /**
      * Initializes TestPickleNestedMessage.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestPickleNestedMessage.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestPickleNestedMessage.NestedMessage>,
+    ): TestPickleNestedMessage.NestedMessage {
       return {
         bb: 0,
+        ...msg,
       };
     },
 
@@ -14233,7 +14580,7 @@ export const TestPickleNestedMessageJSON = {
     ): TestPickleNestedMessage.NestedMessage {
       const _bb_ = json["bb"];
       if (_bb_) {
-        msg.bb = _bb_;
+        msg.bb = protoscript.parseNumber(_bb_);
       }
       return msg;
     },
@@ -14267,12 +14614,14 @@ export const TestPickleNestedMessageJSON = {
       /**
        * Initializes TestPickleNestedMessage.NestedMessage.NestedNestedMessage with all fields set to their default value.
        */
-      initialize:
-        function (): TestPickleNestedMessage.NestedMessage.NestedNestedMessage {
-          return {
-            cc: 0,
-          };
-        },
+      initialize: function (
+        msg?: Partial<TestPickleNestedMessage.NestedMessage.NestedNestedMessage>,
+      ): TestPickleNestedMessage.NestedMessage.NestedNestedMessage {
+        return {
+          cc: 0,
+          ...msg,
+        };
+      },
 
       /**
        * @private
@@ -14296,7 +14645,7 @@ export const TestPickleNestedMessageJSON = {
       ): TestPickleNestedMessage.NestedMessage.NestedNestedMessage {
         const _cc_ = json["cc"];
         if (_cc_) {
-          msg.cc = _cc_;
+          msg.cc = protoscript.parseNumber(_cc_);
         }
         return msg;
       },
@@ -14322,8 +14671,12 @@ export const TestMultipleExtensionRangesJSON = {
   /**
    * Initializes TestMultipleExtensionRanges with all fields set to their default value.
    */
-  initialize: function (): TestMultipleExtensionRanges {
-    return {};
+  initialize: function (
+    msg?: Partial<TestMultipleExtensionRanges>,
+  ): TestMultipleExtensionRanges {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -14367,10 +14720,13 @@ export const TestReallyLargeTagNumberJSON = {
   /**
    * Initializes TestReallyLargeTagNumber with all fields set to their default value.
    */
-  initialize: function (): TestReallyLargeTagNumber {
+  initialize: function (
+    msg?: Partial<TestReallyLargeTagNumber>,
+  ): TestReallyLargeTagNumber {
     return {
       a: 0,
       bb: 0,
+      ...msg,
     };
   },
 
@@ -14399,11 +14755,11 @@ export const TestReallyLargeTagNumberJSON = {
   ): TestReallyLargeTagNumber {
     const _a_ = json["a"];
     if (_a_) {
-      msg.a = _a_;
+      msg.a = protoscript.parseNumber(_a_);
     }
     const _bb_ = json["bb"];
     if (_bb_) {
-      msg.bb = _bb_;
+      msg.bb = protoscript.parseNumber(_bb_);
     }
     return msg;
   },
@@ -14430,10 +14786,13 @@ export const TestRecursiveMessageJSON = {
   /**
    * Initializes TestRecursiveMessage with all fields set to their default value.
    */
-  initialize: function (): TestRecursiveMessage {
+  initialize: function (
+    msg?: Partial<TestRecursiveMessage>,
+  ): TestRecursiveMessage {
     return {
       a: undefined,
       i: 0,
+      ...msg,
     };
   },
 
@@ -14470,7 +14829,7 @@ export const TestRecursiveMessageJSON = {
     }
     const _i_ = json["i"];
     if (_i_) {
-      msg.i = _i_;
+      msg.i = protoscript.parseNumber(_i_);
     }
     return msg;
   },
@@ -14497,9 +14856,12 @@ export const TestMutualRecursionAJSON = {
   /**
    * Initializes TestMutualRecursionA with all fields set to their default value.
    */
-  initialize: function (): TestMutualRecursionA {
+  initialize: function (
+    msg?: Partial<TestMutualRecursionA>,
+  ): TestMutualRecursionA {
     return {
       bb: TestMutualRecursionBJSON.initialize(),
+      ...msg,
     };
   },
 
@@ -14558,9 +14920,12 @@ export const TestMutualRecursionAJSON = {
     /**
      * Initializes TestMutualRecursionA.SubMessage with all fields set to their default value.
      */
-    initialize: function (): TestMutualRecursionA.SubMessage {
+    initialize: function (
+      msg?: Partial<TestMutualRecursionA.SubMessage>,
+    ): TestMutualRecursionA.SubMessage {
       return {
         b: TestMutualRecursionBJSON.initialize(),
+        ...msg,
       };
     },
 
@@ -14618,10 +14983,13 @@ export const TestMutualRecursionAJSON = {
     /**
      * Initializes TestMutualRecursionA.SubGroup with all fields set to their default value.
      */
-    initialize: function (): TestMutualRecursionA.SubGroup {
+    initialize: function (
+      msg?: Partial<TestMutualRecursionA.SubGroup>,
+    ): TestMutualRecursionA.SubGroup {
       return {
         subMessage: TestMutualRecursionAJSON.SubMessage.initialize(),
         notInThisScc: TestAllTypesJSON.initialize(),
+        ...msg,
       };
     },
 
@@ -14693,10 +15061,13 @@ export const TestMutualRecursionBJSON = {
   /**
    * Initializes TestMutualRecursionB with all fields set to their default value.
    */
-  initialize: function (): TestMutualRecursionB {
+  initialize: function (
+    msg?: Partial<TestMutualRecursionB>,
+  ): TestMutualRecursionB {
     return {
       a: TestMutualRecursionAJSON.initialize(),
       optionalInt32: 0,
+      ...msg,
     };
   },
 
@@ -14732,7 +15103,7 @@ export const TestMutualRecursionBJSON = {
     }
     const _optionalInt32_ = json["optionalInt32"] ?? json["optional_int32"];
     if (_optionalInt32_) {
-      msg.optionalInt32 = _optionalInt32_;
+      msg.optionalInt32 = protoscript.parseNumber(_optionalInt32_);
     }
     return msg;
   },
@@ -14759,9 +15130,10 @@ export const TestIsInitializedJSON = {
   /**
    * Initializes TestIsInitialized with all fields set to their default value.
    */
-  initialize: function (): TestIsInitialized {
+  initialize: function (msg?: Partial<TestIsInitialized>): TestIsInitialized {
     return {
       subMessage: TestIsInitializedJSON.SubMessage.initialize(),
+      ...msg,
     };
   },
 
@@ -14820,8 +15192,12 @@ export const TestIsInitializedJSON = {
     /**
      * Initializes TestIsInitialized.SubMessage with all fields set to their default value.
      */
-    initialize: function (): TestIsInitialized.SubMessage {
-      return {};
+    initialize: function (
+      msg?: Partial<TestIsInitialized.SubMessage>,
+    ): TestIsInitialized.SubMessage {
+      return {
+        ...msg,
+      };
     },
 
     /**
@@ -14868,9 +15244,12 @@ export const TestIsInitializedJSON = {
       /**
        * Initializes TestIsInitialized.SubMessage.SubGroup with all fields set to their default value.
        */
-      initialize: function (): TestIsInitialized.SubMessage.SubGroup {
+      initialize: function (
+        msg?: Partial<TestIsInitialized.SubMessage.SubGroup>,
+      ): TestIsInitialized.SubMessage.SubGroup {
         return {
           i: 0,
+          ...msg,
         };
       },
 
@@ -14896,7 +15275,7 @@ export const TestIsInitializedJSON = {
       ): TestIsInitialized.SubMessage.SubGroup {
         const _i_ = json["i"];
         if (_i_) {
-          msg.i = _i_;
+          msg.i = protoscript.parseNumber(_i_);
         }
         return msg;
       },
@@ -14925,9 +15304,10 @@ export const TestDupFieldNumberJSON = {
   /**
    * Initializes TestDupFieldNumber with all fields set to their default value.
    */
-  initialize: function (): TestDupFieldNumber {
+  initialize: function (msg?: Partial<TestDupFieldNumber>): TestDupFieldNumber {
     return {
       a: 0,
+      ...msg,
     };
   },
 
@@ -14953,7 +15333,7 @@ export const TestDupFieldNumberJSON = {
   ): TestDupFieldNumber {
     const _a_ = json["a"];
     if (_a_) {
-      msg.a = _a_;
+      msg.a = protoscript.parseNumber(_a_);
     }
     return msg;
   },
@@ -14979,9 +15359,12 @@ export const TestDupFieldNumberJSON = {
     /**
      * Initializes TestDupFieldNumber.Foo with all fields set to their default value.
      */
-    initialize: function (): TestDupFieldNumber.Foo {
+    initialize: function (
+      msg?: Partial<TestDupFieldNumber.Foo>,
+    ): TestDupFieldNumber.Foo {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -15007,7 +15390,7 @@ export const TestDupFieldNumberJSON = {
     ): TestDupFieldNumber.Foo {
       const _a_ = json["a"];
       if (_a_) {
-        msg.a = _a_;
+        msg.a = protoscript.parseNumber(_a_);
       }
       return msg;
     },
@@ -15034,9 +15417,12 @@ export const TestDupFieldNumberJSON = {
     /**
      * Initializes TestDupFieldNumber.Bar with all fields set to their default value.
      */
-    initialize: function (): TestDupFieldNumber.Bar {
+    initialize: function (
+      msg?: Partial<TestDupFieldNumber.Bar>,
+    ): TestDupFieldNumber.Bar {
       return {
         a: 0,
+        ...msg,
       };
     },
 
@@ -15062,7 +15448,7 @@ export const TestDupFieldNumberJSON = {
     ): TestDupFieldNumber.Bar {
       const _a_ = json["a"];
       if (_a_) {
-        msg.a = _a_;
+        msg.a = protoscript.parseNumber(_a_);
       }
       return msg;
     },
@@ -15090,9 +15476,10 @@ export const TestEagerMessageJSON = {
   /**
    * Initializes TestEagerMessage with all fields set to their default value.
    */
-  initialize: function (): TestEagerMessage {
+  initialize: function (msg?: Partial<TestEagerMessage>): TestEagerMessage {
     return {
       subMessage: TestAllTypesJSON.initialize(),
+      ...msg,
     };
   },
 
@@ -15145,9 +15532,10 @@ export const TestLazyMessageJSON = {
   /**
    * Initializes TestLazyMessage with all fields set to their default value.
    */
-  initialize: function (): TestLazyMessage {
+  initialize: function (msg?: Partial<TestLazyMessage>): TestLazyMessage {
     return {
       subMessage: TestAllTypesJSON.initialize(),
+      ...msg,
     };
   },
 
@@ -15200,10 +15588,13 @@ export const TestNestedMessageHasBitsJSON = {
   /**
    * Initializes TestNestedMessageHasBits with all fields set to their default value.
    */
-  initialize: function (): TestNestedMessageHasBits {
+  initialize: function (
+    msg?: Partial<TestNestedMessageHasBits>,
+  ): TestNestedMessageHasBits {
     return {
       optionalNestedMessage:
         TestNestedMessageHasBitsJSON.NestedMessage.initialize(),
+      ...msg,
     };
   },
 
@@ -15269,10 +15660,13 @@ export const TestNestedMessageHasBitsJSON = {
     /**
      * Initializes TestNestedMessageHasBits.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestNestedMessageHasBits.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestNestedMessageHasBits.NestedMessage>,
+    ): TestNestedMessageHasBits.NestedMessage {
       return {
         nestedmessageRepeatedInt32: [],
         nestedmessageRepeatedForeignmessage: [],
+        ...msg,
       };
     },
 
@@ -15306,7 +15700,9 @@ export const TestNestedMessageHasBitsJSON = {
         json["nestedmessageRepeatedInt32"] ??
         json["nestedmessage_repeated_int32"];
       if (_nestedmessageRepeatedInt32_) {
-        msg.nestedmessageRepeatedInt32 = _nestedmessageRepeatedInt32_;
+        msg.nestedmessageRepeatedInt32 = _nestedmessageRepeatedInt32_.map(
+          protoscript.parseNumber,
+        );
       }
       const _nestedmessageRepeatedForeignmessage_ =
         json["nestedmessageRepeatedForeignmessage"] ??
@@ -15344,7 +15740,9 @@ export const TestCamelCaseFieldNamesJSON = {
   /**
    * Initializes TestCamelCaseFieldNames with all fields set to their default value.
    */
-  initialize: function (): TestCamelCaseFieldNames {
+  initialize: function (
+    msg?: Partial<TestCamelCaseFieldNames>,
+  ): TestCamelCaseFieldNames {
     return {
       PrimitiveField: 0,
       StringField: "",
@@ -15358,6 +15756,7 @@ export const TestCamelCaseFieldNamesJSON = {
       RepeatedMessageField: [],
       RepeatedStringPieceField: [],
       RepeatedCordField: [],
+      ...msg,
     };
   },
 
@@ -15421,7 +15820,7 @@ export const TestCamelCaseFieldNamesJSON = {
   ): TestCamelCaseFieldNames {
     const _PrimitiveField_ = json["PrimitiveField"];
     if (_PrimitiveField_) {
-      msg.PrimitiveField = _PrimitiveField_;
+      msg.PrimitiveField = protoscript.parseNumber(_PrimitiveField_);
     }
     const _StringField_ = json["StringField"];
     if (_StringField_) {
@@ -15429,7 +15828,7 @@ export const TestCamelCaseFieldNamesJSON = {
     }
     const _EnumField_ = json["EnumField"];
     if (_EnumField_) {
-      msg.EnumField = _EnumField_;
+      msg.EnumField = ForeignEnum._fromInt(_EnumField_);
     }
     const _MessageField_ = json["MessageField"];
     if (_MessageField_) {
@@ -15445,7 +15844,9 @@ export const TestCamelCaseFieldNamesJSON = {
     }
     const _RepeatedPrimitiveField_ = json["RepeatedPrimitiveField"];
     if (_RepeatedPrimitiveField_) {
-      msg.RepeatedPrimitiveField = _RepeatedPrimitiveField_;
+      msg.RepeatedPrimitiveField = _RepeatedPrimitiveField_.map(
+        protoscript.parseNumber,
+      );
     }
     const _RepeatedStringField_ = json["RepeatedStringField"];
     if (_RepeatedStringField_) {
@@ -15453,7 +15854,7 @@ export const TestCamelCaseFieldNamesJSON = {
     }
     const _RepeatedEnumField_ = json["RepeatedEnumField"];
     if (_RepeatedEnumField_) {
-      msg.RepeatedEnumField = _RepeatedEnumField_;
+      msg.RepeatedEnumField = _RepeatedEnumField_.map(ForeignEnum._fromInt);
     }
     const _RepeatedMessageField_ = json["RepeatedMessageField"];
     if (_RepeatedMessageField_) {
@@ -15496,12 +15897,13 @@ export const TestFieldOrderingsJSON = {
   /**
    * Initializes TestFieldOrderings with all fields set to their default value.
    */
-  initialize: function (): TestFieldOrderings {
+  initialize: function (msg?: Partial<TestFieldOrderings>): TestFieldOrderings {
     return {
       myString: "",
       myInt: 0n,
       myFloat: 0,
       optionalNestedMessage: TestFieldOrderingsJSON.NestedMessage.initialize(),
+      ...msg,
     };
   },
 
@@ -15516,7 +15918,7 @@ export const TestFieldOrderingsJSON = {
       json["myString"] = msg.myString;
     }
     if (msg.myInt) {
-      json["myInt"] = msg.myInt.toString();
+      json["myInt"] = String(msg.myInt);
     }
     if (msg.myFloat) {
       json["myFloat"] = msg.myFloat;
@@ -15550,7 +15952,7 @@ export const TestFieldOrderingsJSON = {
     }
     const _myFloat_ = json["myFloat"] ?? json["my_float"];
     if (_myFloat_) {
-      msg.myFloat = _myFloat_;
+      msg.myFloat = protoscript.parseDouble(_myFloat_);
     }
     const _optionalNestedMessage_ =
       json["optionalNestedMessage"] ?? json["optional_nested_message"];
@@ -15588,10 +15990,13 @@ export const TestFieldOrderingsJSON = {
     /**
      * Initializes TestFieldOrderings.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestFieldOrderings.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestFieldOrderings.NestedMessage>,
+    ): TestFieldOrderings.NestedMessage {
       return {
         oo: 0n,
         bb: 0,
+        ...msg,
       };
     },
 
@@ -15603,7 +16008,7 @@ export const TestFieldOrderingsJSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.oo) {
-        json["oo"] = msg.oo.toString();
+        json["oo"] = String(msg.oo);
       }
       if (msg.bb) {
         json["bb"] = msg.bb;
@@ -15624,7 +16029,7 @@ export const TestFieldOrderingsJSON = {
       }
       const _bb_ = json["bb"];
       if (_bb_) {
-        msg.bb = _bb_;
+        msg.bb = protoscript.parseNumber(_bb_);
       }
       return msg;
     },
@@ -15652,9 +16057,12 @@ export const TestExtensionOrderings1JSON = {
   /**
    * Initializes TestExtensionOrderings1 with all fields set to their default value.
    */
-  initialize: function (): TestExtensionOrderings1 {
+  initialize: function (
+    msg?: Partial<TestExtensionOrderings1>,
+  ): TestExtensionOrderings1 {
     return {
       myString: "",
+      ...msg,
     };
   },
 
@@ -15707,9 +16115,12 @@ export const TestExtensionOrderings2JSON = {
   /**
    * Initializes TestExtensionOrderings2 with all fields set to their default value.
    */
-  initialize: function (): TestExtensionOrderings2 {
+  initialize: function (
+    msg?: Partial<TestExtensionOrderings2>,
+  ): TestExtensionOrderings2 {
     return {
       myString: "",
+      ...msg,
     };
   },
 
@@ -15767,9 +16178,12 @@ export const TestExtensionOrderings2JSON = {
     /**
      * Initializes TestExtensionOrderings2.TestExtensionOrderings3 with all fields set to their default value.
      */
-    initialize: function (): TestExtensionOrderings2.TestExtensionOrderings3 {
+    initialize: function (
+      msg?: Partial<TestExtensionOrderings2.TestExtensionOrderings3>,
+    ): TestExtensionOrderings2.TestExtensionOrderings3 {
       return {
         myString: "",
+        ...msg,
       };
     },
 
@@ -15823,7 +16237,9 @@ export const TestExtremeDefaultValuesJSON = {
   /**
    * Initializes TestExtremeDefaultValues with all fields set to their default value.
    */
-  initialize: function (): TestExtremeDefaultValues {
+  initialize: function (
+    msg?: Partial<TestExtremeDefaultValues>,
+  ): TestExtremeDefaultValues {
     return {
       escapedBytes: new Uint8Array(),
       largeUint32: 0,
@@ -15852,6 +16268,7 @@ export const TestExtremeDefaultValuesJSON = {
       stringPieceWithZero: "",
       cordWithZero: "",
       replacementString: "",
+      ...msg,
     };
   },
 
@@ -15863,25 +16280,25 @@ export const TestExtremeDefaultValuesJSON = {
   ): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.escapedBytes?.length) {
-      json["escapedBytes"] = encodeBase64Bytes(msg.escapedBytes);
+      json["escapedBytes"] = protoscript.serializeBytes(msg.escapedBytes);
     }
     if (msg.largeUint32) {
       json["largeUint32"] = msg.largeUint32;
     }
     if (msg.largeUint64) {
-      json["largeUint64"] = msg.largeUint64.toString();
+      json["largeUint64"] = String(msg.largeUint64);
     }
     if (msg.smallInt32) {
       json["smallInt32"] = msg.smallInt32;
     }
     if (msg.smallInt64) {
-      json["smallInt64"] = msg.smallInt64.toString();
+      json["smallInt64"] = String(msg.smallInt64);
     }
     if (msg.reallySmallInt32) {
       json["reallySmallInt32"] = msg.reallySmallInt32;
     }
     if (msg.reallySmallInt64) {
-      json["reallySmallInt64"] = msg.reallySmallInt64.toString();
+      json["reallySmallInt64"] = String(msg.reallySmallInt64);
     }
     if (msg.utf8String) {
       json["utf8String"] = msg.utf8String;
@@ -15932,7 +16349,7 @@ export const TestExtremeDefaultValuesJSON = {
       json["stringWithZero"] = msg.stringWithZero;
     }
     if (msg.bytesWithZero?.length) {
-      json["bytesWithZero"] = encodeBase64Bytes(msg.bytesWithZero);
+      json["bytesWithZero"] = protoscript.serializeBytes(msg.bytesWithZero);
     }
     if (msg.stringPieceWithZero) {
       json["stringPieceWithZero"] = msg.stringPieceWithZero;
@@ -15955,11 +16372,11 @@ export const TestExtremeDefaultValuesJSON = {
   ): TestExtremeDefaultValues {
     const _escapedBytes_ = json["escapedBytes"] ?? json["escaped_bytes"];
     if (_escapedBytes_) {
-      msg.escapedBytes = decodeBase64Bytes(_escapedBytes_);
+      msg.escapedBytes = protoscript.parseBytes(_escapedBytes_);
     }
     const _largeUint32_ = json["largeUint32"] ?? json["large_uint32"];
     if (_largeUint32_) {
-      msg.largeUint32 = _largeUint32_;
+      msg.largeUint32 = protoscript.parseNumber(_largeUint32_);
     }
     const _largeUint64_ = json["largeUint64"] ?? json["large_uint64"];
     if (_largeUint64_) {
@@ -15967,7 +16384,7 @@ export const TestExtremeDefaultValuesJSON = {
     }
     const _smallInt32_ = json["smallInt32"] ?? json["small_int32"];
     if (_smallInt32_) {
-      msg.smallInt32 = _smallInt32_;
+      msg.smallInt32 = protoscript.parseNumber(_smallInt32_);
     }
     const _smallInt64_ = json["smallInt64"] ?? json["small_int64"];
     if (_smallInt64_) {
@@ -15976,7 +16393,7 @@ export const TestExtremeDefaultValuesJSON = {
     const _reallySmallInt32_ =
       json["reallySmallInt32"] ?? json["really_small_int32"];
     if (_reallySmallInt32_) {
-      msg.reallySmallInt32 = _reallySmallInt32_;
+      msg.reallySmallInt32 = protoscript.parseNumber(_reallySmallInt32_);
     }
     const _reallySmallInt64_ =
       json["reallySmallInt64"] ?? json["really_small_int64"];
@@ -15989,57 +16406,57 @@ export const TestExtremeDefaultValuesJSON = {
     }
     const _zeroFloat_ = json["zeroFloat"] ?? json["zero_float"];
     if (_zeroFloat_) {
-      msg.zeroFloat = _zeroFloat_;
+      msg.zeroFloat = protoscript.parseDouble(_zeroFloat_);
     }
     const _oneFloat_ = json["oneFloat"] ?? json["one_float"];
     if (_oneFloat_) {
-      msg.oneFloat = _oneFloat_;
+      msg.oneFloat = protoscript.parseDouble(_oneFloat_);
     }
     const _smallFloat_ = json["smallFloat"] ?? json["small_float"];
     if (_smallFloat_) {
-      msg.smallFloat = _smallFloat_;
+      msg.smallFloat = protoscript.parseDouble(_smallFloat_);
     }
     const _negativeOneFloat_ =
       json["negativeOneFloat"] ?? json["negative_one_float"];
     if (_negativeOneFloat_) {
-      msg.negativeOneFloat = _negativeOneFloat_;
+      msg.negativeOneFloat = protoscript.parseDouble(_negativeOneFloat_);
     }
     const _negativeFloat_ = json["negativeFloat"] ?? json["negative_float"];
     if (_negativeFloat_) {
-      msg.negativeFloat = _negativeFloat_;
+      msg.negativeFloat = protoscript.parseDouble(_negativeFloat_);
     }
     const _largeFloat_ = json["largeFloat"] ?? json["large_float"];
     if (_largeFloat_) {
-      msg.largeFloat = _largeFloat_;
+      msg.largeFloat = protoscript.parseDouble(_largeFloat_);
     }
     const _smallNegativeFloat_ =
       json["smallNegativeFloat"] ?? json["small_negative_float"];
     if (_smallNegativeFloat_) {
-      msg.smallNegativeFloat = _smallNegativeFloat_;
+      msg.smallNegativeFloat = protoscript.parseDouble(_smallNegativeFloat_);
     }
     const _infDouble_ = json["infDouble"] ?? json["inf_double"];
     if (_infDouble_) {
-      msg.infDouble = _infDouble_;
+      msg.infDouble = protoscript.parseDouble(_infDouble_);
     }
     const _negInfDouble_ = json["negInfDouble"] ?? json["neg_inf_double"];
     if (_negInfDouble_) {
-      msg.negInfDouble = _negInfDouble_;
+      msg.negInfDouble = protoscript.parseDouble(_negInfDouble_);
     }
     const _nanDouble_ = json["nanDouble"] ?? json["nan_double"];
     if (_nanDouble_) {
-      msg.nanDouble = _nanDouble_;
+      msg.nanDouble = protoscript.parseDouble(_nanDouble_);
     }
     const _infFloat_ = json["infFloat"] ?? json["inf_float"];
     if (_infFloat_) {
-      msg.infFloat = _infFloat_;
+      msg.infFloat = protoscript.parseDouble(_infFloat_);
     }
     const _negInfFloat_ = json["negInfFloat"] ?? json["neg_inf_float"];
     if (_negInfFloat_) {
-      msg.negInfFloat = _negInfFloat_;
+      msg.negInfFloat = protoscript.parseDouble(_negInfFloat_);
     }
     const _nanFloat_ = json["nanFloat"] ?? json["nan_float"];
     if (_nanFloat_) {
-      msg.nanFloat = _nanFloat_;
+      msg.nanFloat = protoscript.parseDouble(_nanFloat_);
     }
     const _cppTrigraph_ = json["cppTrigraph"] ?? json["cpp_trigraph"];
     if (_cppTrigraph_) {
@@ -16051,7 +16468,7 @@ export const TestExtremeDefaultValuesJSON = {
     }
     const _bytesWithZero_ = json["bytesWithZero"] ?? json["bytes_with_zero"];
     if (_bytesWithZero_) {
-      msg.bytesWithZero = decodeBase64Bytes(_bytesWithZero_);
+      msg.bytesWithZero = protoscript.parseBytes(_bytesWithZero_);
     }
     const _stringPieceWithZero_ =
       json["stringPieceWithZero"] ?? json["string_piece_with_zero"];
@@ -16092,9 +16509,10 @@ export const SparseEnumMessageJSON = {
   /**
    * Initializes SparseEnumMessage with all fields set to their default value.
    */
-  initialize: function (): SparseEnumMessage {
+  initialize: function (msg?: Partial<SparseEnumMessage>): SparseEnumMessage {
     return {
       sparseEnum: TestSparseEnum._fromInt(0),
+      ...msg,
     };
   },
 
@@ -16120,7 +16538,7 @@ export const SparseEnumMessageJSON = {
   ): SparseEnumMessage {
     const _sparseEnum_ = json["sparseEnum"] ?? json["sparse_enum"];
     if (_sparseEnum_) {
-      msg.sparseEnum = _sparseEnum_;
+      msg.sparseEnum = TestSparseEnum._fromInt(_sparseEnum_);
     }
     return msg;
   },
@@ -16147,9 +16565,10 @@ export const OneStringJSON = {
   /**
    * Initializes OneString with all fields set to their default value.
    */
-  initialize: function (): OneString {
+  initialize: function (msg?: Partial<OneString>): OneString {
     return {
       data: "",
+      ...msg,
     };
   },
 
@@ -16199,9 +16618,10 @@ export const MoreStringJSON = {
   /**
    * Initializes MoreString with all fields set to their default value.
    */
-  initialize: function (): MoreString {
+  initialize: function (msg?: Partial<MoreString>): MoreString {
     return {
       data: [],
+      ...msg,
     };
   },
 
@@ -16251,9 +16671,10 @@ export const OneBytesJSON = {
   /**
    * Initializes OneBytes with all fields set to their default value.
    */
-  initialize: function (): OneBytes {
+  initialize: function (msg?: Partial<OneBytes>): OneBytes {
     return {
       data: new Uint8Array(),
+      ...msg,
     };
   },
 
@@ -16265,7 +16686,7 @@ export const OneBytesJSON = {
   ): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.data?.length) {
-      json["data"] = encodeBase64Bytes(msg.data);
+      json["data"] = protoscript.serializeBytes(msg.data);
     }
     return json;
   },
@@ -16276,7 +16697,7 @@ export const OneBytesJSON = {
   _readMessage: function (msg: OneBytes, json: any): OneBytes {
     const _data_ = json["data"];
     if (_data_) {
-      msg.data = decodeBase64Bytes(_data_);
+      msg.data = protoscript.parseBytes(_data_);
     }
     return msg;
   },
@@ -16303,9 +16724,10 @@ export const MoreBytesJSON = {
   /**
    * Initializes MoreBytes with all fields set to their default value.
    */
-  initialize: function (): MoreBytes {
+  initialize: function (msg?: Partial<MoreBytes>): MoreBytes {
     return {
       data: [],
+      ...msg,
     };
   },
 
@@ -16317,7 +16739,7 @@ export const MoreBytesJSON = {
   ): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.data?.length) {
-      json["data"] = msg.data.map(encodeBase64Bytes);
+      json["data"] = msg.data.map(protoscript.serializeBytes);
     }
     return json;
   },
@@ -16328,7 +16750,7 @@ export const MoreBytesJSON = {
   _readMessage: function (msg: MoreBytes, json: any): MoreBytes {
     const _data_ = json["data"];
     if (_data_) {
-      msg.data = _data_.map(decodeBase64Bytes);
+      msg.data = _data_.map(protoscript.parseBytes);
     }
     return msg;
   },
@@ -16355,9 +16777,10 @@ export const Int32MessageJSON = {
   /**
    * Initializes Int32Message with all fields set to their default value.
    */
-  initialize: function (): Int32Message {
+  initialize: function (msg?: Partial<Int32Message>): Int32Message {
     return {
       data: 0,
+      ...msg,
     };
   },
 
@@ -16380,7 +16803,7 @@ export const Int32MessageJSON = {
   _readMessage: function (msg: Int32Message, json: any): Int32Message {
     const _data_ = json["data"];
     if (_data_) {
-      msg.data = _data_;
+      msg.data = protoscript.parseNumber(_data_);
     }
     return msg;
   },
@@ -16407,9 +16830,10 @@ export const Uint32MessageJSON = {
   /**
    * Initializes Uint32Message with all fields set to their default value.
    */
-  initialize: function (): Uint32Message {
+  initialize: function (msg?: Partial<Uint32Message>): Uint32Message {
     return {
       data: 0,
+      ...msg,
     };
   },
 
@@ -16432,7 +16856,7 @@ export const Uint32MessageJSON = {
   _readMessage: function (msg: Uint32Message, json: any): Uint32Message {
     const _data_ = json["data"];
     if (_data_) {
-      msg.data = _data_;
+      msg.data = protoscript.parseNumber(_data_);
     }
     return msg;
   },
@@ -16459,9 +16883,10 @@ export const Int64MessageJSON = {
   /**
    * Initializes Int64Message with all fields set to their default value.
    */
-  initialize: function (): Int64Message {
+  initialize: function (msg?: Partial<Int64Message>): Int64Message {
     return {
       data: 0n,
+      ...msg,
     };
   },
 
@@ -16473,7 +16898,7 @@ export const Int64MessageJSON = {
   ): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.data) {
-      json["data"] = msg.data.toString();
+      json["data"] = String(msg.data);
     }
     return json;
   },
@@ -16511,9 +16936,10 @@ export const Uint64MessageJSON = {
   /**
    * Initializes Uint64Message with all fields set to their default value.
    */
-  initialize: function (): Uint64Message {
+  initialize: function (msg?: Partial<Uint64Message>): Uint64Message {
     return {
       data: 0n,
+      ...msg,
     };
   },
 
@@ -16525,7 +16951,7 @@ export const Uint64MessageJSON = {
   ): Record<string, unknown> {
     const json: Record<string, unknown> = {};
     if (msg.data) {
-      json["data"] = msg.data.toString();
+      json["data"] = String(msg.data);
     }
     return json;
   },
@@ -16563,9 +16989,10 @@ export const BoolMessageJSON = {
   /**
    * Initializes BoolMessage with all fields set to their default value.
    */
-  initialize: function (): BoolMessage {
+  initialize: function (msg?: Partial<BoolMessage>): BoolMessage {
     return {
       data: false,
+      ...msg,
     };
   },
 
@@ -16615,11 +17042,12 @@ export const TestOneofJSON = {
   /**
    * Initializes TestOneof with all fields set to their default value.
    */
-  initialize: function (): TestOneof {
+  initialize: function (msg?: Partial<TestOneof>): TestOneof {
     return {
       fooInt: undefined,
       fooString: undefined,
       fooMessage: undefined,
+      ...msg,
     };
   },
 
@@ -16649,7 +17077,7 @@ export const TestOneofJSON = {
   _readMessage: function (msg: TestOneof, json: any): TestOneof {
     const _fooInt_ = json["fooInt"] ?? json["foo_int"];
     if (_fooInt_) {
-      msg.fooInt = _fooInt_;
+      msg.fooInt = protoscript.parseNumber(_fooInt_);
     }
     const _fooString_ = json["fooString"] ?? json["foo_string"];
     if (_fooString_) {
@@ -16684,10 +17112,13 @@ export const TestOneofJSON = {
     /**
      * Initializes TestOneof.FooGroup with all fields set to their default value.
      */
-    initialize: function (): TestOneof.FooGroup {
+    initialize: function (
+      msg?: Partial<TestOneof.FooGroup>,
+    ): TestOneof.FooGroup {
       return {
         a: 0,
         b: "",
+        ...msg,
       };
     },
 
@@ -16716,7 +17147,7 @@ export const TestOneofJSON = {
     ): TestOneof.FooGroup {
       const _a_ = json["a"];
       if (_a_) {
-        msg.a = _a_;
+        msg.a = protoscript.parseNumber(_a_);
       }
       const _b_ = json["b"];
       if (_b_) {
@@ -16748,11 +17179,14 @@ export const TestOneofBackwardsCompatibleJSON = {
   /**
    * Initializes TestOneofBackwardsCompatible with all fields set to their default value.
    */
-  initialize: function (): TestOneofBackwardsCompatible {
+  initialize: function (
+    msg?: Partial<TestOneofBackwardsCompatible>,
+  ): TestOneofBackwardsCompatible {
     return {
       fooInt: 0,
       fooString: "",
       fooMessage: TestAllTypesJSON.initialize(),
+      ...msg,
     };
   },
 
@@ -16787,7 +17221,7 @@ export const TestOneofBackwardsCompatibleJSON = {
   ): TestOneofBackwardsCompatible {
     const _fooInt_ = json["fooInt"] ?? json["foo_int"];
     if (_fooInt_) {
-      msg.fooInt = _fooInt_;
+      msg.fooInt = protoscript.parseNumber(_fooInt_);
     }
     const _fooString_ = json["fooString"] ?? json["foo_string"];
     if (_fooString_) {
@@ -16825,10 +17259,13 @@ export const TestOneofBackwardsCompatibleJSON = {
     /**
      * Initializes TestOneofBackwardsCompatible.FooGroup with all fields set to their default value.
      */
-    initialize: function (): TestOneofBackwardsCompatible.FooGroup {
+    initialize: function (
+      msg?: Partial<TestOneofBackwardsCompatible.FooGroup>,
+    ): TestOneofBackwardsCompatible.FooGroup {
       return {
         a: 0,
         b: "",
+        ...msg,
       };
     },
 
@@ -16857,7 +17294,7 @@ export const TestOneofBackwardsCompatibleJSON = {
     ): TestOneofBackwardsCompatible.FooGroup {
       const _a_ = json["a"];
       if (_a_) {
-        msg.a = _a_;
+        msg.a = protoscript.parseNumber(_a_);
       }
       const _b_ = json["b"];
       if (_b_) {
@@ -16889,7 +17326,7 @@ export const TestOneof2JSON = {
   /**
    * Initializes TestOneof2 with all fields set to their default value.
    */
-  initialize: function (): TestOneof2 {
+  initialize: function (msg?: Partial<TestOneof2>): TestOneof2 {
     return {
       fooInt: undefined,
       fooString: undefined,
@@ -16911,6 +17348,7 @@ export const TestOneof2JSON = {
       barBytesWithEmptyDefault: undefined,
       bazInt: 0,
       bazString: "",
+      ...msg,
     };
   },
 
@@ -16934,7 +17372,7 @@ export const TestOneof2JSON = {
       json["fooStringPiece"] = msg.fooStringPiece;
     }
     if (msg.fooBytes?.length) {
-      json["fooBytes"] = encodeBase64Bytes(msg.fooBytes);
+      json["fooBytes"] = protoscript.serializeBytes(msg.fooBytes);
     }
     if (msg.fooEnum != undefined) {
       json["fooEnum"] = msg.fooEnum;
@@ -16964,7 +17402,7 @@ export const TestOneof2JSON = {
       json["barStringPiece"] = msg.barStringPiece;
     }
     if (msg.barBytes?.length) {
-      json["barBytes"] = encodeBase64Bytes(msg.barBytes);
+      json["barBytes"] = protoscript.serializeBytes(msg.barBytes);
     }
     if (msg.barEnum != undefined) {
       json["barEnum"] = msg.barEnum;
@@ -16980,7 +17418,7 @@ export const TestOneof2JSON = {
         msg.barStringPieceWithEmptyDefault;
     }
     if (msg.barBytesWithEmptyDefault?.length) {
-      json["barBytesWithEmptyDefault"] = encodeBase64Bytes(
+      json["barBytesWithEmptyDefault"] = protoscript.serializeBytes(
         msg.barBytesWithEmptyDefault,
       );
     }
@@ -16999,7 +17437,7 @@ export const TestOneof2JSON = {
   _readMessage: function (msg: TestOneof2, json: any): TestOneof2 {
     const _fooInt_ = json["fooInt"] ?? json["foo_int"];
     if (_fooInt_) {
-      msg.fooInt = _fooInt_;
+      msg.fooInt = protoscript.parseNumber(_fooInt_);
     }
     const _fooString_ = json["fooString"] ?? json["foo_string"];
     if (_fooString_) {
@@ -17015,11 +17453,11 @@ export const TestOneof2JSON = {
     }
     const _fooBytes_ = json["fooBytes"] ?? json["foo_bytes"];
     if (_fooBytes_) {
-      msg.fooBytes = decodeBase64Bytes(_fooBytes_);
+      msg.fooBytes = protoscript.parseBytes(_fooBytes_);
     }
     const _fooEnum_ = json["fooEnum"] ?? json["foo_enum"];
     if (_fooEnum_) {
-      msg.fooEnum = _fooEnum_;
+      msg.fooEnum = TestOneof2.NestedEnum._fromInt(_fooEnum_);
     }
     const _fooMessage_ = json["fooMessage"] ?? json["foo_message"];
     if (_fooMessage_) {
@@ -17036,7 +17474,7 @@ export const TestOneof2JSON = {
     }
     const _barInt_ = json["barInt"] ?? json["bar_int"];
     if (_barInt_) {
-      msg.barInt = _barInt_;
+      msg.barInt = protoscript.parseNumber(_barInt_);
     }
     const _barString_ = json["barString"] ?? json["bar_string"];
     if (_barString_) {
@@ -17052,11 +17490,11 @@ export const TestOneof2JSON = {
     }
     const _barBytes_ = json["barBytes"] ?? json["bar_bytes"];
     if (_barBytes_) {
-      msg.barBytes = decodeBase64Bytes(_barBytes_);
+      msg.barBytes = protoscript.parseBytes(_barBytes_);
     }
     const _barEnum_ = json["barEnum"] ?? json["bar_enum"];
     if (_barEnum_) {
-      msg.barEnum = _barEnum_;
+      msg.barEnum = TestOneof2.NestedEnum._fromInt(_barEnum_);
     }
     const _barStringWithEmptyDefault_ =
       json["barStringWithEmptyDefault"] ??
@@ -17078,13 +17516,13 @@ export const TestOneof2JSON = {
     const _barBytesWithEmptyDefault_ =
       json["barBytesWithEmptyDefault"] ?? json["bar_bytes_with_empty_default"];
     if (_barBytesWithEmptyDefault_) {
-      msg.barBytesWithEmptyDefault = decodeBase64Bytes(
+      msg.barBytesWithEmptyDefault = protoscript.parseBytes(
         _barBytesWithEmptyDefault_,
       );
     }
     const _bazInt_ = json["bazInt"] ?? json["baz_int"];
     if (_bazInt_) {
-      msg.bazInt = _bazInt_;
+      msg.bazInt = protoscript.parseNumber(_bazInt_);
     }
     const _bazString_ = json["bazString"] ?? json["baz_string"];
     if (_bazString_) {
@@ -17160,10 +17598,13 @@ export const TestOneof2JSON = {
     /**
      * Initializes TestOneof2.FooGroup with all fields set to their default value.
      */
-    initialize: function (): TestOneof2.FooGroup {
+    initialize: function (
+      msg?: Partial<TestOneof2.FooGroup>,
+    ): TestOneof2.FooGroup {
       return {
         a: 0,
         b: "",
+        ...msg,
       };
     },
 
@@ -17192,7 +17633,7 @@ export const TestOneof2JSON = {
     ): TestOneof2.FooGroup {
       const _a_ = json["a"];
       if (_a_) {
-        msg.a = _a_;
+        msg.a = protoscript.parseNumber(_a_);
       }
       const _b_ = json["b"];
       if (_b_) {
@@ -17223,10 +17664,13 @@ export const TestOneof2JSON = {
     /**
      * Initializes TestOneof2.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestOneof2.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestOneof2.NestedMessage>,
+    ): TestOneof2.NestedMessage {
       return {
         quxInt: 0n,
         corgeInt: [],
+        ...msg,
       };
     },
 
@@ -17238,7 +17682,7 @@ export const TestOneof2JSON = {
     ): Record<string, unknown> {
       const json: Record<string, unknown> = {};
       if (msg.quxInt) {
-        json["quxInt"] = msg.quxInt.toString();
+        json["quxInt"] = String(msg.quxInt);
       }
       if (msg.corgeInt?.length) {
         json["corgeInt"] = msg.corgeInt;
@@ -17259,7 +17703,7 @@ export const TestOneof2JSON = {
       }
       const _corgeInt_ = json["corgeInt"] ?? json["corge_int"];
       if (_corgeInt_) {
-        msg.corgeInt = _corgeInt_;
+        msg.corgeInt = _corgeInt_.map(protoscript.parseNumber);
       }
       return msg;
     },
@@ -17287,11 +17731,12 @@ export const TestRequiredOneofJSON = {
   /**
    * Initializes TestRequiredOneof with all fields set to their default value.
    */
-  initialize: function (): TestRequiredOneof {
+  initialize: function (msg?: Partial<TestRequiredOneof>): TestRequiredOneof {
     return {
       fooInt: undefined,
       fooString: undefined,
       fooMessage: undefined,
+      ...msg,
     };
   },
 
@@ -17326,7 +17771,7 @@ export const TestRequiredOneofJSON = {
   ): TestRequiredOneof {
     const _fooInt_ = json["fooInt"] ?? json["foo_int"];
     if (_fooInt_) {
-      msg.fooInt = _fooInt_;
+      msg.fooInt = protoscript.parseNumber(_fooInt_);
     }
     const _fooString_ = json["fooString"] ?? json["foo_string"];
     if (_fooString_) {
@@ -17368,9 +17813,12 @@ export const TestRequiredOneofJSON = {
     /**
      * Initializes TestRequiredOneof.NestedMessage with all fields set to their default value.
      */
-    initialize: function (): TestRequiredOneof.NestedMessage {
+    initialize: function (
+      msg?: Partial<TestRequiredOneof.NestedMessage>,
+    ): TestRequiredOneof.NestedMessage {
       return {
         requiredDouble: 0,
+        ...msg,
       };
     },
 
@@ -17397,7 +17845,7 @@ export const TestRequiredOneofJSON = {
       const _requiredDouble_ =
         json["requiredDouble"] ?? json["required_double"];
       if (_requiredDouble_) {
-        msg.requiredDouble = _requiredDouble_;
+        msg.requiredDouble = protoscript.parseDouble(_requiredDouble_);
       }
       return msg;
     },
@@ -17425,7 +17873,7 @@ export const TestPackedTypesJSON = {
   /**
    * Initializes TestPackedTypes with all fields set to their default value.
    */
-  initialize: function (): TestPackedTypes {
+  initialize: function (msg?: Partial<TestPackedTypes>): TestPackedTypes {
     return {
       packedInt32: [],
       packedInt64: [],
@@ -17441,6 +17889,7 @@ export const TestPackedTypesJSON = {
       packedDouble: [],
       packedBool: [],
       packedEnum: [],
+      ...msg,
     };
   },
 
@@ -17455,31 +17904,31 @@ export const TestPackedTypesJSON = {
       json["packedInt32"] = msg.packedInt32;
     }
     if (msg.packedInt64?.length) {
-      json["packedInt64"] = msg.packedInt64.map((x) => x.toString());
+      json["packedInt64"] = msg.packedInt64.map(String);
     }
     if (msg.packedUint32?.length) {
       json["packedUint32"] = msg.packedUint32;
     }
     if (msg.packedUint64?.length) {
-      json["packedUint64"] = msg.packedUint64.map((x) => x.toString());
+      json["packedUint64"] = msg.packedUint64.map(String);
     }
     if (msg.packedSint32?.length) {
       json["packedSint32"] = msg.packedSint32;
     }
     if (msg.packedSint64?.length) {
-      json["packedSint64"] = msg.packedSint64.map((x) => x.toString());
+      json["packedSint64"] = msg.packedSint64.map(String);
     }
     if (msg.packedFixed32?.length) {
       json["packedFixed32"] = msg.packedFixed32;
     }
     if (msg.packedFixed64?.length) {
-      json["packedFixed64"] = msg.packedFixed64.map((x) => x.toString());
+      json["packedFixed64"] = msg.packedFixed64.map(String);
     }
     if (msg.packedSfixed32?.length) {
       json["packedSfixed32"] = msg.packedSfixed32;
     }
     if (msg.packedSfixed64?.length) {
-      json["packedSfixed64"] = msg.packedSfixed64.map((x) => x.toString());
+      json["packedSfixed64"] = msg.packedSfixed64.map(String);
     }
     if (msg.packedFloat?.length) {
       json["packedFloat"] = msg.packedFloat;
@@ -17502,7 +17951,7 @@ export const TestPackedTypesJSON = {
   _readMessage: function (msg: TestPackedTypes, json: any): TestPackedTypes {
     const _packedInt32_ = json["packedInt32"] ?? json["packed_int32"];
     if (_packedInt32_) {
-      msg.packedInt32 = _packedInt32_;
+      msg.packedInt32 = _packedInt32_.map(protoscript.parseNumber);
     }
     const _packedInt64_ = json["packedInt64"] ?? json["packed_int64"];
     if (_packedInt64_) {
@@ -17510,7 +17959,7 @@ export const TestPackedTypesJSON = {
     }
     const _packedUint32_ = json["packedUint32"] ?? json["packed_uint32"];
     if (_packedUint32_) {
-      msg.packedUint32 = _packedUint32_;
+      msg.packedUint32 = _packedUint32_.map(protoscript.parseNumber);
     }
     const _packedUint64_ = json["packedUint64"] ?? json["packed_uint64"];
     if (_packedUint64_) {
@@ -17518,7 +17967,7 @@ export const TestPackedTypesJSON = {
     }
     const _packedSint32_ = json["packedSint32"] ?? json["packed_sint32"];
     if (_packedSint32_) {
-      msg.packedSint32 = _packedSint32_;
+      msg.packedSint32 = _packedSint32_.map(protoscript.parseNumber);
     }
     const _packedSint64_ = json["packedSint64"] ?? json["packed_sint64"];
     if (_packedSint64_) {
@@ -17526,7 +17975,7 @@ export const TestPackedTypesJSON = {
     }
     const _packedFixed32_ = json["packedFixed32"] ?? json["packed_fixed32"];
     if (_packedFixed32_) {
-      msg.packedFixed32 = _packedFixed32_;
+      msg.packedFixed32 = _packedFixed32_.map(protoscript.parseNumber);
     }
     const _packedFixed64_ = json["packedFixed64"] ?? json["packed_fixed64"];
     if (_packedFixed64_) {
@@ -17534,7 +17983,7 @@ export const TestPackedTypesJSON = {
     }
     const _packedSfixed32_ = json["packedSfixed32"] ?? json["packed_sfixed32"];
     if (_packedSfixed32_) {
-      msg.packedSfixed32 = _packedSfixed32_;
+      msg.packedSfixed32 = _packedSfixed32_.map(protoscript.parseNumber);
     }
     const _packedSfixed64_ = json["packedSfixed64"] ?? json["packed_sfixed64"];
     if (_packedSfixed64_) {
@@ -17542,11 +17991,11 @@ export const TestPackedTypesJSON = {
     }
     const _packedFloat_ = json["packedFloat"] ?? json["packed_float"];
     if (_packedFloat_) {
-      msg.packedFloat = _packedFloat_;
+      msg.packedFloat = _packedFloat_.map(protoscript.parseDouble);
     }
     const _packedDouble_ = json["packedDouble"] ?? json["packed_double"];
     if (_packedDouble_) {
-      msg.packedDouble = _packedDouble_;
+      msg.packedDouble = _packedDouble_.map(protoscript.parseDouble);
     }
     const _packedBool_ = json["packedBool"] ?? json["packed_bool"];
     if (_packedBool_) {
@@ -17554,7 +18003,7 @@ export const TestPackedTypesJSON = {
     }
     const _packedEnum_ = json["packedEnum"] ?? json["packed_enum"];
     if (_packedEnum_) {
-      msg.packedEnum = _packedEnum_;
+      msg.packedEnum = _packedEnum_.map(ForeignEnum._fromInt);
     }
     return msg;
   },
@@ -17581,7 +18030,7 @@ export const TestUnpackedTypesJSON = {
   /**
    * Initializes TestUnpackedTypes with all fields set to their default value.
    */
-  initialize: function (): TestUnpackedTypes {
+  initialize: function (msg?: Partial<TestUnpackedTypes>): TestUnpackedTypes {
     return {
       unpackedInt32: [],
       unpackedInt64: [],
@@ -17597,6 +18046,7 @@ export const TestUnpackedTypesJSON = {
       unpackedDouble: [],
       unpackedBool: [],
       unpackedEnum: [],
+      ...msg,
     };
   },
 
@@ -17611,31 +18061,31 @@ export const TestUnpackedTypesJSON = {
       json["unpackedInt32"] = msg.unpackedInt32;
     }
     if (msg.unpackedInt64?.length) {
-      json["unpackedInt64"] = msg.unpackedInt64.map((x) => x.toString());
+      json["unpackedInt64"] = msg.unpackedInt64.map(String);
     }
     if (msg.unpackedUint32?.length) {
       json["unpackedUint32"] = msg.unpackedUint32;
     }
     if (msg.unpackedUint64?.length) {
-      json["unpackedUint64"] = msg.unpackedUint64.map((x) => x.toString());
+      json["unpackedUint64"] = msg.unpackedUint64.map(String);
     }
     if (msg.unpackedSint32?.length) {
       json["unpackedSint32"] = msg.unpackedSint32;
     }
     if (msg.unpackedSint64?.length) {
-      json["unpackedSint64"] = msg.unpackedSint64.map((x) => x.toString());
+      json["unpackedSint64"] = msg.unpackedSint64.map(String);
     }
     if (msg.unpackedFixed32?.length) {
       json["unpackedFixed32"] = msg.unpackedFixed32;
     }
     if (msg.unpackedFixed64?.length) {
-      json["unpackedFixed64"] = msg.unpackedFixed64.map((x) => x.toString());
+      json["unpackedFixed64"] = msg.unpackedFixed64.map(String);
     }
     if (msg.unpackedSfixed32?.length) {
       json["unpackedSfixed32"] = msg.unpackedSfixed32;
     }
     if (msg.unpackedSfixed64?.length) {
-      json["unpackedSfixed64"] = msg.unpackedSfixed64.map((x) => x.toString());
+      json["unpackedSfixed64"] = msg.unpackedSfixed64.map(String);
     }
     if (msg.unpackedFloat?.length) {
       json["unpackedFloat"] = msg.unpackedFloat;
@@ -17661,7 +18111,7 @@ export const TestUnpackedTypesJSON = {
   ): TestUnpackedTypes {
     const _unpackedInt32_ = json["unpackedInt32"] ?? json["unpacked_int32"];
     if (_unpackedInt32_) {
-      msg.unpackedInt32 = _unpackedInt32_;
+      msg.unpackedInt32 = _unpackedInt32_.map(protoscript.parseNumber);
     }
     const _unpackedInt64_ = json["unpackedInt64"] ?? json["unpacked_int64"];
     if (_unpackedInt64_) {
@@ -17669,7 +18119,7 @@ export const TestUnpackedTypesJSON = {
     }
     const _unpackedUint32_ = json["unpackedUint32"] ?? json["unpacked_uint32"];
     if (_unpackedUint32_) {
-      msg.unpackedUint32 = _unpackedUint32_;
+      msg.unpackedUint32 = _unpackedUint32_.map(protoscript.parseNumber);
     }
     const _unpackedUint64_ = json["unpackedUint64"] ?? json["unpacked_uint64"];
     if (_unpackedUint64_) {
@@ -17677,7 +18127,7 @@ export const TestUnpackedTypesJSON = {
     }
     const _unpackedSint32_ = json["unpackedSint32"] ?? json["unpacked_sint32"];
     if (_unpackedSint32_) {
-      msg.unpackedSint32 = _unpackedSint32_;
+      msg.unpackedSint32 = _unpackedSint32_.map(protoscript.parseNumber);
     }
     const _unpackedSint64_ = json["unpackedSint64"] ?? json["unpacked_sint64"];
     if (_unpackedSint64_) {
@@ -17686,7 +18136,7 @@ export const TestUnpackedTypesJSON = {
     const _unpackedFixed32_ =
       json["unpackedFixed32"] ?? json["unpacked_fixed32"];
     if (_unpackedFixed32_) {
-      msg.unpackedFixed32 = _unpackedFixed32_;
+      msg.unpackedFixed32 = _unpackedFixed32_.map(protoscript.parseNumber);
     }
     const _unpackedFixed64_ =
       json["unpackedFixed64"] ?? json["unpacked_fixed64"];
@@ -17696,7 +18146,7 @@ export const TestUnpackedTypesJSON = {
     const _unpackedSfixed32_ =
       json["unpackedSfixed32"] ?? json["unpacked_sfixed32"];
     if (_unpackedSfixed32_) {
-      msg.unpackedSfixed32 = _unpackedSfixed32_;
+      msg.unpackedSfixed32 = _unpackedSfixed32_.map(protoscript.parseNumber);
     }
     const _unpackedSfixed64_ =
       json["unpackedSfixed64"] ?? json["unpacked_sfixed64"];
@@ -17705,11 +18155,11 @@ export const TestUnpackedTypesJSON = {
     }
     const _unpackedFloat_ = json["unpackedFloat"] ?? json["unpacked_float"];
     if (_unpackedFloat_) {
-      msg.unpackedFloat = _unpackedFloat_;
+      msg.unpackedFloat = _unpackedFloat_.map(protoscript.parseDouble);
     }
     const _unpackedDouble_ = json["unpackedDouble"] ?? json["unpacked_double"];
     if (_unpackedDouble_) {
-      msg.unpackedDouble = _unpackedDouble_;
+      msg.unpackedDouble = _unpackedDouble_.map(protoscript.parseDouble);
     }
     const _unpackedBool_ = json["unpackedBool"] ?? json["unpacked_bool"];
     if (_unpackedBool_) {
@@ -17717,7 +18167,7 @@ export const TestUnpackedTypesJSON = {
     }
     const _unpackedEnum_ = json["unpackedEnum"] ?? json["unpacked_enum"];
     if (_unpackedEnum_) {
-      msg.unpackedEnum = _unpackedEnum_;
+      msg.unpackedEnum = _unpackedEnum_.map(ForeignEnum._fromInt);
     }
     return msg;
   },
@@ -17741,8 +18191,12 @@ export const TestPackedExtensionsJSON = {
   /**
    * Initializes TestPackedExtensions with all fields set to their default value.
    */
-  initialize: function (): TestPackedExtensions {
-    return {};
+  initialize: function (
+    msg?: Partial<TestPackedExtensions>,
+  ): TestPackedExtensions {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -17783,8 +18237,12 @@ export const TestUnpackedExtensionsJSON = {
   /**
    * Initializes TestUnpackedExtensions with all fields set to their default value.
    */
-  initialize: function (): TestUnpackedExtensions {
-    return {};
+  initialize: function (
+    msg?: Partial<TestUnpackedExtensions>,
+  ): TestUnpackedExtensions {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -17828,7 +18286,9 @@ export const TestDynamicExtensionsJSON = {
   /**
    * Initializes TestDynamicExtensions with all fields set to their default value.
    */
-  initialize: function (): TestDynamicExtensions {
+  initialize: function (
+    msg?: Partial<TestDynamicExtensions>,
+  ): TestDynamicExtensions {
     return {
       scalarExtension: 0,
       enumExtension: ForeignEnum._fromInt(0),
@@ -17838,6 +18298,7 @@ export const TestDynamicExtensionsJSON = {
         TestDynamicExtensionsJSON.DynamicMessageType.initialize(),
       repeatedExtension: [],
       packedExtension: [],
+      ...msg,
     };
   },
 
@@ -17896,16 +18357,18 @@ export const TestDynamicExtensionsJSON = {
     const _scalarExtension_ =
       json["scalarExtension"] ?? json["scalar_extension"];
     if (_scalarExtension_) {
-      msg.scalarExtension = _scalarExtension_;
+      msg.scalarExtension = protoscript.parseNumber(_scalarExtension_);
     }
     const _enumExtension_ = json["enumExtension"] ?? json["enum_extension"];
     if (_enumExtension_) {
-      msg.enumExtension = _enumExtension_;
+      msg.enumExtension = ForeignEnum._fromInt(_enumExtension_);
     }
     const _dynamicEnumExtension_ =
       json["dynamicEnumExtension"] ?? json["dynamic_enum_extension"];
     if (_dynamicEnumExtension_) {
-      msg.dynamicEnumExtension = _dynamicEnumExtension_;
+      msg.dynamicEnumExtension = TestDynamicExtensions.DynamicEnumType._fromInt(
+        _dynamicEnumExtension_,
+      );
     }
     const _messageExtension_ =
       json["messageExtension"] ?? json["message_extension"];
@@ -17928,7 +18391,7 @@ export const TestDynamicExtensionsJSON = {
     const _packedExtension_ =
       json["packedExtension"] ?? json["packed_extension"];
     if (_packedExtension_) {
-      msg.packedExtension = _packedExtension_;
+      msg.packedExtension = _packedExtension_.map(protoscript.parseNumber);
     }
     return msg;
   },
@@ -18004,9 +18467,12 @@ export const TestDynamicExtensionsJSON = {
     /**
      * Initializes TestDynamicExtensions.DynamicMessageType with all fields set to their default value.
      */
-    initialize: function (): TestDynamicExtensions.DynamicMessageType {
+    initialize: function (
+      msg?: Partial<TestDynamicExtensions.DynamicMessageType>,
+    ): TestDynamicExtensions.DynamicMessageType {
       return {
         dynamicField: 0,
+        ...msg,
       };
     },
 
@@ -18032,7 +18498,7 @@ export const TestDynamicExtensionsJSON = {
     ): TestDynamicExtensions.DynamicMessageType {
       const _dynamicField_ = json["dynamicField"] ?? json["dynamic_field"];
       if (_dynamicField_) {
-        msg.dynamicField = _dynamicField_;
+        msg.dynamicField = protoscript.parseNumber(_dynamicField_);
       }
       return msg;
     },
@@ -18064,7 +18530,9 @@ export const TestRepeatedScalarDifferentTagSizesJSON = {
   /**
    * Initializes TestRepeatedScalarDifferentTagSizes with all fields set to their default value.
    */
-  initialize: function (): TestRepeatedScalarDifferentTagSizes {
+  initialize: function (
+    msg?: Partial<TestRepeatedScalarDifferentTagSizes>,
+  ): TestRepeatedScalarDifferentTagSizes {
     return {
       repeatedFixed32: [],
       repeatedInt32: [],
@@ -18072,6 +18540,7 @@ export const TestRepeatedScalarDifferentTagSizesJSON = {
       repeatedInt64: [],
       repeatedFloat: [],
       repeatedUint64: [],
+      ...msg,
     };
   },
 
@@ -18089,16 +18558,16 @@ export const TestRepeatedScalarDifferentTagSizesJSON = {
       json["repeatedInt32"] = msg.repeatedInt32;
     }
     if (msg.repeatedFixed64?.length) {
-      json["repeatedFixed64"] = msg.repeatedFixed64.map((x) => x.toString());
+      json["repeatedFixed64"] = msg.repeatedFixed64.map(String);
     }
     if (msg.repeatedInt64?.length) {
-      json["repeatedInt64"] = msg.repeatedInt64.map((x) => x.toString());
+      json["repeatedInt64"] = msg.repeatedInt64.map(String);
     }
     if (msg.repeatedFloat?.length) {
       json["repeatedFloat"] = msg.repeatedFloat;
     }
     if (msg.repeatedUint64?.length) {
-      json["repeatedUint64"] = msg.repeatedUint64.map((x) => x.toString());
+      json["repeatedUint64"] = msg.repeatedUint64.map(String);
     }
     return json;
   },
@@ -18113,11 +18582,11 @@ export const TestRepeatedScalarDifferentTagSizesJSON = {
     const _repeatedFixed32_ =
       json["repeatedFixed32"] ?? json["repeated_fixed32"];
     if (_repeatedFixed32_) {
-      msg.repeatedFixed32 = _repeatedFixed32_;
+      msg.repeatedFixed32 = _repeatedFixed32_.map(protoscript.parseNumber);
     }
     const _repeatedInt32_ = json["repeatedInt32"] ?? json["repeated_int32"];
     if (_repeatedInt32_) {
-      msg.repeatedInt32 = _repeatedInt32_;
+      msg.repeatedInt32 = _repeatedInt32_.map(protoscript.parseNumber);
     }
     const _repeatedFixed64_ =
       json["repeatedFixed64"] ?? json["repeated_fixed64"];
@@ -18130,7 +18599,7 @@ export const TestRepeatedScalarDifferentTagSizesJSON = {
     }
     const _repeatedFloat_ = json["repeatedFloat"] ?? json["repeated_float"];
     if (_repeatedFloat_) {
-      msg.repeatedFloat = _repeatedFloat_;
+      msg.repeatedFloat = _repeatedFloat_.map(protoscript.parseDouble);
     }
     const _repeatedUint64_ = json["repeatedUint64"] ?? json["repeated_uint64"];
     if (_repeatedUint64_) {
@@ -18161,11 +18630,12 @@ export const TestParsingMergeJSON = {
   /**
    * Initializes TestParsingMerge with all fields set to their default value.
    */
-  initialize: function (): TestParsingMerge {
+  initialize: function (msg?: Partial<TestParsingMerge>): TestParsingMerge {
     return {
       requiredAllTypes: TestAllTypesJSON.initialize(),
       optionalAllTypes: TestAllTypesJSON.initialize(),
       repeatedAllTypes: [],
+      ...msg,
     };
   },
 
@@ -18251,13 +18721,16 @@ export const TestParsingMergeJSON = {
     /**
      * Initializes TestParsingMerge.RepeatedFieldsGenerator with all fields set to their default value.
      */
-    initialize: function (): TestParsingMerge.RepeatedFieldsGenerator {
+    initialize: function (
+      msg?: Partial<TestParsingMerge.RepeatedFieldsGenerator>,
+    ): TestParsingMerge.RepeatedFieldsGenerator {
       return {
         field1: [],
         field2: [],
         field3: [],
         ext1: [],
         ext2: [],
+        ...msg,
       };
     },
 
@@ -18365,9 +18838,12 @@ export const TestParsingMergeJSON = {
       /**
        * Initializes TestParsingMerge.RepeatedFieldsGenerator.Group1 with all fields set to their default value.
        */
-      initialize: function (): TestParsingMerge.RepeatedFieldsGenerator.Group1 {
+      initialize: function (
+        msg?: Partial<TestParsingMerge.RepeatedFieldsGenerator.Group1>,
+      ): TestParsingMerge.RepeatedFieldsGenerator.Group1 {
         return {
           field1: TestAllTypesJSON.initialize(),
+          ...msg,
         };
       },
 
@@ -18431,9 +18907,12 @@ export const TestParsingMergeJSON = {
       /**
        * Initializes TestParsingMerge.RepeatedFieldsGenerator.Group2 with all fields set to their default value.
        */
-      initialize: function (): TestParsingMerge.RepeatedFieldsGenerator.Group2 {
+      initialize: function (
+        msg?: Partial<TestParsingMerge.RepeatedFieldsGenerator.Group2>,
+      ): TestParsingMerge.RepeatedFieldsGenerator.Group2 {
         return {
           field1: TestAllTypesJSON.initialize(),
+          ...msg,
         };
       },
 
@@ -18494,9 +18973,12 @@ export const TestParsingMergeJSON = {
     /**
      * Initializes TestParsingMerge.OptionalGroup with all fields set to their default value.
      */
-    initialize: function (): TestParsingMerge.OptionalGroup {
+    initialize: function (
+      msg?: Partial<TestParsingMerge.OptionalGroup>,
+    ): TestParsingMerge.OptionalGroup {
       return {
         optionalGroupAllTypes: TestAllTypesJSON.initialize(),
+        ...msg,
       };
     },
 
@@ -18562,9 +19044,12 @@ export const TestParsingMergeJSON = {
     /**
      * Initializes TestParsingMerge.RepeatedGroup with all fields set to their default value.
      */
-    initialize: function (): TestParsingMerge.RepeatedGroup {
+    initialize: function (
+      msg?: Partial<TestParsingMerge.RepeatedGroup>,
+    ): TestParsingMerge.RepeatedGroup {
       return {
         repeatedGroupAllTypes: TestAllTypesJSON.initialize(),
+        ...msg,
       };
     },
 
@@ -18627,9 +19112,12 @@ export const TestCommentInjectionMessageJSON = {
   /**
    * Initializes TestCommentInjectionMessage with all fields set to their default value.
    */
-  initialize: function (): TestCommentInjectionMessage {
+  initialize: function (
+    msg?: Partial<TestCommentInjectionMessage>,
+  ): TestCommentInjectionMessage {
     return {
       a: "",
+      ...msg,
     };
   },
 
@@ -18679,8 +19167,10 @@ export const FooRequestJSON = {
   /**
    * Initializes FooRequest with all fields set to their default value.
    */
-  initialize: function (): FooRequest {
-    return {};
+  initialize: function (msg?: Partial<FooRequest>): FooRequest {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -18718,8 +19208,10 @@ export const FooResponseJSON = {
   /**
    * Initializes FooResponse with all fields set to their default value.
    */
-  initialize: function (): FooResponse {
-    return {};
+  initialize: function (msg?: Partial<FooResponse>): FooResponse {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -18757,8 +19249,10 @@ export const FooClientMessageJSON = {
   /**
    * Initializes FooClientMessage with all fields set to their default value.
    */
-  initialize: function (): FooClientMessage {
-    return {};
+  initialize: function (msg?: Partial<FooClientMessage>): FooClientMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -18796,8 +19290,10 @@ export const FooServerMessageJSON = {
   /**
    * Initializes FooServerMessage with all fields set to their default value.
    */
-  initialize: function (): FooServerMessage {
-    return {};
+  initialize: function (msg?: Partial<FooServerMessage>): FooServerMessage {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -18835,8 +19331,10 @@ export const BarRequestJSON = {
   /**
    * Initializes BarRequest with all fields set to their default value.
    */
-  initialize: function (): BarRequest {
-    return {};
+  initialize: function (msg?: Partial<BarRequest>): BarRequest {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -18874,8 +19372,10 @@ export const BarResponseJSON = {
   /**
    * Initializes BarResponse with all fields set to their default value.
    */
-  initialize: function (): BarResponse {
-    return {};
+  initialize: function (msg?: Partial<BarResponse>): BarResponse {
+    return {
+      ...msg,
+    };
   },
 
   /**
@@ -18916,7 +19416,7 @@ export const TestJsonNameJSON = {
   /**
    * Initializes TestJsonName with all fields set to their default value.
    */
-  initialize: function (): TestJsonName {
+  initialize: function (msg?: Partial<TestJsonName>): TestJsonName {
     return {
       fieldName1: 0,
       fieldName2: 0,
@@ -18925,6 +19425,7 @@ export const TestJsonNameJSON = {
       FIELDNAME5: 0,
       fieldName6: 0,
       fieldname7: 0,
+      ...msg,
     };
   },
 
@@ -18965,33 +19466,33 @@ export const TestJsonNameJSON = {
   _readMessage: function (msg: TestJsonName, json: any): TestJsonName {
     const _fieldName1_ = json["fieldName1"] ?? json["field_name1"];
     if (_fieldName1_) {
-      msg.fieldName1 = _fieldName1_;
+      msg.fieldName1 = protoscript.parseNumber(_fieldName1_);
     }
     const _fieldName2_ = json["fieldName2"];
     if (_fieldName2_) {
-      msg.fieldName2 = _fieldName2_;
+      msg.fieldName2 = protoscript.parseNumber(_fieldName2_);
     }
     const _FieldName3_ = json["FieldName3"];
     if (_FieldName3_) {
-      msg.FieldName3 = _FieldName3_;
+      msg.FieldName3 = protoscript.parseNumber(_FieldName3_);
     }
     const _fieldName4_ =
       json["FieldName4"] ?? json["fieldName4"] ?? json["_field_name4"];
     if (_fieldName4_) {
-      msg.fieldName4 = _fieldName4_;
+      msg.fieldName4 = protoscript.parseNumber(_fieldName4_);
     }
     const _FIELDNAME5_ = json["FIELDNAME5"] ?? json["FIELD_NAME5"];
     if (_FIELDNAME5_) {
-      msg.FIELDNAME5 = _FIELDNAME5_;
+      msg.FIELDNAME5 = protoscript.parseNumber(_FIELDNAME5_);
     }
     const _fieldName6_ =
       json["@type"] ?? json["fieldName6"] ?? json["field_name6"];
     if (_fieldName6_) {
-      msg.fieldName6 = _fieldName6_;
+      msg.fieldName6 = protoscript.parseNumber(_fieldName6_);
     }
     const _fieldname7_ = json["fieldname7"];
     if (_fieldname7_) {
-      msg.fieldname7 = _fieldname7_;
+      msg.fieldname7 = protoscript.parseNumber(_fieldname7_);
     }
     return msg;
   },
@@ -19018,7 +19519,9 @@ export const TestHugeFieldNumbersJSON = {
   /**
    * Initializes TestHugeFieldNumbers with all fields set to their default value.
    */
-  initialize: function (): TestHugeFieldNumbers {
+  initialize: function (
+    msg?: Partial<TestHugeFieldNumbers>,
+  ): TestHugeFieldNumbers {
     return {
       optionalInt32: 0,
       fixed32: 0,
@@ -19033,6 +19536,7 @@ export const TestHugeFieldNumbersJSON = {
       oneofTestAllTypes: undefined,
       oneofString: undefined,
       oneofBytes: undefined,
+      ...msg,
     };
   },
 
@@ -19062,7 +19566,7 @@ export const TestHugeFieldNumbersJSON = {
       json["optionalString"] = msg.optionalString;
     }
     if (msg.optionalBytes?.length) {
-      json["optionalBytes"] = encodeBase64Bytes(msg.optionalBytes);
+      json["optionalBytes"] = protoscript.serializeBytes(msg.optionalBytes);
     }
     if (msg.optionalMessage) {
       const _optionalMessage_ = ForeignMessageJSON._writeMessage(
@@ -19096,7 +19600,7 @@ export const TestHugeFieldNumbersJSON = {
       json["oneofString"] = msg.oneofString;
     }
     if (msg.oneofBytes?.length) {
-      json["oneofBytes"] = encodeBase64Bytes(msg.oneofBytes);
+      json["oneofBytes"] = protoscript.serializeBytes(msg.oneofBytes);
     }
     return json;
   },
@@ -19110,23 +19614,23 @@ export const TestHugeFieldNumbersJSON = {
   ): TestHugeFieldNumbers {
     const _optionalInt32_ = json["optionalInt32"] ?? json["optional_int32"];
     if (_optionalInt32_) {
-      msg.optionalInt32 = _optionalInt32_;
+      msg.optionalInt32 = protoscript.parseNumber(_optionalInt32_);
     }
     const _fixed32_ = json["fixed32"] ?? json["fixed_32"];
     if (_fixed32_) {
-      msg.fixed32 = _fixed32_;
+      msg.fixed32 = protoscript.parseNumber(_fixed32_);
     }
     const _repeatedInt32_ = json["repeatedInt32"] ?? json["repeated_int32"];
     if (_repeatedInt32_) {
-      msg.repeatedInt32 = _repeatedInt32_;
+      msg.repeatedInt32 = _repeatedInt32_.map(protoscript.parseNumber);
     }
     const _packedInt32_ = json["packedInt32"] ?? json["packed_int32"];
     if (_packedInt32_) {
-      msg.packedInt32 = _packedInt32_;
+      msg.packedInt32 = _packedInt32_.map(protoscript.parseNumber);
     }
     const _optionalEnum_ = json["optionalEnum"] ?? json["optional_enum"];
     if (_optionalEnum_) {
-      msg.optionalEnum = _optionalEnum_;
+      msg.optionalEnum = ForeignEnum._fromInt(_optionalEnum_);
     }
     const _optionalString_ = json["optionalString"] ?? json["optional_string"];
     if (_optionalString_) {
@@ -19134,7 +19638,7 @@ export const TestHugeFieldNumbersJSON = {
     }
     const _optionalBytes_ = json["optionalBytes"] ?? json["optional_bytes"];
     if (_optionalBytes_) {
-      msg.optionalBytes = decodeBase64Bytes(_optionalBytes_);
+      msg.optionalBytes = protoscript.parseBytes(_optionalBytes_);
     }
     const _optionalMessage_ =
       json["optionalMessage"] ?? json["optional_message"];
@@ -19153,7 +19657,7 @@ export const TestHugeFieldNumbersJSON = {
     }
     const _oneofUint32_ = json["oneofUint32"] ?? json["oneof_uint32"];
     if (_oneofUint32_) {
-      msg.oneofUint32 = _oneofUint32_;
+      msg.oneofUint32 = protoscript.parseNumber(_oneofUint32_);
     }
     const _oneofTestAllTypes_ =
       json["oneofTestAllTypes"] ?? json["oneof_test_all_types"];
@@ -19167,7 +19671,7 @@ export const TestHugeFieldNumbersJSON = {
     }
     const _oneofBytes_ = json["oneofBytes"] ?? json["oneof_bytes"];
     if (_oneofBytes_) {
-      msg.oneofBytes = decodeBase64Bytes(_oneofBytes_);
+      msg.oneofBytes = protoscript.parseBytes(_oneofBytes_);
     }
     return msg;
   },
@@ -19197,9 +19701,12 @@ export const TestHugeFieldNumbersJSON = {
     /**
      * Initializes TestHugeFieldNumbers.OptionalGroup with all fields set to their default value.
      */
-    initialize: function (): TestHugeFieldNumbers.OptionalGroup {
+    initialize: function (
+      msg?: Partial<TestHugeFieldNumbers.OptionalGroup>,
+    ): TestHugeFieldNumbers.OptionalGroup {
       return {
         groupA: 0,
+        ...msg,
       };
     },
 
@@ -19225,7 +19732,7 @@ export const TestHugeFieldNumbersJSON = {
     ): TestHugeFieldNumbers.OptionalGroup {
       const _groupA_ = json["groupA"] ?? json["group_a"];
       if (_groupA_) {
-        msg.groupA = _groupA_;
+        msg.groupA = protoscript.parseNumber(_groupA_);
       }
       return msg;
     },
@@ -19289,7 +19796,9 @@ export const TestExtensionInsideTableJSON = {
   /**
    * Initializes TestExtensionInsideTable with all fields set to their default value.
    */
-  initialize: function (): TestExtensionInsideTable {
+  initialize: function (
+    msg?: Partial<TestExtensionInsideTable>,
+  ): TestExtensionInsideTable {
     return {
       field1: 0,
       field2: 0,
@@ -19300,6 +19809,7 @@ export const TestExtensionInsideTableJSON = {
       field8: 0,
       field9: 0,
       field10: 0,
+      ...msg,
     };
   },
 
@@ -19349,39 +19859,39 @@ export const TestExtensionInsideTableJSON = {
   ): TestExtensionInsideTable {
     const _field1_ = json["field1"];
     if (_field1_) {
-      msg.field1 = _field1_;
+      msg.field1 = protoscript.parseNumber(_field1_);
     }
     const _field2_ = json["field2"];
     if (_field2_) {
-      msg.field2 = _field2_;
+      msg.field2 = protoscript.parseNumber(_field2_);
     }
     const _field3_ = json["field3"];
     if (_field3_) {
-      msg.field3 = _field3_;
+      msg.field3 = protoscript.parseNumber(_field3_);
     }
     const _field4_ = json["field4"];
     if (_field4_) {
-      msg.field4 = _field4_;
+      msg.field4 = protoscript.parseNumber(_field4_);
     }
     const _field6_ = json["field6"];
     if (_field6_) {
-      msg.field6 = _field6_;
+      msg.field6 = protoscript.parseNumber(_field6_);
     }
     const _field7_ = json["field7"];
     if (_field7_) {
-      msg.field7 = _field7_;
+      msg.field7 = protoscript.parseNumber(_field7_);
     }
     const _field8_ = json["field8"];
     if (_field8_) {
-      msg.field8 = _field8_;
+      msg.field8 = protoscript.parseNumber(_field8_);
     }
     const _field9_ = json["field9"];
     if (_field9_) {
-      msg.field9 = _field9_;
+      msg.field9 = protoscript.parseNumber(_field9_);
     }
     const _field10_ = json["field10"];
     if (_field10_) {
-      msg.field10 = _field10_;
+      msg.field10 = protoscript.parseNumber(_field10_);
     }
     return msg;
   },
@@ -19408,12 +19918,15 @@ export const TestExtensionRangeSerializeJSON = {
   /**
    * Initializes TestExtensionRangeSerialize with all fields set to their default value.
    */
-  initialize: function (): TestExtensionRangeSerialize {
+  initialize: function (
+    msg?: Partial<TestExtensionRangeSerialize>,
+  ): TestExtensionRangeSerialize {
     return {
       fooOne: 0,
       fooTwo: 0,
       fooThree: 0,
       fooFour: 0,
+      ...msg,
     };
   },
 
@@ -19448,19 +19961,19 @@ export const TestExtensionRangeSerializeJSON = {
   ): TestExtensionRangeSerialize {
     const _fooOne_ = json["fooOne"] ?? json["foo_one"];
     if (_fooOne_) {
-      msg.fooOne = _fooOne_;
+      msg.fooOne = protoscript.parseNumber(_fooOne_);
     }
     const _fooTwo_ = json["fooTwo"] ?? json["foo_two"];
     if (_fooTwo_) {
-      msg.fooTwo = _fooTwo_;
+      msg.fooTwo = protoscript.parseNumber(_fooTwo_);
     }
     const _fooThree_ = json["fooThree"] ?? json["foo_three"];
     if (_fooThree_) {
-      msg.fooThree = _fooThree_;
+      msg.fooThree = protoscript.parseNumber(_fooThree_);
     }
     const _fooFour_ = json["fooFour"] ?? json["foo_four"];
     if (_fooFour_) {
-      msg.fooFour = _fooFour_;
+      msg.fooFour = protoscript.parseNumber(_fooFour_);
     }
     return msg;
   },

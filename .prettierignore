@@ -2,3 +2,4 @@ dist
 cdk.out
 coverage
 public.package.json
+pnpm-lock.yaml

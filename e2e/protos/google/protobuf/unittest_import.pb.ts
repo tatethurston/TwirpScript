@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import { BinaryReader, BinaryWriter } from "protoscript";
+import * as protoscript from "protoscript";
 
 //========================================//
 //                 Types                  //
@@ -123,7 +123,7 @@ export const ImportMessage = {
   encode: function (msg: PartialDeep<ImportMessage>): Uint8Array {
     return ImportMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -133,16 +133,17 @@ export const ImportMessage = {
   decode: function (bytes: ByteSource): ImportMessage {
     return ImportMessage._readMessage(
       ImportMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes ImportMessage with all fields set to their default value.
    */
-  initialize: function (): ImportMessage {
+  initialize: function (msg?: Partial<ImportMessage>): ImportMessage {
     return {
       d: 0,
+      ...msg,
     };
   },
 
@@ -151,8 +152,8 @@ export const ImportMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<ImportMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.d) {
       writer.writeInt32(1, msg.d);
     }
@@ -164,7 +165,7 @@ export const ImportMessage = {
    */
   _readMessage: function (
     msg: ImportMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): ImportMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -300,9 +301,10 @@ export const ImportMessageJSON = {
   /**
    * Initializes ImportMessage with all fields set to their default value.
    */
-  initialize: function (): ImportMessage {
+  initialize: function (msg?: Partial<ImportMessage>): ImportMessage {
     return {
       d: 0,
+      ...msg,
     };
   },
 
@@ -325,7 +327,7 @@ export const ImportMessageJSON = {
   _readMessage: function (msg: ImportMessage, json: any): ImportMessage {
     const _d_ = json["d"];
     if (_d_) {
-      msg.d = _d_;
+      msg.d = protoscript.parseNumber(_d_);
     }
     return msg;
   },

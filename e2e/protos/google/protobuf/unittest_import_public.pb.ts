@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import { BinaryReader, BinaryWriter } from "protoscript";
+import * as protoscript from "protoscript";
 
 //========================================//
 //                 Types                  //
@@ -24,7 +24,7 @@ export const PublicImportMessage = {
   encode: function (msg: PartialDeep<PublicImportMessage>): Uint8Array {
     return PublicImportMessage._writeMessage(
       msg,
-      new BinaryWriter(),
+      new protoscript.BinaryWriter(),
     ).getResultBuffer();
   },
 
@@ -34,16 +34,19 @@ export const PublicImportMessage = {
   decode: function (bytes: ByteSource): PublicImportMessage {
     return PublicImportMessage._readMessage(
       PublicImportMessage.initialize(),
-      new BinaryReader(bytes),
+      new protoscript.BinaryReader(bytes),
     );
   },
 
   /**
    * Initializes PublicImportMessage with all fields set to their default value.
    */
-  initialize: function (): PublicImportMessage {
+  initialize: function (
+    msg?: Partial<PublicImportMessage>,
+  ): PublicImportMessage {
     return {
       e: 0,
+      ...msg,
     };
   },
 
@@ -52,8 +55,8 @@ export const PublicImportMessage = {
    */
   _writeMessage: function (
     msg: PartialDeep<PublicImportMessage>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.e) {
       writer.writeInt32(1, msg.e);
     }
@@ -65,7 +68,7 @@ export const PublicImportMessage = {
    */
   _readMessage: function (
     msg: PublicImportMessage,
-    reader: BinaryReader,
+    reader: protoscript.BinaryReader,
   ): PublicImportMessage {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
@@ -109,9 +112,12 @@ export const PublicImportMessageJSON = {
   /**
    * Initializes PublicImportMessage with all fields set to their default value.
    */
-  initialize: function (): PublicImportMessage {
+  initialize: function (
+    msg?: Partial<PublicImportMessage>,
+  ): PublicImportMessage {
     return {
       e: 0,
+      ...msg,
     };
   },
 
@@ -137,7 +143,7 @@ export const PublicImportMessageJSON = {
   ): PublicImportMessage {
     const _e_ = json["e"];
     if (_e_) {
-      msg.e = _e_;
+      msg.e = protoscript.parseNumber(_e_);
     }
     return msg;
   },

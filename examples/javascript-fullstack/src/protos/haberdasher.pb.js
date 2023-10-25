@@ -2,7 +2,7 @@
 // Source: src/protos/haberdasher.proto
 /* eslint-disable */
 
-import { BinaryReader, BinaryWriter } from "protoscript";
+import * as protoscript from "protoscript";
 import { JSONrequest, PBrequest } from "twirpscript";
 // This is the minimum version supported by the current runtime.
 // If this line fails typechecking, breaking changes have been introduced and this
@@ -64,22 +64,29 @@ export const Size = {
    * Serializes Size to protobuf.
    */
   encode: function (msg) {
-    return Size._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return Size._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
    * Deserializes Size from protobuf.
    */
   decode: function (bytes) {
-    return Size._readMessage(Size.initialize(), new BinaryReader(bytes));
+    return Size._readMessage(
+      Size.initialize(),
+      new protoscript.BinaryReader(bytes),
+    );
   },
 
   /**
    * Initializes Size with all fields set to their default value.
    */
-  initialize: function () {
+  initialize: function (msg) {
     return {
       inches: 0,
+      ...msg,
     };
   },
 
@@ -119,24 +126,31 @@ export const Hat = {
    * Serializes Hat to protobuf.
    */
   encode: function (msg) {
-    return Hat._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return Hat._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
    * Deserializes Hat from protobuf.
    */
   decode: function (bytes) {
-    return Hat._readMessage(Hat.initialize(), new BinaryReader(bytes));
+    return Hat._readMessage(
+      Hat.initialize(),
+      new protoscript.BinaryReader(bytes),
+    );
   },
 
   /**
    * Initializes Hat with all fields set to their default value.
    */
-  initialize: function () {
+  initialize: function (msg) {
     return {
       inches: 0,
       color: "",
       name: "",
+      ...msg,
     };
   },
 
@@ -207,9 +221,10 @@ export const SizeJSON = {
   /**
    * Initializes Size with all fields set to their default value.
    */
-  initialize: function () {
+  initialize: function (msg) {
     return {
       inches: 0,
+      ...msg,
     };
   },
 
@@ -230,7 +245,7 @@ export const SizeJSON = {
   _readMessage: function (msg, json) {
     const _inches_ = json["inches"];
     if (_inches_) {
-      msg.inches = _inches_;
+      msg.inches = protoscript.parseNumber(_inches_);
     }
     return msg;
   },
@@ -254,11 +269,12 @@ export const HatJSON = {
   /**
    * Initializes Hat with all fields set to their default value.
    */
-  initialize: function () {
+  initialize: function (msg) {
     return {
       inches: 0,
       color: "",
       name: "",
+      ...msg,
     };
   },
 
@@ -285,7 +301,7 @@ export const HatJSON = {
   _readMessage: function (msg, json) {
     const _inches_ = json["inches"];
     if (_inches_) {
-      msg.inches = _inches_;
+      msg.inches = protoscript.parseNumber(_inches_);
     }
     const _color_ = json["color"];
     if (_color_) {

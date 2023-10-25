@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import type { ByteSource, PartialDeep } from "protoscript";
-import { BinaryReader, BinaryWriter } from "protoscript";
+import * as protoscript from "protoscript";
 import { JSONrequest, PBrequest } from "twirpscript";
 // This is the minimum version supported by the current runtime.
 // If this line fails typechecking, breaking changes have been introduced and this
@@ -106,24 +106,31 @@ export const Hat = {
    * Serializes Hat to protobuf.
    */
   encode: function (msg: PartialDeep<Hat>): Uint8Array {
-    return Hat._writeMessage(msg, new BinaryWriter()).getResultBuffer();
+    return Hat._writeMessage(
+      msg,
+      new protoscript.BinaryWriter(),
+    ).getResultBuffer();
   },
 
   /**
    * Deserializes Hat from protobuf.
    */
   decode: function (bytes: ByteSource): Hat {
-    return Hat._readMessage(Hat.initialize(), new BinaryReader(bytes));
+    return Hat._readMessage(
+      Hat.initialize(),
+      new protoscript.BinaryReader(bytes),
+    );
   },
 
   /**
    * Initializes Hat with all fields set to their default value.
    */
-  initialize: function (): Hat {
+  initialize: function (msg?: Partial<Hat>): Hat {
     return {
       inches: 0,
       color: "",
       name: "",
+      ...msg,
     };
   },
 
@@ -132,8 +139,8 @@ export const Hat = {
    */
   _writeMessage: function (
     msg: PartialDeep<Hat>,
-    writer: BinaryWriter,
-  ): BinaryWriter {
+    writer: protoscript.BinaryWriter,
+  ): protoscript.BinaryWriter {
     if (msg.inches) {
       writer.writeInt32(1, msg.inches);
     }
@@ -149,7 +156,7 @@ export const Hat = {
   /**
    * @private
    */
-  _readMessage: function (msg: Hat, reader: BinaryReader): Hat {
+  _readMessage: function (msg: Hat, reader: protoscript.BinaryReader): Hat {
     while (reader.nextField()) {
       const field = reader.getFieldNumber();
       switch (field) {
@@ -197,11 +204,12 @@ export const HatJSON = {
   /**
    * Initializes Hat with all fields set to their default value.
    */
-  initialize: function (): Hat {
+  initialize: function (msg?: Partial<Hat>): Hat {
     return {
       inches: 0,
       color: "",
       name: "",
+      ...msg,
     };
   },
 
@@ -228,7 +236,7 @@ export const HatJSON = {
   _readMessage: function (msg: Hat, json: any): Hat {
     const _inches_ = json["inches"];
     if (_inches_) {
-      msg.inches = _inches_;
+      msg.inches = protoscript.parseNumber(_inches_);
     }
     const _color_ = json["color"];
     if (_color_) {

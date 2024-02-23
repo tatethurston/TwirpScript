@@ -282,7 +282,7 @@ console.log(hat);
 
 Twirp abstracts many network details from clients. Sometimes you will want more control over the underlying network request. For these cases, TwirpScript exposes `rpcTransport`.
 
-`rpcTransport` can be used to customize the network request made. `rpcTransport` can swap out the default implementation to use an [https agent](https://nodejs.org/api/https.html#https_class_https_agent), or a library like `axios`.Tthe transport only needs to implement the `RpcTransport` interface. It can also be used to "bake" in certain options, for example, setting `fetch`'s [credentials](https://developer.mozilla.org/en-US/docs/Web/API/fetch#credentials) option to `include` (which will include cookies in cross origin requests).
+`rpcTransport` can be used to customize the network request made. `rpcTransport` can swap out the default implementation to use an [https agent](https://nodejs.org/api/https.html#https_class_https_agent), or a library like `axios`. The transport only needs to implement the `RpcTransport` interface. It can also be used to "bake" in certain options, for example, setting `fetch`'s [credentials](https://developer.mozilla.org/en-US/docs/Web/API/fetch#credentials) option to `include` (which will include cookies in cross origin requests).
 
 `rpcTransport` can be set via _global configuration_ or _call site configuration_:
 

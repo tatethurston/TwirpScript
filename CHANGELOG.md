@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.70
+
+- Fix compiler path on Windows. Thanks @l1b3r!
+
 ## v0.0.69
 
 - Updates to [ProtoScript 0.0.20](https://github.com/tatethurston/ProtoScript/blob/main/CHANGELOG.md#v0020). This updates JSON serializtion of Timestamp and Duration well known types to conform to the Protobuf3 specification.

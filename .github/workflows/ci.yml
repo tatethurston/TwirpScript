@@ -5,8 +5,8 @@ on:
       - main
   pull_request:
 jobs:
-  ci:
-    name: "Lint and Test"
+  lint_test:
+    name: Lint and Test
     runs-on: ubuntu-latest
     steps:
       # Install protoc for e2e:setup
@@ -14,20 +14,9 @@ jobs:
         with:
           version: "23.4"
       - uses: bufbuild/buf-setup-action@v1.25.0
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v3
+      - uses: tatethurston/github-actions/test@main
         with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - run: pnpm install --frozen-lockfile
-      - run: (cd packages/twirpscript && pnpm package:build)
-      # run again to link bin that is now available after package:build
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
-      - run: pnpm test:ci && pnpm codecov --token=$CODECOV_TOKEN
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          codecov_token: ${{ secrets.CODECOV_TOKEN }}
       - name: Check for uncommited changes to generated files
         run: |
           pnpm regen
@@ -40,3 +29,39 @@ jobs:
             echo "Failing build."
             exit 1
           fi
+  build_package:
+    name: Build Package
+    runs-on: ubuntu-latest
+    outputs:
+      package-name: package-${{ github.event.pull_request.number }}
+    steps:
+      - uses: tatethurston/github-actions/build@main
+      - name: NPM Pack
+        run: |
+          cd packages/twirpscript
+          pnpm pack
+          mv *.tgz twirpscript.tgz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ github.event.pull_request.number }}
+          path: packages/twirpscript/*.tgz
+          if-no-files-found: error
+          retention-days: 1
+          overwrite: true
+  check_windows:
+    name: Windows CI Check
+    runs-on: windows-latest
+    needs: build_package
+    steps:
+      - uses: arduino/setup-protoc@v2
+        with:
+          version: "23.4"
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build_package.outputs.package-name }}
+      - uses: actions/setup-node@v3
+      - name: Bin Check
+        run: |
+          npm install twirpscript.tgz 
+          touch dummy.proto
+          npx --no twirpscript

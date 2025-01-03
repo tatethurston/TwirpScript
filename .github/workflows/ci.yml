@@ -5,63 +5,42 @@ on:
       - main
   pull_request:
 jobs:
-  lint_test:
-    name: Lint and Test
-    runs-on: ubuntu-latest
-    steps:
-      # Install protoc for e2e:setup
-      - uses: arduino/setup-protoc@v2
-        with:
-          version: "23.4"
-      - uses: bufbuild/buf-setup-action@v1.25.0
-      - uses: tatethurston/github-actions/test@main
-        with:
-          codecov_token: ${{ secrets.CODECOV_TOKEN }}
-      - name: Check for uncommited changes to generated files
-        run: |
-          pnpm regen
-          if git diff --quiet; then
-            echo "No changes detected."
-          else
-            echo "Changes detected:"
-            git diff --name-only
-            git diff
-            echo "Failing build."
-            exit 1
-          fi
-  build_package:
+  build-package:
     name: Build Package
     runs-on: ubuntu-latest
     outputs:
-      package-name: package-${{ github.event.pull_request.number }}
+      package: ${{ steps.publish-local-package.outputs.package }}
     steps:
-      - uses: tatethurston/github-actions/build@main
-      - name: NPM Pack
-        run: |
-          cd packages/twirpscript
-          pnpm pack
-          mv *.tgz twirpscript.tgz
-      - uses: actions/upload-artifact@v4
+      - uses: tatethurston/github-actions/publish-local-package@main
+        id: publish-local-package
         with:
-          name: package-${{ github.event.pull_request.number }}
-          path: packages/twirpscript/*.tgz
-          if-no-files-found: error
-          retention-days: 1
-          overwrite: true
-  check_windows:
-    name: Windows CI Check
-    runs-on: windows-latest
-    needs: build_package
+          path: packages/twirpscript
+  ci:
+    name: Lint and Test
+    runs-on: ubuntu-latest
     steps:
       - uses: arduino/setup-protoc@v2
         with:
-          version: "23.4"
-      - uses: actions/download-artifact@v4
+          version: "29.2"
+      - uses: tatethurston/github-actions/test@main
         with:
-          name: ${{ needs.build_package.outputs.package-name }}
-      - uses: actions/setup-node@v3
+          codecov_token: ${{ secrets.CODECOV_TOKEN }}
+      - uses: bufbuild/buf-setup-action@v1.25.0
+      - uses: tatethurston/github-actions/check-generated-files@main
+        with:
+          cmd: pnpm regen
+  ci-windows:
+    name: Windows CI
+    runs-on: windows-latest
+    needs: build-package
+    steps:
+      - uses: tatethurston/github-actions/install-local-package@main
+        with:
+          name: ${{ needs.build-package.outputs.package }}
+      - uses: arduino/setup-protoc@v2
+        with:
+          version: "29.2"
       - name: Bin Check
         run: |
-          npm install twirpscript.tgz 
           touch dummy.proto
           npx --no twirpscript

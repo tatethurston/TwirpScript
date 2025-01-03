@@ -398,8 +398,8 @@ importers:
   packages/twirpscript:
     dependencies:
       protoscript:
-        specifier: 0.0.20
-        version: 0.0.20
+        specifier: 0.0.22
+        version: 0.0.22
 
 packages:
 
@@ -1169,7 +1169,11 @@ packages:
       '@aws-cdk/cloud-assembly-schema': 1.204.0
       '@aws-cdk/cx-api': 1.204.0(@aws-cdk/cloud-assembly-schema@1.204.0)
       '@aws-cdk/region-info': 1.204.0
+      '@balena/dockerignore': 1.0.2
       constructs: 10.3.0
+      fs-extra: 9.1.0
+      ignore: 5.2.4
+      minimatch: 3.1.2
     dev: true
     bundledDependencies:
       - fs-extra
@@ -2479,6 +2483,10 @@ packages:
       '@babel/helper-string-parser': 7.22.5
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
+
+  /@balena/dockerignore@1.0.2:
+    resolution: {integrity: sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q==}
+    dev: true
 
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
@@ -3851,6 +3859,11 @@ packages:
       has-symbols: 1.0.3
     dev: true
 
+  /at-least-node@1.0.0:
+    resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
+    engines: {node: '>= 4.0.0'}
+    dev: true
+
   /author-regex@1.0.0:
     resolution: {integrity: sha512-KbWgR8wOYRAPekEmMXrYYdc7BRyhn2Ftk7KWfMUnQ43hFdojWEFRxhhRUm3/OFEdPa1r0KAvTTg9YQK57xTe0g==}
     engines: {node: '>=0.8'}
@@ -4998,6 +5011,16 @@ packages:
     resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
     engines: {node: '>=12'}
     dependencies:
+      graceful-fs: 4.2.11
+      jsonfile: 6.1.0
+      universalify: 2.0.0
+    dev: true
+
+  /fs-extra@9.1.0:
+    resolution: {integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      at-least-node: 1.0.0
       graceful-fs: 4.2.11
       jsonfile: 6.1.0
       universalify: 2.0.0
@@ -6604,6 +6627,15 @@ packages:
     dependencies:
       google-protobuf: 3.21.2
       prettier: 3.0.3
+    dev: true
+
+  /protoscript@0.0.22:
+    resolution: {integrity: sha512-B8Qt7+C21J9CgsB7sRLBHQd2vX1V3ZDoIkYW3CNZQSY12jJVblIu9C4aEcgjqjvZ6rVvY5IgY8908H+a3Z5nfg==}
+    hasBin: true
+    dependencies:
+      google-protobuf: 3.21.2
+      prettier: 3.0.3
+    dev: false
 
   /punycode@1.4.1:
     resolution: {integrity: sha512-jmYNElW7yvO7TV33CjSmvSiE2yco3bV2czu/OzDKdMNVZQWfxCblURLhf+47syQRBntjfLdd/H0egrzIG+oaFQ==}

@@ -4,7 +4,7 @@ on:
     types: [published]
   workflow_dispatch:
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: tatethurston/github-actions/publish@main

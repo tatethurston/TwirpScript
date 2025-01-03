@@ -2459,8 +2459,7 @@ export const TestWellKnownTypesJSON = {
     }
     if (
       msg.durationField &&
-      msg.durationField.seconds &&
-      msg.durationField.nanos
+      (msg.durationField.seconds || msg.durationField.nanos)
     ) {
       json["durationField"] = protoscript.serializeDuration(msg.durationField);
     }
@@ -2496,8 +2495,7 @@ export const TestWellKnownTypesJSON = {
     }
     if (
       msg.timestampField &&
-      msg.timestampField.seconds &&
-      msg.timestampField.nanos
+      (msg.timestampField.seconds || msg.timestampField.nanos)
     ) {
       json["timestampField"] = protoscript.serializeTimestamp(
         msg.timestampField,
@@ -3747,7 +3745,7 @@ export const MapWellKnownTypesJSON = {
       if (msg.key) {
         json["key"] = msg.key;
       }
-      if (msg.value && msg.value.seconds && msg.value.nanos) {
+      if (msg.value && (msg.value.seconds || msg.value.nanos)) {
         json["value"] = protoscript.serializeDuration(msg.value);
       }
       return json;
@@ -3939,7 +3937,7 @@ export const MapWellKnownTypesJSON = {
       if (msg.key) {
         json["key"] = msg.key;
       }
-      if (msg.value && msg.value.seconds && msg.value.nanos) {
+      if (msg.value && (msg.value.seconds || msg.value.nanos)) {
         json["value"] = protoscript.serializeTimestamp(msg.value);
       }
       return json;

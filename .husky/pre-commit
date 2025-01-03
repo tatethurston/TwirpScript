@@ -1,7 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-(cd packages/twirpscript && pnpm run package:build)
-pnpm run regen
 pnpm run lint:fix
-pnpm run typecheck

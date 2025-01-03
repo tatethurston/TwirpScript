@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.71
+
+- Fix Timestamp and Duration JSON serialization. Previously, when either seconds or nanos were 0, the Timestamp / Duration was omitted from the serialized json. Thanks @martynchamberlin!
+
 ## v0.0.70
 
 - Fix compiler path on Windows. Thanks @l1b3r!

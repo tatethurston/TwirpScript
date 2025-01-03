@@ -4,3 +4,5 @@ todo.txt
 coverage
 node_modules
 tsconfig.tsbuildinfo
+packages/twirpscript/LICENSE
+packages/twirpscript/README.md

@@ -1,6 +1,6 @@
 {
   "name": "twirpscript",
-  "version": "0.0.71",
+  "version": "0.0.72",
   "description": "Protobuf RPC framework for JavaScript and TypeScript",
   "license": "MIT",
   "author": "Tate <tatethurston@gmail.com>",
@@ -25,7 +25,7 @@
   "sideEffects": false,
   "types": "dist/index.d.ts",
   "dependencies": {
-    "protoscript": "0.0.22"
+    "protoscript": "0.0.23"
   },
   "keywords": [
     "protobuf",

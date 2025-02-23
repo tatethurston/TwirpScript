@@ -18,7 +18,7 @@ export function requireAuthentication({
       }
     }
 
-    const token = req.headers["authorization"]?.split("bearer")?.[1]?.trim();
+    const token = req.headers["authorization"]?.split("bearer")[1]?.trim();
     const currentUser = getCurrentUser(token);
     if (!currentUser) {
       return TwirpErrorResponse({
